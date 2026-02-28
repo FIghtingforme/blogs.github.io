@@ -1,6 +1,8 @@
 ---
+layout: post
 title: Nginx 软链接升级流程
 date: 2026-02-24
+categories: nginx
 ---
 
 - 创建nginx软链接 #替换 从而让用户实现无感
