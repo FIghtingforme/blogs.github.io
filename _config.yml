@@ -2,7 +2,7 @@ title: 极客
 description: "用于技术交流"
 baseurl: "/blogs.github.io"
 url: "https://fightingforme.github.io"
-theme: ""
+theme: 
 
 #导航栏链接
 navigation: 
