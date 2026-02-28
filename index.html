@@ -1,49 +1,22 @@
+---
+layout: default
+title: 首页
+---
 
-<!DOCTYPE html>
-<html lang="en">
+<h3>最新文章</h3>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>尤雨溪</title>
-</head>
-
-<body>
-
-    <h1>尤雨溪</h1>
-    <hr>
-    <p>由于西由于西由
-        <a href="../html/4_2案例.html">Vue.js</a>于西由于西由于西由,
-        <a href="#">html</a>于西由于西由于西由于西
-        <a href="#">JavaScript</a>由于西由于西由于 西由于西由于西由于西由于西由于西由于西由于西 由于西由于西由于西由于西由于西由于西由于西由于 西由于西由于西由于西由于西由于西
-        <a href="#">Vue.js</a>
-    </p>
-
-    <img src="../早川秋.jpg" alt="尤雨溪图片未显示" title="尤雨溪" width="30%" height="30%">
-
-
-    <h2>学习经历</h2>
-    <a href="/blogs.github.io/blog.html">我的博客</a>
-    <p>啊安安啊 <strong>啊啊啊啊啊啊啊啊</strong> 啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊啊安安啊啊啊啊啊啊啊啊</p>
+<ul class="post-list">
+  {% for post in site.posts %}
+    <li class="post-item">
+        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
+    </li>
+  {% endfor %}
+</ul>
 
 
 
-    <h2>主要成就</h2>
 
-    <p>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊 <ins>啊啊啊啊啊啊啊啊啊啊啊啊啊啊</ins> 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-
-    <p>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-
-
-
-    <h2>社会责任</h2>
-
-    <p>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-
-
-</body>
-
-</html> 
 
 
 

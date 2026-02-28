@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <!-- 引入 CSS，注意 relative_url -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+    <div class="container">
+        <!-- 顶部导航 -->
+        <header>
+            <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+            <nav>
+                {% for item in site.navigation %}
+                <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+                {% endfor %}
+            </nav>
+        </header>
+
+        <!-- 页面主要内容 -->
+        <main>
+            {{ content }}
+        </main>
+
+        <!-- 底部版权 -->
+        <footer>
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Powered by Jekyll.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

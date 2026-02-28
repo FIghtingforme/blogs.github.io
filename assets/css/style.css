@@ -1,0 +1,104 @@
+/* 1. 基础设定 */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --link-color: #0066cc;
+    --meta-color: #828282;
+    --border-color: #eeeeee;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 深色模式自动适配 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --link-color: #66b3ff;
+        --border-color: #333333;
+    }
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s;
+}
+
+/* 2. 布局容器 (最宽 700px，居中) */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* 3. 头部 & 导航 */
+header {
+    margin-bottom: 60px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+nav a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: var(--meta-color);
+    font-size: 0.9rem;
+}
+
+nav a:hover { color: var(--link-color); }
+
+/* 4. 文章列表 (首页) */
+.post-list { list-style: none; padding: 0; }
+.post-item {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+}
+
+.post-link {
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--link-color);
+    font-weight: 500;
+}
+.post-link:hover { text-decoration: underline; }
+
+.post-meta {
+    font-size: 0.85rem;
+    color: var(--meta-color);
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+/* 5. 文章详情页 */
+.post-header { margin-bottom: 40px; text-align: center; }
+.post-title { font-size: 2rem; margin-bottom: 10px; }
+.post-content h2 { margin-top: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+.post-content img { max-width: 100%; border-radius: 5px; }
+.post-content code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; color: #d63384; }
+@media (prefers-color-scheme: dark) { .post-content code { background: #333; } }
+
+/* 6. 页脚 */
+footer {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--meta-color);
+}
