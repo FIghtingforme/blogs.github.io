@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/blogs.github.io/article_blog_sign_icon-icons.com_51086.ico">
+    <title>SSHD 远程工具连接失败 - 极客</title>
+    <!-- 引入 CSS，注意 relative_url -->
+    <link rel="stylesheet" href="/blogs.github.io/assets/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- 顶部导航 -->
+        <header>
+            <a href="/blogs.github.io/" class="site-title">极客</a>
+            <nav>
+                
+                <a href="/blogs.github.io/">首页</a>
+                
+                <a href="/blogs.github.io/blog.md">归档</a>
+                
+            </nav>
+        </header>
+
+        <!-- 页面主要内容 -->
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">SSHD 远程工具连接失败</h1>
+        <div class="post-meta">
+            <time>2026年03月03日</time>
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h4 id="关闭selinux">关闭SElinux:</h4>
+ 		getenforce        #查看SEllinux
+ 		setenforce 0	    #临时关闭测试
+
+<h4 id="关闭防火墙">关闭防火墙:</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	   systemctl stop firewalld	      
+</code></pre></div></div>
+
+<h4 id="重启网卡">重启网卡:</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	 	systemctl restart NetworkManager             
+</code></pre></div></div>
+
+<h4 id="查看ip">查看ip:</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入:ip a           
+	若ip更改则在shell输入nmtui 命令编辑
+</code></pre></div></div>
+
+<h4 id="kali系统下">kali系统下:</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
+	提示:The fingerprint for the ECDSA key sent by the remote host is
+	      Host key verification failed.
+	      
+	解决方法:
+	ssh-keygen -R 192.168.1.104
+		自动删除旧指纹
+</code></pre></div></div>
+
+    </div>
+</article>
+        </main>
+
+        <!-- 底部版权 -->
+        <footer>
+            <p>&copy; 2026 极客. Powered by Jekyll.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
