@@ -38,22 +38,35 @@
   <li>
     <p>创建nginx软链接 #替换 从而让用户实现无感</p>
   </li>
-  <li>获取源码：
+  <li>源码编译安装：</li>
+  <li>
+    <p>获取源码：</p>
+
     <ul>
       <li>wget http://nginx…… -P /root/test/</li>
     </ul>
   </li>
-  <li>在/root/test/nginx-1.20下解压
+  <li>
+    <p>在/root/test/nginx-1.20下解压</p>
+
     <ul>
       <li>tar -zxvf /root/test/nginx-1.20.tar.gz -C /root/test/nginx_1.20/</li>
     </ul>
   </li>
   <li>编译源码：
     <ul>
-      <li>在/root/test/nginx_1.20/nginx1.20 下 ./configure –prefix=/root/test/nginx_1.20</li>
-      <li>make</li>
-      <li>make install</li>
-      <li>当前目录下可看到configure文件</li>
+      <li>
+        <p>在/root/test/nginx_1.20/nginx1.20 下 ./configure –prefix=/root/test/nginx_1.20</p>
+      </li>
+      <li>
+        <p>make</p>
+      </li>
+      <li>
+        <p>make install</p>
+      </li>
+      <li>
+        <p>当前目录下可看到configure文件</p>
+      </li>
     </ul>
   </li>
   <li>在前一个目录检查：
@@ -61,12 +74,19 @@
       <li>/root/test/nginx-1.24/sbin/nginx -v</li>
     </ul>
   </li>
-  <li>之前已经创建的软链接：
+  <li>
+    <p>之前已经创建的软链接：</p>
+
     <ul>
       <li>ln -s /root/test/nginx-1.20  /usr/local/nginx
         <ul>
-          <li>源文件是在源码编译后的目录</li>
-          <li>/usr/local/nginx -&gt; /root/test/nginx-1.20    #当前软链接</li>
+          <li>
+            <p>源文件是在源码编译后的目录</p>
+          </li>
+          <li>
+            <p>/usr/local/nginx -&gt; /root/test/nginx-1.20  <br />
+  当前软链接</p>
+          </li>
           <li>
             <table>
               <tbody>
@@ -77,12 +97,15 @@
               </tbody>
             </table>
           </li>
-          <li>ls -l /usr/local/nginx     #软链接指向</li>
+          <li>ls -l /usr/local/nginx   <br />
+  软链接指向</li>
         </ul>
       </li>
     </ul>
   </li>
-  <li>备份软链接指向的路径 #防止出错回退
+  <li>
+    <p>备份软链接指向的路径 #防止出错回退</p>
+
     <ul>
       <li>cp -r /usr/local/nginx  /root/test/nginx-backup-1.20
         <ul>
@@ -91,38 +114,77 @@
       </li>
     </ul>
   </li>
-  <li>创建新的源码</li>
-  <li>编译安装</li>
   <li>
-    <p>建立新的软链接</p>
+    <p>创建新的源码</p>
   </li>
-  <li>方案A：
+  <li>
+    <p>编译安装</p>
+  </li>
+  <li>建立新的软链接</li>
+</ul>
+
+<hr />
+
+<ul>
+  <li>
+    <p>方案A：</p>
+
     <ul>
-      <li>直接覆盖原链接（用户不中断）</li>
-      <li>ln -sfn /root/test/nginx-1.22   /usr/local/nginx
+      <li>
+        <p>直接覆盖原链接（用户不中断）</p>
+      </li>
+      <li>
+        <p>ln -sfn /root/test/nginx-1.22   /usr/local/nginx</p>
+
         <ul>
-          <li>-f 如果存在旧链接则覆盖</li>
-          <li>-n 处理目标是目录时不进入目录</li>
+          <li>
+            <p>-f 如果存在旧链接则覆盖</p>
+          </li>
+          <li>
+            <p>-n 处理目标是目录时不进入目录</p>
+          </li>
         </ul>
       </li>
-      <li>立即指向新版本</li>
-      <li>如果新版本异常 #立即回滚
+      <li>
+        <p>立即指向新版本</p>
+      </li>
+      <li>
+        <p>如果新版本异常 #立即回滚</p>
+
         <ul>
-          <li>ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx</li>
-          <li>/usr/local/nginx/sbin/nginx -s reload</li>
+          <li>
+            <p>ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx</p>
+          </li>
+          <li>
+            <p>/usr/local/nginx/sbin/nginx -s reload</p>
+          </li>
         </ul>
       </li>
     </ul>
   </li>
-  <li>方案B：
+  <li>
+    <p>方案B：</p>
+
     <ul>
-      <li>创建新链接</li>
-      <li>停nginx/reload后切换
+      <li>
+        <p>创建新链接</p>
+      </li>
+      <li>
+        <p>停nginx/reload后切换</p>
+
         <ul>
-          <li>systemctl stop nginx</li>
-          <li>mv /usr/local/nginx  /usr/local/nginx_backup</li>
-          <li>mv /usr/local/nginx1.22  /usr/local/nginx</li>
-          <li>systemctl start nginx</li>
+          <li>
+            <p>systemctl stop nginx</p>
+          </li>
+          <li>
+            <p>mv /usr/local/nginx  /usr/local/nginx_backup</p>
+          </li>
+          <li>
+            <p>mv /usr/local/nginx1.22  /usr/local/nginx</p>
+          </li>
+          <li>
+            <p>systemctl start nginx</p>
+          </li>
         </ul>
       </li>
     </ul>

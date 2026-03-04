@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/blogs.github.io/article_blog_sign_icon-icons.com_51086.ico">
+    <title>Rocky9忘记密码--紧急救援 - 极客</title>
+    <!-- 引入 CSS，注意 relative_url -->
+    <link rel="stylesheet" href="/blogs.github.io/assets/css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- 顶部导航 -->
+        <header>
+            <a href="/blogs.github.io/" class="site-title">极客</a>
+            <nav>
+                
+                <a href="/blogs.github.io/">首页</a>
+                
+                <a href="/blogs.github.io/blog.md">归档</a>
+                
+            </nav>
+        </header>
+
+        <!-- 页面主要内容 -->
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Rocky9忘记密码--紧急救援</h1>
+        <div class="post-meta">
+            <time>2026年03月04日</time>
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h3 id="5分钟紧急救援rhel-root密码">5分钟紧急救援RHEL-Root密码</h3>
+<h4 id="原理在系统未完全启动强行中断引导程序此时未加载密码验证模块进入内核的紧急救援模式从而越过密码">原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码</h4>
+
+<h4 id="步骤">步骤：</h4>
+
+<ul>
+  <li>
+    <p>重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑</p>
+  </li>
+  <li>
+    <p>找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl+X进入紧急救援</p>
+  </li>
+  <li>
+    <p>随后进入到switch_root:/# 下，依次输入以下5个命令：</p>
+
+    <ul>
+      <li>
+        <p>mount -o remount,rw /sysroot       重新挂载根目录可读写</p>
+      </li>
+      <li>chroot /sysroot                               切换到系统根目录（真实root）
+        <ul>
+          <li>提示符会变成sh-4.2#</li>
+        </ul>
+      </li>
+      <li>
+        <p>passwd root                                    修改root密码</p>
+      </li>
+      <li>
+        <p>touch /.autorelabel</p>
+
+        <ul>
+          <li>
+            <p>自动重新标记，<strong>这一步非常重要</strong></p>
+          </li>
+          <li>
+            <p>因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>exit                                               <br />
+  退出chroot环境</p>
+      </li>
+      <li>exit
+        <ul>
+          <li>
+            <p>退出紧急救援模式</p>
+          </li>
+          <li>
+            <p>随后系统开始自动重启</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+    </div>
+</article>
+        </main>
+
+        <!-- 底部版权 -->
+        <footer>
+            <p>&copy; 2026 极客. Powered by Jekyll.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -35,8 +35,16 @@
 
     <div class="post-content">
         <h4 id="关闭selinux">关闭SElinux:</h4>
- 		getenforce        #查看SEllinux
- 		setenforce 0	    #临时关闭测试
+<ul>
+  <li>
+    <p>getenforce      <br />
+  查看SEllinux</p>
+  </li>
+  <li>
+    <p>setenforce 0	  <br />
+  临时关闭测试</p>
+  </li>
+</ul>
 
 <h4 id="关闭防火墙">关闭防火墙:</h4>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	   systemctl stop firewalld	      
@@ -47,9 +55,13 @@
 </code></pre></div></div>
 
 <h4 id="查看ip">查看ip:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入:ip a           
-	若ip更改则在shell输入nmtui 命令编辑
-</code></pre></div></div>
+<ul>
+  <li>输入:ip a
+    <ul>
+      <li>若ip更改则在shell输入nmtui 命令编辑</li>
+    </ul>
+  </li>
+</ul>
 
 <h4 id="kali系统下">kali系统下:</h4>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
