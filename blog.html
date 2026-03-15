@@ -1,7 +1,11 @@
 ---
+
 layout: default
 title: 全部文章
+
 ---
+
+
 <div class="container">
   <ul class="list-unstyled">
 
@@ -24,7 +28,7 @@ title: 全部文章
             <p class="text-muted">{{ post.excerpt | strip_html | truncate: 200 }}</p>
             <a href="{{ post.url | relative_url }}" class="btn btn-link p-0">继续阅读 →</a>
           </div>
-          
+
         </div>
         <hr class="my-4">
       </li>

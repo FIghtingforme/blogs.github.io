@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Github Pages绑定域名 | 欢迎来到我的博客！！！</title>
+  <title>SSH 配置踩坑 | 欢迎来到我的博客！！！</title>
 
   
 
@@ -71,66 +71,91 @@
       <article class="blog-post">
 
         <!-- 文章标题 -->
-        <h1 class="display-5 fw-bold mb-3">Github Pages绑定域名</h1>
+        <h1 class="display-5 fw-bold mb-3">SSH 配置踩坑</h1>
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
-          发布于 2026年03月12日
+          发布于 2026年03月15日
         </p>
 
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
         <div class="content lh-lg">
-          <h3 id="github-pages绑定域名并用cloudflare加速">Github Pages绑定域名并用cloudFlare加速</h3>
+          <h4 id="ssh服务github-远程连接报错排查">SSH服务—Github 远程连接报错排查</h4>
+
+<p>远程连接到github时出现报错，不能连接</p>
+
+<p>估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件</p>
+
+<p>尝试：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>删除原来的公钥，重新建一个在正确目录下
+
+ssh-keygen -t ed25519 -C "xxx@xxx.com"   
+    填自己邮箱，生成ssh密钥
+
+将公钥内容复制到github中的ssh管理页面中添加公钥
+
+成功后页面会有提示
+</code></pre></div></div>
 
 <ul>
   <li>
-    <p>假设域名为：</p>
-
+    <p>痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力</p>
+  </li>
+  <li>解决痛点：</li>
+  <li>
     <ul>
       <li>
-        <p>github.fighting.top</p>
-      </li>
-      <li>需要在github ==&gt; Settings ==&gt; pages ==&gt; 添加域名：github.fighting.top</li>
-      <li>
-        <ul>
-          <li>随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证</li>
-        </ul>
+        <p>用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥</p>
       </li>
       <li>
-        <p>你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)</p>
-
-        <ul>
-          <li>三级域名添加：</li>
-          <li>
-            <ul>
-              <li>用CNAME记录，加github前缀，后面写用户名.github.io</li>
-              <li>注意：先不开小黄云</li>
-            </ul>
-          </li>
-          <li>再添加一个TXT类型，用于身份验证：</li>
-          <li>
-            <ul>
-              <li>提供官方给的信息：</li>
-              <li></li>
-              <li>CNAME          record            number</li>
-            </ul>
-          </li>
-        </ul>
+        <p>后续管理多个免密钥服务时非常方便，强烈推荐使用！！！</p>
       </li>
-      <li>两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效</li>
-      <li></li>
-      <li>有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站</li>
-      <li></li>
-      <li>
-        <p>注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面</p>
-      </li>
-      <li>一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity</li>
     </ul>
   </li>
 </ul>
 
+<p>用私钥测试是否匹配：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -T -i ~/.ssh/id_rsa git@github.com
+</code></pre></div></div>
+
+<p>用git bash写在~/.ssh/config的内容：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># --- 第 1 把钥匙：专门给个人的 GitHub 用 --- 
+Host github.com
+	HostName github.com 
+	User git 
+	# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub） 
+	IdentityFile ~/.ssh/id_ed25519
+	
+Host gitee.com 
+	HostName gitee.com 
+	User git 
+	IdentityFile ~/.ssh/id_rsa_work  
+	
+Host vps HostName 
+	User root 
+	Port 22 
+	IdentityFile ~/.ssh/id_rsa_vps
+</code></pre></div></div>
+
+<ul>
+  <li>配置完，后续可以直接使用“代号”而不用死记ip：</li>
+  <li>
+    <ul>
+      <li>比如：ssh github.com</li>
+      <li></li>
+      <li>其他服务同理</li>
+    </ul>
+  </li>
+</ul>
+
+<p>然后就可以开始在vscode上随意更改代码啦！！！</p>
+
+<p>==注意：每次更改仓库代码时最好先git pull，以免引起冲突==</p>
 
         </div>
         

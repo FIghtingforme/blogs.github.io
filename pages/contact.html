@@ -1,0 +1,49 @@
+---
+layout: default
+title: 联系我们
+permalink: /contact/
+---
+
+<div class="container text-center ">
+    <p>微信</p>
+    <p>QQ</p>
+    <p>G-mail</p>
+    <p>Youtube</p>
+</div>
+
+
+<div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- 底部指示器 (可选) -->
+  <div class="carousel-indicators">
+    {% for item in site.data.features %}
+      <button type="button" data-bs-target="#featureCarousel" data-bs-slide-to="{{ forloop.index0 }}" 
+              class="{% if forloop.first %}active{% endif %}" aria-current="true"></button>
+    {% endfor %}
+  </div>
+
+  <!-- 轮播图主体内容 -->
+  <div class="carousel-inner">
+    {% for item in site.data.features %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="5000">
+      <!-- 图片层 -->
+      <img src="{{ item.image | relative_url }}" class="d-block w-100" alt="{{ item.title }}" style="height: 500px; object-fit: cover;">
+      
+      <!-- 文字遮罩层 -->
+      <div class="carousel-caption d-none d-md-block p-4" style="background: rgba(0,0,0,0.5); border-radius: 15px;">
+        <h2 class="h1"><i class="bi {{ item.icon }} me-2"></i>{{ item.title }}</h2>
+        <p class="lead">{{ item.desc }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- 左右切换按钮 -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#featureCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#featureCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
