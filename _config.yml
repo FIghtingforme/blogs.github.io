@@ -3,6 +3,7 @@ description: "用于技术交流"
 baseurl: ""
 url: "https://github.fightingforme.top"
 email: 3219769019@qq.com
+theme: jekyll-theme-minimal
 
 #导航栏链接
 navigation: 
