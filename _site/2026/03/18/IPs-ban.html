@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《Nginx 恶意攻击 IP 自动分析与封禁拦截器》 | 欢迎来到我的博客！！！</title>
+
+  
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+
+
+
+  <style>
+    /* SaaS 高级感微调 */
+    :root { --bs-primary: #BEEDC7; } 
+    body { font-family: 'Inter', sans-serif; color: #000000; }
+    .btn-primary { border-radius: 8px; padding: 15px 20px; font-weight: 600; }
+    .card { transition: 0.8s; }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- _includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    
+    <a class="navbar-brand logo-geek text-primary" href="/">
+         MySaaS
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item">
+        <a class="nav-link" href="/about/">关于我</a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="/#features">功能介绍</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">博客文章</a></li>
+        
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary rounded-pill px-4" href="#">阅读开始</a>  
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+<!-- 这样你的博客文章也会自带导航栏和页脚 -->
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="blog-post">
+
+        <!-- 文章标题 -->
+        <h1 class="display-5 fw-bold mb-3">《Nginx 恶意攻击 IP 自动分析与封禁拦截器》</h1>
+        
+        <!-- 文章元数据（日期） -->
+        <p class="text-muted mb-4">
+          发布于 2026年03月18日
+        </p>
+
+        <hr class="my-5">
+
+        <!-- 文章正文内容 -->
+        <div class="content lh-lg">
+          <h4 id="背景nginx-服务器遭到恶意爬虫的疯狂扫描varlognginxerrorlog文件瞬间暴增了上万行--如果手动去找是哪些-ip-在攻击然后一条条加进防火墙费时费力">背景：Nginx 服务器遭到恶意爬虫的疯狂扫描，/var/log/nginx/error.log 文件瞬间暴增了上万行。  如果手动去找是哪些 IP 在攻击，然后一条条加进防火墙，费时费力</h4>
+
+<h4 id="解决方案通过python自动化脚本运用-os-和-re库来自动化提取恶意ip并放入shell脚本中根据实际情况决定是否执行脚本">解决方案：通过Python自动化脚本运用 os 和 re库来自动化提取恶意IP;并放入Shell脚本中,根据实际情况决定是否执行脚本</h4>
+
+<h4 id="操作检查下列代码有解释并根据自身实际情况修改将py代码与自身想要检索的日志放在同一个目录下">操作：检查下列代码（有解释）；并根据自身实际情况修改，将py代码与自身想要检索的日志放在同一个目录下</h4>
+
+<h4 id="代码与逻辑">代码与逻辑：</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import re
+
+import os
+
+  
+
+#============配置区=============
+
+LOG_FILE = 'error.log'
+
+OUTPUT_FILE = 'ban_ips.sh'
+
+THERESHOLD = 50        #报警阈值
+
+WHERELIST = ['192.168.1.6', '10.0.0.6']          #白名单
+
+#==============================
+
+  
+
+def main():
+
+    ip_Regex = re.compile(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+
+  
+
+    ip_Counts = {}          #空字典当“计数器”
+
+  
+  
+  
+
+    print(f"正在分析日志文件: {LOG_FILE}")
+
+    if not os.path.exists(LOG_FILE):
+
+            print("找不到日志文件，请检查路径。")
+
+            return
+
+  
+
+    with open(LOG_FILE, 'r', encoding='utf-8', errors='ignore') as file:
+
+        for line in file:
+
+                match = ip_Regex.search(line)
+
+                if match:
+
+                    ip = match.group()
+
+                    if ip in WHERELIST:
+
+                        continue
+
+                    if ip in ip_Counts:
+
+                        ip_Counts[ip] += 1
+
+                    else:
+
+                        ip_Counts[ip] = 1
+
+  
+
+    malicious_ips = []
+
+    for ip, count in ip_Counts.items():
+
+        if count &gt;= THERESHOLD:
+
+                malicious_ips.append(ip)
+
+                print(f"发现恶意IP {ip} 攻击了 {count} 次！！！")
+
+  
+
+    if malicious_ips:
+
+        with open(OUTPUT_FILE, 'w',  encoding='utf-8') as out_file:
+
+                out_file.write("#!/bin/bash\n")
+
+                out_file.write("# 自动生成的防火墙封禁脚本\n\n")
+
+  
+
+                for ip in malicious_ips:
+
+                    cmd = f"firewall-cmd --permanent --add-rich-rule='rule family=\"ipv4\" source address=\"{ip}\" drop' \n "
+
+                    out_file.write(cmd)
+
+                out_file.write("\nfirewall-cmd --reload\n")
+
+                out_file.write(f"echo '所有恶意ip已经被写入文件{OUTPUT_FILE}'\n")
+
+  
+
+        print(f"\n 已经生成封禁IP脚本{OUTPUT_FILE}")
+
+        print(f" 您只需要执行：bash {OUTPUT_FILE} 即可封禁恶意IP")
+
+    else:
+
+        print("\n 日志很干净没有发现恶意IP")
+
+  
+
+if __name__ == '__main__':
+
+     main()
+</code></pre></div></div>
+
+<h4 id="执行结果如下">执行结果如下：</h4>
+
+<h5 id="终端中">终端中：</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@SERVER nginx]# python3 ./ips_blocker.py
+正在分析日志文件: error.log
+发现恶意IP 141.101.69.127 攻击了 896 次！！！
+发现恶意IP 172.71.126.94 攻击了 583 次！！！
+
+ 已经生成封禁IP脚本ban_ips.sh
+ 您只需要执行：bash ban_ips.sh 即可封禁恶意IP
+
+</code></pre></div></div>
+
+<h5 id="shell脚本中">Shell脚本中：</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+自动生成的防火墙封禁脚本
+
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="141.101.69.127" drop'
+ firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="172.71.126.94" drop'
+
+firewall-cmd --reload
+echo '所有恶意ip已经被写入文件ban_ips.sh'
+</code></pre></div></div>
+
+
+        </div>
+        
+        <div class="mt-5">
+            <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div> 
+
+  <!-- _includes/footer.html -->
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container text-center">
+    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+   
+    <div class="list-inline">
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">服务条款</a>
+      <a href="/contact/" class="list-inline-item text-white-50 mx-2 text-decoration-none">联系我们</a>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
