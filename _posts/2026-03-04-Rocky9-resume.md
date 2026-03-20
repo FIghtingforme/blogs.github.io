@@ -10,6 +10,7 @@ catagories: system
 
 #### 步骤：
 
+```
 - 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑
 
 - 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl+X进入紧急救援
@@ -36,4 +37,5 @@ catagories: system
         - 退出紧急救援模式
 
 		- 随后系统开始自动重启
-		
+```
+

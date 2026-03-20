@@ -5,8 +5,9 @@ date: 2026-02-24
 categories: Nginx
 ---
 
-- 创建nginx软链接 #替换 从而让用户实现无感
+#### 创建nginx软链接 #替换 从而让用户实现无感
 
+```
 - 源码编译安装：
 - 获取源码：
 
@@ -85,3 +86,4 @@ categories: Nginx
 		- mv /usr/local/nginx1.22  /usr/local/nginx
 
 		- systemctl start nginx
+```

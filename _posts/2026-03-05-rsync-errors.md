@@ -8,11 +8,15 @@ catagories: Rsync
 
 #### **Server(10.0.0.5)：**
 
-- dnf install rsync -y
 
-- dnf list installed | grep rsync
+```
+	dnf install rsync -y
 
-- vim /etc/rsync.conf
+	dnf list installed | grep rsync
+
+	vim /etc/rsync.conf
+```
+
 
 ```
 fake super = yes
@@ -34,11 +38,13 @@ path = /data
 comment = test module	
 ```
 
-- useradd -s /sbin/nologin -M rsync      
+```
+useradd -s /sbin/nologin -M rsync     
+``` 
 
-	- 创建虚拟用户来启动Rsync进程
+#### 创建虚拟用户来启动Rsync进程
 
-
+```
 - echo 'rsync_backup:123456' > /etc/rsyncd.passwd 
 
 - chmod 600 /etc/rsyncd.passwd
@@ -61,13 +67,17 @@ comment = test module
 - systemctl start rsyncd
 
 - systemctl status rsyncd
+```
 
 ##### 本地测试：
+```
 - touch ./a.txt
 
 - rsync -Paz ./a.txt rsync_backup@10.0.0.5::data
+```
 
 #### **Client(10.0.0.210):**
+```
 - echo '123456' > /etc/client.passwd
 	
 	- 文件名及位置无硬性要求
@@ -80,17 +90,21 @@ comment = test module
 - rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data
 
 - rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd
-	- 使用密码文件传输，减少手输密码
+	- 使用密码文件传输，减少手输密码		
+```
 
 
 
-
+```
 - /var/log/rsync.log
+```
 
-	- **日志非常重要**，可以多开一个窗口查看错误输出
+**日志非常重要,可以多开一个窗口查看错误输出**
 	
-	- tail -f /var/log/rsync.log
+```
+- tail -f /var/log/rsync.log
+```
 
-- 注意：SElinux/firewalld或许会阻止
+**注意：SElinux/firewalld或许会阻止**
 
 

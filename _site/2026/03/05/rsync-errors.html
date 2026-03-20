@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rsync远程同步文件时的排错流程 | 欢迎来到我的博客！！！</title>
+  <title>Rsync远程同步文件时的排错流程 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,27 +83,17 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h3 id="配置rsync服务">配置Rsync服务：</h3>
 
 <h4 id="server10005"><strong>Server(10.0.0.5)：</strong></h4>
 
-<ul>
-  <li>
-    <p>dnf install rsync -y</p>
-  </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>dnf list installed</td>
-          <td>grep rsync</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>vim /etc/rsync.conf</li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	dnf install rsync -y
+
+	dnf list installed | grep rsync
+
+	vim /etc/rsync.conf
+</code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fake super = yes
 uid = rsync
@@ -122,96 +114,75 @@ path = /data
 comment = test module	
 </code></pre></div></div>
 
-<ul>
-  <li>
-    <p>useradd -s /sbin/nologin -M rsync</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>useradd -s /sbin/nologin -M rsync     
+</code></pre></div></div>
 
-    <ul>
-      <li>创建虚拟用户来启动Rsync进程</li>
-    </ul>
-  </li>
-  <li>
-    <p>echo ‘rsync_backup:123456’ &gt; /etc/rsyncd.passwd</p>
-  </li>
-  <li>
-    <p>chmod 600 /etc/rsyncd.passwd</p>
-  </li>
-  <li>
-    <p>mkdir -p /data/</p>
-  </li>
-  <li>chown -R rsync:rsync /data/
-    <ul>
-      <li>创建模块路径对应文件名</li>
-      <li>-R递归更改</li>
-    </ul>
-  </li>
-  <li>
-    <p>rsync –daemon</p>
+<h4 id="创建虚拟用户来启动rsync进程">创建虚拟用户来启动Rsync进程</h4>
 
-    <ul>
-      <li>旨在将rsync升级为后台守护进程，监听文件传输，端口为873</li>
-    </ul>
-  </li>
-  <li>
-    <p>systemctl enable rsyncd</p>
-  </li>
-  <li>
-    <p>systemctl start rsyncd</p>
-  </li>
-  <li>systemctl status rsyncd</li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- echo 'rsync_backup:123456' &gt; /etc/rsyncd.passwd 
+
+- chmod 600 /etc/rsyncd.passwd
+
+
+- mkdir -p /data/
+
+- chown -R rsync:rsync /data/
+	- 创建模块路径对应文件名
+	- -R递归更改
+
+
+
+- rsync --daemon            
+
+	- 旨在将rsync升级为后台守护进程，监听文件传输，端口为873
+
+- systemctl enable rsyncd
+
+- systemctl start rsyncd
+
+- systemctl status rsyncd
+</code></pre></div></div>
 
 <h5 id="本地测试">本地测试：</h5>
-<ul>
-  <li>
-    <p>touch ./a.txt</p>
-  </li>
-  <li>
-    <p>rsync -Paz ./a.txt rsync_backup@10.0.0.5::data</p>
-  </li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- touch ./a.txt
+
+- rsync -Paz ./a.txt rsync_backup@10.0.0.5::data
+</code></pre></div></div>
 
 <h4 id="client1000210"><strong>Client(10.0.0.210):</strong></h4>
-<ul>
-  <li>
-    <p>echo ‘123456’ &gt; /etc/client.passwd</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- echo '123456' &gt; /etc/client.passwd
+	
+	- 文件名及位置无硬性要求
 
-    <ul>
-      <li>文件名及位置无硬性要求</li>
-    </ul>
-  </li>
-  <li>
-    <p>chmod 600 /etc/client.passwd</p>
-  </li>
-  <li>
-    <p>touch ./asd.txt</p>
-  </li>
-  <li>
-    <p>rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data</p>
-  </li>
-  <li>rsync -paz /etc/hostname rsync_backup@10.0.0.5::data –password-file /etc/client.passwd
-    <ul>
-      <li>使用密码文件传输，减少手输密码</li>
-    </ul>
-  </li>
-  <li>
-    <p>/var/log/rsync.log</p>
+- chmod 600 /etc/client.passwd
 
-    <ul>
-      <li>
-        <p><strong>日志非常重要</strong>，可以多开一个窗口查看错误输出</p>
-      </li>
-      <li>
-        <p>tail -f /var/log/rsync.log</p>
-      </li>
-    </ul>
-  </li>
-  <li>注意：SElinux/firewalld或许会阻止</li>
-</ul>
+
+- touch ./asd.txt
+
+- rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data
+
+- rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd
+	- 使用密码文件传输，减少手输密码		
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- /var/log/rsync.log
+</code></pre></div></div>
+
+<p><strong>日志非常重要,可以多开一个窗口查看错误输出</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- tail -f /var/log/rsync.log
+</code></pre></div></div>
+
+<p><strong>注意：SElinux/firewalld或许会阻止</strong></p>
 
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -224,7 +195,7 @@ comment = test module
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

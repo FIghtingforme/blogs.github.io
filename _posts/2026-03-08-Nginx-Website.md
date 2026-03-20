@@ -7,11 +7,12 @@ catagories: Nginx
 
 ---
 
-挑选一个云服务器：
-	阿里云/腾讯云/
+#### 先挑选一个自己喜欢的云服务器：
+##### 阿里云/腾讯云/。。。
 
 
 
+```
 - cloudFlare配置name server：
 	- 常规配置：
 		- A策略        二级域名开头           ip               
@@ -42,6 +43,8 @@ catagories: Nginx
 				- 
 
 ```
+
+```
 server {  
 	listen 80  
 	server_name  **自己的域名**；
@@ -50,6 +53,8 @@ server {
 	index index.html;    
 	}  
 	}  
+```
+
 ```
 	
 			- 检查配置是否错误：
@@ -84,7 +89,6 @@ server {
 		
 			
 		- 即可访问您的域名
-
+```
 
 注意：如果是自己的真实域名不用改hosts文件，但要注意防火墙放行 && cloudFlare的子域名添加，以及cloudFlare中设置为flexible
-

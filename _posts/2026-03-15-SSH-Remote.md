@@ -10,6 +10,7 @@ catagories: SSH
 
 #### SSH服务---Github 远程连接报错排查
 			
+```
 远程连接到github时出现报错，不能连接
 
 估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件
@@ -71,3 +72,4 @@ Host vps HostName
 然后就可以开始在vscode上随意更改代码啦！！！
 
 ==注意：每次更改仓库代码时最好先git pull，以免引起冲突==
+```

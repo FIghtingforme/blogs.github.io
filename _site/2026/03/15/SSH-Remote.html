@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSH 配置踩坑 | 欢迎来到我的博客！！！</title>
+  <title>SSH 配置踩坑 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,84 +83,78 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h4 id="ssh服务github-远程连接报错排查">SSH服务—Github 远程连接报错排查</h4>
 
-<p>远程连接到github时出现报错，不能连接</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>远程连接到github时出现报错，不能连接
 
-<p>估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件</p>
+估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件
 
-<p>尝试：</p>
+尝试：
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>删除原来的公钥，重新建一个在正确目录下
+	删除原来的公钥，重新建一个在正确目录下
 
-ssh-keygen -t ed25519 -C "xxx@xxx.com"   
-    填自己邮箱，生成ssh密钥
+	ssh-keygen -t ed25519 -C "xxx@xxx.com"   
+        填自己邮箱，生成ssh密钥
 
-将公钥内容复制到github中的ssh管理页面中添加公钥
+	将公钥内容复制到github中的ssh管理页面中添加公钥
 
-成功后页面会有提示
+    成功后页面会有提示
+
+
+- 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力
+
+- 解决痛点：
+- 
+	 - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥
+
+     - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！
+		
+
+
+用私钥测试是否匹配：
+
+	ssh -T -i ~/.ssh/id_rsa git@github.com
+
+用git bash写在~/.ssh/config的内容：
+
 </code></pre></div></div>
-
-<ul>
-  <li>
-    <p>痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力</p>
-  </li>
-  <li>解决痛点：</li>
-  <li>
-    <ul>
-      <li>
-        <p>用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥</p>
-      </li>
-      <li>
-        <p>后续管理多个免密钥服务时非常方便，强烈推荐使用！！！</p>
-      </li>
-    </ul>
-  </li>
-</ul>
-
-<p>用私钥测试是否匹配：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -T -i ~/.ssh/id_rsa git@github.com
-</code></pre></div></div>
-
-<p>用git bash写在~/.ssh/config的内容：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># --- 第 1 把钥匙：专门给个人的 GitHub 用 --- 
-Host github.com
+<h1 id="-第-1-把钥匙专门给个人的-github-用-">— 第 1 把钥匙：专门给个人的 GitHub 用 —</h1>
+<p>Host github.com
 	HostName github.com 
 	User git 
 	# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub） 
-	IdentityFile ~/.ssh/id_ed25519
-	
-Host gitee.com 
+	IdentityFile ~/.ssh/id_ed25519</p>
+
+<p>Host gitee.com 
 	HostName gitee.com 
 	User git 
-	IdentityFile ~/.ssh/id_rsa_work  
-	
-Host vps HostName 
+	IdentityFile ~/.ssh/id_rsa_work</p>
+
+<p>Host vps HostName 
 	User root 
 	Port 22 
-	IdentityFile ~/.ssh/id_rsa_vps
+	IdentityFile ~/.ssh/id_rsa_vps</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+- 配置完，后续可以直接使用“代号”而不用死记ip：
+- 
+	- 比如：ssh github.com
+	- 
+	- 其他服务同理
+
+然后就可以开始在vscode上随意更改代码啦！！！
+
+==注意：每次更改仓库代码时最好先git pull，以免引起冲突==
 </code></pre></div></div>
-
-<ul>
-  <li>配置完，后续可以直接使用“代号”而不用死记ip：</li>
-  <li>
-    <ul>
-      <li>比如：ssh github.com</li>
-      <li></li>
-      <li>其他服务同理</li>
-    </ul>
-  </li>
-</ul>
-
-<p>然后就可以开始在vscode上随意更改代码啦！！！</p>
-
-<p>==注意：每次更改仓库代码时最好先git pull，以免引起冲突==</p>
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -171,7 +167,7 @@ Host vps HostName
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

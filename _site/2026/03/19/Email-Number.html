@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSHD 远程工具连接失败 | 一天一天...</title>
+  <title>电话号码和 E-mail 提取器 | 一天一天...</title>
 
   
 
@@ -73,47 +73,77 @@
       <article class="blog-post">
 
         <!-- 文章标题 -->
-        <h1 class="display-5 fw-bold mb-3">SSHD 远程工具连接失败</h1>
+        <h1 class="display-5 fw-bold mb-3">电话号码和 E-mail 提取器</h1>
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
-          发布于 2026年03月03日
+          发布于 2026年03月19日
         </p>
 
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
         <div class="blog-content markdown-body">
-          <h4 id="关闭selinux">关闭SElinux:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- getenforce        
-	查看SEllinux
+          <h3 id="提取电话和邮箱">提取电话和邮箱</h3>
 
-- setenforce 0	    
-	临时关闭测试
+<h4 id="导入库">导入库</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import re, pyperclip
 </code></pre></div></div>
 
-<h4 id="关闭防火墙">关闭防火墙:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop firewalld	      
+<h4 id="创建手机号正则表达式手机号格式">创建手机号正则表达式(手机号格式)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>phoneRegex = re.compile(r'\d{3}\S?\d{4}\S?\d{4}')
 </code></pre></div></div>
 
-<h4 id="重启网卡">重启网卡:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl restart NetworkManager    
+<h4 id="创建邮箱正则表达式邮箱格式">创建邮箱正则表达式（邮箱格式）</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emailRegex = re.compile(r'''(
+
+    [a-zA-Z0-9._%+-] +      # 用户名部分
+
+    \S                      # @ 符号
+
+    [a-zA-Z0-9.-] +         # 域名部分
+
+    (\.[a-zA-Z]{2,4})      # 最后的后缀 (.com/.cn)
+
+    )''', re.VERBOSE)
+
 </code></pre></div></div>
 
-<h4 id="查看ip">查看ip:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 输入:ip a           
-	- 若ip更改则在shell输入nmtui 命令编辑
+<h4 id="从剪贴板获取文本">从剪贴板获取文本</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text = str(pyperclip.paste())
 </code></pre></div></div>
 
-<h4 id="kali系统下">kali系统下:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
-		提示:The fingerprint for the ECDSA key sent by the remote host is
-		      Host key verification failed.
-		      
-		解决方法:
-		ssh-keygen -R 192.168.1.104
-			自动删除旧指纹
+<h4 id="提取匹配项">提取匹配项</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>matches = []
+
+for groups in phoneRegex.findall(text):
+
+    matches.append(groups)          #纯文本内容，所有全部加入
+
+for groups in emailRegex.findall(text):
+
+    matches.append(groups[0])       #最外层大括号内容全部加入
+
 </code></pre></div></div>
+
+<h4 id="将结果存回剪贴板">将结果存回剪贴板</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if len(matches) &gt; 0:
+
+    pyperclip.copy('\n'.join(matches))
+
+    print('提取成功，已存入剪贴板！')
+
+else:
+
+    print('未发现电话或邮箱。')
+</code></pre></div></div>
+
 
         </div>
         

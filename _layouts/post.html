@@ -4,6 +4,7 @@ layout: default
 
 ---
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
 
 <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
@@ -24,10 +25,15 @@ layout: default
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           {{ content }}
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="{{ '/blog' | relative_url }}" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>

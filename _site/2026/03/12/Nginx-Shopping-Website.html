@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>用Nginx搭建站点 | 欢迎来到我的博客！！！</title>
+  <title>用Nginx搭建站点 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,138 +83,183 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
-          <h3 id="用nginx搭建站点">用Nginx搭建站点</h3>
+        <div class="blog-content markdown-body">
+          <h2 id="一基础站点配置">一、基础站点配置</h2>
+
+<h3 id="1-站点信息">1. 站点信息</h3>
 
 <ul>
-  <li>
-    <p>设置站点名：</p>
-
-    <ul>
-      <li>buy.fighting.top</li>
-    </ul>
-  </li>
-  <li>
-    <p>站点根目录：</p>
-
-    <ul>
-      <li>/app/code/buy/</li>
-    </ul>
-  </li>
-  <li>
-    <p>首页</p>
-
-    <ul>
-      <li>/app/code/buy/index.html</li>
-    </ul>
-  </li>
-  <li>
-    <p>修改配置文件：</p>
-
-    <ul>
-      <li>vim /etc/nginx/conf.d
-        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
-  listen 80;
-  server_name buy.fighting.top;
-  root /app/code/buy;
-  location / {
-  index index.html;
-  }
-  location /admin/ {
-  allow 172.16.1.0/24;
-  deny all
-  }
-}
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li>url 为 buy.fighting.top/admin</li>
-  <li>
-    <p>uri 为 /admin/</p>
-  </li>
-  <li>mkdir -p /app/code/buy/admin/</li>
-  <li>echo “购物网站” &gt; /app/code/buy/index.html</li>
-  <li>
-    <p>echo “admin” &gt; /app/code/buy/admin/index.html</p>
-  </li>
-  <li>本地测试</li>
-  <li>curl -H buy.fighting.top</li>
-  <li>curl -H buy.fighting.top/admin/</li>
+  <li><strong>域名（server_name）</strong>：<code class="language-plaintext highlighter-rouge">buy.fighting.top</code></li>
+  <li><strong>站点根目录（root）</strong>：<code class="language-plaintext highlighter-rouge">/app/code/buy/</code></li>
+  <li><strong>首页文件</strong>：<code class="language-plaintext highlighter-rouge">/app/code/buy/index.html</code></li>
 </ul>
 
 <hr />
 
-<ul>
-  <li>
-    <p>进阶（设置缓存时间）：</p>
+<h3 id="2-nginx-配置">2. Nginx 配置</h3>
 
-    <ul>
-      <li>位置：</li>
-      <li>buy.fighting.top/video</li>
-      <li>buy.fighting.top/image/image.1</li>
-    </ul>
-  </li>
-  <li>修改配置:
-    <ul>
-      <li>vim /etc/nginx/conf.d/buy.fighting.top.conf
-        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
-  listen 80;
-  server_name buy.fighting.top;
-  root /app/code/buy;
-  location / {
-  index index.html;
-  }
-  location */ \.(html|css|js)${
-  expires max;           #一天
-  }
-  location */ \.(jpg|png|jpeg|gif|bmp)${
-  expires 1h;            #1小时
-  }
+<p>编辑配置文件：</p>
+
+<p>vim /etc/nginx/conf.d/buy.fighting.top.conf</p>
+
+<p>写入：</p>
+
+<p>server {
+    listen 80;
+    server_name buy.fighting.top;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root /app/code/buy;
+
+location / {
+    index index.html;
 }
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>设置完打开网站，F12检查 “control cache”</p>
-  </li>
-  <li>location 规则：
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> location / {xxx}                         默认规则（保底，当其他规则失效时）
- location /image/ {xxx}                   用于匹配 uri（路径）
- location ~ \.(jpg|jpeg)${xxx}            支持正则，区分大小写
- location ~* \.(jpg|jpeg)${xxx}           支持正则，不区分大小写
-</code></pre></div>    </div>
-  </li>
-  <li>location 正则优先级：
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  1           =
-	
-  2          ^~
-	
-  3          ~~*
-	
-  4         /image/
-	
-  5          /
-</code></pre></div>    </div>
-  </li>
-</ul>
 
-<hr />
+location /admin/ {
+    allow 172.16.1.0/24;
+    deny all;
+} } 3. 关键概念
+</code></pre></div></div>
+
+<p>URL</p>
 
 <ul>
-  <li>
-    <p>用户访问流程：</p>
-
-    <ul>
-      <li>Client == &gt; Web ==&gt; Nginx ==&gt; conf.d ==&gt; server_name/response ==&gt; default.conf–server_name ==&gt; buy1.conf–server_name</li>
-    </ul>
-  </li>
+  <li>http://buy.fighting.top/admin</li>
 </ul>
 
+<p>URI</p>
+
+<ul>
+  <li>/admin/</li>
+</ul>
+
+<p>URL = 域名 + URI
+<br />
+<strong>Nginx 实际匹配的是 URI</strong></p>
+
+<ol>
+  <li>创建测试文件
+mkdir -p /app/code/buy/admin/</li>
+</ol>
+
+<p>echo “购物网站” &gt; /app/code/buy/index.html
+echo “admin” &gt; /app/code/buy/admin/index.html</p>
+<ol>
+  <li>本地测试
+curl -H “Host: buy.fighting.top” http://127.0.0.1
+curl -H “Host: buy.fighting.top” http://127.0.0.1/admin/
+二、进阶：静态资源缓存优化</li>
+  <li>使用场景</li>
+</ol>
+
+<p>/video</p>
+
+<p>/image/image.1</p>
+
+<ol>
+  <li>
+    <p>配置缓存规则
+server {
+ listen 80;
+ server_name buy.fighting.top;</p>
+
+    <p>root /app/code/buy;</p>
+
+    <p>location / {
+     index index.html;
+ }</p>
+
+    <p># 静态资源缓存（文本类）
+ location ~* .(html|css|js)$ {
+     expires 1d;
+ }</p>
+
+    <p># 图片缓存
+ location ~* .(jpg|png|jpeg|gif|bmp)$ {
+     expires 1h;
+ }
+}</p>
+  </li>
+  <li>
+    <p>验证缓存</p>
+  </li>
+</ol>
+
+<p>打开浏览器：</p>
+
+<p>按 F12</p>
+
+<p>查看 Network</p>
+
+<p>检查 Cache-Control / Expires</p>
+
+<p>三、location 匹配规则
+常见写法
+location / {
+    # 默认匹配（兜底）
+}</p>
+
+<p>location /image/ {
+    # 按路径匹配
+}</p>
+
+<p>location ~ .(jpg|jpeg)$ {
+    # 正则（区分大小写）
+}</p>
+
+<p>location ~* .(jpg|jpeg)$ {
+    # 正则（不区分大小写）
+}
+匹配优先级（重要）
+优先级	类型
+1	= 精确匹配
+2	^~ 前缀匹配
+3	~ / ~* 正则匹配
+4	普通前缀（如 /image/）
+5	/ 默认
+四、请求处理流程
+Client 
+  ↓
+Nginx
+  ↓
+conf.d/*.conf
+  ↓
+匹配 server_name
+  ↓
+匹配 location
+  ↓
+返回 response</p>
+
+<p>示例：</p>
+
+<p>default.conf      → 默认站点
+buy.conf          → buy.fighting.top
+五、总结</p>
+
+<p>你现在实现了：</p>
+
+<p>✅ 基础网站部署</p>
+
+<p>✅ 访问控制（admin 限制）</p>
+
+<p>✅ 静态资源缓存</p>
+
+<p>✅ 理解 location 匹配机制</p>
+
+<p>🚀 建议下一步</p>
+
+<p>加 HTTPS（Let’s Encrypt）</p>
+
+<p>开启 gzip 压缩</p>
+
+<p>配 CDN（如 Cloudflare）</p>
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -225,7 +272,7 @@
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSHD 远程工具连接失败 | 一天一天...</title>
+  <title>Docker简单配置 | 一天一天...</title>
 
   
 
@@ -73,47 +73,118 @@
       <article class="blog-post">
 
         <!-- 文章标题 -->
-        <h1 class="display-5 fw-bold mb-3">SSHD 远程工具连接失败</h1>
+        <h1 class="display-5 fw-bold mb-3">Docker简单配置</h1>
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
-          发布于 2026年03月03日
+          发布于 2026年03月20日
         </p>
 
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
         <div class="blog-content markdown-body">
-          <h4 id="关闭selinux">关闭SElinux:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- getenforce        
-	查看SEllinux
+          <h4 id="docker配置命令">Docker配置命令：</h4>
 
-- setenforce 0	    
-	临时关闭测试
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 1）先清理冲突包  
+dnf remove y podmandocker podman runc  
+  
+# 2）安装仓库管理工具  
+dnf y install dnfpluginscore  
+  
+# 3）添加 Docker 官方 RHEL 仓库  
+dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  
+  
+# 4）安装 Docker  
+dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  
+  
+# 5）启动并设置开机自启  
+systemctl enable now docker  
+  
+# 6） 验证  
+docker version  
+docker info
+
+这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。
+
+
+# 阶段 1：认识镜像  
+docker search nginx  
+docker pull nginx  
+docker images  
+  
+# 阶段 2：跑第一个容器  
+docker run d name mynginx p 80:80 nginx  
+docker ps  
+docker logs f mynginx  
+docker exec it mynginx bash  
+  
+# 阶段 3：理解生命周期  
+docker stop mynginx  
+docker start mynginx  
+docker rm f mynginx  
+  
+# 阶段 4：练习镜像管理  
+docker image inspect nginx  
+docker image save nginx &gt; nginx.tar  
+docker image load i nginx.tar  
+docker rmi nginx
+
 </code></pre></div></div>
 
-<h4 id="关闭防火墙">关闭防火墙:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl stop firewalld	      
+<p>报错点（环境被污染）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@lb01 ~]$ docker version
+Client: Docker Engine  Community
+ Version:           29.3.0
+ API version:       1.54
+ Go version:        go1.25.7
+ Git commit:        5927d80
+ Built:             Thu Mar  5 14:30:26 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+failed to connect to the docker API at unix:///run/podman/podman.sock; check if the path is correct and if the daemon is running: dial unix /run/podman/podman.sock: connect: no such file or directory
+
 </code></pre></div></div>
 
-<h4 id="重启网卡">重启网卡:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl restart NetworkManager    
+<p>解决办法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>env | grep DOCKER_HOST
+unset  DOCKER_HOST
 </code></pre></div></div>
 
-<h4 id="查看ip">查看ip:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 输入:ip a           
-	- 若ip更改则在shell输入nmtui 命令编辑
+<p>报错点(网速慢)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@lb01 ~]$ docker search nginx
+Error response from daemon: Get "https://index.docker.io/v1/search?q=nginx&amp;n=25": dial tcp 69.63.181.12:443: connect: connection refused
+
 </code></pre></div></div>
 
-<h4 id="kali系统下">kali系统下:</h4>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
-		提示:The fingerprint for the ECDSA key sent by the remote host is
-		      Host key verification failed.
-		      
-		解决方法:
-		ssh-keygen -R 192.168.1.104
-			自动删除旧指纹
+<h5 id="解决办法">解决办法：</h5>
+<h6 id="配置docker镜像加速器">配置Docker镜像加速器：</h6>
+
+<p>vim /etc/docker/daemon.json</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "registrymirrors": [
+    "https://docker.1panel.live",
+    "https://hub.rat.dev",
+    "https://dockerproxy.com",
+    "https://mirror.ccs.tencentyun.com"
+  ]
+}
 </code></pre></div></div>
+
+<h5 id="终端重启">终端重启：</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl daemonreexec  
+systemctl restart docker
+</code></pre></div></div>
+
+<p>测试成功：</p>
+
+<p>docker pull nginx</p>
+
 
         </div>
         

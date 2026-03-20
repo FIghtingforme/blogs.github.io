@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Github Pages绑定域名 | 欢迎来到我的博客！！！</title>
+  <title>Github Pages绑定域名 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,59 +83,47 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h3 id="github-pages绑定域名并用cloudflare加速">Github Pages绑定域名并用cloudFlare加速</h3>
 
-<ul>
-  <li>
-    <p>假设域名为：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 假设域名为：
+	
+	- github.fighting.top
+	
+	- 需要在github ==&gt; Settings ==&gt; pages ==&gt; 添加域名：github.fighting.top
+	- 
+		- 随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证
+	
+	- 你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)
+	
+		- 三级域名添加：
+		- 
+			- 用CNAME记录，加github前缀，后面写用户名.github.io
+			- 注意：先不开小黄云
+			
+		- 再添加一个TXT类型，用于身份验证：
+		- 
+			- 提供官方给的信息：
+			- 
+			- CNAME          record            number 
+		
+	- 两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效
+	- 
+	- 有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站
+	- 
+	- 注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面
+	
+	- 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity
 
-    <ul>
-      <li>
-        <p>github.fighting.top</p>
-      </li>
-      <li>需要在github ==&gt; Settings ==&gt; pages ==&gt; 添加域名：github.fighting.top</li>
-      <li>
-        <ul>
-          <li>随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证</li>
-        </ul>
-      </li>
-      <li>
-        <p>你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)</p>
-
-        <ul>
-          <li>三级域名添加：</li>
-          <li>
-            <ul>
-              <li>用CNAME记录，加github前缀，后面写用户名.github.io</li>
-              <li>注意：先不开小黄云</li>
-            </ul>
-          </li>
-          <li>再添加一个TXT类型，用于身份验证：</li>
-          <li>
-            <ul>
-              <li>提供官方给的信息：</li>
-              <li></li>
-              <li>CNAME          record            number</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效</li>
-      <li></li>
-      <li>有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站</li>
-      <li></li>
-      <li>
-        <p>注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面</p>
-      </li>
-      <li>一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity</li>
-    </ul>
-  </li>
-</ul>
-
+</code></pre></div></div>
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -146,7 +136,7 @@
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

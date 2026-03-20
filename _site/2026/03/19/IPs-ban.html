@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《Nginx 恶意攻击 IP 自动分析与封禁拦截器》 | 欢迎来到我的博客！！！</title>
+  <title>《Nginx 恶意攻击 IP 自动分析与封禁拦截器》 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -75,13 +77,13 @@
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
-          发布于 2026年03月18日
+          发布于 2026年03月19日
         </p>
 
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h4 id="背景nginx-服务器遭到恶意爬虫的疯狂扫描varlognginxerrorlog文件瞬间暴增了上万行--如果手动去找是哪些-ip-在攻击然后一条条加进防火墙费时费力">背景：Nginx 服务器遭到恶意爬虫的疯狂扫描，/var/log/nginx/error.log 文件瞬间暴增了上万行。  如果手动去找是哪些 IP 在攻击，然后一条条加进防火墙，费时费力</h4>
 
 <h4 id="解决方案通过python自动化脚本运用-os-和-re库来自动化提取恶意ip并放入shell脚本中根据实际情况决定是否执行脚本">解决方案：通过Python自动化脚本运用 os 和 re库来自动化提取恶意IP;并放入Shell脚本中,根据实际情况决定是否执行脚本</h4>
@@ -229,11 +231,17 @@ firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="141
 
 firewall-cmd --reload
 echo '所有恶意ip已经被写入文件ban_ips.sh'
+
 </code></pre></div></div>
 
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -246,7 +254,7 @@ echo '所有恶意ip已经被写入文件ban_ips.sh'
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

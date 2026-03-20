@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NFS挂载文件系统 | 欢迎来到我的博客！！！</title>
+  <title>NFS挂载文件系统 | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,193 +83,119 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h4 id="操作步骤">操作步骤：</h4>
-<ul>
-  <li>NFS原理：
-    <ul>
-      <li>NFS &lt;==&gt; RPC &lt;==&gt; Client</li>
-      <li></li>
-      <li>
-        <p>RPC服务： port mapper</p>
-      </li>
-      <li>Server（配置）：
-        <ul>
-          <li>dnf install rpcbind nfs-utils
-            <ul>
-              <li></li>
-              <li>安装相关软件</li>
-            </ul>
-          </li>
-          <li>systemctl enable rpcbind/nfs-server</li>
-          <li></li>
-          <li>systemctl start rpcbind/nfs-server</li>
-          <li></li>
-          <li>rpcinfo -p</li>
-          <li></li>
-          <li>vim /etc/export（写入挂载信息）：
-            <ul>
-              <li></li>
-              <li>
-                <p>/data 10.0.0.0/24（rw,all_squash）</p>
-              </li>
-              <li>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>rw 表示读写</td>
-                      <td>all_squash表示压缩所有客户端用户为nfsnobody</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>systemctl reload nfs</p>
 
-            <ul>
-              <li>平滑重载nfs，避免restart 60s 夯住</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>mkdir -p /data/</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- NFS原理：
+	- NFS &lt;==&gt; RPC &lt;==&gt; Client
+	- 
+	- RPC服务： port mapper
+	
+	- Server（配置）：
+		- dnf install rpcbind nfs-utils
+			- 
+			- 安装相关软件
+		
+		- systemctl enable rpcbind/nfs-server
+		- 
+		- systemctl start rpcbind/nfs-server
+		- 
+		- rpcinfo -p
+		- 
+		
+		- vim /etc/export（写入挂载信息）：
+			- 
+			- /data 10.0.0.0/24（rw,all_squash）
+			
+			- rw 表示读写    |     all_squash表示压缩所有客户端用户为nfsnobody
+		
+		- systemctl reload nfs
+			
+			- 平滑重载nfs，避免restart 60s 夯住
+		- 
+		- mkdir -p /data/
+			
+			- 递归创建目录（挂载目录）
+		- 
+		- ls -ld /data/
+		
+			- 查看目录属性
+		- 
+		- id nfsnobody
+			
+			- 查看用户uid和gid
+		- 
+		- chown -R nfsnobody.nfsnobody /data/
+			
+			- 设置用户，用户组所属
+		- 
+		- df -h
 
-            <ul>
-              <li>递归创建目录（挂载目录）</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>ls -ld /data/</p>
+            - 产看磁盘挂载情况
+		
+		- 配置文件：
 
-            <ul>
-              <li>查看目录属性</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>id nfsnobody</p>
+			- /etc/exports
+				- /var/lib/nfs/etab
+		
+	- Client（配置）:
+		- showmount -e 10.0.0.61
+			
+			- 查看挂载情况
+		- 
+		
+		- useradd nfsnobody
 
-            <ul>
-              <li>查看用户uid和gid</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>chown -R nfsnobody.nfsnobody /data/</p>
+		- 
+		- exportfs -arv   
+		- 
+			- 刷新配置
+		- 
+		- mount -t nfs 10.0.0.61:/data/  /mnt/
+		- 
+		- df -h /mnt/
+			
+			- 查看挂载情况
+		- 
+		- install nfs-utils -y
+		- 
+		- touch /mnt/ababa.txt
+		- 
+		- 
+		- df -h       
+		- 
+			- 查看挂载情况
+		
+		- rpcinfo -p
+		- 
+			- 打印中转详细信息
+		
+        - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！
+		
+		
+		- umount -lf /mnt/  
+		- 
+			- 强制卸载挂载的磁盘
+		
+		- 配置文件：
+		- 
+			- /etc/rc.local
+				- /proc/mounts
+		
+		- nfs永久挂载(配置前先启动服务端)：
+			- vim /etc/fstab（写在文件里）：
+				- 
+				- 10.0.0.61:/data/    /mnt/    nfs   defaults    0    0
 
-            <ul>
-              <li>设置用户，用户组所属</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>df -h</p>
-
-            <ul>
-              <li>产看磁盘挂载情况</li>
-            </ul>
-          </li>
-          <li>
-            <p>配置文件：</p>
-
-            <ul>
-              <li>/etc/exports
-                <ul>
-                  <li>/var/lib/nfs/etab</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>Client（配置）:
-        <ul>
-          <li>
-            <p>showmount -e 10.0.0.61</p>
-
-            <ul>
-              <li>查看挂载情况</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>
-            <p>useradd nfsnobody</p>
-          </li>
-          <li></li>
-          <li>exportfs -arv</li>
-          <li>
-            <ul>
-              <li>刷新配置</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>mount -t nfs 10.0.0.61:/data/  /mnt/</li>
-          <li></li>
-          <li>
-            <p>df -h /mnt/</p>
-
-            <ul>
-              <li>查看挂载情况</li>
-            </ul>
-          </li>
-          <li></li>
-          <li>install nfs-utils -y</li>
-          <li></li>
-          <li>touch /mnt/ababa.txt</li>
-          <li></li>
-          <li></li>
-          <li>df -h</li>
-          <li>
-            <ul>
-              <li>查看挂载情况</li>
-            </ul>
-          </li>
-          <li>rpcinfo -p</li>
-          <li>
-            <ul>
-              <li>打印中转详细信息</li>
-            </ul>
-          </li>
-          <li>
-            <p>可尝试在/mnt/下写文件，注意：服务器需要开启！！！</p>
-          </li>
-          <li>umount -lf /mnt/</li>
-          <li>
-            <ul>
-              <li>强制卸载挂载的磁盘</li>
-            </ul>
-          </li>
-          <li>配置文件：</li>
-          <li>
-            <ul>
-              <li>/etc/rc.local
-                <ul>
-                  <li>/proc/mounts</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>nfs永久挂载(配置前先启动服务端)：
-            <ul>
-              <li>vim /etc/fstab（写在文件里）：
-                <ul>
-                  <li></li>
-                  <li>10.0.0.61:/data/    /mnt/    nfs   defaults    0    0</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+</code></pre></div></div>
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -280,7 +208,7 @@
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

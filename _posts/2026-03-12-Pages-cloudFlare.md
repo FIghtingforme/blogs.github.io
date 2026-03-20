@@ -9,6 +9,7 @@ catagories: Github
 
 ### Github Pages绑定域名并用cloudFlare加速
 
+```
 - 假设域名为：
 	
 	- github.fighting.top
@@ -38,4 +39,4 @@ catagories: Github
 	
 	- 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity
 
-
+```

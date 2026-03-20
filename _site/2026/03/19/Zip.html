@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Python--机器人自动备份文件到自动递增ZIP | 欢迎来到我的博客！！！</title>
+  <title>Python--机器人自动备份文件到自动递增ZIP | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -75,25 +77,29 @@
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
-          发布于 2026年03月18日
+          发布于 2026年03月19日
         </p>
 
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h5 id="项目背景">项目背景：</h5>
+
 <h6 id="将appconfig-目录下的配置文件备份一下免得一会更新代码搞坏了-于是熟练地敲下tar--czvf-config_bak_20260318targz-appconfig-过了半小时因为改错地方需要再备份一次只能再敲一次并且小心翼翼地把文件名改成-config_bak_20260318_v2targz生怕覆盖了上一个版本">将/app/config 目录下的配置文件备份一下，免得一会更新代码搞坏了。 于是熟练地敲下：tar -czvf config_bak_20260318.tar.gz /app/config。 过了半小时，因为改错地方需要再备份一次只能再敲一次，并且小心翼翼地把文件名改成 config_bak_20260318_v2.tar.gz，生怕覆盖了上一个版本。</h6>
 
 <h5 id="解决方案">解决方案：</h5>
+
 <h6 id="通过python编写自动备份机器人只需要告诉他要备份哪个文件夹即可自动扫描里面所有文件并递自动增生成版本号将其安全压缩成-zip-文件">通过Python编写’自动备份机器人‘；只需要告诉他要备份哪个文件夹，即可自动扫描里面所有文件并递自动增生成版本号，将其安全压缩成 ZIP 文件</h6>
 
 <h5 id="准备">准备：</h5>
-<h6 id="python自带的连个强大标准库">Python自带的连个强大标准库：</h6>
+
+<h6 id="python自带的两个强大标准库">Python自带的两个强大标准库：</h6>
 <h6 id="os用于进入文件夹-遍历文件检查文件是否存在">os：用于进入文件夹 ，遍历文件，检查文件是否存在</h6>
 <h6 id="zipfile用于创建和写入-zip-压缩包">zipfile：用于创建和写入 ZIP 压缩包</h6>
 
 <h5 id="流程图">流程图：</h5>
+
 <h6 id="接收文件夹路径--检查当前目录--备份并剔除重复文件名">接收文件夹路径 ==&gt; 检查当前目录 ==&gt; 备份并剔除重复文件名</h6>
 
 <h5 id="代码及解释">代码及解释：</h5>
@@ -265,12 +271,17 @@ if __name__ == '__main__':
 
 <p>注意：sys库可以让别人引用脚本变得方便</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- python3 backup.py /var/log/nginx/error.log
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 backup.py /var/log/nginx/error.log
 </code></pre></div></div>
 
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -283,7 +294,7 @@ if __name__ == '__main__':
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>

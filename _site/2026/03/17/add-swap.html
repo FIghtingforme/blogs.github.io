@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>内存告急，快加swap！！！ | 欢迎来到我的博客！！！</title>
+  <title>内存告急，快加swap！！！ | 一天一天...</title>
 
   
 
@@ -62,7 +62,9 @@
   </div>
 </nav>
 
-  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
 <!-- 这样你的博客文章也会自带导航栏和页脚 -->
 
 <div class="container py-5">
@@ -81,100 +83,84 @@
         <hr class="my-5">
 
         <!-- 文章正文内容 -->
-        <div class="content lh-lg">
+        <div class="blog-content markdown-body">
           <h3 id="内存不足创建swap空间">内存不足创建swap空间</h3>
 
 <h4 id="痛点云服务器的内存太小又想要极致性价比">痛点：云服务器的内存太小，又想要极致性价比</h4>
 
 <h4 id="解决方案">解决方案：</h4>
-<h4 id="创建swapfile的大文件放在swap下">创建swapfile的大文件放在swap下</h4>
+<h5 id="创建swapfile的大文件放在swap下">创建swapfile的大文件放在swap下</h5>
 
-<ul>
-  <li>创建swap空间：</li>
-  <li>
-    <ul>
-      <li>
-        <p>创建swapfile空间 ==&gt;  转为swap  ==&gt;  激活swap并加入linux   ==&gt;  配置永久挂载</p>
-      </li>
-      <li>if</li>
-      <li>
-        <ul>
-          <li>input file</li>
-        </ul>
-      </li>
-      <li></li>
-      <li>of</li>
-      <li>
-        <ul>
-          <li>output file</li>
-        </ul>
-      </li>
-      <li>bs</li>
-      <li>
-        <ul>
-          <li>block size 每次读取多少</li>
-        </ul>
-      </li>
-      <li></li>
-      <li>count</li>
-      <li>
-        <ul>
-          <li>读取次数</li>
-        </ul>
-      </li>
-      <li>dd  if=/dev/zero  of=/tmp/swapfile  bs=1M  count=1000</li>
-      <li></li>
-      <li></li>
-      <li>mkswap  /tmp/swapfile</li>
-      <li></li>
-      <li>free -h</li>
-      <li></li>
-      <li>chmod  600  /tmp/swapfile</li>
-      <li></li>
-      <li>mkswap /tmp/swapfile</li>
-      <li></li>
-      <li>
-        <p>swapon  /tmp/swapfile</p>
-      </li>
-      <li>free -h</li>
-      <li></li>
-      <li></li>
-      <li>先卸载当前的 Swap 文件</li>
-      <li>
-        <ul>
-          <li>
-            <p>swapoff /tmp/swapfile</p>
-          </li>
-          <li></li>
-        </ul>
-      </li>
-      <li>使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载）
-        <ul>
-          <li></li>
-          <li>swapon -a</li>
-        </ul>
-      </li>
-      <li>
-        <p>vim /etc/fstab（修改）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 创建swap空间：
+- 
+	- 创建swapfile空间 ==&gt;  转为swap  ==&gt;  激活swap并加入linux   ==&gt;  配置永久挂载
+	
+	
+	- if        
+	- 
+		- input file
+	
+	- 
+	- of
+	- 
+		- output file
+		
+	
+	- bs
+	- 
+		- block size 每次读取多少
+	
+	- 
+	- count     
+	- 
+		- 读取次数
+	
+	- dd  if=/dev/zero  of=/tmp/swapfile  bs=1M  count=1000
+	- 
+	- 
+	- mkswap  /tmp/swapfile
+	- 
+	- free -h
+	- 
+	- chmod  600  /tmp/swapfile
+	- 
+	- mkswap /tmp/swapfile
+	- 
+	- swapon  /tmp/swapfile
 
-        <ul>
-          <li>/swapfile   swap   swap    defaults    0    0</li>
-        </ul>
-      </li>
-      <li>
-        <p>free -h</p>
+		
 
-        <ul>
-          <li>再次查看挂载情况</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+	- free -h
+	- 
+
+	- 
+	- 先卸载当前的 Swap 文件 
+	- 
+		- swapoff /tmp/swapfile 
+		
+		- 
+	- 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） 
+		- 
+		- swapon -a
+		
+	- vim /etc/fstab（修改）
+
+		- /swapfile   swap   swap    defaults    0    0 
+	
+	
+	- free -h 
+		
+		- 再次查看挂载情况
+</code></pre></div></div>
 
 
         </div>
         
+
+   
+
+      
+
         <div class="mt-5">
             <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
         </div>
@@ -187,7 +173,7 @@
   <!-- _includes/footer.html -->
 <footer class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
-    <p class="mb-2"> &copy; 2026 欢迎来到我的博客！！！ - 为高效而生</p>
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
    
     <div class="list-inline">
       <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
