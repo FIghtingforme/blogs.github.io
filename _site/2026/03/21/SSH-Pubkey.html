@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSH安全密钥设置 | 一天一天...</title>
+
+  
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+
+
+
+  <style>
+    /* SaaS 高级感微调 */
+    :root { --bs-primary: #BEEDC7; } 
+    body { font-family: 'Inter', sans-serif; color: #000000; }
+    .btn-primary { border-radius: 8px; padding: 15px 20px; font-weight: 600; }
+    .card { transition: 0.8s; }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- _includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    
+    <a class="navbar-brand logo-geek text-primary" href="/">
+         MySaaS
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item">
+        <a class="nav-link" href="/about/">关于我</a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="/#features">功能介绍</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">博客文章</a></li>
+        
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary rounded-pill px-4" href="#">阅读开始</a>  
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+<!-- 这样你的博客文章也会自带导航栏和页脚 -->
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="blog-post">
+
+        <!-- 文章标题 -->
+        <h1 class="display-5 fw-bold mb-3">SSH安全密钥设置</h1>
+        
+        <!-- 文章元数据（日期） -->
+        <p class="text-muted mb-4">
+          发布于 2026年03月21日
+        </p>
+
+        <hr class="my-5">
+
+        <!-- 文章正文内容 -->
+        <div class="blog-content markdown-body">
+          <h2 id="ssh开放高位端口以及免密钥匙登录">==SSH开放高位端口以及免密钥匙登录==</h2>
+
+<p><strong>极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！</strong> 所有的测试请在<strong>新开的终端窗口</strong>中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。</p>
+
+<h2 id="以下是完整的操作步骤">以下是完整的操作步骤：</h2>
+
+<h3 id="第一步确保你已经配置好了密钥登录">第一步：确保你已经配置好了密钥登录</h3>
+
+<h4 id="在禁用密码登录之前你必须确保密钥登录已经可以成功使用">在禁用密码登录之前，你必须确保密钥登录已经可以成功使用。</h4>
+
+<ol>
+  <li>如果你在本地还没有生成过密钥，请在<strong>本地电脑</strong>终端执行：</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t ed25519 -C "your_email@example.com"
+</code></pre></div></div>
+
+<ol>
+  <li>将公钥上传到服务器（把 user 和 ip 换成你的服务器账号和IP）：</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id user@ip
+</code></pre></div></div>
+
+<ol>
+  <li><strong>测试密钥登录</strong>：新开一个终端，输入 ssh user@ip，如果不需要输入密码就能直接登入，说明密钥配置成功。</li>
+</ol>
+
+<hr />
+
+<h3 id="第二步修改-ssh-配置文件">第二步：修改 SSH 配置文件</h3>
+
+<p>在服务器上，使用你熟悉的编辑器（如 vim 或 nano）编辑 sshd 服务器端配置文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /etc/ssh/sshd_config
+</code></pre></div></div>
+
+<p>找到并修改以下三项内容（如果没有找到该项，或者前面有 # 注释符，请去掉 # 并修改）：</p>
+
+<ol>
+  <li><strong>修改端口</strong>：找到 Port 22，将其修改为你想要的的高位端口（建议在 10000 - 65535 之间，例如 50022）：</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Port 50022
+</code></pre></div></div>
+
+<ol>
+  <li><strong>禁用密码登录</strong>：找到 PasswordAuthentication，将其修改为 no：</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PasswordAuthentication no
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p><strong>确认开启密钥登录</strong>：找到 PubkeyAuthentication，确保其为 yes：</p>
+
+    <p>codeText</p>
+  </li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PubkeyAuthentication yes
+</code></pre></div></div>
+
+<p>保存并退出编辑器。</p>
+
+<hr />
+
+<h3 id="第三步放行防火墙规则非常关键">第三步：放行防火墙规则（非常关键）</h3>
+
+<p>在重启 SSH 服务之前，必须在防火墙中放行你刚才设置的高位端口，否则你将被拦截在外面。<br />
+根据你的系统，选择对应的防火墙命令：</p>
+
+<p><strong>如果是 Ubuntu / Debian (UFW):</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ufw allow 50022/tcp
+sudo ufw reload
+</code></pre></div></div>
+
+<p><strong>如果是 CentOS / RHEL / AlmaLinux (Firewalld):</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo firewall-cmd --permanent --zone=public --add-port=50022/tcp
+sudo firewall-cmd --reload
+</code></pre></div></div>
+
+<p>(注意：如果你使用的是阿里云、腾讯云、AWS等云服务器，你还必须登录云服务商的网页控制台，在<strong>安全组规则</strong>中添加一条入方向规则，放行 TCP 协议的 50022 端口)</p>
+
+<p><strong>如果你的系统开启了 SELinux (通常是 CentOS/RedHat 系):</strong><br />
+你还需要告诉 SELinux 允许 SSH 绑定这个新端口：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo semanage port -a -t ssh_port_t -p tcp 50022
+</code></pre></div></div>
+
+<p>(如果提示找不到 semanage 命令，请先运行 sudo yum install policycoreutils-python-utils)</p>
+
+<hr />
+
+<h3 id="第四步重启-ssh-服务">第四步：重启 SSH 服务</h3>
+
+<p>应用刚才修改的配置：</p>
+
+<p><strong>Ubuntu / Debian:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl restart ssh
+</code></pre></div></div>
+
+<p><strong>CentOS / RHEL:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl restart sshd
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="第五步验证登录">第五步：验证登录</h3>
+
+<p><strong>再次提醒：不要关闭当前的 SSH 窗口！</strong></p>
+
+<p>打开一个<strong>全新的终端窗口</strong>，尝试使用新端口进行连接：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -p 50022 user@ip
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p><strong>如果能成功登录</strong>：恭喜！说明配置完全正确。你现在可以安全地关闭旧的终端窗口了。</p>
+  </li>
+  <li>
+    <p><strong>如果连接被拒绝 (Connection refused) 或超时 (Timeout)</strong>：说明端口未开启、防火墙阻挡或云安全组未放行。请切回旧窗口排查错误。</p>
+  </li>
+  <li>
+    <p><strong>如果提示 Permission denied (publickey)</strong>：说明你的密钥没有配置正确，或者你连接时没有使用正确的私钥。请在旧窗口中把 PasswordAuthentication 改回 yes，重启 sshd 后重新配置密钥。</p>
+  </li>
+</ul>
+
+
+        </div>
+        
+
+   
+
+      
+
+        <div class="mt-5">
+            <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div> 
+
+  <!-- _includes/footer.html -->
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container text-center">
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
+   
+    <div class="list-inline">
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">服务条款</a>
+      <a href="/contact/" class="list-inline-item text-white-50 mx-2 text-decoration-none">联系我们</a>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
