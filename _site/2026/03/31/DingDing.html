@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>钉钉自动巡检告警--磁盘空间 | 一天一天...</title>
+
+  
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+
+
+
+  <style>
+    /* SaaS 高级感微调 */
+    :root { --bs-primary: #BEEDC7; } 
+    body { font-family: 'Inter', sans-serif; color: #000000; }
+    .btn-primary { border-radius: 8px; padding: 15px 20px; font-weight: 600; }
+    .card { transition: 0.8s; }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- _includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    
+    <a class="navbar-brand logo-geek text-primary" href="/">
+         MySaaS
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item">
+        <a class="nav-link" href="/about/">关于我</a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="/#features">功能介绍</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">博客文章</a></li>
+        
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary rounded-pill px-4" href="#">阅读开始</a>  
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+<!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+<!-- 这样你的博客文章也会自带导航栏和页脚 -->
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="blog-post">
+
+        <!-- 文章标题 -->
+        <h1 class="display-5 fw-bold mb-3">钉钉自动巡检告警--磁盘空间</h1>
+        
+        <!-- 文章元数据（日期） -->
+        <p class="text-muted mb-4">
+          发布于 2026年03月31日
+        </p>
+
+        <hr class="my-5">
+
+        <!-- 文章正文内容 -->
+        <div class="blog-content markdown-body">
+          <h3 id="钉钉自动巡检告警disk">钉钉自动巡检告警–Disk：</h3>
+
+<h4 id="注意在虚拟环境中要提前-pip-安装相应的库">注意：在虚拟环境中要提前 pip 安装相应的库</h4>
+<h4 id="注意钉钉机器人有使用频率限制每个机器人最多20条min">注意：钉钉机器人有使用频率限制：每个机器人最多20条/min</h4>
+
+<h4 id="建议采用python虚拟环境避免冲突">建议采用Python虚拟环境避免冲突</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#新建文件夹：
+mkdir /to/your/myPython
+touch /to/your/myPython/DingDing.py
+
+#激活venv环境，使命令行前出现venv标志
+python3 -m venv venv 
+
+#在所在文件目录执行
+source venv/bin/activate
+
+#执行脚本
+python3 /to/your/myPython/DingDing.py
+
+#取消venv
+deactivate
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="脚本代码及解释">脚本代码及解释：</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import requests
+
+import json
+
+import psutil
+
+import socket
+
+  
+#自己的token，在 钉钉自建群 ==》机器人 ==》 自定义机器人 ==》查看token ==》 安全策略带关键词，如"告警" 
+
+WEBHOOK_URL = "你的token"
+
+  
+
+def send_dingtalk_msg(content):
+
+    """发送钉钉告警的核心函数"""
+
+    headers = {"Content-Type": "application/json"}
+
+  
+
+    #构建消息体（必须包含关键词"告警"）
+
+    data = {
+
+        "msgtype": "text",
+
+        "text": {
+        
+            "content": f"【服务器自动巡检告警】\n{content}"
+
+        }
+
+    }
+
+  
+
+    try:
+
+        response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+  
+
+        result =response.json()
+
+  
+
+        if response.status_code == 200:
+
+            print("钉钉消息发送成功！！！")
+
+  
+
+        else:
+
+            print(f"发送失败，错误码：{response.status_code}")
+
+  
+
+    except Exception as e:
+
+        print(f"网络请求出错：{e}")
+
+  
+
+def check_disk_usage():
+
+    """检查磁盘使用率"""
+
+    hostname = socket.gethostname()
+
+  
+
+    disk_info = psutil.disk_usage('/')
+
+    percent = disk_info.percent
+
+  
+
+    print(f"当前磁盘使用率：{percent}")
+
+  
+	#设置一个合理的磁盘空间"报警值"
+    if percent &gt; 80:
+
+        msg = f"主机名：{hostname}\n状态：磁盘空间不足\n当前使用率：{percent}%\n请及时清理日志或扩容！！！"
+
+        send_dingtalk_msg(msg)
+
+    else:
+
+        print("磁盘状态正常")
+
+  
+
+if __name__ == "__main__":
+
+    check_disk_usage()
+    
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="设置crontab定时脚本">设置crontab定时脚本：</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#编辑脚本
+crontab -e
+
+#添加：
+0 * * * * /to/your/venv/bin/python /to/your/DingDing.py
+
+#完成后会出现新安装的提示
+
+#如果想要测试的话还是直接用： 
+python3 /to/your/DingDing.py
+
+</code></pre></div></div>
+
+<hr />
+
+        </div>
+        
+
+   
+
+      
+
+        <div class="mt-5">
+            <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div> 
+
+  <!-- _includes/footer.html -->
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container text-center">
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
+   
+    <div class="list-inline">
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">服务条款</a>
+      <a href="/contact/" class="list-inline-item text-white-50 mx-2 text-decoration-none">联系我们</a>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
