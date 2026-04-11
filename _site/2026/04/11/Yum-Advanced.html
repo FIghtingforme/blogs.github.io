@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yum 进阶 | 一天一天...</title>
+
+  
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+
+
+
+  <style>
+    /* SaaS 高级感微调 */
+    :root { --bs-primary: #BEEDC7; } 
+    body { font-family: 'Inter', sans-serif; color: #000000; }
+    .btn-primary { border-radius: 8px; padding: 15px 20px; font-weight: 600; }
+    .card { transition: 0.8s; }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- _includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    
+    <a class="navbar-brand logo-geek text-primary" href="/">
+         MySaaS
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item">
+        <a class="nav-link" href="/about/">关于我</a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="/#features">功能介绍</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">博客文章</a></li>
+        
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary rounded-pill px-4" href="#">阅读开始</a>  
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+<!-- 这样你的博客文章也会自带导航栏和页脚 -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="blog-post">
+
+        <!-- 文章标题 -->
+        <h1 class="display-5 fw-bold mb-3">yum 进阶</h1>
+        
+        <!-- 文章元数据（日期） -->
+        <p class="text-muted mb-4">
+          发布于 2026年04月11日
+        </p>
+
+        <hr class="my-5">
+
+        <!-- 文章正文内容 -->
+        <div class="blog-content markdown-body">
+          <h2 id="探究yum源的混乱">探究yum源的混乱</h2>
+
+<p><strong>更换yum源核心逻辑：注释metalink；更换国内的baseurl</strong></p>
+
+<p><strong>解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源</strong></p>
+
+<h3 id="配置yum的目的">配置yum的目的：</h3>
+
+<p>#### 直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 <strong>地理位置更近、带宽更高的镜像站</strong></p>
+
+<p>#### 高可用：国内大厂的镜像站有极高的负载均衡，保证 <strong>7X24 小时不中断</strong></p>
+
+<p>#### 版本一致性：使用私有的企业内部私有源保证服务器安装的 <strong>软件版本一致</strong></p>
+
+<hr />
+
+<h3 id="etcyumreposd-文件拆解">/etc/yum.repos.d/ 文件拆解：</h3>
+
+<h4 id="核心系统源baseos-appstream">核心系统源（BaseOS， AppStream）：</h4>
+
+<ul>
+  <li>
+    <p>rocky.repo</p>
+  </li>
+  <li>
+    <p>包含 linux内核，li，cp，ssh等操作系统生存必须的基础包</p>
+  </li>
+  <li>
+    <p>必须改！！！</p>
+  </li>
+</ul>
+
+<h4 id="官方拓展源--extras-plus">官方拓展源 ( Extras, Plus)：</h4>
+
+<ul>
+  <li>
+    <p>rocky-extras.repo</p>
+  </li>
+  <li>
+    <p>包含官方支持但不属于核心系统的插件</p>
+  </li>
+  <li>
+    <p>建议改</p>
+  </li>
+</ul>
+
+<h4 id="第三方社区源-epel-">第三方社区源（ EPEL ）：</h4>
+
+<ul>
+  <li>
+    <p>epel.repo</p>
+  </li>
+  <li>
+    <p>由 Federa 社区维护，提供很多红帽系官方不带的工具</p>
+  </li>
+  <li>
+    <p>必须改</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="repo-文件示例">repo 文件示例：</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[epel] 
+# 仓库 ID 
+name=Extra Packages for Enterprise Linux 9 
+# 仓库名称 
+
+# metalink=https://mirrors... 
+# 自动寻找最快节点的地址（通常由于网络问题失效） 
+
+baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
+# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
+
+gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
+# 校验用的公钥
+
+</code></pre></div></div>
+
+<hr />
+
+<p>Yum 源案例实践：</p>
+
+<p>First Step — 删除所有乱七八糟的 .repo 文件和备份文件</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 1. 创建一个紧急备份目录（以防万一）
+sudo mkdir -p /etc/yum.repos.d/backup_archive
+
+# 2. 将现有所有乱七八糟的文件移走，让目录变空
+sudo mv /etc/yum.repos.d/*.repo* /etc/yum.repos.d/backup_archive/
+
+# 3. 清理缓存元数据，确保 dnf 不再记住之前的错误路径
+sudo dnf clean all
+
+</code></pre></div></div>
+
+<p>Second Step — 还原官方默认设置</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 强制重装仓库定义包，这会自动在 /etc/yum.repos.d/ 下生成官方原版的 .repo 文件
+sudo dnf reinstall rocky-repos rocky-release -y
+
+# 验证官方文件是否回来
+ll /etc/yum.repos.d/
+# 预期输出：rocky.repo, rocky-addons.repo 等纯净的官方文件
+
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>如果不行需要现在 /etc/yum.repos.d/ 下生成 bootstrap.repo （ 引导 ）</p>
+  </li>
+  <li>
+    <p><strong>因为 dnf 是联网包管理器，删除了所有 /etc/yum.repos.d/ 下的所有repo文件 就不知道去哪个下载站下载</strong></p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 直接在命令行输入以下整段命令
+sudo tee /etc/yum.repos.d/bootstrap.repo &lt;&lt;EOF
+[bootstrap-baseos]
+name=Bootstrap BaseOS
+baseurl=https://mirrors.aliyun.com/rockylinux/9/BaseOS/x86_64/os/
+gpgcheck=0
+enabled=1
+
+[bootstrap-appstream]
+name=Bootstrap AppStream
+baseurl=https://mirrors.aliyun.com/rockylinux/9/AppStream/x86_64/os/
+gpgcheck=0
+enabled=1
+EOF
+
+</code></pre></div></div>
+
+<p>Third Step — 采用阿里云镜像站进行 “yum 加速”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 使用 sed 批量替换官方地址为阿里云地址
+sudo sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+         -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.aliyun.com/rockylinux|g' \
+         -i /etc/yum.repos.d/rocky*.repo
+
+# 建立索引记录
+sudo dnf makecache
+
+
+
+</code></pre></div></div>
+
+<p>Forth Step — 配置 EPEL 镜像源</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 1. 安装 EPEL 官方定义包 / 包未安装上重新安装
+sudo dnf install epel-release -y || sudo dnf reinstall epel-release -y
+
+# 2. 将 EPEL 也切换到阿里云镜像，保证下载 Rclone 飞快
+sudo sed -e 's|^metalink=|#metalink=|g' \
+		-e's|^#baseurl=https\?://download.fedoraproject.org/pub/epel/|baseurl=https://mirrors.aliyun.com/epel/|g' \ 
+         -i /etc/yum.repos.d/epel*.repo
+
+# 3. 开启 Rocky 9 必须的 CRB 库（很多 EPEL 包依赖它）
+sudo dnf config-manager --set-enabled crb
+
+# 4. 最后一次全量缓存刷新
+sudo dnf makecache
+
+</code></pre></div></div>
+
+<ul>
+  <li>epel 用不了可参考阿里文档，一定选和系统适配的 epel：
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://developer.aliyun.com/mirror/epel/?spm=a2c6h.25603864.0.0.14959e5axyjIWx
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Fifth Step — 验证 yum 是否加速成功</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 检查现在的仓库列表，确认状态为 enabled 且路径正确 dnf repolist 
+# 尝试安装 rclone 验证闭环 sudo dnf install -y rclone
+
+</code></pre></div></div>
+
+<p>下载rclone时候提示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ sudo dnf makecache
+Extra Packages for Enterprise Linux 8 - x86_64  43 kB/s | 4.0 kB     00:00
+Rocky Linux 9 - BaseOS                          27 kB/s | 4.3 kB     00:00
+Rocky Linux 9 - AppStream                       60 kB/s | 4.8 kB     00:00
+Rocky Linux 9 - CRB                             52 kB/s | 4.8 kB     00:00
+Rocky Linux 9 - Extras                          18 kB/s | 3.1 kB     00:00
+Metadata cache created.
+
+</code></pre></div></div>
+
+<p>可能是 epel 8 系列 和 系统不一致导致系统直接忽略 rclone 包，所以重新安装了新的 epel 9</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 1. 移除错误的 epel-release 包 
+sudo dnf remove epel-release -y 
+
+# 2. 清理所有残留的 8 版本缓存 
+sudo dnf clean all
+
+# 1. 安装适配 Rocky 9 的 EPEL 定义包
+sudo dnf install -y https://mirrors.aliyun.com/epel/epel-release-latest-9.noarch.rpm
+
+# 2. 再次执行镜像加速;这里如果执行不成功可以去 /etc/yum.repos.d/epel.repo 文件看baseurl的前面共同部分再切换到下面
+ 
+sudo sed -e 's|^metalink=|#metalink=|g' \
+         -e 's|^#baseurl=https\?://download.fedoraproject.org/pub/epel/|baseurl=https://mirrors.aliyun.com/epel/|g' \
+         -i /etc/yum.repos.d/epel*.repo
+
+# 激活 CRB仓库，rclone 在 9 版本中需要基础开发库的支持，被 Rocky 官方放在了 crb仓库
+sudo dnf config-manager --set-enabled crb
+
+
+
+# 1. 重新建立索引 
+sudo dnf makecache 
+
+# 2. 观察输出！确认看到的是 "Extra Packages for Enterprise Linux 9" 
+
+# 3. 安装 
+rclone sudo dnf install -y rclone 
+
+# 4. 验证版本 
+rclone version
+
+
+</code></pre></div></div>
+
+<p>rclone 安装成功，最后 epel 源 也是成功显示在仓库里：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ dnf repolist
+repo id             repo name
+appstream           Rocky Linux 9 - AppStream
+baseos              Rocky Linux 9 - BaseOS
+crb                 Rocky Linux 9 - CRB
+epel                Extra Packages for Enterprise Linux 9 - x86_64
+epel-cisco-openh264 Extra Packages for Enterprise Linux 9 openh264 (From Cisco) - x86_64
+extras              Rocky Linux 9 - Extras
+
+</code></pre></div></div>
+
+<p>后续：私有镜像源管理（ image / binary ）？？</p>
+
+
+        </div>
+        
+
+   
+
+      
+
+        <div class="mt-5">
+            <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div> 
+
+  <!-- _includes/footer.html -->
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container text-center">
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
+   
+    <div class="list-inline">
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">服务条款</a>
+      <a href="/contact/" class="list-inline-item text-white-50 mx-2 text-decoration-none">联系我们</a>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
