@@ -232,7 +232,151 @@ The `sed` command has options to change how it works:
 
 
 
-### continues...
+#### Suppress Printing  
+
+- The `-n` option suppresses automatic printing of pattern space.
+
+- By default, `sed` prints each line of input to the output. Using `-n` allows you to control which lines are printed, typically with the `p` command.
+
+```
+[devops@lb01 ~/test]$ sed -n 's/sa/saaaa/p' ./test1.txt
+saaaafj
+saaaalj
+
+# less test1.txt
+safj
+salj
+aslkj
+
+
+[devops@lb01 ~/test]$ sed -n 's/as/aaa/p' ./test1.txt
+aaalkj
+[devops@lb01 ~/test]$ less ./test1.txt
+[devops@lb01 ~/test]$ cat ./test1.txt
+safj
+salj
+aslkj
+```
+
+
+#### Extended Regular Expressions
+
+- The `-r` option allows the use of extended regular expressions, which provide more powerful pattern matching capabilities than basic regular expressions.
+
+- Without this option, `sed` uses basic regular expressions.
+
+```
+# text
+safj
+salj
+aslkj
+
+#######################################
+[devops@lb01 ~/test]$ sed -r 's/(safj|salj)/aaaa/g' test1.txt
+aaaa
+aaaa
+aslkj
+```
+
+
+#### Script from a File
+
+- The `-f` option allows you to add a script from a file, which is useful for executing complex or multiple `sed` commands.
+
+- Without this option, you must specify the script directly in the command line.
+
+
+
+```
+# Content of `script.sed` file:  
+s/salj/saaalj/g
+
+
+# text
+safj
+salj
+aslkj
+
+################################################
+# sed -f ./script.sed ./test1.txt
+[devops@lb01 ~/test]$ sed -f ./script.sed ./test1.txt
+safj
+saaalj
+aslkj
+```
+
+#### Specify Line Length
+
+- The `-l` option specifies the line length for the `l` command, which prints lines with non-printable characters.
+
+- This option is useful for formatting output when dealing with long lines.
+
+```
+# text:
+alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+
+# sed -l 10 'l' ./test1.txt
+[devops@lb01 ~/test]$ sed -l 10 'l' ./test1.txt
+alfjioaj#\
+!$ 5345 $\
+%# joi540\
+238709@%%\
+9 345%$$(\
+ lkj435 %\
+$%$
+alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+
+```
+
+- This option appends a `$` at the end of each line to indicate the end of the line.
+- 默认 `$` 换行,即使指定宽度 -1 N 也要遵守。
+
+
+###### Redirect Output to a File
+
+- To save the changes made by `sed` to a file, you can redirect the output to a new file. This is useful when you don't want to overwrite the `original file` .
+
+
+```
+# sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
+
+[devops@lb01 ~/test]$ sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
+[devops@lb01 ~/test]$ less ./test2.txt
+aaaaaalfjioaaaaaaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+```
+
+
+#### Using `sed` for Advanced Text Processing
+
+- Sed can perform advanced text processing tasks. For example, `sed 's/^/Prefix: /' example_text.txt` adds a prefix to each line.
+
+
+```
+# text:
+alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+safdsafsd
+arewg
+fdsbsfdg
+
+
+[devops@lb01 ~/test]$ sed 's/^/prefix: /g' ./test1.txt
+prefix: alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+prefix: safdsafsd
+prefix: arewg
+prefix: fdsbsfdg
+
+```
+
+#### Common Errors and Troubleshooting
+
+#### When using `sed`, you might encounter errors such as:
+
+- `"sed: command garbled" `- Check your command syntax.
+- `"sed: can't read file"` - Ensure the file path is correct and accessible.
+
+- Debugging tips include using `echo` to print intermediate results and verify command logic.
+
+
 
 
 

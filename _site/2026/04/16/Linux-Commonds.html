@@ -297,7 +297,142 @@ The `sed` command has options to change how it works:
 
 
 
-### continues...
+#### Suppress Printing  
+
+- The `-n` option suppresses automatic printing of pattern space.
+
+- By default, `sed` prints each line of input to the output. Using `-n` allows you to control which lines are printed, typically with the `p` command.
+
+</code></pre></div></div>
+<p>[devops@lb01 ~/test]$ sed -n ‘s/sa/saaaa/p’ ./test1.txt
+saaaafj
+saaaalj</p>
+
+<h1 id="less-test1txt">less test1.txt</h1>
+<p>safj
+salj
+aslkj</p>
+
+<p>[devops@lb01 ~/test]$ sed -n ‘s/as/aaa/p’ ./test1.txt
+aaalkj
+[devops@lb01 ~/test]$ less ./test1.txt
+[devops@lb01 ~/test]$ cat ./test1.txt
+safj
+salj
+aslkj</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+#### Extended Regular Expressions
+
+- The `-r` option allows the use of extended regular expressions, which provide more powerful pattern matching capabilities than basic regular expressions.
+
+- Without this option, `sed` uses basic regular expressions.
+
+</code></pre></div></div>
+<h1 id="text">text</h1>
+<p>safj
+salj
+aslkj</p>
+
+<p>#######################################
+[devops@lb01 ~/test]$ sed -r ‘s/(safj|salj)/aaaa/g’ test1.txt
+aaaa
+aaaa
+aslkj</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+#### Script from a File
+
+- The `-f` option allows you to add a script from a file, which is useful for executing complex or multiple `sed` commands.
+
+- Without this option, you must specify the script directly in the command line.
+
+
+
+</code></pre></div></div>
+<h1 id="content-ofscriptsedfile">Content of <code class="language-plaintext highlighter-rouge">script.sed</code> file:</h1>
+<p>s/salj/saaalj/g</p>
+
+<h1 id="text-1">text</h1>
+<p>safj
+salj
+aslkj</p>
+
+<p>################################################</p>
+<h1 id="sed--f-scriptsed-test1txt">sed -f ./script.sed ./test1.txt</h1>
+<p>[devops@lb01 ~/test]$ sed -f ./script.sed ./test1.txt
+safj
+saaalj
+aslkj</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#### Specify Line Length
+
+- The `-l` option specifies the line length for the `l` command, which prints lines with non-printable characters.
+
+- This option is useful for formatting output when dealing with long lines.
+
+</code></pre></div></div>
+<h1 id="text-2">text:</h1>
+<p>alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%</p>
+
+<h1 id="sed--l-10-l-test1txt">sed -l 10 ‘l’ ./test1.txt</h1>
+<p>[devops@lb01 ~/test]$ sed -l 10 ‘l’ ./test1.txt
+alfjioaj#<br />
+!$ 5345 $<br />
+%# joi540<br />
+238709@%%<br />
+9 345%\((\
+ lkj435 %\
+$%$
+alfjioaj#!$ 5345 $%# joi540238709@%%9 345%\)( lkj435 %$%</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+- This option appends a `$` at the end of each line to indicate the end of the line.
+- 默认 `$` 换行,即使指定宽度 -1 N 也要遵守。
+
+
+###### Redirect Output to a File
+
+- To save the changes made by `sed` to a file, you can redirect the output to a new file. This is useful when you don't want to overwrite the `original file` .
+
+
+</code></pre></div></div>
+<h1 id="sed-saaaaaaag-test1txt--test2txt">sed ‘s/a/aaaaaa/g’ ./test1.txt &gt; ./test2.txt</h1>
+
+<p>[devops@lb01 ~/test]$ sed ‘s/a/aaaaaa/g’ ./test1.txt &gt; ./test2.txt
+[devops@lb01 ~/test]$ less ./test2.txt
+aaaaaalfjioaaaaaaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+#### Using `sed` for Advanced Text Processing
+
+- Sed can perform advanced text processing tasks. For example, `sed 's/^/Prefix: /' example_text.txt` adds a prefix to each line.
+
+
+</code></pre></div></div>
+<h1 id="text-3">text:</h1>
+<p>alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+safdsafsd
+arewg
+fdsbsfdg</p>
+
+<p>[devops@lb01 ~/test]$ sed ‘s/^/prefix: /g’ ./test1.txt
+prefix: alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+prefix: safdsafsd
+prefix: arewg
+prefix: fdsbsfdg</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#### Common Errors and Troubleshooting
+
+#### When using `sed`, you might encounter errors such as:
+
+- `"sed: command garbled" `- Check your command syntax.
+- `"sed: can't read file"` - Ensure the file path is correct and accessible.
+
+- Debugging tips include using `echo` to print intermediate results and verify command logic.
+
+
 
 
 
