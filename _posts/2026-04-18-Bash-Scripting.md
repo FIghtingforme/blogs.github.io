@@ -33,19 +33,23 @@ catagories: Linux
 #### To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):
 
 ```
+
 [devops@lb01 ~]$ ps | grep $$
  185152 pts/1    00:00:00 bash
  
  # This response shows that the shell you are using is of type 'bash'. 
+
 ```
 
 #### next find out the full path of the shell interpreter
 
 ```
+
 [devops@lb01 ~]$ which bash
 /usr/bin/bash
 
 # This response shows the full execution path of the shell interpreter. 
+
 ```
 
 #### Make sure that the "sha-bang" (#!) line at the beginning of your script, matches this same execution path:
@@ -64,16 +68,20 @@ catagories: Linux
 - to edit the first.sh
 
 ```
+
 #!/usr/bin/bash
 echo "hello world"
+
 ```
 
 - output:
 
 ```
+
 [devops@lb01 ~/scripts/shell]$ less  ./first.sh
 [devops@lb01 ~/scripts/shell]$ sh ./first.sh
 hello world
+
 ```
 
 
@@ -83,20 +91,26 @@ hello world
 
 #### Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore "_". Value assignment is done using the "=" sign. Note that no space permitted on either side of = sign when initializing variables.
 
+
 ```
+
 [devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
 [devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
 [devops@lb01 ~/scripts/shell]$ greeting='hello          world!'
 
 # Referencing the variables
+
 ```
 
 #### A backslash `\` is used to escape special character meaning
 
+
 ```
+
 [devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
 [devops@lb01 ~/scripts/shell]$ echo "The price of an Apple today is: \$HK $PRICE_PER_APPLE"
 The price of an Apple today is: $HK 5
+
 ```
 
 
@@ -104,22 +118,27 @@ The price of an Apple today is: $HK 5
 
 
 ```
+
 [devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
 [devops@lb01 ~/scripts/shell]$ echo "The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL"
 The first 10 letters in the alphabet are: ABCDEFGHIJKL
+
 ```
 
 #### Encapsulating the variable name with "" will preserve any white space values
 
 ```
+
 [devops@lb01 ~/scripts/shell]$ greeting="hello    world"
 [devops@lb01 ~/scripts/shell]$ echo $greeting" now with spaces: $greeting"
 hello world now with spaces: hello    world
+
 ```
 
 #### Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()
 
 ```
+
 [devops@lb01 ~/scripts/shell]$ FileList=$(ls)
 [devops@lb01 ~/scripts/shell]$ $(ls)
 -bash: 111: command not found
@@ -132,6 +151,7 @@ hello world now with spaces: hello    world
 [devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date +%Y-%m-%d).txt
 
 # Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
+
 ```
 
 #### Exercise
@@ -141,12 +161,15 @@ hello world now with spaces: hello    world
 - Note that the 'date' command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:
 
 ```
+
 date -d "$date1" +%A
+
 ```
 
 - You can use Shell Check to detective your codes.
 
 ```
+
 #!/bin/bash
 
 set -euo pipefail
@@ -204,6 +227,7 @@ I was born on a Saturday
 - 4_17.sh file contains below code
 
 ```
+
 #!/bin/bash
 echo "File name is $0"
 echo $3
@@ -232,6 +256,7 @@ apple 5 banana 8 Fruit Basket 15
 - Pass "Shell is fun" (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.
 
 ```
+
 #!/usr/bin/bash
 
 function File {
@@ -270,13 +295,18 @@ fi
 
 - The total number of elements in the array is referenced by ${#arrayname[@]}
 
-```bash
+```
+
+bash
 my_array=(apple banana "Fruit Basket" orange)
 echo  ${#my_array[@]}                   # 4
+
 ```
 
 - The array elements can be accessed with their numeric index. The index of the first element is 0.
+
 ```
+
 [devops@lb01 ~/scripts/shell]$ my_array=(apple banana "Fruit Basket" orange)
 [devops@lb01 ~/scripts/shell]$ echo $(my_array[2])
 -bash: my_array[2]: command not found
@@ -337,10 +367,12 @@ Numberofnames: 2
 - Simple arithmetics on variables can be done using the **arithmetic expression**: $((expression))
 
 ```
+
 [devops@lb01 ~/scripts/shell]$ A=3
 [devops@lb01 ~/scripts/shell]$ B=$((100 * $A / 5))
 [devops@lb01 ~/scripts/shell]$ echo $B
 60
+
 ```
 
 
@@ -362,6 +394,7 @@ a ** b exponentiation (a to the power of b)
 - In this exercise, you will need to calculate to total cost (variable TOTAL) of a fruit basket, which contains 1 pineapple, 2 bananas and 3 watermelons. Don't forget to include the cost of the basket....
 
 ```
+
 #!/bin/bash
 
 COST_PINEAPPLE=50
@@ -380,7 +413,7 @@ echo "Total Cost is $TOTAL"
 # BASH && OUTPUT:
 Total Cost is 78
 
-
+```
 
 
 ---

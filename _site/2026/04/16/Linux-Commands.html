@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux_Commonds | 一天一天...</title>
+  <title>Linux Common Commands | 一天一天...</title>
 
   
 
@@ -75,7 +75,7 @@
       <article class="blog-post">
 
         <!-- 文章标题 -->
-        <h1 class="display-5 fw-bold mb-3">Linux_Commonds</h1>
+        <h1 class="display-5 fw-bold mb-3">Linux Common Commands</h1>
         
         <!-- 文章元数据（日期） -->
         <p class="text-muted mb-4">
@@ -86,9 +86,9 @@
 
         <!-- 文章正文内容 -->
         <div class="blog-content markdown-body">
-          <h3 id="linux-commands-in-read-world">Linux Commands in Read-World:</h3>
+          <p>###Linux Commands in Read-World:</p>
 
-<h3 id="commands">Commands:</h3>
+<p>###Commands:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ls  cp  find  |  xargs  cat  |  grep  |  sort  |  uniq  &gt;  &gt;&gt;
@@ -123,38 +123,38 @@ ls .
 
 
 
-#### The `sort` command is used to sort lines of text files.
+####The `sort` command is used to sort lines of text files.
 
-#### It's a handy tool for organizing data in files.
+####It's a handy tool for organizing data in files.
 
 </code></pre></div></div>
-<h3 id="vim--4_17txt">vim  4_17.txt</h3>
-<p>apples,1
+<p>###vim  4_17.txt
+apples,1
 kiwis,3
 kiwis,4
 oranges,3
 banana,10</p>
 
-<p>###############################################</p>
-<h3 id="sort-4_17txt">sort 4_17.txt</h3>
-<p>[devops@lb01 ~/scripts/shell]$ sort ./4_17.txt
+<p>###############################################
+###sort 4_17.txt
+[devops@lb01 ~/scripts/shell]$ sort ./4_17.txt
 apples,1
 banana,10
 kiwis,3
 kiwis,4
 oranges,3</p>
 
-<p>#####################################################</p>
-<h3 id="reverse">reverse:</h3>
-<p>[devops@lb01 ~/scripts/shell]$ sort -r ./4_17.txt
+<p>#####################################################
+###reverse:
+[devops@lb01 ~/scripts/shell]$ sort -r ./4_17.txt
 oranges,3
 kiwis,4
 kiwis,3
 banana,10
 apples,1</p>
 
-<p>######################################################</p>
-<h3 id="number">number:</h3>
+<p>######################################################
+###number:</p>
 
 <p>[devops@lb01 ~/scripts/shell]$ sort -r -t “,” -k 2 -n ./4_17.txt
 banana,10
@@ -167,10 +167,10 @@ apples,1</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
-#### man ls (for more help.)
+####man ls (for more help.)
 
 
-#### Alian:To create an alias, use the syntax `alias name='command'`, where `name` is the shortcut you want to use, and `command` is the full command you want to run.
+####Alian:To create an alias, use the syntax `alias name='command'`, where `name` is the shortcut you want to use, and `command` is the full command you want to run.
 
 </code></pre></div></div>
 
@@ -185,10 +185,10 @@ drwxr-xr-x 3 devops devops    19 Apr 10 17:56 ..
 -rw-r–r– 1 devops devops    45 Apr 14 06:46 server_performance_stats
 -rw-r–r– 1 devops devops 12288 Apr 14 06:47 .server_performance_stats.swp</p>
 
-<h3 id="in-this-examplelllists-all-files-in-long-format">In this example, <code class="language-plaintext highlighter-rouge">ll</code> lists all files in long format.</h3>
+<p>###In this example, <code class="language-plaintext highlighter-rouge">ll</code> lists all files in long format.</p>
 
-<p>###################################################</p>
-<h3 id="git-status">git status</h3>
+<p>###################################################
+###git status</p>
 
 <p>$ alias gs=”git status”</p>
 
@@ -201,29 +201,29 @@ Your branch is up to date with ‘origin/main’.</p>
 
 <p>############################################</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-#### To copy a file to a remote host, use `scp file user@hostname:/path`:
+####To copy a file to a remote host, use `scp file user@hostname:/path`:
 
 </code></pre></div></div>
 <p>[devops@lb01 ~/scripts/shell]$ scp ./4_17.sh root@10.0.0.6:/
 root@10.0.0.6’s password:
 4_17.sh                                       100%  247   115.1KB/s   00:00</p>
 
-<p>###################################################</p>
-<h1 id="in-other-machine-to-detective-the-file">In other machine to detective the file:</h1>
-<p>[root@web01 ~]# ip a | grep eth0
+<p>###################################################
+#In other machine to detective the file: 
+[root@web01 ~]#ip a | grep eth0
 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
     inet 10.0.0.6/24 brd 10.0.0.255 scope global noprefixroute eth0
-[root@web01 ~]# ls
+[root@web01 ~]#ls
 anaconda-ks.cfg  DingDing_py  python.py  ZipFile.py
-[root@web01 ~]# ls / | grep 4
+[root@web01 ~]#ls / | grep 4
 4_17.sh
 lib64</p>
 
-<h1 id="congratuateits-successful">Congratuate,it’s successful!!!</h1>
+<p>#Congratuate,it’s successful!!!</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
 
-#### Clear the file contents:
+####Clear the file contents:
 
 </code></pre></div></div>
 <p>[devops@lb01 ~/scripts/shell]$  &gt; ./4_17.txt
@@ -232,21 +232,21 @@ lib64</p>
 ---
 
 
-#### The `awk` command is used for pattern scanning and processing language.
+####The `awk` command is used for pattern scanning and processing language.
 
-#### It's useful for handling text files and used for data extraction and reporting.
+####It's useful for handling text files and used for data extraction and reporting.
 
 </code></pre></div></div>
-<h1 id="edit-the-file">Edit the file:</h1>
-<p>id,Created,Amount,Currency,Description,Customer
+<p>#Edit the file:
+id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
 2,2024-11-02,200,EUR,Refund,Jane Smith
 3,2024-11-03,150,USD,Purchase,Emily Davis
 4,2024-11-04,175,GBP,Subscription,Michael Brown</p>
 
-<p>###############################################</p>
-<h1 id="output">output:</h1>
-<p>[devops@lb01 ~/scripts/shell]$ less ./4_17.txt | awk -F”,” ‘{print $1}’
+<p>###############################################
+#output:
+[devops@lb01 ~/scripts/shell]$ less ./4_17.txt | awk -F”,” ‘{print $1}’
 id
 1
 2
@@ -256,23 +256,23 @@ id
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ---
 
-### Sed
-#### The `sed` command is a stream editor used to perform basic text transformations on an input stream (a file or input from a pipeline).
+###Sed
+####The `sed` command is a stream editor used to perform basic text transformations on an input stream (a file or input from a pipeline).
 
-#### It's a powerful tool for making quick edits to files or streams of data.
+####It's a powerful tool for making quick edits to files or streams of data.
 
 
 </code></pre></div></div>
-<h1 id="edit-the-file-1">edit the file:</h1>
-<p>id,Created,Amount,Currency,Description,Customer
+<p>#edit the file:
+id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
 2,2024-11-02,200,EUR,Refund,Jane Smith
 3,2024-11-03,150,USD,Purchase,Emily Davis
 4,2024-11-04,175,GBP,Subscription,Michael Brown</p>
 
-<p>####################################################</p>
-<h1 id="replace-2026">replace “2026”</h1>
-<p>[devops@lb01 ~/scripts/shell]$ sed ‘s/2024/2026/’ ./4_17.txt
+<p>####################################################
+#replace “2026”
+[devops@lb01 ~/scripts/shell]$ sed ‘s/2024/2026/’ ./4_17.txt
 id,Created,Amount,Currency,Description,Customer
 1,2026-11-01,100,USD,Payment,John Doe
 2,2026-11-02,200,EUR,Refund,Jane Smith
@@ -283,7 +283,7 @@ id,Created,Amount,Currency,Description,Customer
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
-#### Options
+####Options
 
 The `sed` command has options to change how it works:
 
@@ -297,19 +297,20 @@ The `sed` command has options to change how it works:
 
 
 
-#### Suppress Printing  
+####Suppress Printing  
 
 - The `-n` option suppresses automatic printing of pattern space.
 
 - By default, `sed` prints each line of input to the output. Using `-n` allows you to control which lines are printed, typically with the `p` command.
 
 </code></pre></div></div>
+
 <p>[devops@lb01 ~/test]$ sed -n ‘s/sa/saaaa/p’ ./test1.txt
 saaaafj
 saaaalj</p>
 
-<h1 id="less-test1txt">less test1.txt</h1>
-<p>safj
+<p>#less test1.txt
+safj
 salj
 aslkj</p>
 
@@ -320,17 +321,19 @@ aaalkj
 safj
 salj
 aslkj</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
-#### Extended Regular Expressions
+####Extended Regular Expressions
 
 - The `-r` option allows the use of extended regular expressions, which provide more powerful pattern matching capabilities than basic regular expressions.
 
 - Without this option, `sed` uses basic regular expressions.
 
 </code></pre></div></div>
-<h1 id="text">text</h1>
-<p>safj
+
+<p>#text
+safj
 salj
 aslkj</p>
 
@@ -339,9 +342,10 @@ aslkj</p>
 aaaa
 aaaa
 aslkj</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
-#### Script from a File
+####Script from a File
 
 - The `-f` option allows you to add a script from a file, which is useful for executing complex or multiple `sed` commands.
 
@@ -350,87 +354,233 @@ aslkj</p>
 
 
 </code></pre></div></div>
-<h1 id="content-ofscriptsedfile">Content of <code class="language-plaintext highlighter-rouge">script.sed</code> file:</h1>
-<p>s/salj/saaalj/g</p>
 
-<h1 id="text-1">text</h1>
-<p>safj
+<p>#Content of <code class="language-plaintext highlighter-rouge">script.sed</code> file:<br />
+s/salj/saaalj/g</p>
+
+<p>#text
+safj
 salj
 aslkj</p>
 
-<p>################################################</p>
-<h1 id="sed--f-scriptsed-test1txt">sed -f ./script.sed ./test1.txt</h1>
-<p>[devops@lb01 ~/test]$ sed -f ./script.sed ./test1.txt
+<p>################################################
+#sed -f ./script.sed ./test1.txt
+[devops@lb01 ~/test]$ sed -f ./script.sed ./test1.txt
 safj
 saaalj
 aslkj</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-#### Specify Line Length
+####Specify Line Length
 
 - The `-l` option specifies the line length for the `l` command, which prints lines with non-printable characters.
 
 - This option is useful for formatting output when dealing with long lines.
 
 </code></pre></div></div>
-<h1 id="text-2">text:</h1>
-<p>alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%</p>
 
-<h1 id="sed--l-10-l-test1txt">sed -l 10 ‘l’ ./test1.txt</h1>
-<p>[devops@lb01 ~/test]$ sed -l 10 ‘l’ ./test1.txt
+<p>#text:
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%</p>
+
+<p>#sed -l 10 ‘l’ ./test1.txt
+[devops@lb01 ~/test]$ sed -l 10 ‘l’ ./test1.txt
 alfjioaj#<br />
 !$ 5345 $<br />
-%# joi540<br />
+%#joi540<br />
 238709@%%<br />
 9 345%\((\
  lkj435 %\
 $%$
-alfjioaj#!$ 5345 $%# joi540238709@%%9 345%\)( lkj435 %$%</p>
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%\)( lkj435 %$%</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 - This option appends a `$` at the end of each line to indicate the end of the line.
 - 默认 `$` 换行,即使指定宽度 -1 N 也要遵守。
 
 
-###### Redirect Output to a File
+######Redirect Output to a File
 
 - To save the changes made by `sed` to a file, you can redirect the output to a new file. This is useful when you don't want to overwrite the `original file` .
 
 
 </code></pre></div></div>
-<h1 id="sed-saaaaaaag-test1txt--test2txt">sed ‘s/a/aaaaaa/g’ ./test1.txt &gt; ./test2.txt</h1>
+
+<p>#sed ‘s/a/aaaaaa/g’ ./test1.txt &gt; ./test2.txt</p>
 
 <p>[devops@lb01 ~/test]$ sed ‘s/a/aaaaaa/g’ ./test1.txt &gt; ./test2.txt
 [devops@lb01 ~/test]$ less ./test2.txt
-aaaaaalfjioaaaaaaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%</p>
+aaaaaalfjioaaaaaaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 
-#### Using `sed` for Advanced Text Processing
+####Using `sed` for Advanced Text Processing
 
 - Sed can perform advanced text processing tasks. For example, `sed 's/^/Prefix: /' example_text.txt` adds a prefix to each line.
 
 
 </code></pre></div></div>
-<h1 id="text-3">text:</h1>
-<p>alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+
+<p>#text:
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 safdsafsd
 arewg
 fdsbsfdg</p>
 
 <p>[devops@lb01 ~/test]$ sed ‘s/^/prefix: /g’ ./test1.txt
-prefix: alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+prefix: alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 prefix: safdsafsd
 prefix: arewg
 prefix: fdsbsfdg</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-#### Common Errors and Troubleshooting
+####Common Errors and Troubleshooting
 
-#### When using `sed`, you might encounter errors such as:
+####When using `sed`, you might encounter errors such as:
 
 - `"sed: command garbled" `- Check your command syntax.
 - `"sed: can't read file"` - Ensure the file path is correct and accessible.
 
 - Debugging tips include using `echo` to print intermediate results and verify command logic.
+
+
+###rmdir
+
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">rmdir</code> is a command-line utility used to remove empty directories. It’s a straightforward tool that helps in cleaning up directory structures by deleting directories that no longer contain any files or subdirectories. The command will return an error if the directory is not empty.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+
+###Bash `cut` Command - Remove Sections from Lines
+
+####The `cut` command is used to remove sections from each line of files.
+
+####It's a useful tool for extracting specific fields of data from a file or output stream.
+
+####All examples below use the `example.txt` file:
+
+</code></pre></div></div>
+<p>Kai Refsnes 30,Norway 
+Robin Smith 25,Denmark 
+Sienna Davis 40,Germany</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+####Basic Usage
+
+- To extract the first field of a file, use `cut -f1 example.txt`:
+
+</code></pre></div></div>
+<p>[devops@lb01 ~]$ cut -f1 example.txt
+Kai
+Robin
+Sienna</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+- By default, `cut` uses a tab as the delimiter.
+
+####Options
+
+#####The `cut` command has options to change how it works:
+
+- `-d` - Choose what separates the fields
+- `-f` - Select specific fields to display
+- `--complement` - Show all fields except the selected ones
+
+
+####Specify a Delimiter
+
+- The `-d` option allows you to choose what separates the fields.
+
+</code></pre></div></div>
+<p>#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany</p>
+
+<p>[devops@lb01 ~]$ cut -d ‘,’ -f2 example.txt
+Norway
+Denmark
+Germany</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+####Select Specific Fields
+
+- The `-f` option allows you to select specific fields to display.
+
+</code></pre></div></div>
+<p>#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany</p>
+
+<p>[devops@lb01 ~]$ cut -f1-2 example.txt
+Kai     Refsnes
+Robin   Smith
+Sienna  Davis</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+####Show Complement
+
+The `--complement` option allows you to show all fields except the selected ones.
+
+</code></pre></div></div>
+
+<p>#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany</p>
+
+<p>[devops@lb01 ~]$ cut -f1 –complement example.txt
+Refsnes 30,Norway
+Smith   25,Denmark
+Davis   40,Germany</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+
+####Advanced Field Extraction
+
+- Cut can perform advanced field extraction tasks.
+
+- For example, `cut -d   -f2-3 example_data.txt` extracts fields 2 through 3 from the file.
+
+
+</code></pre></div></div>
+
+<p>#text:</p>
+
+<p>Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany</p>
+
+<p>[devops@lb01 ~]$ cut -d ‘ ‘ -f2-3 example.txt
+        Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+
+####Common Errors and Troubleshooting
+
+#####When using `cut`, you might encounter errors such as:
+
+- "cut: delimiter must be a single character" - Ensure the delimiter is correctly specified.
+- "cut: fields and positions are numbered from 1" - Remember that field and position numbering starts at 1.
+
+####Debugging tips include checking the delimiter and field specifications to ensure they match the file's format.
+
+
+---
+
+
+###Bash `sort` Command - Sort Lines of Text Files
+
+
+####Using the `sort` Command
+
+#####The `sort` command is used to sort lines of text files.
+
+#####It's a handy tool for organizing data in files.
+
 
 
 

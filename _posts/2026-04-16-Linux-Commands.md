@@ -1,17 +1,17 @@
 ---
 
 date: 2026-04-16
-title: Linux_Commonds
+title: Linux Common Commands
 layout: post
 catagories: Linux
 
 ---
 
 
-### Linux Commands in Read-World:
+###Linux Commands in Read-World:
 
 
-### Commands:
+###Commands:
 
 ```
 
@@ -50,12 +50,12 @@ ls .
 
 
 
-#### The `sort` command is used to sort lines of text files.
+####The `sort` command is used to sort lines of text files.
 
-#### It's a handy tool for organizing data in files.
+####It's a handy tool for organizing data in files.
 
 ```
-### vim  4_17.txt
+###vim  4_17.txt
 apples,1
 kiwis,3
 kiwis,4
@@ -63,7 +63,7 @@ oranges,3
 banana,10
 
 ###############################################
-### sort 4_17.txt
+###sort 4_17.txt
 [devops@lb01 ~/scripts/shell]$ sort ./4_17.txt
 apples,1
 banana,10
@@ -73,7 +73,7 @@ oranges,3
 
 
 #####################################################
-### reverse:
+###reverse:
 [devops@lb01 ~/scripts/shell]$ sort -r ./4_17.txt
 oranges,3
 kiwis,4
@@ -82,7 +82,7 @@ banana,10
 apples,1
 
 ######################################################
-### number:
+###number:
 
 [devops@lb01 ~/scripts/shell]$ sort -r -t "," -k 2 -n ./4_17.txt
 banana,10
@@ -96,10 +96,10 @@ apples,1
 ```
 
 
-#### man ls (for more help.)
+####man ls (for more help.)
 
 
-#### Alian:To create an alias, use the syntax `alias name='command'`, where `name` is the shortcut you want to use, and `command` is the full command you want to run.
+####Alian:To create an alias, use the syntax `alias name='command'`, where `name` is the shortcut you want to use, and `command` is the full command you want to run.
 
 ```
 
@@ -114,10 +114,10 @@ drwxr-xr-x 3 devops devops    19 Apr 10 17:56 ..
 -rw-r--r-- 1 devops devops    45 Apr 14 06:46 server_performance_stats
 -rw-r--r-- 1 devops devops 12288 Apr 14 06:47 .server_performance_stats.swp
 
-### In this example, `ll` lists all files in long format.
+###In this example, `ll` lists all files in long format.
 
 ###################################################
-### git status
+###git status
 
 $ alias gs="git status"
 
@@ -131,7 +131,7 @@ nothing to commit, working tree clean
 ############################################
 ```
 
-#### To copy a file to a remote host, use `scp file user@hostname:/path`:
+####To copy a file to a remote host, use `scp file user@hostname:/path`:
 
 ```
 [devops@lb01 ~/scripts/shell]$ scp ./4_17.sh root@10.0.0.6:/
@@ -139,22 +139,22 @@ root@10.0.0.6's password:
 4_17.sh                                       100%  247   115.1KB/s   00:00
 
 ###################################################
-# In other machine to detective the file: 
-[root@web01 ~]# ip a | grep eth0
+#In other machine to detective the file: 
+[root@web01 ~]#ip a | grep eth0
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     inet 10.0.0.6/24 brd 10.0.0.255 scope global noprefixroute eth0
-[root@web01 ~]# ls
+[root@web01 ~]#ls
 anaconda-ks.cfg  DingDing_py  python.py  ZipFile.py
-[root@web01 ~]# ls / | grep 4
+[root@web01 ~]#ls / | grep 4
 4_17.sh
 lib64
 
-# Congratuate,it's successful!!!
+#Congratuate,it's successful!!!
 ```
 
 
 
-#### Clear the file contents:
+####Clear the file contents:
 
 ```
 [devops@lb01 ~/scripts/shell]$  > ./4_17.txt
@@ -164,12 +164,12 @@ lib64
 ---
 
 
-#### The `awk` command is used for pattern scanning and processing language.
+####The `awk` command is used for pattern scanning and processing language.
 
-#### It's useful for handling text files and used for data extraction and reporting.
+####It's useful for handling text files and used for data extraction and reporting.
 
 ```
-# Edit the file:
+#Edit the file:
 id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
 2,2024-11-02,200,EUR,Refund,Jane Smith
@@ -177,7 +177,7 @@ id,Created,Amount,Currency,Description,Customer
 4,2024-11-04,175,GBP,Subscription,Michael Brown
 
 ###############################################
-# output:
+#output:
 [devops@lb01 ~/scripts/shell]$ less ./4_17.txt | awk -F"," '{print $1}'
 id
 1
@@ -189,14 +189,14 @@ id
 
 ---
 
-### Sed
-#### The `sed` command is a stream editor used to perform basic text transformations on an input stream (a file or input from a pipeline).
+###Sed
+####The `sed` command is a stream editor used to perform basic text transformations on an input stream (a file or input from a pipeline).
 
-#### It's a powerful tool for making quick edits to files or streams of data.
+####It's a powerful tool for making quick edits to files or streams of data.
 
 
 ```
-# edit the file:
+#edit the file:
 id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
 2,2024-11-02,200,EUR,Refund,Jane Smith
@@ -204,7 +204,7 @@ id,Created,Amount,Currency,Description,Customer
 4,2024-11-04,175,GBP,Subscription,Michael Brown
 
 ####################################################
-# replace "2026"
+#replace "2026"
 [devops@lb01 ~/scripts/shell]$ sed 's/2024/2026/' ./4_17.txt
 id,Created,Amount,Currency,Description,Customer
 1,2026-11-01,100,USD,Payment,John Doe
@@ -218,7 +218,7 @@ id,Created,Amount,Currency,Description,Customer
 ```
 
 
-#### Options
+####Options
 
 The `sed` command has options to change how it works:
 
@@ -232,18 +232,19 @@ The `sed` command has options to change how it works:
 
 
 
-#### Suppress Printing  
+####Suppress Printing  
 
 - The `-n` option suppresses automatic printing of pattern space.
 
 - By default, `sed` prints each line of input to the output. Using `-n` allows you to control which lines are printed, typically with the `p` command.
 
 ```
+
 [devops@lb01 ~/test]$ sed -n 's/sa/saaaa/p' ./test1.txt
 saaaafj
 saaaalj
 
-# less test1.txt
+#less test1.txt
 safj
 salj
 aslkj
@@ -256,17 +257,19 @@ aaalkj
 safj
 salj
 aslkj
+
 ```
 
 
-#### Extended Regular Expressions
+####Extended Regular Expressions
 
 - The `-r` option allows the use of extended regular expressions, which provide more powerful pattern matching capabilities than basic regular expressions.
 
 - Without this option, `sed` uses basic regular expressions.
 
 ```
-# text
+
+#text
 safj
 salj
 aslkj
@@ -276,10 +279,11 @@ aslkj
 aaaa
 aaaa
 aslkj
+
 ```
 
 
-#### Script from a File
+####Script from a File
 
 - The `-f` option allows you to add a script from a file, which is useful for executing complex or multiple `sed` commands.
 
@@ -288,43 +292,46 @@ aslkj
 
 
 ```
-# Content of `script.sed` file:  
+
+#Content of `script.sed` file:  
 s/salj/saaalj/g
 
 
-# text
+#text
 safj
 salj
 aslkj
 
 ################################################
-# sed -f ./script.sed ./test1.txt
+#sed -f ./script.sed ./test1.txt
 [devops@lb01 ~/test]$ sed -f ./script.sed ./test1.txt
 safj
 saaalj
 aslkj
+
 ```
 
-#### Specify Line Length
+####Specify Line Length
 
 - The `-l` option specifies the line length for the `l` command, which prints lines with non-printable characters.
 
 - This option is useful for formatting output when dealing with long lines.
 
 ```
-# text:
-alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
 
-# sed -l 10 'l' ./test1.txt
+#text:
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
+
+#sed -l 10 'l' ./test1.txt
 [devops@lb01 ~/test]$ sed -l 10 'l' ./test1.txt
 alfjioaj#\
 !$ 5345 $\
-%# joi540\
+%#joi540\
 238709@%%\
 9 345%$$(\
  lkj435 %\
 $%$
-alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 
 ```
 
@@ -332,49 +339,201 @@ alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
 - 默认 `$` 换行,即使指定宽度 -1 N 也要遵守。
 
 
-###### Redirect Output to a File
+######Redirect Output to a File
 
 - To save the changes made by `sed` to a file, you can redirect the output to a new file. This is useful when you don't want to overwrite the `original file` .
 
 
 ```
-# sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
+
+#sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
 
 [devops@lb01 ~/test]$ sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
 [devops@lb01 ~/test]$ less ./test2.txt
-aaaaaalfjioaaaaaaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+aaaaaalfjioaaaaaaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
+
 ```
 
 
-#### Using `sed` for Advanced Text Processing
+####Using `sed` for Advanced Text Processing
 
 - Sed can perform advanced text processing tasks. For example, `sed 's/^/Prefix: /' example_text.txt` adds a prefix to each line.
 
 
 ```
-# text:
-alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+
+#text:
+alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 safdsafsd
 arewg
 fdsbsfdg
 
 
 [devops@lb01 ~/test]$ sed 's/^/prefix: /g' ./test1.txt
-prefix: alfjioaj#!$ 5345 $%# joi540238709@%%9 345%$$( lkj435 %$%
+prefix: alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 prefix: safdsafsd
 prefix: arewg
 prefix: fdsbsfdg
 
 ```
 
-#### Common Errors and Troubleshooting
+####Common Errors and Troubleshooting
 
-#### When using `sed`, you might encounter errors such as:
+####When using `sed`, you might encounter errors such as:
 
 - `"sed: command garbled" `- Check your command syntax.
 - `"sed: can't read file"` - Ensure the file path is correct and accessible.
 
 - Debugging tips include using `echo` to print intermediate results and verify command logic.
+
+
+###rmdir
+
+```
+ `rmdir` is a command-line utility used to remove empty directories. It's a straightforward tool that helps in cleaning up directory structures by deleting directories that no longer contain any files or subdirectories. The command will return an error if the directory is not empty.
+```
+
+
+
+###Bash `cut` Command - Remove Sections from Lines
+
+####The `cut` command is used to remove sections from each line of files.
+
+####It's a useful tool for extracting specific fields of data from a file or output stream.
+
+####All examples below use the `example.txt` file:
+
+```
+Kai Refsnes 30,Norway 
+Robin Smith 25,Denmark 
+Sienna Davis 40,Germany
+```
+
+
+####Basic Usage
+
+- To extract the first field of a file, use `cut -f1 example.txt`:
+
+```
+[devops@lb01 ~]$ cut -f1 example.txt
+Kai
+Robin
+Sienna
+```
+
+- By default, `cut` uses a tab as the delimiter.
+
+####Options
+
+#####The `cut` command has options to change how it works:
+
+- `-d` - Choose what separates the fields
+- `-f` - Select specific fields to display
+- `--complement` - Show all fields except the selected ones
+
+
+####Specify a Delimiter
+
+- The `-d` option allows you to choose what separates the fields.
+
+```
+#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany
+
+[devops@lb01 ~]$ cut -d ',' -f2 example.txt
+Norway
+Denmark
+Germany
+```
+
+####Select Specific Fields
+
+- The `-f` option allows you to select specific fields to display.
+
+```
+#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany
+
+
+[devops@lb01 ~]$ cut -f1-2 example.txt
+Kai     Refsnes
+Robin   Smith
+Sienna  Davis
+
+```
+
+
+####Show Complement
+
+The `--complement` option allows you to show all fields except the selected ones.
+
+```
+
+#text:
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany
+
+
+[devops@lb01 ~]$ cut -f1 --complement example.txt
+Refsnes 30,Norway
+Smith   25,Denmark
+Davis   40,Germany
+
+```
+
+
+
+####Advanced Field Extraction
+
+- Cut can perform advanced field extraction tasks.
+
+- For example, `cut -d   -f2-3 example_data.txt` extracts fields 2 through 3 from the file.
+
+
+```
+
+#text:
+
+Kai     Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany
+
+[devops@lb01 ~]$ cut -d ' ' -f2-3 example.txt
+        Refsnes 30,Norway
+Robin   Smith   25,Denmark
+Sienna  Davis   40,Germany
+
+```
+
+
+
+####Common Errors and Troubleshooting
+
+#####When using `cut`, you might encounter errors such as:
+
+- "cut: delimiter must be a single character" - Ensure the delimiter is correctly specified.
+- "cut: fields and positions are numbered from 1" - Remember that field and position numbering starts at 1.
+
+####Debugging tips include checking the delimiter and field specifications to ensure they match the file's format.
+
+
+---
+
+
+###Bash `sort` Command - Sort Lines of Text Files
+
+
+####Using the `sort` Command
+
+#####The `sort` command is used to sort lines of text files.
+
+#####It's a handy tool for organizing data in files.
+
 
 
 

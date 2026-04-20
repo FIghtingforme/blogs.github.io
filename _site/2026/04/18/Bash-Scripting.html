@@ -104,18 +104,22 @@
 
 <h4 id="to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow">To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~]$ ps | grep $$
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ ps | grep $$
  185152 pts/1    00:00:00 bash
  
  # This response shows that the shell you are using is of type 'bash'. 
+
 </code></pre></div></div>
 
 <h4 id="next-find-out-the-full-path-of-the-shell-interpreter">next find out the full path of the shell interpreter</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~]$ which bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ which bash
 /usr/bin/bash
 
 # This response shows the full execution path of the shell interpreter. 
+
 </code></pre></div></div>
 
 <h4 id="make-sure-that-the-sha-bang--line-at-the-beginning-of-your-script-matches-this-same-execution-path">Make sure that the “sha-bang” (#!) line at the beginning of your script, matches this same execution path:</h4>
@@ -134,17 +138,21 @@
   <li>to edit the first.sh</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/usr/bin/bash
 echo "hello world"
+
 </code></pre></div></div>
 
 <ul>
   <li>output:</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ less  ./first.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ less  ./first.sh
 [devops@lb01 ~/scripts/shell]$ sh ./first.sh
 hello world
+
 </code></pre></div></div>
 
 <hr />
@@ -153,37 +161,46 @@ hello world
 
 <h4 id="shell-variables-are-created-once-they-are-assigned-a-value-a-variable-can-contain-a-number-a-character-or-a-string-of-characters-variable-name-is-case-sensitive-and-can-consist-of-a-combination-of-letters-and-the-underscore-_-value-assignment-is-done-using-the--sign-note-that-no-space-permitted-on-either-side-of--sign-when-initializing-variables">Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore “_”. Value assignment is done using the “=” sign. Note that no space permitted on either side of = sign when initializing variables.</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
 [devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
 [devops@lb01 ~/scripts/shell]$ greeting='hello          world!'
 
 # Referencing the variables
+
 </code></pre></div></div>
 
 <h4 id="a-backslash--is-used-to-escape-special-character-meaning">A backslash <code class="language-plaintext highlighter-rouge">\</code> is used to escape special character meaning</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
 [devops@lb01 ~/scripts/shell]$ echo "The price of an Apple today is: \$HK $PRICE_PER_APPLE"
 The price of an Apple today is: $HK 5
+
 </code></pre></div></div>
 
 <h4 id="encapsulating-the-variable-name-with--is-used-to-avoid-ambiguity">Encapsulating the variable name with ${} is used to avoid ambiguity</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
 [devops@lb01 ~/scripts/shell]$ echo "The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL"
 The first 10 letters in the alphabet are: ABCDEFGHIJKL
+
 </code></pre></div></div>
 
 <h4 id="encapsulating-the-variable-name-with--will-preserve-any-white-space-values">Encapsulating the variable name with “” will preserve any white space values</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ greeting="hello    world"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ greeting="hello    world"
 [devops@lb01 ~/scripts/shell]$ echo $greeting" now with spaces: $greeting"
 hello world now with spaces: hello    world
+
 </code></pre></div></div>
 
 <h4 id="variables-can-be-assigned-with-the-value-of-a-command-output-this-is-referred-to-as-substitution-substitution-can-be-done-by-encapsulating-the-command-with--known-as-back-ticks-or-with-">Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
 [devops@lb01 ~/scripts/shell]$ $(ls)
 -bash: 111: command not found
 [devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date +^C
@@ -195,6 +212,7 @@ hello world now with spaces: hello    world
 [devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date +%Y-%m-%d).txt
 
 # Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
+
 </code></pre></div></div>
 
 <h4 id="exercise">Exercise</h4>
@@ -205,14 +223,17 @@ hello world now with spaces: hello    world
   <li>Note that the ‘date’ command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>date -d "$date1" +%A
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+date -d "$date1" +%A
+
 </code></pre></div></div>
 
 <ul>
   <li>You can use Shell Check to detective your codes.</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/bin/bash
 
 set -euo pipefail
 
@@ -268,7 +289,8 @@ I was born on a Saturday
   <li>4_17.sh file contains below code</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/bin/bash
 echo "File name is $0"
 echo $3
 Data=$5
@@ -297,7 +319,8 @@ apple 5 banana 8 Fruit Basket 15
   <li>Pass “Shell is fun” (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.</li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/usr/bin/bash
 
 function File {
   echo $#
@@ -336,115 +359,127 @@ fi
   </li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">my_array</span><span class="o">=(</span>apple banana <span class="s2">"Fruit Basket"</span> orange<span class="o">)</span>
-<span class="nb">echo</span>  <span class="k">${#</span><span class="nv">my_array</span><span class="p">[@]</span><span class="k">}</span>                   <span class="c"># 4</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+bash
+my_array=(apple banana "Fruit Basket" orange)
+echo  ${#my_array[@]}                   # 4
+
 </code></pre></div></div>
 
 <ul>
-  <li>The array elements can be accessed with their numeric index. The index of the first element is 0.
-```
-[devops@lb01 ~/scripts/shell]$ my_array=(apple banana “Fruit Basket” orange)
-[devops@lb01 ~/scripts/shell]$ echo $(my_array[2])
--bash: my_array[2]: command not found</li>
+  <li>The array elements can be accessed with their numeric index. The index of the first element is 0.</li>
 </ul>
 
-<p>[devops@lb01 ~/scripts/shell]$ echo ${#my_array}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ my_array=(apple banana "Fruit Basket" orange)
+[devops@lb01 ~/scripts/shell]$ echo $(my_array[2])
+-bash: my_array[2]: command not found
+
+[devops@lb01 ~/scripts/shell]$ echo ${#my_array}
 5
 [devops@lb01 ~/scripts/shell]$ echo ${#my_array[@]}
 4
 [devops@lb01 ~/scripts/shell]$
 [devops@lb01 ~/scripts/shell]$ echo ${my_array[3]}
 orange
-[devops@lb01 ~/scripts/shell]$ my_array[4]=”carrot”
-[devops@lb01 ~/scripts/shell]$ echo $(#my_array[@]}</p>
-<blockquote>
-  <p>^C
+[devops@lb01 ~/scripts/shell]$ my_array[4]="carrot"
+[devops@lb01 ~/scripts/shell]$ echo $(#my_array[@]}
+&gt; ^C
 [devops@lb01 ~/scripts/shell]$ echo ${#my_array[@]}
 5
 [devops@lb01 ~/scripts/shell]$ echo ${my_array[${#my_array[@]}-1]}
-carrot</p>
-</blockquote>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-
-#### Exercise
-
-- In this exercise, you will need to add numbers and strings to the correct arrays. You must add the numbers 1,2, and 3 to the "numbers" array, and the words 'hello' and 'world' to the strings array.
-
-- You will also have to correct the values of the variable NumberOfNames and the variable second_name. NumberOfNames should hold the total number of names in the NAMES array, using the $# special variable. Variable second_name should hold the second name in the NAMES array, using the brackets operator [ ]. Note that the index is zero-based, so if you want to access the second item in the list, its index will be 1.
+carrot
 
 </code></pre></div></div>
 
-<p>#!/bin/bash
+<h4 id="exercise-2">Exercise</h4>
+
+<ul>
+  <li>
+    <p>In this exercise, you will need to add numbers and strings to the correct arrays. You must add the numbers 1,2, and 3 to the “numbers” array, and the words ‘hello’ and ‘world’ to the strings array.</p>
+  </li>
+  <li>
+    <p>You will also have to correct the values of the variable NumberOfNames and the variable second_name. NumberOfNames should hold the total number of names in the NAMES array, using the $# special variable. Variable second_name should hold the second name in the NAMES array, using the brackets operator [ ]. Note that the index is zero-based, so if you want to access the second item in the list, its index will be 1.</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/bin/bash
 numbers=(1 2 3)
-string=(“hello” “world”)
-NumberOfNames=${#string[@]}</p>
+string=("hello" "world")
+NumberOfNames=${#string[@]}
 
-<p>NAMES=(“wangyang” “xiaohong” “xiaoli”)
+NAMES=("wangyang" "xiaohong" "xiaoli")
 second_name=${NAMES[1]}
-echo “numbers: ${#numbers[@]}”
-echo “second_name: $second_name”
-echo “Numberofnames: $NumberOfNames”</p>
+echo "numbers: ${#numbers[@]}"
+echo "second_name: $second_name"
+echo "Numberofnames: $NumberOfNames"
 
-<p>################################################</p>
-<h1 id="output">output:</h1>
-<p>[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh
+################################################
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh
 numbers: 3
 second_name: xiaohong
-Numberofnames: 2</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-
----
-
-
-### Basic Operators
-
-- Arithmetic Operators
-- Simple arithmetics on variables can be done using the **arithmetic expression**: $((expression))
+Numberofnames: 2
 
 </code></pre></div></div>
-<p>[devops@lb01 ~/scripts/shell]$ A=3
+
+<hr />
+
+<h3 id="basic-operators">Basic Operators</h3>
+
+<ul>
+  <li>Arithmetic Operators</li>
+  <li>Simple arithmetics on variables can be done using the <strong>arithmetic expression</strong>: $((expression))</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/scripts/shell]$ A=3
 [devops@lb01 ~/scripts/shell]$ B=$((100 * $A / 5))
 [devops@lb01 ~/scripts/shell]$ echo $B
-60</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-
-The basic operators are:
-
-a + b addition (a plus b)
-
-a - b substraction (a minus b)
-
-a * b multiplication (a times b)
-
-a / b division (integer) (a divided by b)
-
-a % b modulo (the integer remainder of a divided by b)
-
-a ** b exponentiation (a to the power of b)
-
-#### Exercise
-- In this exercise, you will need to calculate to total cost (variable TOTAL) of a fruit basket, which contains 1 pineapple, 2 bananas and 3 watermelons. Don't forget to include the cost of the basket....
+60
 
 </code></pre></div></div>
-<p>#!/bin/bash</p>
 
-<p>COST_PINEAPPLE=50</p>
+<p>The basic operators are:</p>
 
-<p>COST_BANANA=4</p>
+<p>a + b addition (a plus b)</p>
 
-<p>COST_WATERMELON=23</p>
+<p>a - b substraction (a minus b)</p>
 
-<p>COST_BASKET=1</p>
+<p>a * b multiplication (a times b)</p>
 
-<p>TOTAL=$(($COST_PINEAPPLE + $COST_BANANA + $COST_WATERMELON + $COST_BASKET))</p>
+<p>a / b division (integer) (a divided by b)</p>
 
-<p>echo “Total Cost is $TOTAL”</p>
+<p>a % b modulo (the integer remainder of a divided by b)</p>
 
-<p>#########################################################</p>
-<h1 id="bash--output">BASH &amp;&amp; OUTPUT:</h1>
-<p>Total Cost is 78</p>
+<p>a ** b exponentiation (a to the power of b)</p>
+
+<h4 id="exercise-3">Exercise</h4>
+<ul>
+  <li>In this exercise, you will need to calculate to total cost (variable TOTAL) of a fruit basket, which contains 1 pineapple, 2 bananas and 3 watermelons. Don’t forget to include the cost of the basket….</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/bin/bash
+
+COST_PINEAPPLE=50
+
+COST_BANANA=4
+
+COST_WATERMELON=23
+
+COST_BASKET=1
+
+TOTAL=$(($COST_PINEAPPLE + $COST_BANANA + $COST_WATERMELON + $COST_BASKET))
+
+echo "Total Cost is $TOTAL"
+
+#########################################################
+# BASH &amp;&amp; OUTPUT:
+Total Cost is 78
+
+</code></pre></div></div>
 
 <hr />
 
