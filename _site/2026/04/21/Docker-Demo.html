@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker | 一天一天...</title>
+
+  
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  
+
+
+
+  <style>
+    /* SaaS 高级感微调 */
+    :root { --bs-primary: #BEEDC7; } 
+    body { font-family: 'Inter', sans-serif; color: #000000; }
+    .btn-primary { border-radius: 8px; padding: 15px 20px; font-weight: 600; }
+    .card { transition: 0.8s; }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- _includes/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    
+    <a class="navbar-brand logo-geek text-primary" href="/">
+         MySaaS
+    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item">
+        <a class="nav-link" href="/about/">关于我</a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="/#features">功能介绍</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">博客文章</a></li>
+        
+        <li class="nav-item ms-lg-3">
+          <a class="btn btn-primary rounded-pill px-4" href="#">阅读开始</a>  
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- 这里的 layout: default 表示 post 布局会嵌套在 default 布局里面 -->
+<!-- 这样你的博客文章也会自带导航栏和页脚 -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+
+
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="blog-post">
+
+        <!-- 文章标题 -->
+        <h1 class="display-5 fw-bold mb-3">Docker</h1>
+        
+        <!-- 文章元数据（日期） -->
+        <p class="text-muted mb-4">
+          发布于 2026年04月21日
+        </p>
+
+        <hr class="my-5">
+
+        <!-- 文章正文内容 -->
+        <div class="blog-content markdown-body">
+          <h3 id="docker-commands">Docker Commands</h3>
+
+<ul>
+  <li>docker pull redis:8.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>redis:8.0.6-alpine
+</code></pre></div></div>
+
+<ul>
+  <li>docker images</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker images
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+my-nodejs:v1         954fdbfce62a        194MB         48.1MB    U
+nginx:latest         7f0adca1fc6c        237MB         65.8MB    U
+redis:8.0.6-alpine   5f61955be8ab       86.8MB         24.9MB    U
+
+</code></pre></div></div>
+
+<ul>
+  <li>docker run -p 6000:3000 –name -d redis-example redis:8.0.6-alpine</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name  redis-example redis:8.0.6-alpine
+d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c
+[devops@lb01 ~/docker/redis]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp   redis-example
+[devops@lb01 ~/docker/redis]$ ss -lntup
+Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process
+udp    UNCONN  0       0            127.0.0.1:323         0.0.0.0:*
+udp    UNCONN  0       0                [::1]:323            [::]:*
+tcp    LISTEN  0       4096           0.0.0.0:6000        0.0.0.0:*
+tcp    LISTEN  0       511            0.0.0.0:80          0.0.0.0:*
+tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*
+tcp    LISTEN  0       4096              [::]:6000           [::]:*
+tcp    LISTEN  0       511               [::]:80             [::]:*
+tcp    LISTEN  0       128               [::]:22             [::]:*
+tcp    LISTEN  0       32                   *:21                *:*
+
+</code></pre></div></div>
+
+<ul>
+  <li>docker exec -it d7d16d237b5f /bin/bash</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash
+OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory
+
+# 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # ls
+/data # pwd
+/data
+
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # cd /
+/ # ls
+bin    dev    home   media  opt    root   sbin   sys    usr
+data   etc    lib    mnt    proc   run    srv    tmp    var
+/ # env
+HOSTNAME=d7d16d237b5f
+SHLVL=1
+HOME=/root
+OLDPWD=/data
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/
+/ #
+/ # exit
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # curl
+/bin/sh: curl: not found
+
+</code></pre></div></div>
+
+<ul>
+  <li>Difference： docker ps  /  docker  ps  -a</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   "docker-entrypoint.s…"   31 minutes ago   Up 31 minutes   6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp   redis-example
+[devops@lb01 ~/docker/redis]$ docker ps -a
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   "docker-entrypoint.s…"   31 minutes ago   Up 31 minutes               6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp   redis-example
+37fb32f3b1f9   redis:8.0.6-alpine   "docker-entrypoint.s…"   43 minutes ago   Exited (0) 43 minutes ago                                                           redis-1
+8ffc7554566c   7f0adca1fc6c         "/docker-entrypoint.…"   31 hours ago     Exited (0) 30 hours ago                                                             sre-tutorial-nginx
+e329c77b6133   my-nodejs:v1         "docker-entrypoint.s…"   3 days ago       Exited (1) 30 hours ago                                                             web
+
+</code></pre></div></div>
+
+<hr />
+<h3 id="docker-deploy-the-demo-project">Docker Deploy the Demo Project</h3>
+
+<ul>
+  <li>Workflow with Docker:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Push: js,Mongo DB ==&gt; Git ==&gt; Jenkins: Build JS APP &amp; Create Docker Image ==&gt; Docker Repository( Docker Hub )  
+
+Pull: From "Docker Hub"
+
+</code></pre></div></div>
+
+<h4 id="developing-with-containers">Developing with Containers</h4>
+
+<ul>
+  <li>
+    <p>need: JS and Node application, MongoDB Docker Container</p>
+  </li>
+  <li>
+    <p>Docker Network: local:3000  ==&gt;  js, index.html  &amp;  Node  &amp;  MongoDB  &amp;  MongoDB Express</p>
+  </li>
+</ul>
+
+<h4 id="step-to-step">Step to step:</h4>
+
+<ul>
+  <li>docker pull mongo:latest</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker pull mongo:latest
+latest: Pulling from library/mongo
+
+</code></pre></div></div>
+
+<ul>
+  <li>docker pull mongo-express:1.0.2-20-alpine3.19</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ docker pull mongo-express:1.0.2-20-alpine3.19
+1.0.2-20-alpine3.19: Pulling from library/mongo-express
+
+</code></pre></div></div>
+
+<ul>
+  <li>docker network ls</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/docker/redis]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+af8fb5214c8a   bridge    bridge    local
+94b007c84757   host      host      local
+74952d9b5c35   none      null      local
+
+</code></pre></div></div>
+
+<ul>
+  <li>docker network create mongo</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+af8fb5214c8a   bridge    bridge    local
+94b007c84757   host      host      local
+74952d9b5c35   none      null      local
+[devops@lb01 ~]$ docker network create mongo
+0a4535c250ba9cd8d6cbd47618b687717c9a9ff5df0d93b81f0761ad32af63ea
+[devops@lb01 ~]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+af8fb5214c8a   bridge    bridge    local
+94b007c84757   host      host      local
+0a4535c250ba   mongo     bridge    local
+74952d9b5c35   none      null      local
+
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>docker run -p 27017:27017 –name mongo -d mongo:latest</p>
+  </li>
+  <li>
+    <p>Configure</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+docker run -d \
+-p 27017:27017 \
+-e MONGO_INITDB_ROOT_USERNAME=admin \
+-e MONGO_INITDB_ROOT_PASSWORD=password \
+--name mongodb \
+--net mongo \
+mongo:latest
+
+</code></pre></div></div>
+
+<h1 id="continues">Continues</h1>
+
+        </div>
+        
+
+   
+
+      
+
+        <div class="mt-5">
+            <a href="/blog" class="btn btn-outline-primary"> 返回博客列表 </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</div> 
+
+  <!-- _includes/footer.html -->
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container text-center">
+    <p class="mb-2"> &copy; 2026 一天一天... - 为高效而生</p>
+   
+    <div class="list-inline">
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">隐私政策</a>
+      <a href="#" class="list-inline-item text-white-50 mx-2 text-decoration-none">服务条款</a>
+      <a href="/contact/" class="list-inline-item text-white-50 mx-2 text-decoration-none">联系我们</a>
+    </div>
+
+  </div>
+</footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
