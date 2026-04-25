@@ -798,8 +798,1058 @@ docker_image.nginx
 
 </code></pre></div></div>
 
-<h3 id="change-infrastructure">Change Infrastructure</h3>
+<h3 id="destroy-infrastructure">Destroy infrastructure</h3>
 
+<ul>
+  <li>
+    <p>You have now created and updated a Docker container on your machine with Terraform. In this tutorial, you will use Terraform to destroy this infrastructure.</p>
+  </li>
+  <li>
+    <p>Once you no longer need infrastructure, you may want to destroy it to reduce your security exposure, costs, or resource overhead. For example, you may remove a production environment from service, or manage short-lived environments like build or testing systems. In addition to building and modifying infrastructure, Terraform can destroy or recreate the infrastructure it manages.</p>
+  </li>
+</ul>
+
+<h4 id="destroy">Destroy</h4>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">terraform destroy</code> command terminates resources managed by your Terraform project. This command is the inverse of <code class="language-plaintext highlighter-rouge">terraform apply</code> in that it terminates all the resources specified in your Terraform state. It does <em>not</em> destroy resources running elsewhere that are not managed by the current Terraform project.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">-</code> prefix indicates that the container will be destroyed. As with apply, Terraform shows its execution plan and waits for approval before making any changes.</p>
+  </li>
+  <li>
+    <p>Answer <code class="language-plaintext highlighter-rouge">yes</code> to execute this plan and destroy the infrastructure.</p>
+  </li>
+  <li>
+    <p>Destroy the resources you created:</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/restore_project]$ terraform destroy
+alicloud_oss_bucket.my_first_bucket: Refreshing state... [id=devops-state-bucket-yourname-2026-04-24]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be destroyed
+  - resource "alicloud_oss_bucket" "my_first_bucket" {
+      - acl                                      = "private" -&gt; null
+      - bucket                                   = "devops-state-bucket-yourname-2026-04-24" -&gt; null
+      - creation_date                            = "2026-04-24" -&gt; null
+      - extranet_endpoint                        = "oss-cn-hangzhou.aliyuncs.com" -&gt; null
+      - force_destroy                            = true -&gt; null
+      - id                                       = "devops-state-bucket-yourname-2026-04-24" -&gt; null
+      - intranet_endpoint                        = "oss-cn-hangzhou-internal.aliyuncs.com" -&gt; null
+      - lifecycle_rule_allow_same_action_overlap = false -&gt; null
+      - location                                 = "oss-cn-hangzhou" -&gt; null
+      - owner                                    = "1320472794666459" -&gt; null
+      - redundancy_type                          = "LRS" -&gt; null
+      - resource_group_id                        = "rg-acfmxu73chcjlwy" -&gt; null
+      - storage_class                            = "Standard" -&gt; null
+      - tags                                     = {} -&gt; null
+        # (1 unchanged attribute hidden)
+
+      - access_monitor {
+          - status = "Disabled" -&gt; null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+╷
+│ Warning: "acl": [DEPRECATED] Field 'acl' has been deprecated since provider version 1.220.0. New resource 'alicloud_oss_bucket_acl' instead.
+│
+│   with alicloud_oss_bucket.my_first_bucket,
+│   on main.tf line 13, in resource "alicloud_oss_bucket" "my_first_bucket":
+│   13: resource "alicloud_oss_bucket" "my_first_bucket" {
+│
+╵
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+alicloud_oss_bucket.my_first_bucket: Destroying... [id=devops-state-bucket-yourname-2026-04-24]
+alicloud_oss_bucket.my_first_bucket: Destruction complete after 1s
+
+</code></pre></div></div>
+
+<h3 id="define-input-variables">Define input variables</h3>
+
+<ul>
+  <li>You now have enough Terraform knowledge to create useful configurations, but the examples so far have used hard-coded values. Terraform configurations can include variables to make your configuration more dynamic and flexible.</li>
+</ul>
+
+<h4 id="prerequisites">Prerequisites</h4>
+
+<ul>
+  <li>After following previous tutorials, you will have a directory named <code class="language-plaintext highlighter-rouge">learn-terraform-docker-container</code> with the following configuration in a file called <code class="language-plaintext highlighter-rouge">main.tf</code>.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+# 1.下载工具（找资源）
+
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~&gt; 3.0.1"
+    }
+  }
+}
+
+
+
+# 2.配置工具，用于实例化并配置与 Docker 守护进程(Docker Daemon)的通信连接
+# 约定优于配置：留空让Terraform默认自动去找本地Docker进程
+
+provider "docker" {}
+
+
+
+# 3.resource块：使用工具，用于下发指令
+
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = false
+}
+
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.image_id
+  name  = "tutorial"
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+
+</code></pre></div></div>
+
+<p>Ensure that your configuration matches this, and that you have run <code class="language-plaintext highlighter-rouge">terraform init</code> in the <code class="language-plaintext highlighter-rouge">learn-terraform-docker-container</code> directory.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ vim ./main.tf
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Finding kreuzwerker/docker versions matching "~&gt; 3.0.1"...
+- Installing kreuzwerker/docker v3.0.2...
+
+</code></pre></div></div>
+
+<ul>
+  <li>Up: 用本地的 Terraform，去管理一台远在阿里云上的 ECS 服务器里的 Docker 容器”</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>provider "docker" {
+  # 告诉 Terraform：不要连本地的 Docker！通过 SSH 连到阿里云的那台生产服务器上去！
+  host = "ssh://root@123.45.67.89:22"
+}
+</code></pre></div></div>
+
+<h2 id="set-the-container-name-with-a-variable">Set the container name with a variable</h2>
+
+<ul>
+  <li>
+    <p>The current configuration includes a number of hard-coded values. Terraform variables allow you to write configuration that is flexible and easier to re-use.</p>
+  </li>
+  <li>
+    <p>Add a variable to define the container name.</p>
+  </li>
+  <li>
+    <p>Create a new file called <code class="language-plaintext highlighter-rouge">variables.tf</code> with a block defining a new <code class="language-plaintext highlighter-rouge">container_name</code> variable.</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>variable "container_name" {
+  description = "Value of the name for the Docker container"
+  type        = string
+  default     = "ExampleNginxContainer"
+}
+</code></pre></div></div>
+
+<h4 id="noteterraform-loads-all-files-in-the-current-directory-ending-intf-so-you-can-name-your-configuration-files-however-you-choose">Note:Terraform loads all files in the current directory ending in <code class="language-plaintext highlighter-rouge">.tf</code>, so you can name your configuration files however you choose.</h4>
+
+<ul>
+  <li>In <code class="language-plaintext highlighter-rouge">main.tf</code>, update the <code class="language-plaintext highlighter-rouge">docker_container</code> resource block to use the new variable. The <code class="language-plaintext highlighter-rouge">container_name</code> variable block will default to its default value (“ExampleNginxContainer”) unless you declare a different value.</li>
+  <li>Modify the main.tf:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resource "docker_container" "nginx" {
+ image = docker_image.nginx.image_id
+ name  = var.container_name
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">terraform</code> plan to view:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  + resource "docker_container" "nginx" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "varible_container"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + ports {
+          + external = 8000
+          + internal = 80
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_image.nginx will be created
+  + resource "docker_image" "nginx" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = false
+      + name         = "nginx:latest"
+      + repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+
+</code></pre></div></div>
+
+<h4 id="apply-your-configuration">Apply your configuration</h4>
+
+<ul>
+  <li>Apply the configuration. Respond to the confirmation prompt with a  <code class="language-plaintext highlighter-rouge">yes</code>.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Now apply the configuration again, this time overriding the default container name by passing in a variable using the <code class="language-plaintext highlighter-rouge">-var</code> flag. Terraform will update the container’s <code class="language-plaintext highlighter-rouge">name</code> attribute with the new name. Respond to the confirmation prompt with <code class="language-plaintext highlighter-rouge">yes</code>.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  + resource "docker_container" "nginx" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "varible_container"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + ports {
+          + external = 8000
+          + internal = 80
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_image.nginx will be created
+  + resource "docker_image" "nginx" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = false
+      + name         = "nginx:latest"
+      + repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+docker_image.nginx: Creating...
+docker_image.nginx: Still creating... [00m10s elapsed]
+docker_image.nginx: Still creating... [00m20s elapsed]
+docker_image.nginx: Still creating... [00m30s elapsed]
+docker_image.nginx: Still creating... [00m40s elapsed]
+docker_image.nginx: Creation complete after 48s [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 1s [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+
+# View `Docker Container &amp;&amp; Image`
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                                                                       i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+nginx:latest   6e23479198b9        237MB         65.8MB    U
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
+3488ecf82e76   6e23479198b9   "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:8000-&gt;80/tcp   varible_container
+
+</code></pre></div></div>
+
+<ul>
+  <li>Setting variables via the command-line will not save their values. Terraform supports many ways to use and set variables so you can avoid having to enter them repeatedly as you execute commands. To learn more, follow our in-depth tutorial, <a href="https://developer.hashicorp.com/terraform/tutorials/configuration-language/variables">Customize Terraform Configuration with Variables</a>.</li>
+</ul>
+
+<h4 id="change-variables">Change Variables:</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+export ALICLOUD_ACCESS_KEY="LTAIxxxxxxxxxxxx"
+
+export ALICLOUD_SECRET_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+export ALICLOUD_REGION="cn-beijing"
+
+  
+
+# View Variables about Alicloud
+
+printenv | grep "ALI*"
+
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="query-data-with-outputs">Query data with outputs</h3>
+
+<ul>
+  <li>
+    <p>In the previous tutorial, you used an input variable to parameterize your Terraform configuration. In this tutorial, you will use output values to organize data to be easily queried and displayed to the Terraform user.</p>
+  </li>
+  <li>
+    <p>If you have not yet completed the <a href="https://developer.hashicorp.com/terraform/tutorials/docker-get-started/docker-variables">Define Input Variables</a> tutorial, do so before following this one.</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply -var "container_name=docker_variable_container"
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/+ resource "docker_container" "nginx" {
+      + bridge                                      = (known after apply)
+      ~ command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+        ] -&gt; (known after apply)
+      + container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&gt; null
+      - dns                                         = [] -&gt; null
+      - dns_opts                                    = [] -&gt; null
+      - dns_search                                  = [] -&gt; null
+      ~ entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -&gt; (known after apply)
+      ~ env                                         = [] -&gt; (known after apply)
+      + exit_code                                   = (known after apply)
+      - group_add                                   = [] -&gt; null
+      ~ hostname                                    = "3488ecf82e76" -&gt; (known after apply)
+      ~ id                                          = "3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10" -&gt; (known after apply)
+      ~ init                                        = false -&gt; (known after apply)
+      ~ ipc_mode                                    = "private" -&gt; (known after apply)
+      ~ log_driver                                  = "json-file" -&gt; (known after apply)
+      - log_opts                                    = {} -&gt; null
+      - max_retry_count                             = 0 -&gt; null
+      - memory                                      = 0 -&gt; null
+      - memory_swap                                 = 0 -&gt; null
+      ~ name                                        = "varible_container" -&gt; "docker_variable_container" # forces replacement
+
+</code></pre></div></div>
+
+<ul>
+  <li>Setting variables via the command-line will not save their values. Terraform supports many ways to use and set variables so you can avoid having to enter them repeatedly as you execute commands. To learn more, follow our in-depth tutorial, <a href="https://developer.hashicorp.com/terraform/tutorials/configuration-language/variables">Customize Terraform Configuration with Variables</a>.</li>
+</ul>
+
+<h4 id="initial-configuration">Initial configuration</h4>
+
+<ul>
+  <li>After following the previous tutorials, you will have a directory named <code class="language-plaintext highlighter-rouge">learn-terraform-docker-container</code> with the following configuration.</li>
+  <li>mv your file( ./variables.tf ) &amp;&amp; terraform plan &amp;&amp;  terraform apply</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform plan
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/+ resource "docker_container" "nginx" {
+      + bridge                                      = (known after apply)
+      ~ command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+        ] -&gt; (known after apply)
+      + container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&gt; null
+      - dns                                         = [] -&gt; null
+      - dns_opts                                    = [] -&gt; null
+      - dns_search                                  = [] -&gt; null
+      ~ entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -&gt; (known after apply)
+      ~ env                                         = [] -&gt; (known after apply)
+      + exit_code                                   = (known after apply)
+      - group_add                                   = [] -&gt; null
+      ~ hostname                                    = "3488ecf82e76" -&gt; (known after apply)
+      ~ id                                          = "3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10" -&gt; (known after apply)
+      ~ init                                        = false -&gt; (known after apply)
+      ~ ipc_mode                                    = "private" -&gt; (known after apply)
+      ~ log_driver                                  = "json-file" -&gt; (known after apply)
+      - log_opts                                    = {} -&gt; null
+      - max_retry_count                             = 0 -&gt; null
+      - memory                                      = 0 -&gt; null
+      - memory_swap                                 = 0 -&gt; null
+      ~ name                                        = "varible_container" -&gt; "ExampleNginxContainer" # forces replacement
+      ~ network_data                                = [
+          - {
+              - gateway                   = "172.17.0.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "172.17.0.2"
+              - ip_prefix_length          = 16
+              - mac_address               = "12:9f:7c:4e:dd:26"
+              - network_name              = "bridge"
+                # (2 unchanged attributes hidden)
+            },
+        ] -&gt; (known after apply)
+      - network_mode                                = "bridge" -&gt; null # forces replacement
+      - privileged                                  = false -&gt; null
+      - publish_all_ports                           = false -&gt; null
+      ~ runtime                                     = "runc" -&gt; (known after apply)
+      ~ security_opts                               = [] -&gt; (known after apply)
+      ~ shm_size                                    = 64 -&gt; (known after apply)
+      ~ stop_signal                                 = "SIGQUIT" -&gt; (known after apply)
+      ~ stop_timeout                                = 0 -&gt; (known after apply)
+      - storage_opts                                = {} -&gt; null
+      - sysctls                                     = {} -&gt; null
+      - tmpfs                                       = {} -&gt; null
+        # (20 unchanged attributes hidden)
+
+      ~ healthcheck (known after apply)
+
+      ~ labels (known after apply)
+
+      ~ ports {
+          ~ external = 8000 -&gt; 8080 # forces replacement
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/+ resource "docker_container" "nginx" {
+      + bridge                                      = (known after apply)
+      ~ command                                     = [
+          - "nginx",
+          - "-g",
+          - "daemon off;",
+        ] -&gt; (known after apply)
+      + container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&gt; null
+      - dns                                         = [] -&gt; null
+      - dns_opts                                    = [] -&gt; null
+      - dns_search                                  = [] -&gt; null
+      ~ entrypoint                                  = [
+          - "/docker-entrypoint.sh",
+        ] -&gt; (known after apply)
+      ~ env                                         = [] -&gt; (known after apply)
+      + exit_code                                   = (known after apply)
+      - group_add                                   = [] -&gt; null
+      ~ hostname                                    = "3488ecf82e76" -&gt; (known after apply)
+      ~ id                                          = "3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10" -&gt; (known after apply)
+      ~ init                                        = false -&gt; (known after apply)
+      ~ ipc_mode                                    = "private" -&gt; (known after apply)
+      ~ log_driver                                  = "json-file" -&gt; (known after apply)
+      - log_opts                                    = {} -&gt; null
+      - max_retry_count                             = 0 -&gt; null
+      - memory                                      = 0 -&gt; null
+      - memory_swap                                 = 0 -&gt; null
+      ~ name                                        = "varible_container" -&gt; "ExampleNginxContainer" # forces replacement
+      ~ network_data                                = [
+          - {
+              - gateway                   = "172.17.0.1"
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "172.17.0.2"
+              - ip_prefix_length          = 16
+              - mac_address               = "12:9f:7c:4e:dd:26"
+              - network_name              = "bridge"
+                # (2 unchanged attributes hidden)
+            },
+        ] -&gt; (known after apply)
+      - network_mode                                = "bridge" -&gt; null # forces replacement
+      - privileged                                  = false -&gt; null
+      - publish_all_ports                           = false -&gt; null
+      ~ runtime                                     = "runc" -&gt; (known after apply)
+      ~ security_opts                               = [] -&gt; (known after apply)
+      ~ shm_size                                    = 64 -&gt; (known after apply)
+      ~ stop_signal                                 = "SIGQUIT" -&gt; (known after apply)
+      ~ stop_timeout                                = 0 -&gt; (known after apply)
+      - storage_opts                                = {} -&gt; null
+      - sysctls                                     = {} -&gt; null
+      - tmpfs                                       = {} -&gt; null
+        # (20 unchanged attributes hidden)
+
+      ~ healthcheck (known after apply)
+
+      ~ labels (known after apply)
+
+      ~ ports {
+          ~ external = 8000 -&gt; 8080 # forces replacement
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+docker_container.nginx: Destroying... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+docker_container.nginx: Destruction complete after 0s
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 1s [id=0c63b3d7bfe3e33718d4ab8447dd7f6eb61ccc8c8e3295bcc7f87f33f567077b]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform state list
+docker_container.nginx
+docker_image.nginx
+
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                            i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+nginx:latest   6e23479198b9        237MB         65.8MB    U
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS              PORTS                  NAMES
+0c63b3d7bfe3   6e23479198b9   "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:8080-&gt;80/tcp   ExampleNginxContainer
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ curl local:8080
+curl: (6) Could not resolve host: local
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ curl localhost:8080&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy,
+API gateway, load balancer, content cache, or other features.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="https://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+To engage with the community please visit
+&lt;a href="https://community.nginx.org/"&gt;community.nginx.org&lt;/a&gt;.&lt;br/&gt;
+For enterprise grade support, professional services, additional
+security features and capabilities please refer to
+&lt;a href="https://f5.com/nginx"&gt;f5.com/nginx&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre></div></div>
+
+<h4 id="output-docker-container-configuration">Output Docker container configuration</h4>
+
+<ul>
+  <li>
+    <p>Create a file called <code class="language-plaintext highlighter-rouge">outputs.tf</code> in your <code class="language-plaintext highlighter-rouge">learn-terraform-docker-container</code> directory.</p>
+  </li>
+  <li>
+    <p>Add the configuration below to <code class="language-plaintext highlighter-rouge">outputs.tf</code> to define outputs for your container’s ID and the image ID.</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+output "container_id" {
+  description = "ID of the Docker container"
+  value       = docker_container.nginx.id
+}
+
+output "image_id" {
+  description = "ID of the Docker image"
+  value       = docker_image.nginx.id
+}
+
+</code></pre></div></div>
+
+<h4 id="inspect-output-values">Inspect output values</h4>
+
+<ul>
+  <li>
+    <p>You must apply this configuration before you can use these output values. Apply your configuration now. Respond to the confirmation prompt with <code class="language-plaintext highlighter-rouge">yes</code>.</p>
+  </li>
+  <li>
+    <p>terraform plan &amp;&amp; apply</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+container_id = "72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878"
+image_id = "sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest"
+
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">terraform output</code></li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform output
+container_id = "72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878"
+image_id = "sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest"
+
+</code></pre></div></div>
+
+<ul>
+  <li>terraform destroy:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ # docker_image.nginx will be destroyed
+  - resource "docker_image" "nginx" {
+      - id           = "sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest" -&gt; null
+      - image_id     = "sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc" -&gt; null
+      - keep_locally = false -&gt; null
+      - name         = "nginx:latest" -&gt; null
+      - repo_digest  = "nginx@sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc" -&gt; null
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - container_id = "72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878" -&gt; null
+  - image_id     = "sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest" -&gt; null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+docker_container.nginx: Destroying... [id=72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878]
+docker_container.nginx: Destruction complete after 1s
+docker_image.nginx: Destroying... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_image.nginx: Destruction complete after 0s
+
+Destroy complete! Resources: 2 destroyed.
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker iamges
+docker: unknown command: docker iamges
+
+Run 'docker --help' for more information
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                            i Info →   U  In Use
+IMAGE   ID             DISK USAGE   CONTENT SIZE   EXTRA
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$
+
+</code></pre></div></div>
+
+<hr />
+<h3 id="learn-more-about-hcp-terraform">Learn more about HCP Terraform</h3>
+
+<p>Although HCP Terraform can act as a standard remote backend to support Terraform runs on local machines, it works even better as a remote run environment. It supports two main workflows for performing Terraform runs:</p>
+
+<ul>
+  <li>A VCS-driven workflow, in which it automatically queues plans whenever changes are committed to your configuration’s VCS repo.</li>
+  <li>
+    <p>An API-driven workflow, in which a CI pipeline or other automated tool can upload configurations directly.</p>
+  </li>
+  <li>For a hands-on introduction to the HCP Terraform VCS-driven workflow, <a href="https://developer.hashicorp.com/terraform/tutorials/cloud-get-started">follow the HCP Terraform getting started tutorials</a>. HCP Terraform also offers <a href="https://www.hashicorp.com/products/terraform/pricing">commercial solutions</a> which include team permission management, policy enforcement, agents, and more.</li>
+</ul>
+
+<hr />
+<hr />
+
+<h3 id="practice--runbook">Practice &amp;&amp; Runbook</h3>
+
+<h4 id="example-alicloud-bucket">Example: Alicloud Bucket</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+shell@Alicloud:~$ vim ./main.tf
+shell@Alicloud:~$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "alicloud" (hashicorp/alicloud) 1.276.0...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.alicloud: version = "~&gt; 1.276"
+
+
+Warning: registry.terraform.io: For users on Terraform 0.13 or greater, this provider has moved to aliyun/alicloud. Please update your source in required_providers.
+
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+shell@Alicloud:~$ vim ./main.tf 
+shell@Alicloud:~$ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be created
+  + resource "alicloud_oss_bucket" "my_first_bucket" {
+      + acl                                      = (known after apply)
+      + bucket                                   = "devops-state-bucket-yourname-2026-04-24"
+      + creation_date                            = (known after apply)
+      + extranet_endpoint                        = (known after apply)
+      + force_destroy                            = false
+      + id                                       = (known after apply)
+      + intranet_endpoint                        = (known after apply)
+      + lifecycle_rule_allow_same_action_overlap = false
+      + location                                 = (known after apply)
+      + owner                                    = (known after apply)
+      + redundancy_type                          = "LRS"
+      + resource_group_id                        = (known after apply)
+      + storage_class                            = "Standard"
+      + tags                                     = {
+          + "Environmnt" = "Dev"
+          + "Project"    = "GitOps-Demo"
+        }
+
+      + access_monitor {
+          + status = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+
+shell@Alicloud:~$ terraform fmt
+main.tf
+shell@Alicloud:~$ terraform validate
+Success! The configuration is valid.
+
+
+
+
+
+
+Error: [ERROR] terraform-provider-alicloud/alicloud/resource_alicloud_oss_bucket.go:567: Resource alicloud_oss_bucket CreateBucket Failed!!! [SDK aliyun-oss-go-sdk ERROR]:
+oss: service returned error: StatusCode=403, ErrorCode=UserDisable, ErrorMessage="UserDisable", RequestId=69EB9C17A5F05D3437EFF9F2, Ec=0003-00000801
+
+  on main.tf line 1, in resource "alicloud_oss_bucket" "my_first_bucket":
+   1: resource "alicloud_oss_bucket" "my_first_bucket" {
+
+
+</code></pre></div></div>
+
+<ul>
+  <li>出现报错，去控制台确认oss开启，开启后：</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+shell@Alicloud:~$ terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be created
+  + resource "alicloud_oss_bucket" "my_first_bucket" {
+      + acl                                      = (known after apply)
+      + bucket                                   = "devops-state-bucket-yourname-2026-04-24"
+      + creation_date                            = (known after apply)
+      + extranet_endpoint                        = (known after apply)
+      + force_destroy                            = false
+      + id                                       = (known after apply)
+      + intranet_endpoint                        = (known after apply)
+      + lifecycle_rule_allow_same_action_overlap = false
+      + location                                 = (known after apply)
+      + owner                                    = (known after apply)
+      + redundancy_type                          = "LRS"
+      + resource_group_id                        = (known after apply)
+      + storage_class                            = "Standard"
+      + tags                                     = {
+          + "Environmnt" = "Dev"
+          + "Project"    = "GitOps-Demo"
+        }
+
+      + access_monitor {
+          + status = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+alicloud_oss_bucket.my_first_bucket: Creating...
+alicloud_oss_bucket.my_first_bucket: Creation complete after 1s [id=devops-state-bucket-yourname-2026-04-24]
+
+</code></pre></div></div>
+
+<ul>
+  <li>编辑 <code class="language-plaintext highlighter-rouge">main.tf</code> 文件</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+shell@Alicloud:~$ vim ./main.tf 
+terraform {
+  backend "oss" {
+    bucket = "devops-state-bucket-yourname-2026-04-24"
+
+    key = "gitops-project/test/terraform.tfstate"
+
+    region = "cn-hangzhou"
+  }
+}
+
+
+resource "alicloud_oss_bucket" "my_first_bucket" {
+  # 1,name:
+  bucket = "devops-state-bucket-yourname-2026-04-24"
+
+  # 2.power
+  tags = {
+    Environmnt = "Dev"
+    Project    = "GitOps-Demo"
+  }
+}
+
+output "bucket_domain" {
+  value = alicloud_oss_bucket.my_first_bucket.extranet_endpoint
+}
+
+</code></pre></div></div>
+
+<ul>
+  <li>将本地文件上传到bucket：</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+shell@Alicloud:~$ terraform init
+
+Initializing the backend...
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous "local" backend to the
+  newly configured "oss" backend. No existing state was found in the newly
+  configured "oss" backend. Do you want to copy this state to the new "oss"
+  backend? Enter "yes" to copy and "no" to start with an empty state.
+
+  Enter a value: yes
+
+
+Successfully configured the backend "oss"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.alicloud: version = "~&gt; 1.276"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+</code></pre></div></div>
+
+<ul>
+  <li>阿里云网页页面突然关闭，想要在本地生成：</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+terraform import alicloud_oss_bucket.my_second_bucket devops-state-bucket-yourname-2026-04-24
+
+</code></pre></div></div>
+
+<hr />
 
         </div>
         

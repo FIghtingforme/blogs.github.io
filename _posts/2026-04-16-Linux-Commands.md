@@ -8,10 +8,10 @@ catagories: Linux
 ---
 
 
-###Linux Commands in Read-World:
+### Linux Commands in Read-World:
 
 
-###Commands:
+#### Commands:
 
 ```
 
@@ -537,21 +537,331 @@ Sienna  Davis   40,Germany
 
 
 
+### Bash `tail` Command - Display Last Part of Files
 
 
 
+- The `tail` command is used to display the last part of files.
+
+- It's particularly useful for viewing the end of log files or any file that is being updated in real-time.
+
+#### Syntax
+
+- The basic syntax of the `tail` command is:
+
+```bash
+tail [OPTION]... [FILE]...
+```
+
+### Example
+
+```
+
+[devops@lb01 ~]$ tail /etc/passwd
+sssd:x:998:997:User for sssd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:996:chrony system user:/var/lib/chrony:/sbin/nologin
+rsync:x:1000:1000::/home/rsync:/sbin/nologin
+ftpuser:x:1001:1001::/home/ftpuser:/bin/bash
+devops:x:1002:1002::/home/devops:/bin/bash
+deploy_bot:x:1003:1003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+```
+
+
+#### Options
+
+##### The `tail` command has several options to customize its behavior:
+
+- `-n [number]`: Display the last [number] lines of the file.
+- `-f`: Follow the file as it grows, useful for monitoring log files.
+- `-c [number]`: Display the last [number] bytes of the file.
+- `--pid=[pid]`: Terminate after the process with the given PID dies.
+- `--retry`: Keep trying to open a file even if it is inaccessible.
 
 
 
+#### Option: -n [number]
+
+- The `-n` option allows you to specify the number of lines to display from the end of the file.
+
+- By default, `tail` shows the last 10 lines.
+
+#### Example: Display Last 5 Lines
+
+```
+
+[devops@lb01 ~]$ tail -n 5 /etc/passwd
+devops:x:1002:1002::/home/devops:/bin/bash
+deploy_bot:x:1003:1003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+```
+
+#### Option: -f
+
+The `-f` option is used to follow a file as it grows, which is particularly useful for monitoring log files in real-time.
+
+#### Example: Follow Log File
+
+```
+
+
+[devops@lb01 ~]$ tail -f /etc/passwd
+sssd:x:998:997:User for sssd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:996:chrony system user:/var/lib/chrony:/sbin/nologin
+rsync:x:1000:1000::/home/rsync:/sbin/nologin
+ftpuser:x:1001:1001::/home/ftpuser:/bin/bash
+devops:x:1002:1002::/home/devops:/bin/bash
+deploy_bot:x:1003:1003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+```
+
+
+#### Option: -c [number]
+
+- The `-c` option allows you to display the last [number] bytes of a file instead of lines.
+
+#### Example: Display Last 20 Bytes
+
+```
+
+[devops@lb01 ~]$ tail -c 20 /etc/passwd
+share:/sbin/nologin
+[devops@lb01 ~]$ tail -c 200 /etc/passwd
+003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+```
+
+
+#### Option: --pid=[pid]
+
+The `--pid` option terminates tailing after the process with the given PID dies. This is useful for stopping the tail operation when a related process ends.
+
+#### Example: Terminate After Process Ends
+
+- 可以在另一个终端用vim新开文件，ps -ef 获取vim的进程号，用他的进程号来taile --pid /etc/passwd，当vim关闭时进程号消失随即tail 不再运行
+
+```
+
+[devops@lb01 ~]$ ps -ef | grep 310599
+devops    310599  310521  0 12:33 pts/1    00:00:00 vim ./aaa.txt
+devops    310712  305903  0 12:37 pts/0    00:00:00 grep --color=auto 310599
+[devops@lb01 ~]$
+[devops@lb01 ~]$
+[devops@lb01 ~]$
+[devops@lb01 ~]$ tail -f --pid=310599 /etc/passwd
+sssd:x:998:997:User for sssd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:996:chrony system user:/var/lib/chrony:/sbin/nologin
+rsync:x:1000:1000::/home/rsync:/sbin/nologin
+ftpuser:x:1001:1001::/home/ftpuser:/bin/bash
+devops:x:1002:1002::/home/devops:/bin/bash
+deploy_bot:x:1003:1003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+```
+
+#### Option: --retry
+
+- The `--retry` option makes `tail` keep trying to open a file even if it is inaccessible. This is useful for files that may be temporarily unavailable.
+
+#### Example: Retry Opening File
+
+```
+
+[devops@lb01 ~]$ tail --retry /etc/passwd
+tail: warning: --retry ignored; --retry is useful only when following
+sssd:x:998:997:User for sssd:/:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:997:996:chrony system user:/var/lib/chrony:/sbin/nologin
+rsync:x:1000:1000::/home/rsync:/sbin/nologin
+ftpuser:x:1001:1001::/home/ftpuser:/bin/bash
+devops:x:1002:1002::/home/devops:/bin/bash
+deploy_bot:x:1003:1003::/home/deploy_bot:/bin/bash
+sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
+nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
+sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
+
+
+[devops@lb01 ~]$ tail --retry -f /aaa
+tail: warning: --retry only effective for the initial open
+tail: cannot open '/aaa' for reading: No such file or directory
+
+```
+
+
+#### Use Cases
+
+Common scenarios where the `tail` command is beneficial include:
+
+- Monitoring server logs to detect issues in real-time.
+- Checking the latest entries in a continuously updated file.
+- Debugging applications by reviewing recent log entries.
+
+
+---
+
+
+### Bash `head` Command - Display the beginning of a file
 
 
 
+#### Using the `head` Command
 
+- The `head` command is used to display the first part of files.
 
+- It's particularly useful for previewing the start of a file to understand its structure.
 
+- All examples below use the `/etc/ansible/ansible.cfg` file:
 
+```
+
+[devops@lb01 ~]$ head /etc/ansible/ansible.cfg
+# Since Ansible 2.12 (core):
+# To generate an example config file (a "disabled" one with all default settings, commented out):
+#               $ ansible-config init --disabled > ansible.cfg
+#
+# Also you can now have a more complete file by including existing plugins:
+# ansible-config init --disabled -t all > ansible.cfg
+
+# For previous versions of Ansible you can check for examples in the 'stable' branches of each version
+# Note that this file was always incomplete  and lagging changes to configuration settings
 
 
 ```
+
+#### Basic Usage
+
+- The `head` command displays the first 10 lines of a file by default:
+
+#### Example: Display First 10 Lines
+
+```
+
+passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/
+
+```
+
+
+#### Options
+
+##### The `head` command has several options used to customize its behavior:
+
+- `-n [number]`: Display the first [number] lines of the file.
+- `-c [number]`: Display the first [number] bytes of the file.
+
+
+
+#### Option: -n [number]
+
+- The `-n` option allows you to specify the number of lines to display from the start of the file. By default, `head` shows the first 10 lines.
+
+#### Example: Display First 5 Lines
+
+```
+
+[devops@lb01 ~]$ head -n 5 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+```
+
+
+
+#### Option: -c [number]
+
+- The `-c` option allows you to display the first [number] bytes of a file instead of lines.
+
+#### Example: Display First 20 Bytes
+
+```
+
+[devops@lb01 ~]$ head -c 20 /etc/passwd
+root:x:0:0:root:/roo
+
+```
+
+
+
+#### Option: Multiple Files
+
+- The `head` command can be used to display the beginning of multiple files. By default, it prints the file name as a header before the content of each file.
+
+#### Example: Display First 3 Lines of Multiple Files
+
+```
+
+[devops@lb01 ~]$ head -n 4 ./4_25.txt ./4_25_1.txt
+==> ./4_25.txt <==
+apple
+banana
+orange
+juice
+
+==> ./4_25_1.txt <==
+01
+002
+0033
+444
+
+```
+
+
+
+#### Option: -q
+
+- The `-q` option suppresses the printing of headers when multiple files are being processed. This is useful when you want to view the contents of multiple files without the file names being printed.
+
+#### Example: Suppress Headers
+
+```
+
+# 两个文件内容是直接连起来的
+[devops@lb01 ~]$ head -q -n 3 ./4_25.txt ./4_25_1.txt
+apple
+banana
+orange
+01    # notice start！！
+002
+0033
+[devops@lb01 ~]$
+
+```
+
+
+#### Common Uses
+
+##### The `head` command is commonly used to:
+
+- Preview the start of a file to understand its structure.
+- Quickly check the contents of a file without opening it fully.
+- Extract the header information from a data file.
+
+
+---
+
 
 
