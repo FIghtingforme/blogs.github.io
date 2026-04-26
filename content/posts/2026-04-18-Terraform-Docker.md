@@ -1,9 +1,8 @@
 ---
 
 date: 2026-04-18
-title: Terraform Docker
-layout: post
-catagories: terraform
+title: "Terraform Docker"
+categories: terraform
 
 ---
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hugo on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/hugo/</link>
+    <description>Recent content in Hugo on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jekyll 博客迁移为 Hugo</title>
+      <link>http://localhost:1313/posts/2026-04-26-hugo-blog/</link>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-26-hugo-blog/</guid>
+      <description>&lt;h3 id=&#34;jekyll-博客迁移为-hugo&#34;&gt;jekyll 博客迁移为 Hugo&lt;/h3&gt;
+&lt;h4 id=&#34;痛点hugo-对比-jekyll&#34;&gt;痛点：Hugo (对比 Jekyll)&lt;/h4&gt;
+&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;
+&lt;h4 id=&#34;1-zero-dependency&#34;&gt;1. Zero Dependency&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 &lt;code&gt;bundler&lt;/code&gt;、解决 &lt;code&gt;Gemfile&lt;/code&gt; 版本冲突。换台电脑经常跑不起来，让人非常崩溃。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 它是用 Go 语言编写的。Hugo 编译出来就是一个&lt;strong&gt;独立的二进制文件&lt;/strong&gt;。不需要装 Go 环境，不需要装任何依赖，下载那个 &lt;code&gt;.exe&lt;/code&gt; 或执行 &lt;code&gt;brew install hugo&lt;/code&gt;，立刻就能跑，极其干净。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2-最快的静态网站生成器&#34;&gt;2. 最快的&lt;code&gt;静态网站生成器&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以&lt;strong&gt;毫秒&lt;/strong&gt;计算的。保存瞬间，渲染完成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;3-极简的本地预览指令&#34;&gt;3. 极简的本地预览指令&lt;/h4&gt;
+&lt;p&gt;在 Hugo 中，只需要在博客根目录下敲下这一行命令：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# -D 参数表示同时渲染草稿 (Drafts)
+hugo server -D
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;本地实时更新： http://localhost:1313/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;jekyll-到-hugo-的企业级迁移-sop&#34;&gt;&lt;strong&gt;Jekyll 到 Hugo 的企业级迁移 SOP&lt;/strong&gt;：&lt;/h3&gt;
+&lt;h4 id=&#34;阶段一本地架构重组-directory-restructuring&#34;&gt;阶段一：本地架构重组 (Directory Restructuring)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;1-清理历史包袱-drop-legacy-dependencies&#34;&gt;1. 清理历史包袱 (Drop Legacy Dependencies)&lt;/h4&gt;
+&lt;p&gt;既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

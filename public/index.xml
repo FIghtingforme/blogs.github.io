@@ -1,0 +1,2423 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My SRE Knowledge Library</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jekyll 博客迁移为 Hugo</title>
+      <link>http://localhost:1313/posts/2026-04-26-hugo-blog/</link>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-26-hugo-blog/</guid>
+      <description>&lt;h3 id=&#34;jekyll-博客迁移为-hugo&#34;&gt;jekyll 博客迁移为 Hugo&lt;/h3&gt;
+&lt;h4 id=&#34;痛点hugo-对比-jekyll&#34;&gt;痛点：Hugo (对比 Jekyll)&lt;/h4&gt;
+&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;
+&lt;h4 id=&#34;1-zero-dependency&#34;&gt;1. Zero Dependency&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 &lt;code&gt;bundler&lt;/code&gt;、解决 &lt;code&gt;Gemfile&lt;/code&gt; 版本冲突。换台电脑经常跑不起来，让人非常崩溃。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 它是用 Go 语言编写的。Hugo 编译出来就是一个&lt;strong&gt;独立的二进制文件&lt;/strong&gt;。不需要装 Go 环境，不需要装任何依赖，下载那个 &lt;code&gt;.exe&lt;/code&gt; 或执行 &lt;code&gt;brew install hugo&lt;/code&gt;，立刻就能跑，极其干净。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2-最快的静态网站生成器&#34;&gt;2. 最快的&lt;code&gt;静态网站生成器&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以&lt;strong&gt;毫秒&lt;/strong&gt;计算的。保存瞬间，渲染完成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;3-极简的本地预览指令&#34;&gt;3. 极简的本地预览指令&lt;/h4&gt;
+&lt;p&gt;在 Hugo 中，只需要在博客根目录下敲下这一行命令：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# -D 参数表示同时渲染草稿 (Drafts)
+hugo server -D
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;本地实时更新： http://localhost:1313/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;jekyll-到-hugo-的企业级迁移-sop&#34;&gt;&lt;strong&gt;Jekyll 到 Hugo 的企业级迁移 SOP&lt;/strong&gt;：&lt;/h3&gt;
+&lt;h4 id=&#34;阶段一本地架构重组-directory-restructuring&#34;&gt;阶段一：本地架构重组 (Directory Restructuring)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;1-清理历史包袱-drop-legacy-dependencies&#34;&gt;1. 清理历史包袱 (Drop Legacy Dependencies)&lt;/h4&gt;
+&lt;p&gt;既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tailscale 组网实践</title>
+      <link>http://localhost:1313/posts/2026-04-25-tailscale/</link>
+      <pubDate>Sat, 25 Apr 2026 14:30:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-25-tailscale/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker </title>
+      <link>http://localhost:1313/posts/2026-04-21-docker-demo/</link>
+      <pubDate>Tue, 21 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-21-docker-demo/</guid>
+      <description>&lt;h3 id=&#34;docker-commands&#34;&gt;Docker Commands&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;docker pull redis:8.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;redis:8.0.6-alpine
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;docker images&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/docker/redis]$ docker images
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+my-nodejs:v1         954fdbfce62a        194MB         48.1MB    U
+nginx:latest         7f0adca1fc6c        237MB         65.8MB    U
+redis:8.0.6-alpine   5f61955be8ab       86.8MB         24.9MB    U
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;docker run -p 6000:3000 &amp;ndash;name -d redis-example redis:8.0.6-alpine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name  redis-example redis:8.0.6-alpine
+d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c
+[devops@lb01 ~/docker/redis]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   8 seconds ago   Up 7 seconds   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
+[devops@lb01 ~/docker/redis]$ ss -lntup
+Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process
+udp    UNCONN  0       0            127.0.0.1:323         0.0.0.0:*
+udp    UNCONN  0       0                [::1]:323            [::]:*
+tcp    LISTEN  0       4096           0.0.0.0:6000        0.0.0.0:*
+tcp    LISTEN  0       511            0.0.0.0:80          0.0.0.0:*
+tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*
+tcp    LISTEN  0       4096              [::]:6000           [::]:*
+tcp    LISTEN  0       511               [::]:80             [::]:*
+tcp    LISTEN  0       128               [::]:22             [::]:*
+tcp    LISTEN  0       32                   *:21                *:*
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;docker exec -it d7d16d237b5f /bin/bash&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash
+OCI runtime exec failed: exec failed: unable to start container process: exec: &amp;#34;/bin/bash&amp;#34;: stat /bin/bash: no such file or directory
+
+# 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # ls
+/data # pwd
+/data
+
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # cd /
+/ # ls
+bin    dev    home   media  opt    root   sbin   sys    usr
+data   etc    lib    mnt    proc   run    srv    tmp    var
+/ # env
+HOSTNAME=d7d16d237b5f
+SHLVL=1
+HOME=/root
+OLDPWD=/data
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/
+/ #
+/ # exit
+[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
+/data # curl
+/bin/sh: curl: not found
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Difference： docker ps  /  docker  ps  -a&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/docker/redis]$ docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
+[devops@lb01 ~/docker/redis]$ docker ps -a
+CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                                                   NAMES
+d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes               6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
+37fb32f3b1f9   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   43 minutes ago   Exited (0) 43 minutes ago                                                           redis-1
+8ffc7554566c   7f0adca1fc6c         &amp;#34;/docker-entrypoint.…&amp;#34;   31 hours ago     Exited (0) 30 hours ago                                                             sre-tutorial-nginx
+e329c77b6133   my-nodejs:v1         &amp;#34;docker-entrypoint.s…&amp;#34;   3 days ago       Exited (1) 30 hours ago                                                             web
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;docker-deploy-the-demo-project&#34;&gt;Docker Deploy the Demo Project&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Workflow with Docker:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+Push: js,Mongo DB ==&amp;gt; Git ==&amp;gt; Jenkins: Build JS APP &amp;amp; Create Docker Image ==&amp;gt; Docker Repository( Docker Hub )  
+
+Pull: From &amp;#34;Docker Hub&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;developing-with-containers&#34;&gt;Developing with Containers&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;need: JS and Node application, MongoDB Docker Container&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>IAM-Least Privilege Principle</title>
+      <link>http://localhost:1313/posts/2026-04-20-iam/</link>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-20-iam/</guid>
+      <description>&lt;h3 id=&#34;use-least-privilege-principle-to-secure-your-cicd-pipeline&#34;&gt;Use least privilege principle to secure your CI/CD pipeline&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IAM Permissions &amp;amp;&amp;amp; Access Control&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Prompt&amp;ndash;The Over-Permissioned Pipeline Disaster-Real Security Risk:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Developer sets up CodeBuild,&lt;!-- raw HTML omitted --&gt;gets &amp;ldquo;Access Denied&amp;rdquo; errors&lt;/th&gt;
+          &lt;th&gt;Frustrated,they attack&lt;!-- raw HTML omitted --&gt;AdministratorAccess policy to fix it quickly&lt;/th&gt;
+          &lt;th&gt;Pipeline works!Problems solved&amp;hellip;or is it?&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket&lt;/td&gt;
+          &lt;td&gt;Attacker compromises the build through malicious code in dependencies&lt;/td&gt;
+          &lt;td&gt;Now attacker has admin access to your entire AWS account&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;the-principle-of-least-privilege---only-whats-needednothing-more&#34;&gt;The Principle of Least Privilege - Only What&amp;rsquo;s needed,Nothing More.&lt;/h4&gt;
+&lt;h5 id=&#34;least-privilege--grant-minimum-permissions-required-to-do-the-job&#34;&gt;Least Privilege = Grant minimum permissions required to do the job&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets&lt;/li&gt;
+&lt;li&gt;CodeDeploy nedds to update EC2 instances?Grant only deployment permission&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;dontt-grant&#34;&gt;Dont&amp;rsquo;t grant&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Full S3 access&lt;/li&gt;
+&lt;li&gt;EC2 admin&lt;/li&gt;
+&lt;li&gt;IAM modification&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;think-whats-the-smallest-set-of-permissions-for-this-to-work&#34;&gt;Think: What&amp;rsquo;s the smallest set of permissions for this to work?&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Benefits: Limits blast radius if compromised&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;building-secure-iam-policies-for-pipeline-services&#34;&gt;Building Secure IAM Policies for Pipeline Services&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IAM Policy = JSON document with permissions&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Bash Scripting Documetry</title>
+      <link>http://localhost:1313/posts/2026-04-18-bash-scripting/</link>
+      <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-18-bash-scripting/</guid>
+      <description>&lt;h2 id=&#34;bash-scripting&#34;&gt;Bash Scripting&lt;/h2&gt;
+&lt;h3 id=&#34;bash-bourne-again-shell&#34;&gt;Bash: &amp;ldquo;Bourne Again Shell&amp;rdquo;&lt;/h3&gt;
+&lt;h3 id=&#34;shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash&#34;&gt;Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.&lt;/h3&gt;
+&lt;h3 id=&#34;shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename&#34;&gt;Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).&lt;/h3&gt;
+&lt;h3 id=&#34;the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this&#34;&gt;The first line of the shell script file begins with a &amp;ldquo;sha-bang&amp;rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &amp;ldquo;sha-bang&amp;rdquo; is incorrect, then an error message e.g. &amp;ldquo;Command not found.&amp;rdquo;, may be the result of the script execution. It is common to name the shell script with the &amp;ldquo;.sh&amp;rdquo; extension. The first line may look like this:&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#!/bin/bash
+# Adding comments: any text following the &amp;#34;#&amp;#34; is considered a comment
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow&#34;&gt;To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~]$ ps | grep $$
+ 185152 pts/1    00:00:00 bash
+ 
+ # This response shows that the shell you are using is of type &amp;#39;bash&amp;#39;. 
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;next-find-out-the-full-path-of-the-shell-interpreter&#34;&gt;next find out the full path of the shell interpreter&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~]$ which bash
+/usr/bin/bash
+
+# This response shows the full execution path of the shell interpreter. 
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;make-sure-that-the-sha-bang--line-at-the-beginning-of-your-script-matches-this-same-execution-path&#34;&gt;Make sure that the &amp;ldquo;sha-bang&amp;rdquo; (#!) line at the beginning of your script, matches this same execution path:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ ls
+111  first.sh  server_performance_stats
+[devops@lb01 ~/scripts/shell]$   &amp;gt;  111
+[devops@lb01 ~/scripts/shell]$   &amp;gt;  first.sh
+-bash: first.sh: Permission denied
+# It&amp;#39;s not available to clear the bash file 
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;to edit the first.sh&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#!/usr/bin/bash
+echo &amp;#34;hello world&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;output:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ less  ./first.sh
+[devops@lb01 ~/scripts/shell]$ sh ./first.sh
+hello world
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;variables&#34;&gt;==Variables==&lt;/h3&gt;
+&lt;h4 id=&#34;shell-variables-are-created-once-they-are-assigned-a-value-a-variable-can-contain-a-number-a-character-or-a-string-of-characters-variable-name-is-case-sensitive-and-can-consist-of-a-combination-of-letters-and-the-underscore-_-value-assignment-is-done-using-the--sign-note-that-no-space-permitted-on-either-side-of--sign-when-initializing-variables&#34;&gt;Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore &amp;ldquo;_&amp;rdquo;. Value assignment is done using the &amp;ldquo;=&amp;rdquo; sign. Note that no space permitted on either side of = sign when initializing variables.&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ greeting=&amp;#39;hello          world!&amp;#39;
+
+# Referencing the variables
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;a-backslash--is-used-to-escape-special-character-meaning&#34;&gt;A backslash &lt;code&gt;\&lt;/code&gt; is used to escape special character meaning&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ echo &amp;#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&amp;#34;
+The price of an Apple today is: $HK 5
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;encapsulating-the-variable-name-with--is-used-to-avoid-ambiguity&#34;&gt;Encapsulating the variable name with ${} is used to avoid ambiguity&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ echo &amp;#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&amp;#34;
+The first 10 letters in the alphabet are: ABCDEFGHIJKL
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;encapsulating-the-variable-name-with--will-preserve-any-white-space-values&#34;&gt;Encapsulating the variable name with &amp;quot;&amp;quot; will preserve any white space values&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ greeting=&amp;#34;hello    world&amp;#34;
+[devops@lb01 ~/scripts/shell]$ echo $greeting&amp;#34; now with spaces: $greeting&amp;#34;
+hello world now with spaces: hello    world
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;variables-can-be-assigned-with-the-value-of-a-command-output-this-is-referred-to-as-substitution-substitution-can-be-done-by-encapsulating-the-command-with--known-as-back-ticks-or-with-&#34;&gt;Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
+[devops@lb01 ~/scripts/shell]$ $(ls)
+-bash: 111: command not found
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date +^C
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date +%Y-%m-%d).txt
+
+# Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;exercise&#34;&gt;Exercise&lt;/h4&gt;
+&lt;h5 id=&#34;the-target-of-this-exercise-is-to-create-a-string-an-integer-and-a-complex-variable-using-command-substitution-the-string-should-be-named-birthdate-and-should-contain-the-text-jan-1-2000-the-integer-should-be-named-presents-and-should-contain-the-number-10-the-complex-variable-should-be-named-birthday-and-should-contain-the-full-weekday-name-of-the-day-matching-the-date-in-variable-birthdate-eg-saturday&#34;&gt;The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text &amp;ldquo;Jan 1, 2000&amp;rdquo;. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday.&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Note that the &amp;lsquo;date&amp;rsquo; command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+date -d &amp;#34;$date1&amp;#34; +%A
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;You can use Shell Check to detective your codes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#!/bin/bash
+
+set -euo pipefail
+
+BIRTHDATE=&amp;#34;Jan 1, 2000&amp;#34;
+
+Presents=10
+
+BIRTHDAY=$(date -d &amp;#34;$BIRTHDATE&amp;#34; +%A)
+
+
+# BIRTHDATE:
+if [ &amp;#34;$BIRTHDATE&amp;#34; == &amp;#34;Jan 1, 2000&amp;#34; ]; then
+  echo &amp;#34;BIRTHDATE is correct,it is $BIRTHDATE&amp;#34;
+else
+  echo &amp;#34;BIRTHDATE is incorrect,try again!&amp;#34;
+fi
+
+# Presents:
+if [ &amp;#34;$Presents&amp;#34; == 10 ]; then
+  echo &amp;#34;I have received $Presents presents&amp;#34;
+else
+  echo &amp;#34;Presents is incorrect,plz try again!&amp;#34;
+fi
+
+# BIRTHDAY:
+if [ &amp;#34;$BIRTHDAY&amp;#34; == &amp;#34;Saturday&amp;#34; ]; then
+  echo &amp;#34;I was born on a $BIRTHDAY&amp;#34;
+else
+  echo &amp;#34;BIRTHDAY is incorrect,plz try again!&amp;#34;
+fi
+
+
+##############################################
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh
+BIRTHDATE is correct,it is Jan 1, 2000
+I have received 10 presents
+I was born on a Saturday
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;passing-arguments-to-the-script&#34;&gt;==Passing Arguments to the Script==&lt;/h3&gt;
+&lt;h4 id=&#34;arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name&#34;&gt;Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.&lt;/h4&gt;
+&lt;h4 id=&#34;inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments&#34;&gt;Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.&lt;/h4&gt;
+&lt;h4 id=&#34;example&#34;&gt;Example&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;4_17.sh file contains below code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#!/bin/bash
+echo &amp;#34;File name is $0&amp;#34;
+echo $3
+Data=$5
+echo &amp;#34;A $Data costs just $6.&amp;#34;
+echo $#
+echo $@
+
+############################################
+# The variable $# holds the number of arguments passed to the script
+
+# The variable $@ holds a space delimited string of all arguments passed to the script
+
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &amp;#34;Fruit Basket&amp;#34; 15
+File name is ./4_17.sh
+banana
+A Fruit Basket costs just 15.
+6
+apple 5 banana 8 Fruit Basket 15
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;exercise-1&#34;&gt;Exercise&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Pass &amp;ldquo;Shell is fun&amp;rdquo; (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#!/usr/bin/bash
+
+function File {
+  echo $#
+}
+
+if [ ! $# -lt 1 ]; then
+  File &amp;#34;$@&amp;#34;
+  exit 0
+fi
+
+#####################################################
+# output:
+3
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;arrays&#34;&gt;Arrays&lt;/h3&gt;
+&lt;h4 id=&#34;an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-&#34;&gt;An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &amp;#34;a pear&amp;#34;)
+[devops@lb01 ~/scripts/shell]$ new_array[2]=apricot
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Terraform Docker</title>
+      <link>http://localhost:1313/posts/2026-04-18-terraform-docker/</link>
+      <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-18-terraform-docker/</guid>
+      <description>&lt;h3 id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y
+[sudo] password for devops:
+Sorry, try again.
+[sudo] password for devops:
+Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.
+No match for argument: terraform
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;出现错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo
+Adding repo from: 
+Curl error (6): Couldn&amp;#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com]
+Error: Configuration of repo failed
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;网址fat-finger error，应该是&lt;code&gt;https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;开始排查----根据terraform官方安装步骤来&#34;&gt;开始排查：    根据Terraform官方安装步骤来&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+# Install `yum-config-manager` to manage your repositories.
+$ sudo yum install -y yum-utils
+
+
+# Use `yum-config-manager` to add the official HashiCorp RHEL repository.
+# 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum
+# 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了
+$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+
+# Install Terraform from the new repository.
+$ sudo yum -y install terraform
+
+# 输入terraform 显示则安装成功！！！
+[devops@lb01 ~]$ terraform
+Usage: terraform [global options] &amp;lt;subcommand&amp;gt; [args]
+
+The available commands for execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;iac-用-terraform-控制-docker-生成-nginx镜像网站并访问&#34;&gt;Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;新建一个空文件夹：&lt;code&gt;mkdir tf-docker-test &amp;amp;&amp;amp; cd tf-docker-test&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~]$ mkdir ./tf-docker-test &amp;amp;&amp;amp; cd ./tf-docker-test
+[devops@lb01 ~/tf-docker-test]$ ls
+[devops@lb01 ~/tf-docker-test]$ pwd
+/home/devops/tf-docker-test
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建一个 &lt;code&gt;main.tf&lt;/code&gt; 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+terraform {
+  required_providers {
+    docker = {
+      source  = &amp;#34;kreuzwerker/docker&amp;#34;
+      version = &amp;#34;~&amp;gt; 3.0&amp;#34;
+    }
+  }
+}
+
+provider &amp;#34;docker&amp;#34; {}
+
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+  name         = &amp;#34;nginx:latest&amp;#34;
+  keep_locally = false
+}
+
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+  image = docker_image.nginx.image_id
+  name  = &amp;#34;sre-tutorial-nginx&amp;#34;
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;依次敲下三个命令来构建docker并加载容器&#34;&gt;依次敲下三个命令来构建Docker并加载容器：&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;terraform init&lt;/code&gt;   (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux Common Commands</title>
+      <link>http://localhost:1313/posts/2026-04-16-linux-commands/</link>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-16-linux-commands/</guid>
+      <description>&lt;h3 id=&#34;linux-commands-in-read-world&#34;&gt;Linux Commands in Read-World:&lt;/h3&gt;
+&lt;h4 id=&#34;commands&#34;&gt;Commands:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+ls  cp  find  |  xargs  cat  |  grep  |  sort  |  uniq  &amp;gt;  &amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;串联命令：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+find  =&amp;gt;  xargs  ==&amp;gt;  cat
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查找文件 到  处理文件内容&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+find . -type f -name `&amp;#34;*.txt&amp;#34;`
+
+mkdir -p ./test
+
+ls .
+
+cp ./test ./test.backup
+
+ls ./
+
+cd ./test
+
+touch test{1..3}.txt
+
+ls .
+
+
+
+####The `sort` command is used to sort lines of text files.
+
+####It&amp;#39;s a handy tool for organizing data in files.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;###vim  4_17.txt
+apples,1
+kiwis,3
+kiwis,4
+oranges,3
+banana,10&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker--- Nodejs</title>
+      <link>http://localhost:1313/posts/2026-04-15-docker-nodejs/</link>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-15-docker-nodejs/</guid>
+      <description>&lt;h3 id=&#34;目标docker-建立-nodejs-镜像并跑一个-nodejs-容器&#34;&gt;目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器&lt;/h3&gt;
+&lt;h4 id=&#34;troubleshooting-record&#34;&gt;Troubleshooting Record&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ sudo docker build -t nginx-image .
+
+[+] Building 0.1s (1/1) FINISHED                               docker:default
+ =&amp;gt; [internal] load build definition from Dockerfile                     0.1s
+ =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;需要先创建一个文件/文件夹&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image
+ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;没有权限访问 socket 文件：/var/run/docker.sock
+&lt;ul&gt;
+&lt;li&gt;检查sock文件权限：660 / 666&lt;/li&gt;
+&lt;li&gt;将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~/docker]$ docker build -t nginx-image .
+[+] Building 0.0s (1/1) FINISHED                               docker:default
+ =&amp;gt; [internal] load build definition from Dockerfile                     0.0s
+ =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;显示没有文件/文件夹&lt;/li&gt;
+&lt;li&gt;尝试用文件夹建立dockerfile&lt;/li&gt;
+&lt;li&gt;发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;docker images&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>yum 进阶</title>
+      <link>http://localhost:1313/posts/2026-04-11-yum-advanced/</link>
+      <pubDate>Sat, 11 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-11-yum-advanced/</guid>
+      <description>&lt;h2 id=&#34;探究yum源的混乱&#34;&gt;探究yum源的混乱&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;更换yum源核心逻辑：注释metalink；更换国内的baseurl&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;配置yum的目的&#34;&gt;配置yum的目的：&lt;/h3&gt;
+&lt;h4 id=&#34;直接跨海访问国外会有极高的延迟和丢包率从而使用国内的镜像加速本质上是切换到了-地理位置更近带宽更高的镜像站&#34;&gt;直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 &lt;strong&gt;地理位置更近、带宽更高的镜像站&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;高可用国内大厂的镜像站有极高的负载均衡保证-7x24-小时不中断&#34;&gt;高可用：国内大厂的镜像站有极高的负载均衡，保证 &lt;strong&gt;7X24 小时不中断&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&#34;版本一致性使用私有的企业内部私有源保证服务器安装的-软件版本一致&#34;&gt;版本一致性：使用私有的企业内部私有源保证服务器安装的 &lt;strong&gt;软件版本一致&lt;/strong&gt;&lt;/h4&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;etcyumreposd-文件拆解&#34;&gt;/etc/yum.repos.d/ 文件拆解：&lt;/h3&gt;
+&lt;h4 id=&#34;核心系统源baseos-appstream&#34;&gt;核心系统源（BaseOS， AppStream）：&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;rocky.repo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;包含 linux内核，li，cp，ssh等操作系统生存必须的基础包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;必须改！！！&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;官方拓展源--extras-plus&#34;&gt;官方拓展源 ( Extras, Plus)：&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;rocky-extras.repo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;包含官方支持但不属于核心系统的插件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;建议改&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;第三方社区源-epel-&#34;&gt;第三方社区源（ EPEL ）：&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;epel.repo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;由 Federa 社区维护，提供很多红帽系官方不带的工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;必须改&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;repo-文件示例&#34;&gt;repo 文件示例：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[epel] 
+# 仓库 ID 
+name=Extra Packages for Enterprise Linux 9 
+# 仓库名称 
+
+# metalink=https://mirrors... 
+# 自动寻找最快节点的地址（通常由于网络问题失效） 
+
+baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
+# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
+
+gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
+# 校验用的公钥
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;p&gt;Yum 源案例实践：&lt;/p&gt;
+&lt;p&gt;First Step &amp;mdash; 删除所有乱七八糟的 .repo 文件和备份文件&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>自动发送天气预报</title>
+      <link>http://localhost:1313/posts/2026-03-31-hefeng-dingding/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-hefeng-dingding/</guid>
+      <description>&lt;h4 id=&#34;接收方钉钉&#34;&gt;接收方：钉钉&lt;/h4&gt;
+&lt;h4 id=&#34;发送方和风天气&#34;&gt;发送方：和风天气&lt;/h4&gt;
+&lt;h4 id=&#34;api_host--webhook-api_key都在和风官方开发者后台里头像首页&#34;&gt;API_HOST,  WEBHOOK, API_KEY都在和风官方开发者后台里/头像首页&lt;/h4&gt;
+&lt;h4 id=&#34;平台github托管代码&#34;&gt;平台：Github托管代码&lt;/h4&gt;
+&lt;h4 id=&#34;代码及解释直接放在main分支&#34;&gt;代码及解释（直接放在main分支）：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import json
+
+  
+
+# ================= 配置区 =================
+
+API_HOST = &amp;#39;p34y3kvamv.re.qweatherapi.com&amp;#39; # 你的控制台设置里
+
+DINGTALK_WEBHOOK = 自己的
+
+WEATHER_API_KEY = 自己的
+
+CITY_ID = 天气api城市id    #城市代码可自行查询当地天气代码
+
+# ==========================================
+
+  
+
+def get_weather():
+
+    &amp;#34;&amp;#34;&amp;#34;获取和风天气数据&amp;#34;&amp;#34;&amp;#34;
+    
+
+    url = f&amp;#39;https://{API_HOST}/v7/weather/3d?location={CITY_ID}&amp;#39;
+
+    # 新版推荐将API KEY放在请求头中
+
+    headers = {
+
+        &amp;#39;X-QW-Api-Key&amp;#39;: WEATHER_API_KEY
+
+    }
+
+    try:
+
+        response = requests.get(url, headers=headers).json()
+
+        if response[&amp;#39;code&amp;#39;] == &amp;#39;200&amp;#39;:
+
+            today = response[&amp;#39;daily&amp;#39;][0]
+
+            date = today[&amp;#39;fxDate&amp;#39;]
+
+            temp_max = today[&amp;#39;tempMax&amp;#39;]
+
+            temp_min = today[&amp;#39;tempMin&amp;#39;]
+
+            text_day = today[&amp;#39;textDay&amp;#39;]
+
+            wind_dir = today[&amp;#39;windDirDay&amp;#39;]
+
+            uv_index = today[&amp;#39;uvIndex&amp;#39;]
+
+            # 注意：正文中必须包含你在钉钉里设置的“自定义关键词”（如：天气）
+
+            msg = f&amp;#34;&amp;#34;&amp;#34;### 🌤️ 今日天气预报
+
+**日期**：{date}
+
+**白天天气**：{text_day}
+
+**温度**：{temp_min}℃ ~ {temp_max}℃
+
+**风向**：{wind_dir}
+
+**紫外线指数**：{uv_index}
+
+  
+
+祝你今天有个好心情！
+
+&amp;#34;&amp;#34;&amp;#34;
+
+            return msg
+
+        else:
+
+            print(f&amp;#34;获取天气失败，错误码：{response[&amp;#39;code&amp;#39;]}&amp;#34;)
+
+            return None
+
+    except Exception as e:
+
+        print(f&amp;#34;请求发生异常: {e}&amp;#34;)
+
+        return None
+
+  
+
+def send_to_dingtalk(msg_text):
+
+    &amp;#34;&amp;#34;&amp;#34;发送 Markdown消息到钉钉 &amp;#34;&amp;#34;&amp;#34;
+
+    headers = {&amp;#39;Content-Type&amp;#39;: &amp;#39;application/json&amp;#39;}
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;markdown&amp;#34;,
+
+        &amp;#34;markdown&amp;#34;: {
+
+            &amp;#34;title&amp;#34;: &amp;#34;今日天气&amp;#34;,
+
+            &amp;#34;text&amp;#34;: msg_text    
+
+        }
+
+    }
+
+    response = requests.post(DINGTALK_WEBHOOK, headers=headers, data=json.dumps(data))
+
+    print(&amp;#34;钉钉返回结果：&amp;#34;, response.text)
+
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    weather_info = get_weather()
+
+    if weather_info:
+
+        send_to_dingtalk(weather_info)
+        
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;把yml文件放在workflows下&#34;&gt;把yml文件放在workflows下：&lt;/h3&gt;
+&lt;h4 id=&#34;代码&#34;&gt;代码：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+name: Daily Weather Bot
+on:
+  schedule:
+    - cron: &amp;#39;30 23 * * *&amp;#39; # 注意：这里是UTC时间！UTC的23:30相当于北京时间早上7:30。2000次最大/月
+  workflow_dispatch: # 允许手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: &amp;#39;3.x&amp;#39;
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      - name: Run script
+        run: python weather_bot.py #脚本名字
+        
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;完成后每天7点半即可接收到钉钉消息&#34;&gt;完成后每天7点半即可接收到钉钉消息！！！&lt;/h3&gt;</description>
+    </item>
+    <item>
+      <title>钉钉自动巡检告警--完全版</title>
+      <link>http://localhost:1313/posts/2026-03-31-dingding-upgrade/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-dingding-upgrade/</guid>
+      <description>&lt;h3 id=&#34;钉钉自动巡检告警&#34;&gt;钉钉自动巡检告警：&lt;/h3&gt;
+&lt;h4 id=&#34;注意钉钉机器人有使用频率限制每个机器人最多20条min&#34;&gt;注意：钉钉机器人有使用频率限制：每个机器人最多20条/min&lt;/h4&gt;
+&lt;h4 id=&#34;注意配置前安装好相应库&#34;&gt;注意：配置前安装好相应库&lt;/h4&gt;
+&lt;h4 id=&#34;功能自动检测并定时发送hostnamedatetimecpumemdisk服务状态zabbix面板链接可自行添加&#34;&gt;功能：自动检测并定时发送hostname，datetime，cpu，mem，disk，服务状态；Zabbix面板链接可自行添加&lt;/h4&gt;
+&lt;h4 id=&#34;文本格式markdown&#34;&gt;文本格式：Markdown&lt;/h4&gt;
+&lt;h4 id=&#34;代码及解释&#34;&gt;代码及解释：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import psutil
+
+import socket
+
+import requests
+
+import json
+
+from datetime import datetime
+
+  
+
+#配置区==================================================
+
+  
+
+WEBHOOK_URL = &amp;#34;你的钉钉群机器人token&amp;#34;
+
+  
+
+#设置合理告警阈值：
+
+THRESHOLD_CPU = 80    #CPU
+
+THRESHOLD_MEM = 85    #内存
+
+THRESHOLD_DISK = 90   #磁盘
+
+  
+
+#=======================================================
+
+  
+  
+
+def get_sys_info():
+
+    &amp;#34;&amp;#34;&amp;#34;获取系统基础信息&amp;#34;&amp;#34;&amp;#34;
+
+    # 获取主机名和当前时间（格式自定义）
+
+    hostname = socket.gethostname()
+
+    now_time = datetime.now().strftime(&amp;#34;%Y-%m-%d %H-%M-%S&amp;#34;)
+
+  
+
+    # 1.CPU 使用率（采样1次/s）：
+
+    cpu_usage = psutil.cpu_percent(interval=1)
+    
+
+    # 2.MEM 使用率：
+
+    mem = psutil.virtual_memory()
+
+    mem_usage = mem.percent
+
+  
+
+    # 3.DISK 使用率：
+
+    disk = psutil.disk_usage(&amp;#39;/&amp;#39;)
+
+    disk_usage = disk.percent
+
+  
+
+    return hostname, now_time, cpu_usage, mem_usage, disk_usage
+
+  
+
+def check_service(service_name):
+
+    &amp;#34;&amp;#34;&amp;#34;检查特定进程（服务）是否在运行&amp;#34;&amp;#34;&amp;#34;
+
+    # 遍历当前所有进程名：
+
+    for proc in psutil.process_iter([&amp;#39;name&amp;#39;]):
+
+        if service_name.lower() in proc.info[&amp;#39;name&amp;#39;].lower():
+
+            return &amp;#34;✔️ 该服务正在运行中。&amp;#34;
+
+    return &amp;#34;❌️ 该服务已经停止！&amp;#34;
+
+  
+
+def send_markdown_msg(hostname, now_time, cpu, mem, disk, nginx_status):
+
+    &amp;#34;&amp;#34;&amp;#34;发送 MarkDown 格式告警&amp;#34;&amp;#34;&amp;#34;
+
+  
+
+    #根据状态判断标题颜色（若有异常则提醒）：
+
+    status_title = &amp;#34;🤚 系统巡检正常&amp;#34;
+
+    if cpu &amp;gt; THRESHOLD_CPU or mem &amp;gt; THRESHOLD_MEM or disk &amp;gt; THRESHOLD_DISK or &amp;#34;❌️&amp;#34; in nginx_status:
+
+        status_title = &amp;#34;🤦🏻‍♂️ 系统告警：检测到异常&amp;#34;
+
+  
+
+    # Markdown 内容
+
+    markdown_content = f&amp;#34;&amp;#34;&amp;#34;### {status_title}
+
+**主机名称**： {hostname}
+
+**巡检时间**： {now_time}
+
+  
+
+---
+
+- **CPU 使用率**：{cpu}%  {&amp;#39;⚠️&amp;#39; if cpu &amp;gt; THRESHOLD_CPU else &amp;#39;&amp;#39;}
+
+- **内存 使用率**：{mem}% {&amp;#39;⚠️&amp;#39; if mem &amp;gt; THRESHOLD_MEM else &amp;#39;&amp;#39;}
+
+- **磁盘 使用率**：{disk}% {&amp;#39;⚠️&amp;#39; if disk &amp;gt; THRESHOLD_DISK else &amp;#39;&amp;#39;}
+
+- **Nginx服务**: {nginx_status}
+
+  
+
+---
+
+[点击查看Zabbix监控看板](http://Zabbix地址)
+
+&amp;#34;&amp;#34;&amp;#34;
+
+  
+  
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;markdown&amp;#34;,
+
+        &amp;#34;markdown&amp;#34;: {
+
+            &amp;#34;title&amp;#34;: &amp;#34;服务器巡检报告&amp;#34;,
+
+            &amp;#34;text&amp;#34;: markdown_content
+
+        }
+
+    }
+
+  
+
+    headers = {&amp;#34;Content-Type&amp;#34;: &amp;#34;application/json&amp;#34;}
+
+    try:
+
+        res = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+        print(f&amp;#34;发送状态：{res.text}&amp;#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&amp;#34;发送失败：{e}&amp;#34;)
+
+  
+
+if __name__ == &amp;#34;__main__&amp;#34;:
+
+    #执行巡检
+
+    h, t, c, m, d = get_sys_info()
+
+  
+
+    #可换成其他进程名
+
+    n_status = check_service(&amp;#34;nginx&amp;#34;)
+
+  
+
+    #发送报告
+
+    send_markdown_msg(h, t, c, m, d, n_status)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;推荐emoji状态表情可自行复制进去&#34;&gt;推荐：Emoji状态表情可自行复制进去。&lt;/h4&gt;
+&lt;h4 id=&#34;函数及库的使用&#34;&gt;函数及库的使用&lt;/h4&gt;
+&lt;h5 id=&#34;1-库的调用&#34;&gt;1. 库的调用&lt;/h5&gt;
+&lt;p&gt;psutil: 专门用来读取 CPU、内存、进程等硬件和系统信息。
+socket: 用来获取 hostname（主机名），这在管理几十台服务器时非常重要，否则你不知道是哪台机器出的问题。
+datetime: 获取当前时间，所有的运维报告必须带时间戳。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>钉钉自动巡检告警--磁盘空间</title>
+      <link>http://localhost:1313/posts/2026-03-31-dingding/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-dingding/</guid>
+      <description>&lt;h3 id=&#34;钉钉自动巡检告警disk&#34;&gt;钉钉自动巡检告警&amp;ndash;Disk：&lt;/h3&gt;
+&lt;h4 id=&#34;注意在虚拟环境中要提前-pip-安装相应的库&#34;&gt;注意：在虚拟环境中要提前 pip 安装相应的库&lt;/h4&gt;
+&lt;h4 id=&#34;注意钉钉机器人有使用频率限制每个机器人最多20条min&#34;&gt;注意：钉钉机器人有使用频率限制：每个机器人最多20条/min&lt;/h4&gt;
+&lt;h4 id=&#34;建议采用python虚拟环境避免冲突&#34;&gt;建议采用Python虚拟环境避免冲突&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#新建文件夹：
+mkdir /to/your/myPython
+touch /to/your/myPython/DingDing.py
+
+#激活venv环境，使命令行前出现venv标志
+python3 -m venv venv 
+
+#在所在文件目录执行
+source venv/bin/activate
+
+#执行脚本
+python3 /to/your/myPython/DingDing.py
+
+#取消venv
+deactivate
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h4 id=&#34;脚本代码及解释&#34;&gt;脚本代码及解释：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import json
+
+import psutil
+
+import socket
+
+  
+#自己的token，在 钉钉自建群 ==》机器人 ==》 自定义机器人 ==》查看token ==》 安全策略带关键词，如&amp;#34;告警&amp;#34; 
+
+WEBHOOK_URL = &amp;#34;你的token&amp;#34;
+
+  
+
+def send_dingtalk_msg(content):
+
+    &amp;#34;&amp;#34;&amp;#34;发送钉钉告警的核心函数&amp;#34;&amp;#34;&amp;#34;
+
+    headers = {&amp;#34;Content-Type&amp;#34;: &amp;#34;application/json&amp;#34;}
+
+  
+
+    #构建消息体（必须包含关键词&amp;#34;告警&amp;#34;）
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;text&amp;#34;,
+
+        &amp;#34;text&amp;#34;: {
+        
+            &amp;#34;content&amp;#34;: f&amp;#34;【服务器自动巡检告警】\n{content}&amp;#34;
+
+        }
+
+    }
+
+  
+
+    try:
+
+        response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+  
+
+        result =response.json()
+
+  
+
+        if response.status_code == 200:
+
+            print(&amp;#34;钉钉消息发送成功！！！&amp;#34;)
+
+  
+
+        else:
+
+            print(f&amp;#34;发送失败，错误码：{response.status_code}&amp;#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&amp;#34;网络请求出错：{e}&amp;#34;)
+
+  
+
+def check_disk_usage():
+
+    &amp;#34;&amp;#34;&amp;#34;检查磁盘使用率&amp;#34;&amp;#34;&amp;#34;
+
+    hostname = socket.gethostname()
+
+  
+
+    disk_info = psutil.disk_usage(&amp;#39;/&amp;#39;)
+
+    percent = disk_info.percent
+
+  
+
+    print(f&amp;#34;当前磁盘使用率：{percent}&amp;#34;)
+
+  
+	#设置一个合理的磁盘空间&amp;#34;报警值&amp;#34;
+    if percent &amp;gt; 80:
+
+        msg = f&amp;#34;主机名：{hostname}\n状态：磁盘空间不足\n当前使用率：{percent}%\n请及时清理日志或扩容！！！&amp;#34;
+
+        send_dingtalk_msg(msg)
+
+    else:
+
+        print(&amp;#34;磁盘状态正常&amp;#34;)
+
+  
+
+if __name__ == &amp;#34;__main__&amp;#34;:
+
+    check_disk_usage()
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h4 id=&#34;设置crontab定时脚本&#34;&gt;设置crontab定时脚本：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#编辑脚本
+crontab -e
+
+#添加：
+0 * * * * /to/your/venv/bin/python /to/your/DingDing.py
+
+#完成后会出现新安装的提示
+
+#如果想要测试的话还是直接用： 
+python3 /to/your/DingDing.py
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;</description>
+    </item>
+    <item>
+      <title>SSH安全密钥设置</title>
+      <link>http://localhost:1313/posts/2026-03-21-ssh-pubkey/</link>
+      <pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-21-ssh-pubkey/</guid>
+      <description>&lt;h2 id=&#34;ssh开放高位端口以及免密钥匙登录&#34;&gt;==SSH开放高位端口以及免密钥匙登录==&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！&lt;/strong&gt; 所有的测试请在&lt;strong&gt;新开的终端窗口&lt;/strong&gt;中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。&lt;/p&gt;
+&lt;h2 id=&#34;以下是完整的操作步骤&#34;&gt;以下是完整的操作步骤：&lt;/h2&gt;
+&lt;h3 id=&#34;第一步确保你已经配置好了密钥登录&#34;&gt;第一步：确保你已经配置好了密钥登录&lt;/h3&gt;
+&lt;h4 id=&#34;在禁用密码登录之前你必须确保密钥登录已经可以成功使用&#34;&gt;在禁用密码登录之前，你必须确保密钥登录已经可以成功使用。&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;如果你在本地还没有生成过密钥，请在&lt;strong&gt;本地电脑&lt;/strong&gt;终端执行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh-keygen -t ed25519 -C &amp;#34;your_email@example.com&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;将公钥上传到服务器（把 user 和 ip 换成你的服务器账号和IP）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh-copy-id user@ip
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;&lt;strong&gt;测试密钥登录&lt;/strong&gt;：新开一个终端，输入 ssh user@ip，如果不需要输入密码就能直接登入，说明密钥配置成功。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;第二步修改-ssh-配置文件&#34;&gt;第二步：修改 SSH 配置文件&lt;/h3&gt;
+&lt;p&gt;在服务器上，使用你熟悉的编辑器（如 vim 或 nano）编辑 sshd 服务器端配置文件：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo vim /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;找到并修改以下三项内容（如果没有找到该项，或者前面有 # 注释符，请去掉 # 并修改）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;修改端口&lt;/strong&gt;：找到 Port 22，将其修改为你想要的的高位端口（建议在 10000 - 65535 之间，例如 50022）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Port 50022
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;strong&gt;禁用密码登录&lt;/strong&gt;：找到 PasswordAuthentication，将其修改为 no：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PasswordAuthentication no
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;确认开启密钥登录&lt;/strong&gt;：找到 PubkeyAuthentication，确保其为 yes：&lt;/p&gt;
+&lt;p&gt;codeText&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PubkeyAuthentication yes
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;保存并退出编辑器。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;第三步放行防火墙规则非常关键&#34;&gt;第三步：放行防火墙规则（非常关键）&lt;/h3&gt;
+&lt;p&gt;在重启 SSH 服务之前，必须在防火墙中放行你刚才设置的高位端口，否则你将被拦截在外面。&lt;br&gt;
+根据你的系统，选择对应的防火墙命令：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;如果是 Ubuntu / Debian (UFW):&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker简单配置</title>
+      <link>http://localhost:1313/posts/2026-03-20-docker-junior/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-20-docker-junior/</guid>
+      <description>&lt;h4 id=&#34;docker配置命令&#34;&gt;Docker配置命令：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 1）先清理冲突包  
+dnf remove y podmandocker podman runc  
+  
+# 2）安装仓库管理工具  
+dnf y install dnfpluginscore  
+  
+# 3）添加 Docker 官方 RHEL 仓库  
+dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  
+  
+# 4）安装 Docker  
+dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  
+  
+# 5）启动并设置开机自启  
+systemctl enable now docker  
+  
+# 6） 验证  
+docker version  
+docker info
+
+这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。
+
+
+# 阶段 1：认识镜像  
+docker search nginx  
+docker pull nginx  
+docker images  
+  
+# 阶段 2：跑第一个容器  
+docker run d name mynginx p 80:80 nginx  
+docker ps  
+docker logs f mynginx  
+docker exec it mynginx bash  
+  
+# 阶段 3：理解生命周期  
+docker stop mynginx  
+docker start mynginx  
+docker rm f mynginx  
+  
+# 阶段 4：练习镜像管理  
+docker image inspect nginx  
+docker image save nginx &amp;gt; nginx.tar  
+docker image load i nginx.tar  
+docker rmi nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;报错点（环境被污染）：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FTP办公挂载文件夹</title>
+      <link>http://localhost:1313/posts/2026-03-20-ftp-win/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-20-ftp-win/</guid>
+      <description>&lt;h3 id=&#34;搭建服务器的ftp文件夹挂载在win上&#34;&gt;搭建服务器的FTP文件夹挂载在win上&lt;/h3&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;简单介绍&#34;&gt;简单介绍：&lt;/h4&gt;
+&lt;h5 id=&#34;ftpvsftp&#34;&gt;FTP（VSFTP）&lt;/h5&gt;
+&lt;h5 id=&#34;类unix系统使用的ftp服务器软件&#34;&gt;类unix系统使用的FTP服务器软件&lt;/h5&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h5 id=&#34;安全高速稳定&#34;&gt;安全，高速，稳定&lt;/h5&gt;
+&lt;h6 id=&#34;vim-etcservices----查端口&#34;&gt;vim /etc/services    查端口&lt;/h6&gt;
+&lt;h6 id=&#34;20--传数据21--传指令&#34;&gt;20  传数据；21  传指令&lt;/h6&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h5 id=&#34;ftp会话通道&#34;&gt;FTP会话通道：&lt;/h5&gt;
+&lt;h6 id=&#34;20数据通道正文&#34;&gt;20数据通道：正文&lt;/h6&gt;
+&lt;h6 id=&#34;21控制通道敲门输密码发指令&#34;&gt;21控制通道：敲门，输密码，发指令&lt;/h6&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h6 id=&#34;主动模式&#34;&gt;主动模式：&lt;/h6&gt;
+&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;
+&lt;h6 id=&#34;被动模式passive-相对的&#34;&gt;被动模式(passive)： 相对的&lt;/h6&gt;
+&lt;p&gt;S开放随机高位端口&amp;amp;发给C,然后等待Client连接&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;h4 id=&#34;配置实现&#34;&gt;配置实现：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dnf install vsftpd y
+systemctl start vsftpd
+systemctl status vsftpd
+
+firewallcmd permanent addservice=ftp
+firewallcmd reload
+
+vim /etc/vsftpd/vsftpd.conf
+local_enables=YES
+write_enables=YES
+
+setenforce 0
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;大功告成最后&#34;&gt;大功告成！！！最后：&lt;/h5&gt;
+&lt;h5 id=&#34;win-下资源管理器输入&#34;&gt;win 下资源管理器输入：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ftp：//虚拟机IP
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Python自动下载整个网站的漫画 </title>
+      <link>http://localhost:1313/posts/2026-03-20-comics-python/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-20-comics-python/</guid>
+      <description>&lt;h3 id=&#34;实现源码&#34;&gt;实现源码：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import os
+
+import bs4
+
+  
+
+def download_comics():
+
+    url = &amp;#39;https://xkcd.com/3216/&amp;#39;
+
+    floder_name = &amp;#39;xkcd_comics&amp;#39;
+
+    os.makedirs(floder_name, exist_ok=True)
+
+  
+
+    count = 0
+
+  
+
+    while not url.endswith(&amp;#39;#&amp;#39;) and count &amp;lt; 5:
+
+        print(f&amp;#34;正在访问网页： {url}&amp;#34;)
+
+  
+
+        headers = {&amp;#39;UserAgent&amp;#39;: &amp;#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&amp;#39;}
+
+        res = requests.get(url, headers=headers)
+
+        res.raise_for_status()
+
+  
+
+        soup = bs4.BeautifulSoup(res.text, &amp;#39;html.parser&amp;#39;)
+
+  
+
+        comic_elem = soup.select(&amp;#39;#comic img&amp;#39;)
+
+  
+
+        if comic_elem == []:
+
+            print(&amp;#34;未在该页面找到图片！！！&amp;#34;)
+
+        else:
+
+            comic_url = &amp;#39;https:&amp;#39; + comic_elem[0].get(&amp;#39;src&amp;#39;)
+
+  
+
+            print(f&amp;#39;下载图片：{comic_url}&amp;#39;)
+
+            res = requests.get(comic_url, headers=headers)
+
+            res.raise_for_status()
+
+  
+
+            image_name = os.path.basename(comic_url)
+
+            image_path = os.path.join(floder_name, image_name)
+
+  
+
+            with open(image_path, &amp;#39;wb&amp;#39;) as image_file:
+
+                for chunk in res.iter_content(100000):
+
+                    image_file.write(chunk)
+
+  
+  
+
+        prev_link = soup.select(&amp;#39;a[rel=&amp;#34;prev&amp;#34;]&amp;#39;)[0]
+
+        url = &amp;#39;https://xkcd.com&amp;#39; + prev_link.get(&amp;#39;href&amp;#39;)
+
+  
+
+        count += 1
+
+    print(&amp;#34;所有漫画下载完毕！！请看xkcd_comics文件夹&amp;#34;)
+
+  
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    download_comics()
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;注意处于网络问题可能有访问不了的情况&#34;&gt;注意：处于网络问题可能有访问不了的情况！&lt;/h5&gt;</description>
+    </item>
+    <item>
+      <title>《Nginx 恶意攻击 IP 自动分析与封禁拦截器》</title>
+      <link>http://localhost:1313/posts/2026-03-19-ips-ban/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-ips-ban/</guid>
+      <description>&lt;h4 id=&#34;背景nginx-服务器遭到恶意爬虫的疯狂扫描varlognginxerrorlog文件瞬间暴增了上万行--如果手动去找是哪些-ip-在攻击然后一条条加进防火墙费时费力&#34;&gt;背景：Nginx 服务器遭到恶意爬虫的疯狂扫描，/var/log/nginx/error.log 文件瞬间暴增了上万行。  如果手动去找是哪些 IP 在攻击，然后一条条加进防火墙，费时费力&lt;/h4&gt;
+&lt;h4 id=&#34;解决方案通过python自动化脚本运用-os-和-re库来自动化提取恶意ip并放入shell脚本中根据实际情况决定是否执行脚本&#34;&gt;解决方案：通过Python自动化脚本运用 os 和 re库来自动化提取恶意IP;并放入Shell脚本中,根据实际情况决定是否执行脚本&lt;/h4&gt;
+&lt;h4 id=&#34;操作检查下列代码有解释并根据自身实际情况修改将py代码与自身想要检索的日志放在同一个目录下&#34;&gt;操作：检查下列代码（有解释）；并根据自身实际情况修改，将py代码与自身想要检索的日志放在同一个目录下&lt;/h4&gt;
+&lt;h4 id=&#34;代码与逻辑&#34;&gt;代码与逻辑：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import re
+
+import os
+
+  
+
+#============配置区=============
+
+LOG_FILE = &amp;#39;error.log&amp;#39;
+
+OUTPUT_FILE = &amp;#39;ban_ips.sh&amp;#39;
+
+THERESHOLD = 50        #报警阈值
+
+WHERELIST = [&amp;#39;192.168.1.6&amp;#39;, &amp;#39;10.0.0.6&amp;#39;]          #白名单
+
+#==============================
+
+  
+
+def main():
+
+    ip_Regex = re.compile(r&amp;#39;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}&amp;#39;)
+
+  
+
+    ip_Counts = {}          #空字典当“计数器”
+
+  
+  
+  
+
+    print(f&amp;#34;正在分析日志文件: {LOG_FILE}&amp;#34;)
+
+    if not os.path.exists(LOG_FILE):
+
+            print(&amp;#34;找不到日志文件，请检查路径。&amp;#34;)
+
+            return
+
+  
+
+    with open(LOG_FILE, &amp;#39;r&amp;#39;, encoding=&amp;#39;utf-8&amp;#39;, errors=&amp;#39;ignore&amp;#39;) as file:
+
+        for line in file:
+
+                match = ip_Regex.search(line)
+
+                if match:
+
+                    ip = match.group()
+
+                    if ip in WHERELIST:
+
+                        continue
+
+                    if ip in ip_Counts:
+
+                        ip_Counts[ip] += 1
+
+                    else:
+
+                        ip_Counts[ip] = 1
+
+  
+
+    malicious_ips = []
+
+    for ip, count in ip_Counts.items():
+
+        if count &amp;gt;= THERESHOLD:
+
+                malicious_ips.append(ip)
+
+                print(f&amp;#34;发现恶意IP {ip} 攻击了 {count} 次！！！&amp;#34;)
+
+  
+
+    if malicious_ips:
+
+        with open(OUTPUT_FILE, &amp;#39;w&amp;#39;,  encoding=&amp;#39;utf-8&amp;#39;) as out_file:
+
+                out_file.write(&amp;#34;#!/bin/bash\n&amp;#34;)
+
+                out_file.write(&amp;#34;# 自动生成的防火墙封禁脚本\n\n&amp;#34;)
+
+  
+
+                for ip in malicious_ips:
+
+                    cmd = f&amp;#34;firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=\&amp;#34;ipv4\&amp;#34; source address=\&amp;#34;{ip}\&amp;#34; drop&amp;#39; \n &amp;#34;
+
+                    out_file.write(cmd)
+
+                out_file.write(&amp;#34;\nfirewall-cmd --reload\n&amp;#34;)
+
+                out_file.write(f&amp;#34;echo &amp;#39;所有恶意ip已经被写入文件{OUTPUT_FILE}&amp;#39;\n&amp;#34;)
+
+  
+
+        print(f&amp;#34;\n 已经生成封禁IP脚本{OUTPUT_FILE}&amp;#34;)
+
+        print(f&amp;#34; 您只需要执行：bash {OUTPUT_FILE} 即可封禁恶意IP&amp;#34;)
+
+    else:
+
+        print(&amp;#34;\n 日志很干净没有发现恶意IP&amp;#34;)
+
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+     main()
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;执行结果如下&#34;&gt;执行结果如下：&lt;/h4&gt;
+&lt;h5 id=&#34;终端中&#34;&gt;终端中：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@SERVER nginx]# python3 ./ips_blocker.py
+正在分析日志文件: error.log
+发现恶意IP 141.101.69.127 攻击了 896 次！！！
+发现恶意IP 172.71.126.94 攻击了 583 次！！！
+
+ 已经生成封禁IP脚本ban_ips.sh
+ 您只需要执行：bash ban_ips.sh 即可封禁恶意IP
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;shell脚本中&#34;&gt;Shell脚本中：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#!/bin/bash
+自动生成的防火墙封禁脚本
+
+firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;141.101.69.127&amp;#34; drop&amp;#39;
+ firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;172.71.126.94&amp;#34; drop&amp;#39;
+
+firewall-cmd --reload
+echo &amp;#39;所有恶意ip已经被写入文件ban_ips.sh&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Python--机器人自动备份文件到自动递增ZIP </title>
+      <link>http://localhost:1313/posts/2026-03-19-zip/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-zip/</guid>
+      <description>&lt;h5 id=&#34;项目背景&#34;&gt;项目背景：&lt;/h5&gt;
+&lt;h6 id=&#34;将appconfig-目录下的配置文件备份一下免得一会更新代码搞坏了-于是熟练地敲下tar--czvf-config_bak_20260318targz-appconfig-过了半小时因为改错地方需要再备份一次只能再敲一次并且小心翼翼地把文件名改成-config_bak_20260318_v2targz生怕覆盖了上一个版本&#34;&gt;将/app/config 目录下的配置文件备份一下，免得一会更新代码搞坏了。 于是熟练地敲下：tar -czvf config_bak_20260318.tar.gz /app/config。 过了半小时，因为改错地方需要再备份一次只能再敲一次，并且小心翼翼地把文件名改成 config_bak_20260318_v2.tar.gz，生怕覆盖了上一个版本。&lt;/h6&gt;
+&lt;h5 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h5&gt;
+&lt;h6 id=&#34;通过python编写自动备份机器人只需要告诉他要备份哪个文件夹即可自动扫描里面所有文件并递自动增生成版本号将其安全压缩成-zip-文件&#34;&gt;通过Python编写’自动备份机器人‘；只需要告诉他要备份哪个文件夹，即可自动扫描里面所有文件并递自动增生成版本号，将其安全压缩成 ZIP 文件&lt;/h6&gt;
+&lt;h5 id=&#34;准备&#34;&gt;准备：&lt;/h5&gt;
+&lt;h6 id=&#34;python自带的两个强大标准库&#34;&gt;Python自带的两个强大标准库：&lt;/h6&gt;
+&lt;h6 id=&#34;os用于进入文件夹-遍历文件检查文件是否存在&#34;&gt;os：用于进入文件夹 ，遍历文件，检查文件是否存在&lt;/h6&gt;
+&lt;h6 id=&#34;zipfile用于创建和写入-zip-压缩包&#34;&gt;zipfile：用于创建和写入 ZIP 压缩包&lt;/h6&gt;
+&lt;h5 id=&#34;流程图&#34;&gt;流程图：&lt;/h5&gt;
+&lt;h6 id=&#34;接收文件夹路径--检查当前目录--备份并剔除重复文件名&#34;&gt;接收文件夹路径 ==&amp;gt; 检查当前目录 ==&amp;gt; 备份并剔除重复文件名&lt;/h6&gt;
+&lt;h5 id=&#34;代码及解释&#34;&gt;代码及解释：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import zipfile
+import os
+
+  
+
+def backupToZip(folder):
+
+    # 1. 确保传入的文件夹路径是绝对路径
+
+    folder = os.path.abspath(/root/frp)
+    
+
+    # 提取文件夹的名字，比如 &amp;#39;/var/log/nginx&amp;#39; 会提取出 &amp;#39;nginx&amp;#39;
+
+    folder_name = os.path.basename(folder)
+    
+
+
+    # 2. 自动判定版本号 (核心逻辑)
+
+    number = 1
+
+    while True:
+
+        # 拼接即将生成的 ZIP 文件名
+
+        zip_filename = f&amp;#39;{folder_name}_backup_V{number}.zip&amp;#39;
+
+        # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环
+
+        if not os.path.exists(zip_filename):
+
+            break
+
+        # 如果存在，编号加 1，继续找下一个
+import zipfile
+
+import os
+
+#import sys
+
+  
+
+def backupToZip(folder):
+
+    &amp;#34;&amp;#34;&amp;#34;
+
+    将整个文件夹的内容备份到一个带有递增版本号的 ZIP 文件中。
+
+    &amp;#34;&amp;#34;&amp;#34;
+
+    # 1. 确保传入的文件夹路径是绝对路径
+
+    folder = os.path.abspath(folder)
+
+    # 提取文件夹的名字，比如 &amp;#39;/var/log/nginx&amp;#39; 会提取出 &amp;#39;nginx&amp;#39;
+
+    folder_name = os.path.basename(folder)
+
+  
+
+    # 2. 自动判定版本号 (核心逻辑)
+
+    number = 1
+
+    while True:
+
+        # 拼接即将生成的 ZIP 文件名
+
+        zip_filename = f&amp;#39;{folder_name}_backup_{number}.zip&amp;#39;
+
+        # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环
+
+        if not os.path.exists(zip_filename):
+
+            break
+
+        # 如果存在，编号加 1，继续找下一个
+
+        number = number + 1
+
+  
+  
+
+    # 3. 创建 ZIP 压缩文件
+
+    print(f&amp;#39;备份机器人正在创建备份归档: {zip_filename} ...&amp;#39;)
+
+    backup_zip = zipfile.ZipFile(zip_filename, &amp;#39;w&amp;#39;, zipfile.ZIP_DEFLATED)
+
+  
+  
+
+    # 4. 遍历目录树并添加到 ZIP 文件中
+
+    # os.walk 会像剥洋葱一样，一层层遍历文件夹里的所有内容
+
+    for foldername, subfolders, filenames in os.walk(folder):
+
+        print(f&amp;#39;正在添加文件夹: {foldername} ...&amp;#39;)
+
+        # 把当前文件夹本身加进压缩包
+
+        backup_zip.write(foldername)
+
+  
+
+        # 把当前文件夹里的所有文件加进压缩包
+
+        for filename in filenames:
+
+            # 安全防范：防止脚本把刚刚生成的 ZIP 包自己也打包进去（无限套娃）
+
+            if filename.startswith(f&amp;#39;{folder_name}_backup_&amp;#39;) and filename.endswith(&amp;#39;.zip&amp;#39;):
+
+                continue
+
+            # 获取文件的绝对路径并写入压缩包
+
+            file_path = os.path.join(foldername, filename)
+
+            backup_zip.write(file_path)
+
+  
+
+    # 5. 收工关门
+
+    backup_zip.close()
+
+    print(f&amp;#39;报告老板，备份完成！已成功生成：{zip_filename}&amp;#39;)
+
+  
+
+# ================= 运行区 =================
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    # if len(sys.argv) &amp;lt; 2:
+
+    #     print(&amp;#34;用法错误！请在命令后面加上你要备份的文件夹路径。&amp;#34;)
+
+    #     print(&amp;#34;例如： python backup.py /var/log/nginx/error.log&amp;#34;)
+
+  
+
+    # target_folder = sys.argv[1]
+
+  
+  
+  
+  
+
+    # 假设我们要备份有/root/aaa这个路径文件夹
+
+    target_folder = &amp;#39;/root/aaa&amp;#39;
+
+    if os.path.exists(target_folder):
+
+        backupToZip(target_folder)
+
+    else:
+
+        print(f&amp;#34;找不到文件夹: {target_folder}，请检查路径！&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：sys库可以让别人引用脚本变得方便&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>电话号码和 E-mail 提取器</title>
+      <link>http://localhost:1313/posts/2026-03-19-email-number/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-email-number/</guid>
+      <description>&lt;h3 id=&#34;提取电话和邮箱&#34;&gt;提取电话和邮箱&lt;/h3&gt;
+&lt;h4 id=&#34;导入库&#34;&gt;导入库&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import re, pyperclip
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建手机号正则表达式手机号格式&#34;&gt;创建手机号正则表达式(手机号格式)&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;phoneRegex = re.compile(r&amp;#39;\d{3}\S?\d{4}\S?\d{4}&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建邮箱正则表达式邮箱格式&#34;&gt;创建邮箱正则表达式（邮箱格式）&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;emailRegex = re.compile(r&amp;#39;&amp;#39;&amp;#39;(
+
+    [a-zA-Z0-9._%+-] +      # 用户名部分
+
+    \S                      # @ 符号
+
+    [a-zA-Z0-9.-] +         # 域名部分
+
+    (\.[a-zA-Z]{2,4})      # 最后的后缀 (.com/.cn)
+
+    )&amp;#39;&amp;#39;&amp;#39;, re.VERBOSE)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;从剪贴板获取文本&#34;&gt;从剪贴板获取文本&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;text = str(pyperclip.paste())
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;提取匹配项&#34;&gt;提取匹配项&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;matches = []
+
+for groups in phoneRegex.findall(text):
+
+    matches.append(groups)          #纯文本内容，所有全部加入
+
+for groups in emailRegex.findall(text):
+
+    matches.append(groups[0])       #最外层大括号内容全部加入
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;将结果存回剪贴板&#34;&gt;将结果存回剪贴板&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if len(matches) &amp;gt; 0:
+
+    pyperclip.copy(&amp;#39;\n&amp;#39;.join(matches))
+
+    print(&amp;#39;提取成功，已存入剪贴板！&amp;#39;)
+
+else:
+
+    print(&amp;#39;未发现电话或邮箱。&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>内存告急，快加swap！！！</title>
+      <link>http://localhost:1313/posts/2026-03-17-add-swap/</link>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-17-add-swap/</guid>
+      <description>&lt;h3 id=&#34;内存不足创建swap空间&#34;&gt;内存不足创建swap空间&lt;/h3&gt;
+&lt;h4 id=&#34;痛点云服务器的内存太小又想要极致性价比&#34;&gt;痛点：云服务器的内存太小，又想要极致性价比&lt;/h4&gt;
+&lt;h4 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h4&gt;
+&lt;h5 id=&#34;创建swapfile的大文件放在swap下&#34;&gt;创建swapfile的大文件放在swap下&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 创建swap空间：
+- 
+	- 创建swapfile空间 ==&amp;gt;  转为swap  ==&amp;gt;  激活swap并加入linux   ==&amp;gt;  配置永久挂载
+	
+	
+	- if        
+	- 
+		- input file
+	
+	- 
+	- of
+	- 
+		- output file
+		
+	
+	- bs
+	- 
+		- block size 每次读取多少
+	
+	- 
+	- count     
+	- 
+		- 读取次数
+	
+	- dd  if=/dev/zero  of=/tmp/swapfile  bs=1M  count=1000
+	- 
+	- 
+	- mkswap  /tmp/swapfile
+	- 
+	- free -h
+	- 
+	- chmod  600  /tmp/swapfile
+	- 
+	- mkswap /tmp/swapfile
+	- 
+	- swapon  /tmp/swapfile
+
+		
+
+	- free -h
+	- 
+
+	- 
+	- 先卸载当前的 Swap 文件 
+	- 
+		- swapoff /tmp/swapfile 
+		
+		- 
+	- 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） 
+		- 
+		- swapon -a
+		
+	- vim /etc/fstab（修改）
+
+		- /swapfile   swap   swap    defaults    0    0 
+	
+	
+	- free -h 
+		
+		- 再次查看挂载情况
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>SSH 配置踩坑</title>
+      <link>http://localhost:1313/posts/2026-03-15-ssh-remote/</link>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-15-ssh-remote/</guid>
+      <description>&lt;h4 id=&#34;ssh服务github-远程连接报错排查&#34;&gt;SSH服务&amp;mdash;Github 远程连接报错排查&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;远程连接到github时出现报错，不能连接
+
+估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件
+
+尝试：
+
+	删除原来的公钥，重新建一个在正确目录下
+
+	ssh-keygen -t ed25519 -C &amp;#34;xxx@xxx.com&amp;#34;   
+        填自己邮箱，生成ssh密钥
+
+	将公钥内容复制到github中的ssh管理页面中添加公钥
+
+    成功后页面会有提示
+
+
+- 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力
+
+- 解决痛点：
+- 
+	 - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥
+
+     - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！
+		
+
+
+用私钥测试是否匹配：
+
+	ssh -T -i ~/.ssh/id_rsa git@github.com
+
+用git bash写在~/.ssh/config的内容：
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;-第-1-把钥匙专门给个人的-github-用-&#34;&gt;&amp;mdash; 第 1 把钥匙：专门给个人的 GitHub 用 &amp;mdash;&lt;/h1&gt;
+&lt;p&gt;Host github.com
+HostName github.com
+User git
+# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）
+IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;
+&lt;p&gt;Host gitee.com
+HostName gitee.com
+User git
+IdentityFile ~/.ssh/id_rsa_work&lt;/p&gt;
+&lt;p&gt;Host vps HostName
+User root
+Port 22
+IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Github Pages绑定域名</title>
+      <link>http://localhost:1313/posts/2026-03-12-pages-cloudflare/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-12-pages-cloudflare/</guid>
+      <description>&lt;h3 id=&#34;github-pages绑定域名并用cloudflare加速&#34;&gt;Github Pages绑定域名并用cloudFlare加速&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 假设域名为：
+	
+	- github.fighting.top
+	
+	- 需要在github ==&amp;gt; Settings ==&amp;gt; pages ==&amp;gt; 添加域名：github.fighting.top
+	- 
+		- 随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证
+	
+	- 你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)
+	
+		- 三级域名添加：
+		- 
+			- 用CNAME记录，加github前缀，后面写用户名.github.io
+			- 注意：先不开小黄云
+			
+		- 再添加一个TXT类型，用于身份验证：
+		- 
+			- 提供官方给的信息：
+			- 
+			- CNAME          record            number 
+		
+	- 两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效
+	- 
+	- 有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站
+	- 
+	- 注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面
+	
+	- 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>NFS挂载文件系统</title>
+      <link>http://localhost:1313/posts/2026-03-12-nfs/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-12-nfs/</guid>
+      <description>&lt;h4 id=&#34;操作步骤&#34;&gt;操作步骤：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- NFS原理：
+	- NFS &amp;lt;==&amp;gt; RPC &amp;lt;==&amp;gt; Client
+	- 
+	- RPC服务： port mapper
+	
+	- Server（配置）：
+		- dnf install rpcbind nfs-utils
+			- 
+			- 安装相关软件
+		
+		- systemctl enable rpcbind/nfs-server
+		- 
+		- systemctl start rpcbind/nfs-server
+		- 
+		- rpcinfo -p
+		- 
+		
+		- vim /etc/export（写入挂载信息）：
+			- 
+			- /data 10.0.0.0/24（rw,all_squash）
+			
+			- rw 表示读写    |     all_squash表示压缩所有客户端用户为nfsnobody
+		
+		- systemctl reload nfs
+			
+			- 平滑重载nfs，避免restart 60s 夯住
+		- 
+		- mkdir -p /data/
+			
+			- 递归创建目录（挂载目录）
+		- 
+		- ls -ld /data/
+		
+			- 查看目录属性
+		- 
+		- id nfsnobody
+			
+			- 查看用户uid和gid
+		- 
+		- chown -R nfsnobody.nfsnobody /data/
+			
+			- 设置用户，用户组所属
+		- 
+		- df -h
+
+            - 产看磁盘挂载情况
+		
+		- 配置文件：
+
+			- /etc/exports
+				- /var/lib/nfs/etab
+		
+	- Client（配置）:
+		- showmount -e 10.0.0.61
+			
+			- 查看挂载情况
+		- 
+		
+		- useradd nfsnobody
+
+		- 
+		- exportfs -arv   
+		- 
+			- 刷新配置
+		- 
+		- mount -t nfs 10.0.0.61:/data/  /mnt/
+		- 
+		- df -h /mnt/
+			
+			- 查看挂载情况
+		- 
+		- install nfs-utils -y
+		- 
+		- touch /mnt/ababa.txt
+		- 
+		- 
+		- df -h       
+		- 
+			- 查看挂载情况
+		
+		- rpcinfo -p
+		- 
+			- 打印中转详细信息
+		
+        - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！
+		
+		
+		- umount -lf /mnt/  
+		- 
+			- 强制卸载挂载的磁盘
+		
+		- 配置文件：
+		- 
+			- /etc/rc.local
+				- /proc/mounts
+		
+		- nfs永久挂载(配置前先启动服务端)：
+			- vim /etc/fstab（写在文件里）：
+				- 
+				- 10.0.0.61:/data/    /mnt/    nfs   defaults    0    0
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>用Nginx搭建站点</title>
+      <link>http://localhost:1313/posts/2026-03-12-nginx-shopping-website/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-12-nginx-shopping-website/</guid>
+      <description>&lt;h2 id=&#34;一基础站点配置&#34;&gt;一、基础站点配置&lt;/h2&gt;
+&lt;h3 id=&#34;1-站点信息&#34;&gt;1. 站点信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;域名（server_name）&lt;/strong&gt;：&lt;code&gt;buy.fighting.top&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;站点根目录（root）&lt;/strong&gt;：&lt;code&gt;/app/code/buy/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;首页文件&lt;/strong&gt;：&lt;code&gt;/app/code/buy/index.html&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-nginx-配置&#34;&gt;2. Nginx 配置&lt;/h3&gt;
+&lt;p&gt;编辑配置文件：&lt;/p&gt;
+&lt;p&gt;vim /etc/nginx/conf.d/buy.fighting.top.conf&lt;/p&gt;
+&lt;p&gt;写入：&lt;/p&gt;
+&lt;p&gt;server {
+listen 80;
+server_name buy.fighting.top;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;root /app/code/buy;
+
+location / {
+    index index.html;
+}
+
+location /admin/ {
+    allow 172.16.1.0/24;
+    deny all;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;}
+3. 关键概念&lt;/p&gt;
+&lt;p&gt;URL&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://buy.fighting.top/admin&#34;&gt;http://buy.fighting.top/admin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;URI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/admin/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;URL = 域名 + URI
+&lt;!-- raw HTML omitted --&gt;
+&lt;strong&gt;Nginx 实际匹配的是 URI&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;创建测试文件
+mkdir -p /app/code/buy/admin/&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;echo &amp;ldquo;购物网站&amp;rdquo; &amp;gt; /app/code/buy/index.html
+echo &amp;ldquo;admin&amp;rdquo; &amp;gt; /app/code/buy/admin/index.html
+5. 本地测试
+curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1
+curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1/admin/
+二、进阶：静态资源缓存优化&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Nginx--网站搭建</title>
+      <link>http://localhost:1313/posts/2026-03-08-nginx-website/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-08-nginx-website/</guid>
+      <description>&lt;h4 id=&#34;先挑选一个自己喜欢的云服务器&#34;&gt;先挑选一个自己喜欢的云服务器：&lt;/h4&gt;
+&lt;h5 id=&#34;阿里云腾讯云&#34;&gt;阿里云/腾讯云/。。。&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- cloudFlare配置name server：
+	- 常规配置：
+		- A策略        二级域名开头           ip               
+
+	- 二级域名可单独配置一个：  
+		- A策略          @         ip
+	
+
+
+- ==公网server防火墙一定要放行，否则不显示页面！！！==
+
+	- firewall-cmd --permanent --add-service=http
+	
+	- firewall-cmd --permanent --add-service=https
+	
+	- 平缓重载：
+		- firewall-cmd --reload
+	
+	- 最后检查：
+		- firewall-cmd --list-all
+
+
+- Nginx（不同下载方式file/dir可能不同）：
+	
+	- 主配置文件：
+	
+			- 修改：/etc/nginx/nginx.conf
+				- 
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;server {  
+	listen 80  
+	server_name  **自己的域名**；
+	root **网站目录**;  
+	location / {             /是基于网站目录结构
+	index index.html;    
+	}  
+	}  
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;	
+			- 检查配置是否错误：
+			
+				- nginx -t
+			
+			- 平滑重载：
+			
+				- systemctl reload  nginx  
+			
+			
+			- 创建目录：
+				
+				- mkdir -p /.../
+			
+			- 创建首页文件：
+				
+				- touch /.../index.html
+				
+				- echo &amp;#34;Welcome to my website&amp;#34; &amp;gt;&amp;gt; /.../index.html
+			
+		
+		- 要在两个文件中添加的内容 &amp;#34;你的ip 你的域名&amp;#34;
+				
+		
+		- windows下面win键+r 输入drivers 访问etc下的hosts
+			
+			- 若提示权限不足可通过hosts文件属性修改administrator权限
+		
+		
+		- linux：  /etc/hosts
+		
+			
+		- 即可访问您的域名
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：如果是自己的真实域名不用改hosts文件，但要注意防火墙放行 &amp;amp;&amp;amp; cloudFlare的子域名添加，以及cloudFlare中设置为flexible&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rsync远程同步文件时的排错流程</title>
+      <link>http://localhost:1313/posts/2026-03-05-rsync-errors/</link>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-05-rsync-errors/</guid>
+      <description>&lt;h3 id=&#34;配置rsync服务&#34;&gt;配置Rsync服务：&lt;/h3&gt;
+&lt;h4 id=&#34;server10005&#34;&gt;&lt;strong&gt;Server(10.0.0.5)：&lt;/strong&gt;&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;	dnf install rsync -y
+
+	dnf list installed | grep rsync
+
+	vim /etc/rsync.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fake super = yes
+uid = rsync
+gid = rsync
+use chroot = no
+max connections = 2000
+log file = /var/log/rsyncd.log
+read only = false
+list = false
+ignore errors = yes
+hosts allow = 10.0.0.210/24
+#hosts deny = 0.0.0.0/24
+auth users = rsync_backup
+secrets file = /etc/rsyncd.passwd
+#####################################
+[data]
+path = /data
+comment = test module	
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;useradd -s /sbin/nologin -M rsync     
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建虚拟用户来启动rsync进程&#34;&gt;创建虚拟用户来启动Rsync进程&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;rsync_backup:123456&amp;#39; &amp;gt; /etc/rsyncd.passwd 
+
+- chmod 600 /etc/rsyncd.passwd
+
+
+- mkdir -p /data/
+
+- chown -R rsync:rsync /data/
+	- 创建模块路径对应文件名
+	- -R递归更改
+
+
+
+- rsync --daemon            
+
+	- 旨在将rsync升级为后台守护进程，监听文件传输，端口为873
+
+- systemctl enable rsyncd
+
+- systemctl start rsyncd
+
+- systemctl status rsyncd
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;本地测试&#34;&gt;本地测试：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- touch ./a.txt
+
+- rsync -Paz ./a.txt rsync_backup@10.0.0.5::data
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;client1000210&#34;&gt;&lt;strong&gt;Client(10.0.0.210):&lt;/strong&gt;&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;123456&amp;#39; &amp;gt; /etc/client.passwd
+	
+	- 文件名及位置无硬性要求
+
+- chmod 600 /etc/client.passwd
+
+
+- touch ./asd.txt
+
+- rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data
+
+- rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd
+	- 使用密码文件传输，减少手输密码		
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- /var/log/rsync.log
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;日志非常重要,可以多开一个窗口查看错误输出&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rocky9忘记密码--紧急救援</title>
+      <link>http://localhost:1313/posts/2026-03-04-rocky9-resume/</link>
+      <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-04-rocky9-resume/</guid>
+      <description>&lt;h3 id=&#34;5分钟紧急救援rhel-root密码&#34;&gt;5分钟紧急救援RHEL-Root密码&lt;/h3&gt;
+&lt;h4 id=&#34;原理在系统未完全启动强行中断引导程序此时未加载密码验证模块进入内核的紧急救援模式从而越过密码&#34;&gt;原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码&lt;/h4&gt;
+&lt;h4 id=&#34;步骤&#34;&gt;步骤：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑
+
+- 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl+X进入紧急救援
+
+- 随后进入到switch_root:/# 下，依次输入以下5个命令：
+	
+	- mount -o remount,rw /sysroot       重新挂载根目录可读写
+	
+	- chroot /sysroot                               切换到系统根目录（真实root）
+		- 提示符会变成sh-4.2#
+	
+	- passwd root                                    修改root密码
+
+	- touch /.autorelabel            
+
+        - 自动重新标记，**这一步非常重要**
+
+		- 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除
+
+	- exit                                                 
+        退出chroot环境
+        
+	- exit                                                 
+        - 退出紧急救援模式
+
+		- 随后系统开始自动重启
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>SSHD 远程工具连接失败</title>
+      <link>http://localhost:1313/posts/2026-03-03-sshd-remote-connect/</link>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-03-sshd-remote-connect/</guid>
+      <description>&lt;h4 id=&#34;关闭selinux&#34;&gt;关闭SElinux:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- getenforce        
+	查看SEllinux
+
+- setenforce 0	    
+	临时关闭测试
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;关闭防火墙&#34;&gt;关闭防火墙:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl stop firewalld	      
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;重启网卡&#34;&gt;重启网卡:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl restart NetworkManager    
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;查看ip&#34;&gt;查看ip:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 输入:ip a           
+	- 若ip更改则在shell输入nmtui 命令编辑
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;kali系统下&#34;&gt;kali系统下:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;	powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
+		提示:The fingerprint for the ECDSA key sent by the remote host is
+		      Host key verification failed.
+		      
+		解决方法:
+		ssh-keygen -R 192.168.1.104
+			自动删除旧指纹
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>用Alist实现挂载本地</title>
+      <link>http://localhost:1313/posts/2026-03-03-alist-mount/</link>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-03-alist-mount/</guid>
+      <description>&lt;h3 id=&#34;alist云盘挂载&#34;&gt;Alist云盘挂载:&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 去官网尝试下载Alist到指定目录
+
+- 在alist.exe目录执行命令:
+		.\alist.exe server
+
+- 开启本地服务端口:
+		start server @ 0.0.0.0:5244
+
+- 通过本机地址访问Cloud_list:		
+		http://127.0.0.0:5244
+
+- 默认用户名:admin,密码==切记自行保存==(后续可更改username&amp;amp;&amp;amp;passwd)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;若访问不成功可查看-是否开启服务访问时要一直开启服务&#34;&gt;若访问不成功可查看: 是否开启服务（&lt;strong&gt;访问时要一直开启服务&lt;/strong&gt;）&lt;/h4&gt;
+&lt;h4 id=&#34;若不想每次都手动开启服务可自行在运行中输入taskschmsc打开任务计划程序添加任务&#34;&gt;若不想每次都手动开启服务可自行在运行中输入tasksch.msc打开任务计划程序添加任务:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 步骤：
+	- 创建任务
+
+	- 不管是否登录都开启
+
+	- 触发器可设置登陆时
+
+	- &amp;#34;改用电池电源选项&amp;#34; 也可✔
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;后续还有其他设备远程访问通过本地服务感兴趣可自行研究&#34;&gt;后续还有其他设备远程访问通过本地服务，感兴趣可自行研究&lt;/h4&gt;</description>
+    </item>
+    <item>
+      <title>Nginx 软链接升级流程</title>
+      <link>http://localhost:1313/posts/2026-02-24-nginx-softlink-upgrade/</link>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-02-24-nginx-softlink-upgrade/</guid>
+      <description>&lt;h4 id=&#34;创建nginx软链接-替换-从而让用户实现无感&#34;&gt;创建nginx软链接 #替换 从而让用户实现无感&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 源码编译安装：
+- 获取源码：
+
+	- wget http://nginx…… -P /root/test/
+
+- 在/root/test/nginx-1.20下解压
+
+	- tar -zxvf /root/test/nginx-1.20.tar.gz -C /root/test/nginx_1.20/
+
+- 编译源码：
+	- 在/root/test/nginx_1.20/nginx1.20 下 ./configure --prefix=/root/test/nginx_1.20
+
+	- make
+
+	- make install
+
+	- 当前目录下可看到configure文件
+
+- 在前一个目录检查：
+	- /root/test/nginx-1.24/sbin/nginx -v
+	
+- 之前已经创建的软链接：
+
+	- ln -s /root/test/nginx-1.20  /usr/local/nginx
+		- 源文件是在源码编译后的目录
+
+		- /usr/local/nginx -&amp;gt; /root/test/nginx-1.20    
+			当前软链接
+
+		- 确认nginx正在运行：ps -ef | grep nginx
+
+		- ls -l /usr/local/nginx     
+			软链接指向
+
+- 备份软链接指向的路径 #防止出错回退
+
+	- cp -r /usr/local/nginx  /root/test/nginx-backup-1.20
+		- 物理备份
+		
+- 创建新的源码
+
+- 编译安装
+
+- 建立新的软链接
+
+---
+
+- 方案A：
+
+	- 直接覆盖原链接（用户不中断）
+
+	- ln -sfn /root/test/nginx-1.22   /usr/local/nginx
+
+		- -f 如果存在旧链接则覆盖
+
+		- -n 处理目标是目录时不进入目录
+
+	- 立即指向新版本
+
+	- 如果新版本异常 #立即回滚
+
+		- ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx
+
+		- /usr/local/nginx/sbin/nginx -s reload
+
+- 方案B：
+
+	- 创建新链接
+
+	- 停nginx/reload后切换
+
+		- systemctl stop nginx
+
+		- mv /usr/local/nginx  /usr/local/nginx_backup
+
+		- mv /usr/local/nginx1.22  /usr/local/nginx
+
+		- systemctl start nginx
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h3 id=&#34;一个致力于sre将site-reliability理念贯彻心中最终打造一个即使随意删改infrastructure也可秒级恢复的网站&#34;&gt;一个致力于SRE，将site-reliability理念贯彻心中，最终打造一个即使随意删改Infrastructure也可秒级恢复的网站！！&lt;/h3&gt;
+&lt;h3 id=&#34;加入我的团队一起打造-最安全--最自动化--最稳定-的网站架构&#34;&gt;加入我的团队，一起打造 最安全 | 最自动化 | 最稳定 的网站架构！！！！&lt;/h3&gt;</description>
+    </item>
+  </channel>
+</rss>

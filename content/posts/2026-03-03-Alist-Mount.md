@@ -1,8 +1,7 @@
 --- 
-layout: post
-title: 用Alist实现挂载本地
+title: "用Alist实现挂载本地"
 date: 2026-03-03
-catagories: APP
+categories: APP
 ---
 ### Alist云盘挂载:
 

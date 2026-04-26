@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>钉钉自动巡检告警--完全版 | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="钉钉自动巡检告警：
+注意：钉钉机器人有使用频率限制：每个机器人最多20条/min
+注意：配置前安装好相应库
+功能：自动检测并定时发送hostname，datetime，cpu，mem，disk，服务状态；Zabbix面板链接可自行添加
+文本格式：Markdown
+代码及解释：
+import psutil
+
+import socket
+
+import requests
+
+import json
+
+from datetime import datetime
+
+  
+
+#配置区==================================================
+
+  
+
+WEBHOOK_URL = &#34;你的钉钉群机器人token&#34;
+
+  
+
+#设置合理告警阈值：
+
+THRESHOLD_CPU = 80    #CPU
+
+THRESHOLD_MEM = 85    #内存
+
+THRESHOLD_DISK = 90   #磁盘
+
+  
+
+#=======================================================
+
+  
+  
+
+def get_sys_info():
+
+    &#34;&#34;&#34;获取系统基础信息&#34;&#34;&#34;
+
+    # 获取主机名和当前时间（格式自定义）
+
+    hostname = socket.gethostname()
+
+    now_time = datetime.now().strftime(&#34;%Y-%m-%d %H-%M-%S&#34;)
+
+  
+
+    # 1.CPU 使用率（采样1次/s）：
+
+    cpu_usage = psutil.cpu_percent(interval=1)
+    
+
+    # 2.MEM 使用率：
+
+    mem = psutil.virtual_memory()
+
+    mem_usage = mem.percent
+
+  
+
+    # 3.DISK 使用率：
+
+    disk = psutil.disk_usage(&#39;/&#39;)
+
+    disk_usage = disk.percent
+
+  
+
+    return hostname, now_time, cpu_usage, mem_usage, disk_usage
+
+  
+
+def check_service(service_name):
+
+    &#34;&#34;&#34;检查特定进程（服务）是否在运行&#34;&#34;&#34;
+
+    # 遍历当前所有进程名：
+
+    for proc in psutil.process_iter([&#39;name&#39;]):
+
+        if service_name.lower() in proc.info[&#39;name&#39;].lower():
+
+            return &#34;✔️ 该服务正在运行中。&#34;
+
+    return &#34;❌️ 该服务已经停止！&#34;
+
+  
+
+def send_markdown_msg(hostname, now_time, cpu, mem, disk, nginx_status):
+
+    &#34;&#34;&#34;发送 MarkDown 格式告警&#34;&#34;&#34;
+
+  
+
+    #根据状态判断标题颜色（若有异常则提醒）：
+
+    status_title = &#34;🤚 系统巡检正常&#34;
+
+    if cpu &gt; THRESHOLD_CPU or mem &gt; THRESHOLD_MEM or disk &gt; THRESHOLD_DISK or &#34;❌️&#34; in nginx_status:
+
+        status_title = &#34;🤦🏻‍♂️ 系统告警：检测到异常&#34;
+
+  
+
+    # Markdown 内容
+
+    markdown_content = f&#34;&#34;&#34;### {status_title}
+
+**主机名称**： {hostname}
+
+**巡检时间**： {now_time}
+
+  
+
+---
+
+- **CPU 使用率**：{cpu}%  {&#39;⚠️&#39; if cpu &gt; THRESHOLD_CPU else &#39;&#39;}
+
+- **内存 使用率**：{mem}% {&#39;⚠️&#39; if mem &gt; THRESHOLD_MEM else &#39;&#39;}
+
+- **磁盘 使用率**：{disk}% {&#39;⚠️&#39; if disk &gt; THRESHOLD_DISK else &#39;&#39;}
+
+- **Nginx服务**: {nginx_status}
+
+  
+
+---
+
+[点击查看Zabbix监控看板](http://Zabbix地址)
+
+&#34;&#34;&#34;
+
+  
+  
+
+    data = {
+
+        &#34;msgtype&#34;: &#34;markdown&#34;,
+
+        &#34;markdown&#34;: {
+
+            &#34;title&#34;: &#34;服务器巡检报告&#34;,
+
+            &#34;text&#34;: markdown_content
+
+        }
+
+    }
+
+  
+
+    headers = {&#34;Content-Type&#34;: &#34;application/json&#34;}
+
+    try:
+
+        res = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+        print(f&#34;发送状态：{res.text}&#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&#34;发送失败：{e}&#34;)
+
+  
+
+if __name__ == &#34;__main__&#34;:
+
+    #执行巡检
+
+    h, t, c, m, d = get_sys_info()
+
+  
+
+    #可换成其他进程名
+
+    n_status = check_service(&#34;nginx&#34;)
+
+  
+
+    #发送报告
+
+    send_markdown_msg(h, t, c, m, d, n_status)
+推荐：Emoji状态表情可自行复制进去。
+函数及库的使用
+1. 库的调用
+psutil: 专门用来读取 CPU、内存、进程等硬件和系统信息。
+socket: 用来获取 hostname（主机名），这在管理几十台服务器时非常重要，否则你不知道是哪台机器出的问题。
+datetime: 获取当前时间，所有的运维报告必须带时间戳。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-03-31-dingding-upgrade/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-03-31-dingding-upgrade/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      钉钉自动巡检告警--完全版
+    </h1>
+    <div class="post-meta"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h3 id="钉钉自动巡检告警">钉钉自动巡检告警：<a hidden class="anchor" aria-hidden="true" href="#钉钉自动巡检告警">#</a></h3>
+<h4 id="注意钉钉机器人有使用频率限制每个机器人最多20条min">注意：钉钉机器人有使用频率限制：每个机器人最多20条/min<a hidden class="anchor" aria-hidden="true" href="#注意钉钉机器人有使用频率限制每个机器人最多20条min">#</a></h4>
+<h4 id="注意配置前安装好相应库">注意：配置前安装好相应库<a hidden class="anchor" aria-hidden="true" href="#注意配置前安装好相应库">#</a></h4>
+<h4 id="功能自动检测并定时发送hostnamedatetimecpumemdisk服务状态zabbix面板链接可自行添加">功能：自动检测并定时发送hostname，datetime，cpu，mem，disk，服务状态；Zabbix面板链接可自行添加<a hidden class="anchor" aria-hidden="true" href="#功能自动检测并定时发送hostnamedatetimecpumemdisk服务状态zabbix面板链接可自行添加">#</a></h4>
+<h4 id="文本格式markdown">文本格式：Markdown<a hidden class="anchor" aria-hidden="true" href="#文本格式markdown">#</a></h4>
+<h4 id="代码及解释">代码及解释：<a hidden class="anchor" aria-hidden="true" href="#代码及解释">#</a></h4>
+<pre tabindex="0"><code>import psutil
+
+import socket
+
+import requests
+
+import json
+
+from datetime import datetime
+
+  
+
+#配置区==================================================
+
+  
+
+WEBHOOK_URL = &#34;你的钉钉群机器人token&#34;
+
+  
+
+#设置合理告警阈值：
+
+THRESHOLD_CPU = 80    #CPU
+
+THRESHOLD_MEM = 85    #内存
+
+THRESHOLD_DISK = 90   #磁盘
+
+  
+
+#=======================================================
+
+  
+  
+
+def get_sys_info():
+
+    &#34;&#34;&#34;获取系统基础信息&#34;&#34;&#34;
+
+    # 获取主机名和当前时间（格式自定义）
+
+    hostname = socket.gethostname()
+
+    now_time = datetime.now().strftime(&#34;%Y-%m-%d %H-%M-%S&#34;)
+
+  
+
+    # 1.CPU 使用率（采样1次/s）：
+
+    cpu_usage = psutil.cpu_percent(interval=1)
+    
+
+    # 2.MEM 使用率：
+
+    mem = psutil.virtual_memory()
+
+    mem_usage = mem.percent
+
+  
+
+    # 3.DISK 使用率：
+
+    disk = psutil.disk_usage(&#39;/&#39;)
+
+    disk_usage = disk.percent
+
+  
+
+    return hostname, now_time, cpu_usage, mem_usage, disk_usage
+
+  
+
+def check_service(service_name):
+
+    &#34;&#34;&#34;检查特定进程（服务）是否在运行&#34;&#34;&#34;
+
+    # 遍历当前所有进程名：
+
+    for proc in psutil.process_iter([&#39;name&#39;]):
+
+        if service_name.lower() in proc.info[&#39;name&#39;].lower():
+
+            return &#34;✔️ 该服务正在运行中。&#34;
+
+    return &#34;❌️ 该服务已经停止！&#34;
+
+  
+
+def send_markdown_msg(hostname, now_time, cpu, mem, disk, nginx_status):
+
+    &#34;&#34;&#34;发送 MarkDown 格式告警&#34;&#34;&#34;
+
+  
+
+    #根据状态判断标题颜色（若有异常则提醒）：
+
+    status_title = &#34;🤚 系统巡检正常&#34;
+
+    if cpu &gt; THRESHOLD_CPU or mem &gt; THRESHOLD_MEM or disk &gt; THRESHOLD_DISK or &#34;❌️&#34; in nginx_status:
+
+        status_title = &#34;🤦🏻‍♂️ 系统告警：检测到异常&#34;
+
+  
+
+    # Markdown 内容
+
+    markdown_content = f&#34;&#34;&#34;### {status_title}
+
+**主机名称**： {hostname}
+
+**巡检时间**： {now_time}
+
+  
+
+---
+
+- **CPU 使用率**：{cpu}%  {&#39;⚠️&#39; if cpu &gt; THRESHOLD_CPU else &#39;&#39;}
+
+- **内存 使用率**：{mem}% {&#39;⚠️&#39; if mem &gt; THRESHOLD_MEM else &#39;&#39;}
+
+- **磁盘 使用率**：{disk}% {&#39;⚠️&#39; if disk &gt; THRESHOLD_DISK else &#39;&#39;}
+
+- **Nginx服务**: {nginx_status}
+
+  
+
+---
+
+[点击查看Zabbix监控看板](http://Zabbix地址)
+
+&#34;&#34;&#34;
+
+  
+  
+
+    data = {
+
+        &#34;msgtype&#34;: &#34;markdown&#34;,
+
+        &#34;markdown&#34;: {
+
+            &#34;title&#34;: &#34;服务器巡检报告&#34;,
+
+            &#34;text&#34;: markdown_content
+
+        }
+
+    }
+
+  
+
+    headers = {&#34;Content-Type&#34;: &#34;application/json&#34;}
+
+    try:
+
+        res = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+        print(f&#34;发送状态：{res.text}&#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&#34;发送失败：{e}&#34;)
+
+  
+
+if __name__ == &#34;__main__&#34;:
+
+    #执行巡检
+
+    h, t, c, m, d = get_sys_info()
+
+  
+
+    #可换成其他进程名
+
+    n_status = check_service(&#34;nginx&#34;)
+
+  
+
+    #发送报告
+
+    send_markdown_msg(h, t, c, m, d, n_status)
+</code></pre><h4 id="推荐emoji状态表情可自行复制进去">推荐：Emoji状态表情可自行复制进去。<a hidden class="anchor" aria-hidden="true" href="#推荐emoji状态表情可自行复制进去">#</a></h4>
+<h4 id="函数及库的使用">函数及库的使用<a hidden class="anchor" aria-hidden="true" href="#函数及库的使用">#</a></h4>
+<h5 id="1-库的调用">1. 库的调用<a hidden class="anchor" aria-hidden="true" href="#1-库的调用">#</a></h5>
+<p>psutil: 专门用来读取 CPU、内存、进程等硬件和系统信息。
+socket: 用来获取 hostname（主机名），这在管理几十台服务器时非常重要，否则你不知道是哪台机器出的问题。
+datetime: 获取当前时间，所有的运维报告必须带时间戳。</p>
+<h5 id="2-get_sys_info-函数">2. get_sys_info() 函数<a hidden class="anchor" aria-hidden="true" href="#2-get_sys_info-函数">#</a></h5>
+<p>psutil.cpu_percent(interval=1): 为什么要设置 interval=1？因为 CPU 波动非常快，瞬间 100% 并不代表有问题，采样 1 秒能得到一个更准确的平均值。</p>
+<h5 id="3-check_service-函数">3. check_service() 函数<a hidden class="anchor" aria-hidden="true" href="#3-check_service-函数">#</a></h5>
+<p>这是真实场景中最常用的。比如收银系统的后台进程、数据库进程，都可以通过这个函数监控。它 process_iter 遍历系统所有活着的进程名.</p>
+<h5 id="4-send_markdown_msg-函数">4. send_markdown_msg() 函数<a hidden class="anchor" aria-hidden="true" href="#4-send_markdown_msg-函数">#</a></h5>
+<p>Markdown 格式：这是企业级告警的标配。
+动态预警：使用了 Python 的 f-string 和简写 if。例如 {&rsquo;⚠️&rsquo; if cpu &gt; THRESHOLD_CPU else &lsquo;&rsquo;}，只有当 CPU 超过阈值时，报告里才会出现警告图标。</p>
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

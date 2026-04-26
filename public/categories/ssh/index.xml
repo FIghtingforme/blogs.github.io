@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>SSH on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/ssh/</link>
+    <description>Recent content in SSH on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSH 配置踩坑</title>
+      <link>http://localhost:1313/posts/2026-03-15-ssh-remote/</link>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-15-ssh-remote/</guid>
+      <description>&lt;h4 id=&#34;ssh服务github-远程连接报错排查&#34;&gt;SSH服务&amp;mdash;Github 远程连接报错排查&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;远程连接到github时出现报错，不能连接
+
+估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件
+
+尝试：
+
+	删除原来的公钥，重新建一个在正确目录下
+
+	ssh-keygen -t ed25519 -C &amp;#34;xxx@xxx.com&amp;#34;   
+        填自己邮箱，生成ssh密钥
+
+	将公钥内容复制到github中的ssh管理页面中添加公钥
+
+    成功后页面会有提示
+
+
+- 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力
+
+- 解决痛点：
+- 
+	 - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥
+
+     - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！
+		
+
+
+用私钥测试是否匹配：
+
+	ssh -T -i ~/.ssh/id_rsa git@github.com
+
+用git bash写在~/.ssh/config的内容：
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;-第-1-把钥匙专门给个人的-github-用-&#34;&gt;&amp;mdash; 第 1 把钥匙：专门给个人的 GitHub 用 &amp;mdash;&lt;/h1&gt;
+&lt;p&gt;Host github.com
+HostName github.com
+User git
+# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）
+IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;
+&lt;p&gt;Host gitee.com
+HostName gitee.com
+User git
+IdentityFile ~/.ssh/id_rsa_work&lt;/p&gt;
+&lt;p&gt;Host vps HostName
+User root
+Port 22
+IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

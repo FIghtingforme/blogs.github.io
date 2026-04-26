@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Posts | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="Posts - My SRE Knowledge Library">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Posts
+  </h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">SSH 配置踩坑
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>SSH服务—Github 远程连接报错排查 远程连接到github时出现报错，不能连接 估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件 尝试： 删除原来的公钥，重新建一个在正确目录下 ssh-keygen -t ed25519 -C &#34;xxx@xxx.com&#34; 填自己邮箱，生成ssh密钥 将公钥内容复制到github中的ssh管理页面中添加公钥 成功后页面会有提示 - 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力 - 解决痛点： - - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥 - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！ 用私钥测试是否匹配： ssh -T -i ~/.ssh/id_rsa git@github.com 用git bash写在~/.ssh/config的内容： — 第 1 把钥匙：专门给个人的 GitHub 用 — Host github.com HostName github.com User git # 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub） IdentityFile ~/.ssh/id_ed25519
+Host gitee.com HostName gitee.com User git IdentityFile ~/.ssh/id_rsa_work
+Host vps HostName User root Port 22 IdentityFile ~/.ssh/id_rsa_vps
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-15 00:00:00 +0000 UTC'>March 15, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to SSH 配置踩坑" href="http://localhost:1313/posts/2026-03-15-ssh-remote/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Github Pages绑定域名
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Github Pages绑定域名并用cloudFlare加速 - 假设域名为： - github.fighting.top - 需要在github ==&gt; Settings ==&gt; pages ==&gt; 添加域名：github.fighting.top - - 随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证 - 你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top) - 三级域名添加： - - 用CNAME记录，加github前缀，后面写用户名.github.io - 注意：先不开小黄云 - 再添加一个TXT类型，用于身份验证： - - 提供官方给的信息： - - CNAME record number - 两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效 - - 有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站 - - 注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面 - 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-12 00:00:00 +0000 UTC'>March 12, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Github Pages绑定域名" href="http://localhost:1313/posts/2026-03-12-pages-cloudflare/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">NFS挂载文件系统
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>操作步骤： - NFS原理： - NFS &lt;==&gt; RPC &lt;==&gt; Client - - RPC服务： port mapper - Server（配置）： - dnf install rpcbind nfs-utils - - 安装相关软件 - systemctl enable rpcbind/nfs-server - - systemctl start rpcbind/nfs-server - - rpcinfo -p - - vim /etc/export（写入挂载信息）： - - /data 10.0.0.0/24（rw,all_squash） - rw 表示读写 | all_squash表示压缩所有客户端用户为nfsnobody - systemctl reload nfs - 平滑重载nfs，避免restart 60s 夯住 - - mkdir -p /data/ - 递归创建目录（挂载目录） - - ls -ld /data/ - 查看目录属性 - - id nfsnobody - 查看用户uid和gid - - chown -R nfsnobody.nfsnobody /data/ - 设置用户，用户组所属 - - df -h - 产看磁盘挂载情况 - 配置文件： - /etc/exports - /var/lib/nfs/etab - Client（配置）: - showmount -e 10.0.0.61 - 查看挂载情况 - - useradd nfsnobody - - exportfs -arv - - 刷新配置 - - mount -t nfs 10.0.0.61:/data/ /mnt/ - - df -h /mnt/ - 查看挂载情况 - - install nfs-utils -y - - touch /mnt/ababa.txt - - - df -h - - 查看挂载情况 - rpcinfo -p - - 打印中转详细信息 - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！ - umount -lf /mnt/ - - 强制卸载挂载的磁盘 - 配置文件： - - /etc/rc.local - /proc/mounts - nfs永久挂载(配置前先启动服务端)： - vim /etc/fstab（写在文件里）： - - 10.0.0.61:/data/ /mnt/ nfs defaults 0 0 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-12 00:00:00 +0000 UTC'>March 12, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to NFS挂载文件系统" href="http://localhost:1313/posts/2026-03-12-nfs/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">用Nginx搭建站点
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一、基础站点配置 1. 站点信息 域名（server_name）：buy.fighting.top 站点根目录（root）：/app/code/buy/ 首页文件：/app/code/buy/index.html 2. Nginx 配置 编辑配置文件：
+vim /etc/nginx/conf.d/buy.fighting.top.conf
+写入：
+server { listen 80; server_name buy.fighting.top;
+root /app/code/buy; location / { index index.html; } location /admin/ { allow 172.16.1.0/24; deny all; } } 3. 关键概念
+URL
+http://buy.fighting.top/admin URI
+/admin/ URL = 域名 &#43; URI Nginx 实际匹配的是 URI
+创建测试文件 mkdir -p /app/code/buy/admin/ echo “购物网站” &gt; /app/code/buy/index.html echo “admin” &gt; /app/code/buy/admin/index.html 5. 本地测试 curl -H “Host: buy.fighting.top” http://127.0.0.1 curl -H “Host: buy.fighting.top” http://127.0.0.1/admin/ 二、进阶：静态资源缓存优化
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-12 00:00:00 +0000 UTC'>March 12, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 用Nginx搭建站点" href="http://localhost:1313/posts/2026-03-12-nginx-shopping-website/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Nginx--网站搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>先挑选一个自己喜欢的云服务器： 阿里云/腾讯云/。。。 - cloudFlare配置name server： - 常规配置： - A策略 二级域名开头 ip - 二级域名可单独配置一个： - A策略 @ ip - ==公网server防火墙一定要放行，否则不显示页面！！！== - firewall-cmd --permanent --add-service=http - firewall-cmd --permanent --add-service=https - 平缓重载： - firewall-cmd --reload - 最后检查： - firewall-cmd --list-all - Nginx（不同下载方式file/dir可能不同）： - 主配置文件： - 修改：/etc/nginx/nginx.conf - server { listen 80 server_name **自己的域名**； root **网站目录**; location / { /是基于网站目录结构 index index.html; } } - 检查配置是否错误： - nginx -t - 平滑重载： - systemctl reload nginx - 创建目录： - mkdir -p /.../ - 创建首页文件： - touch /.../index.html - echo &#34;Welcome to my website&#34; &gt;&gt; /.../index.html - 要在两个文件中添加的内容 &#34;你的ip 你的域名&#34; - windows下面win键&#43;r 输入drivers 访问etc下的hosts - 若提示权限不足可通过hosts文件属性修改administrator权限 - linux： /etc/hosts - 即可访问您的域名 注意：如果是自己的真实域名不用改hosts文件，但要注意防火墙放行 &amp;&amp; cloudFlare的子域名添加，以及cloudFlare中设置为flexible
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-08 00:00:00 +0000 UTC'>March 8, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Nginx--网站搭建" href="http://localhost:1313/posts/2026-03-08-nginx-website/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Rsync远程同步文件时的排错流程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>配置Rsync服务： Server(10.0.0.5)： dnf install rsync -y dnf list installed | grep rsync vim /etc/rsync.conf fake super = yes uid = rsync gid = rsync use chroot = no max connections = 2000 log file = /var/log/rsyncd.log read only = false list = false ignore errors = yes hosts allow = 10.0.0.210/24 #hosts deny = 0.0.0.0/24 auth users = rsync_backup secrets file = /etc/rsyncd.passwd ##################################### [data] path = /data comment = test module	useradd -s /sbin/nologin -M rsync 创建虚拟用户来启动Rsync进程 - echo &#39;rsync_backup:123456&#39; &gt; /etc/rsyncd.passwd - chmod 600 /etc/rsyncd.passwd - mkdir -p /data/ - chown -R rsync:rsync /data/ - 创建模块路径对应文件名 - -R递归更改 - rsync --daemon - 旨在将rsync升级为后台守护进程，监听文件传输，端口为873 - systemctl enable rsyncd - systemctl start rsyncd - systemctl status rsyncd 本地测试： - touch ./a.txt - rsync -Paz ./a.txt rsync_backup@10.0.0.5::data Client(10.0.0.210): - echo &#39;123456&#39; &gt; /etc/client.passwd - 文件名及位置无硬性要求 - chmod 600 /etc/client.passwd - touch ./asd.txt - rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data - rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd - 使用密码文件传输，减少手输密码	- /var/log/rsync.log 日志非常重要,可以多开一个窗口查看错误输出
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-05 00:00:00 +0000 UTC'>March 5, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Rsync远程同步文件时的排错流程" href="http://localhost:1313/posts/2026-03-05-rsync-errors/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Rocky9忘记密码--紧急救援
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>5分钟紧急救援RHEL-Root密码 原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码 步骤： - 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑 - 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl&#43;X进入紧急救援 - 随后进入到switch_root:/# 下，依次输入以下5个命令： - mount -o remount,rw /sysroot 重新挂载根目录可读写 - chroot /sysroot 切换到系统根目录（真实root） - 提示符会变成sh-4.2# - passwd root 修改root密码 - touch /.autorelabel - 自动重新标记，**这一步非常重要** - 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除 - exit 退出chroot环境 - exit - 退出紧急救援模式 - 随后系统开始自动重启 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-04 00:00:00 +0000 UTC'>March 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Rocky9忘记密码--紧急救援" href="http://localhost:1313/posts/2026-03-04-rocky9-resume/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">SSHD 远程工具连接失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>关闭SElinux: - getenforce 查看SEllinux - setenforce 0	临时关闭测试 关闭防火墙: systemctl stop firewalld	重启网卡: systemctl restart NetworkManager 查看ip: - 输入:ip a - 若ip更改则在shell输入nmtui 命令编辑 kali系统下: powershell 下 ssh -v root@192.168.1.104 #输出详细模式,用于调试 提示:The fingerprint for the ECDSA key sent by the remote host is Host key verification failed. 解决方法: ssh-keygen -R 192.168.1.104 自动删除旧指纹 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to SSHD 远程工具连接失败" href="http://localhost:1313/posts/2026-03-03-sshd-remote-connect/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">用Alist实现挂载本地
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Alist云盘挂载: - 去官网尝试下载Alist到指定目录 - 在alist.exe目录执行命令: .\alist.exe server - 开启本地服务端口: start server @ 0.0.0.0:5244 - 通过本机地址访问Cloud_list:	http://127.0.0.0:5244 - 默认用户名:admin,密码==切记自行保存==(后续可更改username&amp;&amp;passwd) 若访问不成功可查看: 是否开启服务（访问时要一直开启服务） 若不想每次都手动开启服务可自行在运行中输入tasksch.msc打开任务计划程序添加任务: - 步骤： - 创建任务 - 不管是否登录都开启 - 触发器可设置登陆时 - &#34;改用电池电源选项&#34; 也可✔ 后续还有其他设备远程访问通过本地服务，感兴趣可自行研究</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 用Alist实现挂载本地" href="http://localhost:1313/posts/2026-03-03-alist-mount/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Nginx 软链接升级流程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>创建nginx软链接 #替换 从而让用户实现无感 - 源码编译安装： - 获取源码： - wget http://nginx…… -P /root/test/ - 在/root/test/nginx-1.20下解压 - tar -zxvf /root/test/nginx-1.20.tar.gz -C /root/test/nginx_1.20/ - 编译源码： - 在/root/test/nginx_1.20/nginx1.20 下 ./configure --prefix=/root/test/nginx_1.20 - make - make install - 当前目录下可看到configure文件 - 在前一个目录检查： - /root/test/nginx-1.24/sbin/nginx -v - 之前已经创建的软链接： - ln -s /root/test/nginx-1.20 /usr/local/nginx - 源文件是在源码编译后的目录 - /usr/local/nginx -&gt; /root/test/nginx-1.20 当前软链接 - 确认nginx正在运行：ps -ef | grep nginx - ls -l /usr/local/nginx 软链接指向 - 备份软链接指向的路径 #防止出错回退 - cp -r /usr/local/nginx /root/test/nginx-backup-1.20 - 物理备份 - 创建新的源码 - 编译安装 - 建立新的软链接 --- - 方案A： - 直接覆盖原链接（用户不中断） - ln -sfn /root/test/nginx-1.22 /usr/local/nginx - -f 如果存在旧链接则覆盖 - -n 处理目标是目录时不进入目录 - 立即指向新版本 - 如果新版本异常 #立即回滚 - ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx - /usr/local/nginx/sbin/nginx -s reload - 方案B： - 创建新链接 - 停nginx/reload后切换 - systemctl stop nginx - mv /usr/local/nginx /usr/local/nginx_backup - mv /usr/local/nginx1.22 /usr/local/nginx - systemctl start nginx </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-24 00:00:00 +0000 UTC'>February 24, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Nginx 软链接升级流程" href="http://localhost:1313/posts/2026-02-24-nginx-softlink-upgrade/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="http://localhost:1313/posts/page/2/">
+      «&nbsp;Prev&nbsp;
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

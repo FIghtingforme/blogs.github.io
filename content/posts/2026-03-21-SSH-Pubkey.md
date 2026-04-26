@@ -1,8 +1,7 @@
 ---
 
-layout: post
 date: 2026-03-21
-title: SSH安全密钥设置
+title: "SSH安全密钥设置"
 catogories: SSH
 
 ---

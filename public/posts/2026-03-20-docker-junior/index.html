@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Docker简单配置 | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="Docker配置命令：
+# 1）先清理冲突包  
+dnf remove y podmandocker podman runc  
+  
+# 2）安装仓库管理工具  
+dnf y install dnfpluginscore  
+  
+# 3）添加 Docker 官方 RHEL 仓库  
+dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  
+  
+# 4）安装 Docker  
+dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  
+  
+# 5）启动并设置开机自启  
+systemctl enable now docker  
+  
+# 6） 验证  
+docker version  
+docker info
+
+这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。
+
+
+# 阶段 1：认识镜像  
+docker search nginx  
+docker pull nginx  
+docker images  
+  
+# 阶段 2：跑第一个容器  
+docker run d name mynginx p 80:80 nginx  
+docker ps  
+docker logs f mynginx  
+docker exec it mynginx bash  
+  
+# 阶段 3：理解生命周期  
+docker stop mynginx  
+docker start mynginx  
+docker rm f mynginx  
+  
+# 阶段 4：练习镜像管理  
+docker image inspect nginx  
+docker image save nginx &gt; nginx.tar  
+docker image load i nginx.tar  
+docker rmi nginx
+报错点（环境被污染）：">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-03-20-docker-junior/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-03-20-docker-junior/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Docker简单配置
+    </h1>
+    <div class="post-meta"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h4 id="docker配置命令">Docker配置命令：<a hidden class="anchor" aria-hidden="true" href="#docker配置命令">#</a></h4>
+<pre tabindex="0"><code># 1）先清理冲突包  
+dnf remove y podmandocker podman runc  
+  
+# 2）安装仓库管理工具  
+dnf y install dnfpluginscore  
+  
+# 3）添加 Docker 官方 RHEL 仓库  
+dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  
+  
+# 4）安装 Docker  
+dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  
+  
+# 5）启动并设置开机自启  
+systemctl enable now docker  
+  
+# 6） 验证  
+docker version  
+docker info
+
+这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。
+
+
+# 阶段 1：认识镜像  
+docker search nginx  
+docker pull nginx  
+docker images  
+  
+# 阶段 2：跑第一个容器  
+docker run d name mynginx p 80:80 nginx  
+docker ps  
+docker logs f mynginx  
+docker exec it mynginx bash  
+  
+# 阶段 3：理解生命周期  
+docker stop mynginx  
+docker start mynginx  
+docker rm f mynginx  
+  
+# 阶段 4：练习镜像管理  
+docker image inspect nginx  
+docker image save nginx &gt; nginx.tar  
+docker image load i nginx.tar  
+docker rmi nginx
+</code></pre><p>报错点（环境被污染）：</p>
+<pre tabindex="0"><code>[root@lb01 ~]$ docker version
+Client: Docker Engine  Community
+ Version:           29.3.0
+ API version:       1.54
+ Go version:        go1.25.7
+ Git commit:        5927d80
+ Built:             Thu Mar  5 14:30:26 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+failed to connect to the docker API at unix:///run/podman/podman.sock; check if the path is correct and if the daemon is running: dial unix /run/podman/podman.sock: connect: no such file or directory
+</code></pre><p>解决办法：</p>
+<pre tabindex="0"><code>env | grep DOCKER_HOST
+unset  DOCKER_HOST
+</code></pre><p>报错点(网速慢)：</p>
+<pre tabindex="0"><code>[root@lb01 ~]$ docker search nginx
+Error response from daemon: Get &#34;https://index.docker.io/v1/search?q=nginx&amp;n=25&#34;: dial tcp 69.63.181.12:443: connect: connection refused
+</code></pre><h5 id="解决办法">解决办法：<a hidden class="anchor" aria-hidden="true" href="#解决办法">#</a></h5>
+<h6 id="配置docker镜像加速器">配置Docker镜像加速器：<a hidden class="anchor" aria-hidden="true" href="#配置docker镜像加速器">#</a></h6>
+<p>vim /etc/docker/daemon.json</p>
+<pre tabindex="0"><code>{
+  &#34;registrymirrors&#34;: [
+    &#34;https://docker.1panel.live&#34;,
+    &#34;https://hub.rat.dev&#34;,
+    &#34;https://dockerproxy.com&#34;,
+    &#34;https://mirror.ccs.tencentyun.com&#34;
+  ]
+}
+</code></pre><h5 id="终端重启">终端重启：<a hidden class="anchor" aria-hidden="true" href="#终端重启">#</a></h5>
+<pre tabindex="0"><code>systemctl daemonreexec  
+systemctl restart docker
+</code></pre><p>测试成功：</p>
+<p>docker pull nginx</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,8 +1,7 @@
 ---
-layout: post
-title: Rocky9忘记密码--紧急救援
+title: "Rocky9忘记密码--紧急救援"
 date: 2026-03-04
-catagories: system
+categories: system
 ---
 
 ### 5分钟紧急救援RHEL-Root密码

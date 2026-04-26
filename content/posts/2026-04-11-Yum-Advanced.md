@@ -1,9 +1,8 @@
 ---
 
 date: 2026-04-11
-title: yum 进阶
-layout: post
-catagories: system
+title: "yum 进阶"
+categories: system
 
 ---
 

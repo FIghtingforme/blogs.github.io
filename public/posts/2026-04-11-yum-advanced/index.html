@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>yum 进阶 | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="探究yum源的混乱
+更换yum源核心逻辑：注释metalink；更换国内的baseurl
+解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
+配置yum的目的：
+直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 地理位置更近、带宽更高的镜像站
+高可用：国内大厂的镜像站有极高的负载均衡，保证 7X24 小时不中断
+版本一致性：使用私有的企业内部私有源保证服务器安装的 软件版本一致
+
+/etc/yum.repos.d/ 文件拆解：
+核心系统源（BaseOS， AppStream）：
+
+
+rocky.repo
+
+
+包含 linux内核，li，cp，ssh等操作系统生存必须的基础包
+
+
+必须改！！！
+
+
+官方拓展源 ( Extras, Plus)：
+
+
+rocky-extras.repo
+
+
+包含官方支持但不属于核心系统的插件
+
+
+建议改
+
+
+第三方社区源（ EPEL ）：
+
+
+epel.repo
+
+
+由 Federa 社区维护，提供很多红帽系官方不带的工具
+
+
+必须改
+
+
+
+repo 文件示例：
+
+[epel] 
+# 仓库 ID 
+name=Extra Packages for Enterprise Linux 9 
+# 仓库名称 
+
+# metalink=https://mirrors... 
+# 自动寻找最快节点的地址（通常由于网络问题失效） 
+
+baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
+# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
+
+gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
+# 校验用的公钥
+
+Yum 源案例实践：
+First Step &mdash; 删除所有乱七八糟的 .repo 文件和备份文件">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-04-11-yum-advanced/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-04-11-yum-advanced/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      yum 进阶
+    </h1>
+    <div class="post-meta"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h2 id="探究yum源的混乱">探究yum源的混乱<a hidden class="anchor" aria-hidden="true" href="#探究yum源的混乱">#</a></h2>
+<p><strong>更换yum源核心逻辑：注释metalink；更换国内的baseurl</strong></p>
+<p><strong>解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源</strong></p>
+<h3 id="配置yum的目的">配置yum的目的：<a hidden class="anchor" aria-hidden="true" href="#配置yum的目的">#</a></h3>
+<h4 id="直接跨海访问国外会有极高的延迟和丢包率从而使用国内的镜像加速本质上是切换到了-地理位置更近带宽更高的镜像站">直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 <strong>地理位置更近、带宽更高的镜像站</strong><a hidden class="anchor" aria-hidden="true" href="#直接跨海访问国外会有极高的延迟和丢包率从而使用国内的镜像加速本质上是切换到了-地理位置更近带宽更高的镜像站">#</a></h4>
+<h4 id="高可用国内大厂的镜像站有极高的负载均衡保证-7x24-小时不中断">高可用：国内大厂的镜像站有极高的负载均衡，保证 <strong>7X24 小时不中断</strong><a hidden class="anchor" aria-hidden="true" href="#高可用国内大厂的镜像站有极高的负载均衡保证-7x24-小时不中断">#</a></h4>
+<h4 id="版本一致性使用私有的企业内部私有源保证服务器安装的-软件版本一致">版本一致性：使用私有的企业内部私有源保证服务器安装的 <strong>软件版本一致</strong><a hidden class="anchor" aria-hidden="true" href="#版本一致性使用私有的企业内部私有源保证服务器安装的-软件版本一致">#</a></h4>
+<hr>
+<h3 id="etcyumreposd-文件拆解">/etc/yum.repos.d/ 文件拆解：<a hidden class="anchor" aria-hidden="true" href="#etcyumreposd-文件拆解">#</a></h3>
+<h4 id="核心系统源baseos-appstream">核心系统源（BaseOS， AppStream）：<a hidden class="anchor" aria-hidden="true" href="#核心系统源baseos-appstream">#</a></h4>
+<ul>
+<li>
+<p>rocky.repo</p>
+</li>
+<li>
+<p>包含 linux内核，li，cp，ssh等操作系统生存必须的基础包</p>
+</li>
+<li>
+<p>必须改！！！</p>
+</li>
+</ul>
+<h4 id="官方拓展源--extras-plus">官方拓展源 ( Extras, Plus)：<a hidden class="anchor" aria-hidden="true" href="#官方拓展源--extras-plus">#</a></h4>
+<ul>
+<li>
+<p>rocky-extras.repo</p>
+</li>
+<li>
+<p>包含官方支持但不属于核心系统的插件</p>
+</li>
+<li>
+<p>建议改</p>
+</li>
+</ul>
+<h4 id="第三方社区源-epel-">第三方社区源（ EPEL ）：<a hidden class="anchor" aria-hidden="true" href="#第三方社区源-epel-">#</a></h4>
+<ul>
+<li>
+<p>epel.repo</p>
+</li>
+<li>
+<p>由 Federa 社区维护，提供很多红帽系官方不带的工具</p>
+</li>
+<li>
+<p>必须改</p>
+</li>
+</ul>
+<hr>
+<h3 id="repo-文件示例">repo 文件示例：<a hidden class="anchor" aria-hidden="true" href="#repo-文件示例">#</a></h3>
+<pre tabindex="0"><code>
+[epel] 
+# 仓库 ID 
+name=Extra Packages for Enterprise Linux 9 
+# 仓库名称 
+
+# metalink=https://mirrors... 
+# 自动寻找最快节点的地址（通常由于网络问题失效） 
+
+baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
+# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
+
+gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
+# 校验用的公钥
+</code></pre><hr>
+<p>Yum 源案例实践：</p>
+<p>First Step &mdash; 删除所有乱七八糟的 .repo 文件和备份文件</p>
+<pre tabindex="0"><code>
+# 1. 创建一个紧急备份目录（以防万一）
+sudo mkdir -p /etc/yum.repos.d/backup_archive
+
+# 2. 将现有所有乱七八糟的文件移走，让目录变空
+sudo mv /etc/yum.repos.d/*.repo* /etc/yum.repos.d/backup_archive/
+
+# 3. 清理缓存元数据，确保 dnf 不再记住之前的错误路径
+sudo dnf clean all
+</code></pre><p>Second Step &mdash; 还原官方默认设置</p>
+<pre tabindex="0"><code>
+# 强制重装仓库定义包，这会自动在 /etc/yum.repos.d/ 下生成官方原版的 .repo 文件
+sudo dnf reinstall rocky-repos rocky-release -y
+
+# 验证官方文件是否回来
+ll /etc/yum.repos.d/
+# 预期输出：rocky.repo, rocky-addons.repo 等纯净的官方文件
+</code></pre><ul>
+<li>
+<p>如果不行需要现在 /etc/yum.repos.d/ 下生成 bootstrap.repo （ 引导 ）</p>
+</li>
+<li>
+<p><strong>因为 dnf 是联网包管理器，删除了所有 /etc/yum.repos.d/ 下的所有repo文件 就不知道去哪个下载站下载</strong></p>
+</li>
+</ul>
+<pre tabindex="0"><code>
+# 直接在命令行输入以下整段命令
+sudo tee /etc/yum.repos.d/bootstrap.repo &lt;&lt;EOF
+[bootstrap-baseos]
+name=Bootstrap BaseOS
+baseurl=https://mirrors.aliyun.com/rockylinux/9/BaseOS/x86_64/os/
+gpgcheck=0
+enabled=1
+
+[bootstrap-appstream]
+name=Bootstrap AppStream
+baseurl=https://mirrors.aliyun.com/rockylinux/9/AppStream/x86_64/os/
+gpgcheck=0
+enabled=1
+EOF
+</code></pre><p>Third Step &mdash; 采用阿里云镜像站进行 &ldquo;yum 加速&rdquo;</p>
+<pre tabindex="0"><code>
+# 使用 sed 批量替换官方地址为阿里云地址
+sudo sed -e &#39;s|^mirrorlist=|#mirrorlist=|g&#39; \
+         -e &#39;s|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.aliyun.com/rockylinux|g&#39; \
+         -i /etc/yum.repos.d/rocky*.repo
+
+# 建立索引记录
+sudo dnf makecache
+</code></pre><p>Forth Step &mdash; 配置 EPEL 镜像源</p>
+<pre tabindex="0"><code>
+# 1. 安装 EPEL 官方定义包 / 包未安装上重新安装
+sudo dnf install epel-release -y || sudo dnf reinstall epel-release -y
+
+# 2. 将 EPEL 也切换到阿里云镜像，保证下载 Rclone 飞快
+sudo sed -e &#39;s|^metalink=|#metalink=|g&#39; \
+		-e&#39;s|^#baseurl=https\?://download.fedoraproject.org/pub/epel/|baseurl=https://mirrors.aliyun.com/epel/|g&#39; \ 
+         -i /etc/yum.repos.d/epel*.repo
+
+# 3. 开启 Rocky 9 必须的 CRB 库（很多 EPEL 包依赖它）
+sudo dnf config-manager --set-enabled crb
+
+# 4. 最后一次全量缓存刷新
+sudo dnf makecache
+</code></pre><ul>
+<li>epel 用不了可参考阿里文档，一定选和系统适配的 epel：</li>
+</ul>
+<pre tabindex="0"><code>https://developer.aliyun.com/mirror/epel/?spm=a2c6h.25603864.0.0.14959e5axyjIWx
+</code></pre><p>Fifth Step &mdash; 验证 yum 是否加速成功</p>
+<pre tabindex="0"><code>
+# 检查现在的仓库列表，确认状态为 enabled 且路径正确 dnf repolist 
+# 尝试安装 rclone 验证闭环 sudo dnf install -y rclone
+</code></pre><p>下载rclone时候提示：</p>
+<pre tabindex="0"><code>
+[devops@lb01 ~]$ sudo dnf makecache
+Extra Packages for Enterprise Linux 8 - x86_64  43 kB/s | 4.0 kB     00:00
+Rocky Linux 9 - BaseOS                          27 kB/s | 4.3 kB     00:00
+Rocky Linux 9 - AppStream                       60 kB/s | 4.8 kB     00:00
+Rocky Linux 9 - CRB                             52 kB/s | 4.8 kB     00:00
+Rocky Linux 9 - Extras                          18 kB/s | 3.1 kB     00:00
+Metadata cache created.
+</code></pre><p>可能是 epel 8 系列 和 系统不一致导致系统直接忽略 rclone 包，所以重新安装了新的 epel 9</p>
+<pre tabindex="0"><code>
+# 1. 移除错误的 epel-release 包 
+sudo dnf remove epel-release -y 
+
+# 2. 清理所有残留的 8 版本缓存 
+sudo dnf clean all
+
+# 1. 安装适配 Rocky 9 的 EPEL 定义包
+sudo dnf install -y https://mirrors.aliyun.com/epel/epel-release-latest-9.noarch.rpm
+
+# 2. 再次执行镜像加速;这里如果执行不成功可以去 /etc/yum.repos.d/epel.repo 文件看baseurl的前面共同部分再切换到下面
+ 
+sudo sed -e &#39;s|^metalink=|#metalink=|g&#39; \
+         -e &#39;s|^#baseurl=https\?://download.fedoraproject.org/pub/epel/|baseurl=https://mirrors.aliyun.com/epel/|g&#39; \
+         -i /etc/yum.repos.d/epel*.repo
+
+# 激活 CRB仓库，rclone 在 9 版本中需要基础开发库的支持，被 Rocky 官方放在了 crb仓库
+sudo dnf config-manager --set-enabled crb
+
+
+
+# 1. 重新建立索引 
+sudo dnf makecache 
+
+# 2. 观察输出！确认看到的是 &#34;Extra Packages for Enterprise Linux 9&#34; 
+
+# 3. 安装 
+rclone sudo dnf install -y rclone 
+
+# 4. 验证版本 
+rclone version
+</code></pre><p>rclone 安装成功，最后 epel 源 也是成功显示在仓库里：</p>
+<pre tabindex="0"><code>
+[devops@lb01 ~]$ dnf repolist
+repo id             repo name
+appstream           Rocky Linux 9 - AppStream
+baseos              Rocky Linux 9 - BaseOS
+crb                 Rocky Linux 9 - CRB
+epel                Extra Packages for Enterprise Linux 9 - x86_64
+epel-cisco-openh264 Extra Packages for Enterprise Linux 9 openh264 (From Cisco) - x86_64
+extras              Rocky Linux 9 - Extras
+</code></pre><p>后续：私有镜像源管理（ image / binary ）？？</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

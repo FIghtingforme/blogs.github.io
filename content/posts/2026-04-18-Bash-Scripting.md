@@ -1,9 +1,8 @@
 ---
 
 date: 2026-04-18
-title: Bash Scripting Documetry
-layout: post
-catagories: Linux
+title:  "Bash Scripting Documetry"
+categories: Linux
 
 ---
 

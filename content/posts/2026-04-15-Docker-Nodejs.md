@@ -1,9 +1,8 @@
 ---
 
 date: 2026-04-15
-title: Docker--- Nodejs
-layout: post
-catagories: Docker
+title: "Docker--- Nodejs"
+categories: Docker
 
 ---
 

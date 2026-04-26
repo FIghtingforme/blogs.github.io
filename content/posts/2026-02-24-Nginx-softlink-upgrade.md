@@ -1,6 +1,5 @@
 ---
-layout: post
-title: Nginx 软链接升级流程
+title: "Nginx 软链接升级流程"
 date: 2026-02-24
 categories: Nginx
 ---

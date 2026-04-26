@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: SSHD 远程工具连接失败
+title: "SSHD 远程工具连接失败"
 date: 2026-03-03
-catagories: SSHD 服务
+categories: SSHD 服务
 
 ---
 

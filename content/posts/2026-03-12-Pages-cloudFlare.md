@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: Github Pages绑定域名
+title: "Github Pages绑定域名"
 date: 2026-03-12
-catagories: Github
+categories: Github
 
 ---
 

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NFS on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/nfs/</link>
+    <description>Recent content in NFS on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/nfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NFS挂载文件系统</title>
+      <link>http://localhost:1313/posts/2026-03-12-nfs/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-12-nfs/</guid>
+      <description>&lt;h4 id=&#34;操作步骤&#34;&gt;操作步骤：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- NFS原理：
+	- NFS &amp;lt;==&amp;gt; RPC &amp;lt;==&amp;gt; Client
+	- 
+	- RPC服务： port mapper
+	
+	- Server（配置）：
+		- dnf install rpcbind nfs-utils
+			- 
+			- 安装相关软件
+		
+		- systemctl enable rpcbind/nfs-server
+		- 
+		- systemctl start rpcbind/nfs-server
+		- 
+		- rpcinfo -p
+		- 
+		
+		- vim /etc/export（写入挂载信息）：
+			- 
+			- /data 10.0.0.0/24（rw,all_squash）
+			
+			- rw 表示读写    |     all_squash表示压缩所有客户端用户为nfsnobody
+		
+		- systemctl reload nfs
+			
+			- 平滑重载nfs，避免restart 60s 夯住
+		- 
+		- mkdir -p /data/
+			
+			- 递归创建目录（挂载目录）
+		- 
+		- ls -ld /data/
+		
+			- 查看目录属性
+		- 
+		- id nfsnobody
+			
+			- 查看用户uid和gid
+		- 
+		- chown -R nfsnobody.nfsnobody /data/
+			
+			- 设置用户，用户组所属
+		- 
+		- df -h
+
+            - 产看磁盘挂载情况
+		
+		- 配置文件：
+
+			- /etc/exports
+				- /var/lib/nfs/etab
+		
+	- Client（配置）:
+		- showmount -e 10.0.0.61
+			
+			- 查看挂载情况
+		- 
+		
+		- useradd nfsnobody
+
+		- 
+		- exportfs -arv   
+		- 
+			- 刷新配置
+		- 
+		- mount -t nfs 10.0.0.61:/data/  /mnt/
+		- 
+		- df -h /mnt/
+			
+			- 查看挂载情况
+		- 
+		- install nfs-utils -y
+		- 
+		- touch /mnt/ababa.txt
+		- 
+		- 
+		- df -h       
+		- 
+			- 查看挂载情况
+		
+		- rpcinfo -p
+		- 
+			- 打印中转详细信息
+		
+        - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！
+		
+		
+		- umount -lf /mnt/  
+		- 
+			- 强制卸载挂载的磁盘
+		
+		- 配置文件：
+		- 
+			- /etc/rc.local
+				- /proc/mounts
+		
+		- nfs永久挂载(配置前先启动服务端)：
+			- vim /etc/fstab（写在文件里）：
+				- 
+				- 10.0.0.61:/data/    /mnt/    nfs   defaults    0    0
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

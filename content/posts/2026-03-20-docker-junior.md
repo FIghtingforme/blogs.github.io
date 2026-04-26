@@ -1,8 +1,7 @@
 ---
-layout: post
-title: Docker简单配置
+title: "Docker简单配置"
 date: 2026-03-20
-catagories: Docker
+categories: Docker
 ---
 
 #### Docker配置命令：

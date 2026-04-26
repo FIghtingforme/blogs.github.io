@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>System | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/categories/system/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/system/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/categories/system/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    System
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">IAM-Least Privilege Principle
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Use least privilege principle to secure your CI/CD pipeline IAM Permissions &amp;&amp; Access Control
+Prompt–The Over-Permissioned Pipeline Disaster-Real Security Risk:
+Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they attackAdministratorAccess policy to fix it quickly Pipeline works!Problems solved…or is it? CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket Attacker compromises the build through malicious code in dependencies Now attacker has admin access to your entire AWS account The Principle of Least Privilege - Only What’s needed,Nothing More. Least Privilege = Grant minimum permissions required to do the job CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets CodeDeploy nedds to update EC2 instances?Grant only deployment permission Dont’t grant Full S3 access EC2 admin IAM modification Think: What’s the smallest set of permissions for this to work? Benefits: Limits blast radius if compromised Building Secure IAM Policies for Pipeline Services IAM Policy = JSON document with permissions
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-04-20 00:00:00 +0000 UTC'>April 20, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to IAM-Least Privilege Principle" href="http://localhost:1313/posts/2026-04-20-iam/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">yum 进阶
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>探究yum源的混乱 更换yum源核心逻辑：注释metalink；更换国内的baseurl
+解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
+配置yum的目的： 直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 地理位置更近、带宽更高的镜像站 高可用：国内大厂的镜像站有极高的负载均衡，保证 7X24 小时不中断 版本一致性：使用私有的企业内部私有源保证服务器安装的 软件版本一致 /etc/yum.repos.d/ 文件拆解： 核心系统源（BaseOS， AppStream）： rocky.repo
+包含 linux内核，li，cp，ssh等操作系统生存必须的基础包
+必须改！！！
+官方拓展源 ( Extras, Plus)： rocky-extras.repo
+包含官方支持但不属于核心系统的插件
+建议改
+第三方社区源（ EPEL ）： epel.repo
+由 Federa 社区维护，提供很多红帽系官方不带的工具
+必须改
+repo 文件示例： [epel] # 仓库 ID name=Extra Packages for Enterprise Linux 9 # 仓库名称 # metalink=https://mirrors... # 自动寻找最快节点的地址（通常由于网络问题失效） baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ # 真正的下载地址 enabled=1 # 是否启用（1为启用） gpgcheck=1 # 是否校验签名（为了安全，必须为1） gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 # 校验用的公钥 Yum 源案例实践：
+First Step — 删除所有乱七八糟的 .repo 文件和备份文件
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to yum 进阶" href="http://localhost:1313/posts/2026-04-11-yum-advanced/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">FTP办公挂载文件夹
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>搭建服务器的FTP文件夹挂载在win上 简单介绍： FTP（VSFTP） 类unix系统使用的FTP服务器软件 安全，高速，稳定 vim /etc/services 查端口 20 传数据；21 传指令 FTP会话通道： 20数据通道：正文 21控制通道：敲门，输密码，发指令 主动模式： C随机开高位端口&amp;发给S，Server通过20端口与Client连接&amp;发数据
+被动模式(passive)： 相对的 S开放随机高位端口&amp;发给C,然后等待Client连接
+配置实现： dnf install vsftpd y systemctl start vsftpd systemctl status vsftpd firewallcmd permanent addservice=ftp firewallcmd reload vim /etc/vsftpd/vsftpd.conf local_enables=YES write_enables=YES setenforce 0 大功告成！！！最后： win 下资源管理器输入： ftp：//虚拟机IP </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to FTP办公挂载文件夹" href="http://localhost:1313/posts/2026-03-20-ftp-win/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">内存告急，快加swap！！！
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>内存不足创建swap空间 痛点：云服务器的内存太小，又想要极致性价比 解决方案： 创建swapfile的大文件放在swap下 - 创建swap空间： - - 创建swapfile空间 ==&gt; 转为swap ==&gt; 激活swap并加入linux ==&gt; 配置永久挂载 - if - - input file - - of - - output file - bs - - block size 每次读取多少 - - count - - 读取次数 - dd if=/dev/zero of=/tmp/swapfile bs=1M count=1000 - - - mkswap /tmp/swapfile - - free -h - - chmod 600 /tmp/swapfile - - mkswap /tmp/swapfile - - swapon /tmp/swapfile - free -h - - - 先卸载当前的 Swap 文件 - - swapoff /tmp/swapfile - - 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） - - swapon -a - vim /etc/fstab（修改） - /swapfile swap swap defaults 0 0 - free -h - 再次查看挂载情况 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-17 00:00:00 +0000 UTC'>March 17, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 内存告急，快加swap！！！" href="http://localhost:1313/posts/2026-03-17-add-swap/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Rocky9忘记密码--紧急救援
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>5分钟紧急救援RHEL-Root密码 原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码 步骤： - 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑 - 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl&#43;X进入紧急救援 - 随后进入到switch_root:/# 下，依次输入以下5个命令： - mount -o remount,rw /sysroot 重新挂载根目录可读写 - chroot /sysroot 切换到系统根目录（真实root） - 提示符会变成sh-4.2# - passwd root 修改root密码 - touch /.autorelabel - 自动重新标记，**这一步非常重要** - 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除 - exit 退出chroot环境 - exit - 退出紧急救援模式 - 随后系统开始自动重启 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-04 00:00:00 +0000 UTC'>March 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Rocky9忘记密码--紧急救援" href="http://localhost:1313/posts/2026-03-04-rocky9-resume/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

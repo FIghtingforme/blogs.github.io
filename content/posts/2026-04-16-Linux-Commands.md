@@ -1,9 +1,8 @@
 ---
 
 date: 2026-04-16
-title: Linux Common Commands
-layout: post
-catagories: Linux
+title: "Linux Common Commands"
+categories: Linux
 
 ---
 

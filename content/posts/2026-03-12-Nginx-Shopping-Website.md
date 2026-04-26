@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: 用Nginx搭建站点
+title: "用Nginx搭建站点"
 date: 2026-03-12
-catagories: Nginx
+categories: Nginx
 
 ---
 

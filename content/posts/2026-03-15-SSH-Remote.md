@@ -1,9 +1,8 @@
 ---
 
-layout: post
 date: 2026-03-15
-title: SSH 配置踩坑
-catagories: SSH
+title: "SSH 配置踩坑"
+categories: SSH
 
 ---
 

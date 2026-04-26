@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Bash Scripting Documetry | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="Bash Scripting
+Bash: &ldquo;Bourne Again Shell&rdquo;
+Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.
+Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod &#43;x filename).
+The first line of the shell script file begins with a &ldquo;sha-bang&rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &ldquo;sha-bang&rdquo; is incorrect, then an error message e.g. &ldquo;Command not found.&rdquo;, may be the result of the script execution. It is common to name the shell script with the &ldquo;.sh&rdquo; extension. The first line may look like this:
+
+#!/bin/bash
+# Adding comments: any text following the &#34;#&#34; is considered a comment
+To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):
+
+[devops@lb01 ~]$ ps | grep $$
+ 185152 pts/1    00:00:00 bash
+ 
+ # This response shows that the shell you are using is of type &#39;bash&#39;. 
+next find out the full path of the shell interpreter
+
+[devops@lb01 ~]$ which bash
+/usr/bin/bash
+
+# This response shows the full execution path of the shell interpreter. 
+Make sure that the &ldquo;sha-bang&rdquo; (#!) line at the beginning of your script, matches this same execution path:
+
+[devops@lb01 ~/scripts/shell]$ ls
+111  first.sh  server_performance_stats
+[devops@lb01 ~/scripts/shell]$   &gt;  111
+[devops@lb01 ~/scripts/shell]$   &gt;  first.sh
+-bash: first.sh: Permission denied
+# It&#39;s not available to clear the bash file 
+
+to edit the first.sh
+
+
+#!/usr/bin/bash
+echo &#34;hello world&#34;
+
+output:
+
+
+[devops@lb01 ~/scripts/shell]$ less  ./first.sh
+[devops@lb01 ~/scripts/shell]$ sh ./first.sh
+hello world
+
+==Variables==
+Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore &ldquo;_&rdquo;. Value assignment is done using the &ldquo;=&rdquo; sign. Note that no space permitted on either side of = sign when initializing variables.
+
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ greeting=&#39;hello          world!&#39;
+
+# Referencing the variables
+A backslash \ is used to escape special character meaning
+
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ echo &#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&#34;
+The price of an Apple today is: $HK 5
+Encapsulating the variable name with ${} is used to avoid ambiguity
+
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ echo &#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&#34;
+The first 10 letters in the alphabet are: ABCDEFGHIJKL
+Encapsulating the variable name with &quot;&quot; will preserve any white space values
+
+[devops@lb01 ~/scripts/shell]$ greeting=&#34;hello    world&#34;
+[devops@lb01 ~/scripts/shell]$ echo $greeting&#34; now with spaces: $greeting&#34;
+hello world now with spaces: hello    world
+Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()
+
+[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
+[devops@lb01 ~/scripts/shell]$ $(ls)
+-bash: 111: command not found
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date &#43;^C
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date &#43;%Y-%m-%d).txt
+
+# Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
+Exercise
+The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text &ldquo;Jan 1, 2000&rdquo;. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday.
+
+Note that the &lsquo;date&rsquo; command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:
+
+
+date -d &#34;$date1&#34; &#43;%A
+
+You can use Shell Check to detective your codes.
+
+
+#!/bin/bash
+
+set -euo pipefail
+
+BIRTHDATE=&#34;Jan 1, 2000&#34;
+
+Presents=10
+
+BIRTHDAY=$(date -d &#34;$BIRTHDATE&#34; &#43;%A)
+
+
+# BIRTHDATE:
+if [ &#34;$BIRTHDATE&#34; == &#34;Jan 1, 2000&#34; ]; then
+  echo &#34;BIRTHDATE is correct,it is $BIRTHDATE&#34;
+else
+  echo &#34;BIRTHDATE is incorrect,try again!&#34;
+fi
+
+# Presents:
+if [ &#34;$Presents&#34; == 10 ]; then
+  echo &#34;I have received $Presents presents&#34;
+else
+  echo &#34;Presents is incorrect,plz try again!&#34;
+fi
+
+# BIRTHDAY:
+if [ &#34;$BIRTHDAY&#34; == &#34;Saturday&#34; ]; then
+  echo &#34;I was born on a $BIRTHDAY&#34;
+else
+  echo &#34;BIRTHDAY is incorrect,plz try again!&#34;
+fi
+
+
+##############################################
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh
+BIRTHDATE is correct,it is Jan 1, 2000
+I have received 10 presents
+I was born on a Saturday
+
+==Passing Arguments to the Script==
+Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.
+Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.
+Example
+
+4_17.sh file contains below code
+
+
+#!/bin/bash
+echo &#34;File name is $0&#34;
+echo $3
+Data=$5
+echo &#34;A $Data costs just $6.&#34;
+echo $#
+echo $@
+
+############################################
+# The variable $# holds the number of arguments passed to the script
+
+# The variable $@ holds a space delimited string of all arguments passed to the script
+
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &#34;Fruit Basket&#34; 15
+File name is ./4_17.sh
+banana
+A Fruit Basket costs just 15.
+6
+apple 5 banana 8 Fruit Basket 15
+Exercise
+
+Pass &ldquo;Shell is fun&rdquo; (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.
+
+
+#!/usr/bin/bash
+
+function File {
+  echo $#
+}
+
+if [ ! $# -lt 1 ]; then
+  File &#34;$@&#34;
+  exit 0
+fi
+
+#####################################################
+# output:
+3
+
+Arrays
+An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()
+
+[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;a pear&#34;)
+[devops@lb01 ~/scripts/shell]$ new_array[2]=apricot
+
+
+Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-04-18-bash-scripting/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-04-18-bash-scripting/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Bash Scripting Documetry
+    </h1>
+    <div class="post-meta"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h2 id="bash-scripting">Bash Scripting<a hidden class="anchor" aria-hidden="true" href="#bash-scripting">#</a></h2>
+<h3 id="bash-bourne-again-shell">Bash: &ldquo;Bourne Again Shell&rdquo;<a hidden class="anchor" aria-hidden="true" href="#bash-bourne-again-shell">#</a></h3>
+<h3 id="shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash">Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.<a hidden class="anchor" aria-hidden="true" href="#shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash">#</a></h3>
+<h3 id="shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename">Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).<a hidden class="anchor" aria-hidden="true" href="#shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename">#</a></h3>
+<h3 id="the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this">The first line of the shell script file begins with a &ldquo;sha-bang&rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &ldquo;sha-bang&rdquo; is incorrect, then an error message e.g. &ldquo;Command not found.&rdquo;, may be the result of the script execution. It is common to name the shell script with the &ldquo;.sh&rdquo; extension. The first line may look like this:<a hidden class="anchor" aria-hidden="true" href="#the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this">#</a></h3>
+<pre tabindex="0"><code>
+#!/bin/bash
+# Adding comments: any text following the &#34;#&#34; is considered a comment
+</code></pre><h4 id="to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow">To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):<a hidden class="anchor" aria-hidden="true" href="#to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~]$ ps | grep $$
+ 185152 pts/1    00:00:00 bash
+ 
+ # This response shows that the shell you are using is of type &#39;bash&#39;. 
+</code></pre><h4 id="next-find-out-the-full-path-of-the-shell-interpreter">next find out the full path of the shell interpreter<a hidden class="anchor" aria-hidden="true" href="#next-find-out-the-full-path-of-the-shell-interpreter">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~]$ which bash
+/usr/bin/bash
+
+# This response shows the full execution path of the shell interpreter. 
+</code></pre><h4 id="make-sure-that-the-sha-bang--line-at-the-beginning-of-your-script-matches-this-same-execution-path">Make sure that the &ldquo;sha-bang&rdquo; (#!) line at the beginning of your script, matches this same execution path:<a hidden class="anchor" aria-hidden="true" href="#make-sure-that-the-sha-bang--line-at-the-beginning-of-your-script-matches-this-same-execution-path">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ ls
+111  first.sh  server_performance_stats
+[devops@lb01 ~/scripts/shell]$   &gt;  111
+[devops@lb01 ~/scripts/shell]$   &gt;  first.sh
+-bash: first.sh: Permission denied
+# It&#39;s not available to clear the bash file 
+</code></pre><ul>
+<li>to edit the first.sh</li>
+</ul>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+echo &#34;hello world&#34;
+</code></pre><ul>
+<li>output:</li>
+</ul>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ less  ./first.sh
+[devops@lb01 ~/scripts/shell]$ sh ./first.sh
+hello world
+</code></pre><hr>
+<h3 id="variables">==Variables==<a hidden class="anchor" aria-hidden="true" href="#variables">#</a></h3>
+<h4 id="shell-variables-are-created-once-they-are-assigned-a-value-a-variable-can-contain-a-number-a-character-or-a-string-of-characters-variable-name-is-case-sensitive-and-can-consist-of-a-combination-of-letters-and-the-underscore-_-value-assignment-is-done-using-the--sign-note-that-no-space-permitted-on-either-side-of--sign-when-initializing-variables">Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore &ldquo;_&rdquo;. Value assignment is done using the &ldquo;=&rdquo; sign. Note that no space permitted on either side of = sign when initializing variables.<a hidden class="anchor" aria-hidden="true" href="#shell-variables-are-created-once-they-are-assigned-a-value-a-variable-can-contain-a-number-a-character-or-a-string-of-characters-variable-name-is-case-sensitive-and-can-consist-of-a-combination-of-letters-and-the-underscore-_-value-assignment-is-done-using-the--sign-note-that-no-space-permitted-on-either-side-of--sign-when-initializing-variables">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ greeting=&#39;hello          world!&#39;
+
+# Referencing the variables
+</code></pre><h4 id="a-backslash--is-used-to-escape-special-character-meaning">A backslash <code>\</code> is used to escape special character meaning<a hidden class="anchor" aria-hidden="true" href="#a-backslash--is-used-to-escape-special-character-meaning">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
+[devops@lb01 ~/scripts/shell]$ echo &#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&#34;
+The price of an Apple today is: $HK 5
+</code></pre><h4 id="encapsulating-the-variable-name-with--is-used-to-avoid-ambiguity">Encapsulating the variable name with ${} is used to avoid ambiguity<a hidden class="anchor" aria-hidden="true" href="#encapsulating-the-variable-name-with--is-used-to-avoid-ambiguity">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
+[devops@lb01 ~/scripts/shell]$ echo &#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&#34;
+The first 10 letters in the alphabet are: ABCDEFGHIJKL
+</code></pre><h4 id="encapsulating-the-variable-name-with--will-preserve-any-white-space-values">Encapsulating the variable name with &quot;&quot; will preserve any white space values<a hidden class="anchor" aria-hidden="true" href="#encapsulating-the-variable-name-with--will-preserve-any-white-space-values">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ greeting=&#34;hello    world&#34;
+[devops@lb01 ~/scripts/shell]$ echo $greeting&#34; now with spaces: $greeting&#34;
+hello world now with spaces: hello    world
+</code></pre><h4 id="variables-can-be-assigned-with-the-value-of-a-command-output-this-is-referred-to-as-substitution-substitution-can-be-done-by-encapsulating-the-command-with--known-as-back-ticks-or-with-">Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()<a hidden class="anchor" aria-hidden="true" href="#variables-can-be-assigned-with-the-value-of-a-command-output-this-is-referred-to-as-substitution-substitution-can-be-done-by-encapsulating-the-command-with--known-as-back-ticks-or-with-">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
+[devops@lb01 ~/scripts/shell]$ $(ls)
+-bash: 111: command not found
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date +^C
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+
+[devops@lb01 ~/scripts/shell]$ which date
+/usr/bin/date
+[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date +%Y-%m-%d).txt
+
+# Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
+</code></pre><h4 id="exercise">Exercise<a hidden class="anchor" aria-hidden="true" href="#exercise">#</a></h4>
+<h5 id="the-target-of-this-exercise-is-to-create-a-string-an-integer-and-a-complex-variable-using-command-substitution-the-string-should-be-named-birthdate-and-should-contain-the-text-jan-1-2000-the-integer-should-be-named-presents-and-should-contain-the-number-10-the-complex-variable-should-be-named-birthday-and-should-contain-the-full-weekday-name-of-the-day-matching-the-date-in-variable-birthdate-eg-saturday">The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text &ldquo;Jan 1, 2000&rdquo;. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday.<a hidden class="anchor" aria-hidden="true" href="#the-target-of-this-exercise-is-to-create-a-string-an-integer-and-a-complex-variable-using-command-substitution-the-string-should-be-named-birthdate-and-should-contain-the-text-jan-1-2000-the-integer-should-be-named-presents-and-should-contain-the-number-10-the-complex-variable-should-be-named-birthday-and-should-contain-the-full-weekday-name-of-the-day-matching-the-date-in-variable-birthdate-eg-saturday">#</a></h5>
+<ul>
+<li>Note that the &lsquo;date&rsquo; command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:</li>
+</ul>
+<pre tabindex="0"><code>
+date -d &#34;$date1&#34; +%A
+</code></pre><ul>
+<li>You can use Shell Check to detective your codes.</li>
+</ul>
+<pre tabindex="0"><code>
+#!/bin/bash
+
+set -euo pipefail
+
+BIRTHDATE=&#34;Jan 1, 2000&#34;
+
+Presents=10
+
+BIRTHDAY=$(date -d &#34;$BIRTHDATE&#34; +%A)
+
+
+# BIRTHDATE:
+if [ &#34;$BIRTHDATE&#34; == &#34;Jan 1, 2000&#34; ]; then
+  echo &#34;BIRTHDATE is correct,it is $BIRTHDATE&#34;
+else
+  echo &#34;BIRTHDATE is incorrect,try again!&#34;
+fi
+
+# Presents:
+if [ &#34;$Presents&#34; == 10 ]; then
+  echo &#34;I have received $Presents presents&#34;
+else
+  echo &#34;Presents is incorrect,plz try again!&#34;
+fi
+
+# BIRTHDAY:
+if [ &#34;$BIRTHDAY&#34; == &#34;Saturday&#34; ]; then
+  echo &#34;I was born on a $BIRTHDAY&#34;
+else
+  echo &#34;BIRTHDAY is incorrect,plz try again!&#34;
+fi
+
+
+##############################################
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh
+BIRTHDATE is correct,it is Jan 1, 2000
+I have received 10 presents
+I was born on a Saturday
+</code></pre><hr>
+<h3 id="passing-arguments-to-the-script">==Passing Arguments to the Script==<a hidden class="anchor" aria-hidden="true" href="#passing-arguments-to-the-script">#</a></h3>
+<h4 id="arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name">Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.<a hidden class="anchor" aria-hidden="true" href="#arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name">#</a></h4>
+<h4 id="inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments">Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.<a hidden class="anchor" aria-hidden="true" href="#inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments">#</a></h4>
+<h4 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h4>
+<ul>
+<li>4_17.sh file contains below code</li>
+</ul>
+<pre tabindex="0"><code>
+#!/bin/bash
+echo &#34;File name is $0&#34;
+echo $3
+Data=$5
+echo &#34;A $Data costs just $6.&#34;
+echo $#
+echo $@
+
+############################################
+# The variable $# holds the number of arguments passed to the script
+
+# The variable $@ holds a space delimited string of all arguments passed to the script
+
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &#34;Fruit Basket&#34; 15
+File name is ./4_17.sh
+banana
+A Fruit Basket costs just 15.
+6
+apple 5 banana 8 Fruit Basket 15
+</code></pre><h4 id="exercise-1">Exercise<a hidden class="anchor" aria-hidden="true" href="#exercise-1">#</a></h4>
+<ul>
+<li>Pass &ldquo;Shell is fun&rdquo; (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.</li>
+</ul>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+
+function File {
+  echo $#
+}
+
+if [ ! $# -lt 1 ]; then
+  File &#34;$@&#34;
+  exit 0
+fi
+
+#####################################################
+# output:
+3
+</code></pre><hr>
+<h3 id="arrays">Arrays<a hidden class="anchor" aria-hidden="true" href="#arrays">#</a></h3>
+<h4 id="an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-">An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()<a hidden class="anchor" aria-hidden="true" href="#an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;a pear&#34;)
+[devops@lb01 ~/scripts/shell]$ new_array[2]=apricot
+</code></pre><ul>
+<li>
+<p>Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.</p>
+</li>
+<li>
+<p>The total number of elements in the array is referenced by ${#arrayname[@]}</p>
+</li>
+</ul>
+<pre tabindex="0"><code>
+bash
+my_array=(apple banana &#34;Fruit Basket&#34; orange)
+echo  ${#my_array[@]}                   # 4
+</code></pre><ul>
+<li>The array elements can be accessed with their numeric index. The index of the first element is 0.</li>
+</ul>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;Fruit Basket&#34; orange)
+[devops@lb01 ~/scripts/shell]$ echo $(my_array[2])
+-bash: my_array[2]: command not found
+
+[devops@lb01 ~/scripts/shell]$ echo ${#my_array}
+5
+[devops@lb01 ~/scripts/shell]$ echo ${#my_array[@]}
+4
+[devops@lb01 ~/scripts/shell]$
+[devops@lb01 ~/scripts/shell]$ echo ${my_array[3]}
+orange
+[devops@lb01 ~/scripts/shell]$ my_array[4]=&#34;carrot&#34;
+[devops@lb01 ~/scripts/shell]$ echo $(#my_array[@]}
+&gt; ^C
+[devops@lb01 ~/scripts/shell]$ echo ${#my_array[@]}
+5
+[devops@lb01 ~/scripts/shell]$ echo ${my_array[${#my_array[@]}-1]}
+carrot
+</code></pre><h4 id="exercise-2">Exercise<a hidden class="anchor" aria-hidden="true" href="#exercise-2">#</a></h4>
+<ul>
+<li>
+<p>In this exercise, you will need to add numbers and strings to the correct arrays. You must add the numbers 1,2, and 3 to the &ldquo;numbers&rdquo; array, and the words &lsquo;hello&rsquo; and &lsquo;world&rsquo; to the strings array.</p>
+</li>
+<li>
+<p>You will also have to correct the values of the variable NumberOfNames and the variable second_name. NumberOfNames should hold the total number of names in the NAMES array, using the $# special variable. Variable second_name should hold the second name in the NAMES array, using the brackets operator [ ]. Note that the index is zero-based, so if you want to access the second item in the list, its index will be 1.</p>
+</li>
+</ul>
+<pre tabindex="0"><code>
+#!/bin/bash
+numbers=(1 2 3)
+string=(&#34;hello&#34; &#34;world&#34;)
+NumberOfNames=${#string[@]}
+
+NAMES=(&#34;wangyang&#34; &#34;xiaohong&#34; &#34;xiaoli&#34;)
+second_name=${NAMES[1]}
+echo &#34;numbers: ${#numbers[@]}&#34;
+echo &#34;second_name: $second_name&#34;
+echo &#34;Numberofnames: $NumberOfNames&#34;
+
+################################################
+# output:
+[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh
+numbers: 3
+second_name: xiaohong
+Numberofnames: 2
+</code></pre><hr>
+<h3 id="basic-operators">Basic Operators<a hidden class="anchor" aria-hidden="true" href="#basic-operators">#</a></h3>
+<ul>
+<li>Arithmetic Operators</li>
+<li>Simple arithmetics on variables can be done using the <strong>arithmetic expression</strong>: $((expression))</li>
+</ul>
+<pre tabindex="0"><code>
+[devops@lb01 ~/scripts/shell]$ A=3
+[devops@lb01 ~/scripts/shell]$ B=$((100 * $A / 5))
+[devops@lb01 ~/scripts/shell]$ echo $B
+60
+</code></pre><p>The basic operators are:</p>
+<p>a + b addition (a plus b)</p>
+<p>a - b substraction (a minus b)</p>
+<p>a * b multiplication (a times b)</p>
+<p>a / b division (integer) (a divided by b)</p>
+<p>a % b modulo (the integer remainder of a divided by b)</p>
+<p>a ** b exponentiation (a to the power of b)</p>
+<h4 id="exercise-3">Exercise<a hidden class="anchor" aria-hidden="true" href="#exercise-3">#</a></h4>
+<ul>
+<li>In this exercise, you will need to calculate to total cost (variable TOTAL) of a fruit basket, which contains 1 pineapple, 2 bananas and 3 watermelons. Don&rsquo;t forget to include the cost of the basket&hellip;.</li>
+</ul>
+<pre tabindex="0"><code>
+#!/bin/bash
+
+COST_PINEAPPLE=50
+
+COST_BANANA=4
+
+COST_WATERMELON=23
+
+COST_BASKET=1
+
+TOTAL=$(($COST_PINEAPPLE + $COST_BANANA + $COST_WATERMELON + $COST_BASKET))
+
+echo &#34;Total Cost is $TOTAL&#34;
+
+#########################################################
+# BASH &amp;&amp; OUTPUT:
+Total Cost is 78
+</code></pre><hr>
+<h3 id="basic-string-operations">Basic String Operations<a hidden class="anchor" aria-hidden="true" href="#basic-string-operations">#</a></h3>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

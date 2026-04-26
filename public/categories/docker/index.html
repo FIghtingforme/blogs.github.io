@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Docker | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/categories/docker/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/docker/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/categories/docker/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Docker
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Docker 
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Docker Commands docker pull redis:8. redis:8.0.6-alpine docker images [devops@lb01 ~/docker/redis]$ docker images IMAGE ID DISK USAGE CONTENT SIZE EXTRA my-nodejs:v1 954fdbfce62a 194MB 48.1MB U nginx:latest 7f0adca1fc6c 237MB 65.8MB U redis:8.0.6-alpine 5f61955be8ab 86.8MB 24.9MB U docker run -p 6000:3000 –name -d redis-example redis:8.0.6-alpine [devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name redis-example redis:8.0.6-alpine d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 8 seconds ago Up 7 seconds 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ ss -lntup Netid State Recv-Q Send-Q Local Address:Port Peer Address:Port Process udp UNCONN 0 0 127.0.0.1:323 0.0.0.0:* udp UNCONN 0 0 [::1]:323 [::]:* tcp LISTEN 0 4096 0.0.0.0:6000 0.0.0.0:* tcp LISTEN 0 511 0.0.0.0:80 0.0.0.0:* tcp LISTEN 0 128 0.0.0.0:22 0.0.0.0:* tcp LISTEN 0 4096 [::]:6000 [::]:* tcp LISTEN 0 511 [::]:80 [::]:* tcp LISTEN 0 128 [::]:22 [::]:* tcp LISTEN 0 32 *:21 *:* docker exec -it d7d16d237b5f /bin/bash [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash OCI runtime exec failed: exec failed: unable to start container process: exec: &#34;/bin/bash&#34;: stat /bin/bash: no such file or directory # 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内 [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # ls /data # pwd /data [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # cd / / # ls bin dev home media opt root sbin sys usr data etc lib mnt proc run srv tmp var / # env HOSTNAME=d7d16d237b5f SHLVL=1 HOME=/root OLDPWD=/data TERM=xterm PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin PWD=/ / # / # exit [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # curl /bin/sh: curl: not found Difference： docker ps / docker ps -a [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ docker ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example 37fb32f3b1f9 redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 43 minutes ago Exited (0) 43 minutes ago redis-1 8ffc7554566c 7f0adca1fc6c &#34;/docker-entrypoint.…&#34; 31 hours ago Exited (0) 30 hours ago sre-tutorial-nginx e329c77b6133 my-nodejs:v1 &#34;docker-entrypoint.s…&#34; 3 days ago Exited (1) 30 hours ago web Docker Deploy the Demo Project Workflow with Docker: Push: js,Mongo DB ==&gt; Git ==&gt; Jenkins: Build JS APP &amp; Create Docker Image ==&gt; Docker Repository( Docker Hub ) Pull: From &#34;Docker Hub&#34; Developing with Containers need: JS and Node application, MongoDB Docker Container
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-04-21 00:00:00 +0000 UTC'>April 21, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Docker " href="http://localhost:1313/posts/2026-04-21-docker-demo/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Docker--- Nodejs
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器 Troubleshooting Record [devops@lb01 ~]$ sudo docker build -t nginx-image . [&#43;] Building 0.1s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.1s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 需要先创建一个文件/文件夹 [devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock 没有权限访问 socket 文件：/var/run/docker.sock 检查sock文件权限：660 / 666 将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。 [devops@lb01 ~/docker]$ docker build -t nginx-image . [&#43;] Building 0.0s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.0s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 显示没有文件/文件夹 尝试用文件夹建立dockerfile 发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了 docker images
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Docker--- Nodejs" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Docker简单配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Docker配置命令： # 1）先清理冲突包 dnf remove y podmandocker podman runc # 2）安装仓库管理工具 dnf y install dnfpluginscore # 3）添加 Docker 官方 RHEL 仓库 dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo # 4）安装 Docker dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin # 5）启动并设置开机自启 systemctl enable now docker # 6） 验证 docker version docker info 这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。 # 阶段 1：认识镜像 docker search nginx docker pull nginx docker images # 阶段 2：跑第一个容器 docker run d name mynginx p 80:80 nginx docker ps docker logs f mynginx docker exec it mynginx bash # 阶段 3：理解生命周期 docker stop mynginx docker start mynginx docker rm f mynginx # 阶段 4：练习镜像管理 docker image inspect nginx docker image save nginx &gt; nginx.tar docker image load i nginx.tar docker rmi nginx 报错点（环境被污染）：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Docker简单配置" href="http://localhost:1313/posts/2026-03-20-docker-junior/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

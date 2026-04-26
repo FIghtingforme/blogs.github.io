@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/python/</link>
+    <description>Recent content in Python on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自动发送天气预报</title>
+      <link>http://localhost:1313/posts/2026-03-31-hefeng-dingding/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-hefeng-dingding/</guid>
+      <description>&lt;h4 id=&#34;接收方钉钉&#34;&gt;接收方：钉钉&lt;/h4&gt;
+&lt;h4 id=&#34;发送方和风天气&#34;&gt;发送方：和风天气&lt;/h4&gt;
+&lt;h4 id=&#34;api_host--webhook-api_key都在和风官方开发者后台里头像首页&#34;&gt;API_HOST,  WEBHOOK, API_KEY都在和风官方开发者后台里/头像首页&lt;/h4&gt;
+&lt;h4 id=&#34;平台github托管代码&#34;&gt;平台：Github托管代码&lt;/h4&gt;
+&lt;h4 id=&#34;代码及解释直接放在main分支&#34;&gt;代码及解释（直接放在main分支）：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import json
+
+  
+
+# ================= 配置区 =================
+
+API_HOST = &amp;#39;p34y3kvamv.re.qweatherapi.com&amp;#39; # 你的控制台设置里
+
+DINGTALK_WEBHOOK = 自己的
+
+WEATHER_API_KEY = 自己的
+
+CITY_ID = 天气api城市id    #城市代码可自行查询当地天气代码
+
+# ==========================================
+
+  
+
+def get_weather():
+
+    &amp;#34;&amp;#34;&amp;#34;获取和风天气数据&amp;#34;&amp;#34;&amp;#34;
+    
+
+    url = f&amp;#39;https://{API_HOST}/v7/weather/3d?location={CITY_ID}&amp;#39;
+
+    # 新版推荐将API KEY放在请求头中
+
+    headers = {
+
+        &amp;#39;X-QW-Api-Key&amp;#39;: WEATHER_API_KEY
+
+    }
+
+    try:
+
+        response = requests.get(url, headers=headers).json()
+
+        if response[&amp;#39;code&amp;#39;] == &amp;#39;200&amp;#39;:
+
+            today = response[&amp;#39;daily&amp;#39;][0]
+
+            date = today[&amp;#39;fxDate&amp;#39;]
+
+            temp_max = today[&amp;#39;tempMax&amp;#39;]
+
+            temp_min = today[&amp;#39;tempMin&amp;#39;]
+
+            text_day = today[&amp;#39;textDay&amp;#39;]
+
+            wind_dir = today[&amp;#39;windDirDay&amp;#39;]
+
+            uv_index = today[&amp;#39;uvIndex&amp;#39;]
+
+            # 注意：正文中必须包含你在钉钉里设置的“自定义关键词”（如：天气）
+
+            msg = f&amp;#34;&amp;#34;&amp;#34;### 🌤️ 今日天气预报
+
+**日期**：{date}
+
+**白天天气**：{text_day}
+
+**温度**：{temp_min}℃ ~ {temp_max}℃
+
+**风向**：{wind_dir}
+
+**紫外线指数**：{uv_index}
+
+  
+
+祝你今天有个好心情！
+
+&amp;#34;&amp;#34;&amp;#34;
+
+            return msg
+
+        else:
+
+            print(f&amp;#34;获取天气失败，错误码：{response[&amp;#39;code&amp;#39;]}&amp;#34;)
+
+            return None
+
+    except Exception as e:
+
+        print(f&amp;#34;请求发生异常: {e}&amp;#34;)
+
+        return None
+
+  
+
+def send_to_dingtalk(msg_text):
+
+    &amp;#34;&amp;#34;&amp;#34;发送 Markdown消息到钉钉 &amp;#34;&amp;#34;&amp;#34;
+
+    headers = {&amp;#39;Content-Type&amp;#39;: &amp;#39;application/json&amp;#39;}
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;markdown&amp;#34;,
+
+        &amp;#34;markdown&amp;#34;: {
+
+            &amp;#34;title&amp;#34;: &amp;#34;今日天气&amp;#34;,
+
+            &amp;#34;text&amp;#34;: msg_text    
+
+        }
+
+    }
+
+    response = requests.post(DINGTALK_WEBHOOK, headers=headers, data=json.dumps(data))
+
+    print(&amp;#34;钉钉返回结果：&amp;#34;, response.text)
+
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    weather_info = get_weather()
+
+    if weather_info:
+
+        send_to_dingtalk(weather_info)
+        
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;把yml文件放在workflows下&#34;&gt;把yml文件放在workflows下：&lt;/h3&gt;
+&lt;h4 id=&#34;代码&#34;&gt;代码：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+name: Daily Weather Bot
+on:
+  schedule:
+    - cron: &amp;#39;30 23 * * *&amp;#39; # 注意：这里是UTC时间！UTC的23:30相当于北京时间早上7:30。2000次最大/月
+  workflow_dispatch: # 允许手动点击运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: &amp;#39;3.x&amp;#39;
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      - name: Run script
+        run: python weather_bot.py #脚本名字
+        
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;完成后每天7点半即可接收到钉钉消息&#34;&gt;完成后每天7点半即可接收到钉钉消息！！！&lt;/h3&gt;</description>
+    </item>
+    <item>
+      <title>钉钉自动巡检告警--完全版</title>
+      <link>http://localhost:1313/posts/2026-03-31-dingding-upgrade/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-dingding-upgrade/</guid>
+      <description>&lt;h3 id=&#34;钉钉自动巡检告警&#34;&gt;钉钉自动巡检告警：&lt;/h3&gt;
+&lt;h4 id=&#34;注意钉钉机器人有使用频率限制每个机器人最多20条min&#34;&gt;注意：钉钉机器人有使用频率限制：每个机器人最多20条/min&lt;/h4&gt;
+&lt;h4 id=&#34;注意配置前安装好相应库&#34;&gt;注意：配置前安装好相应库&lt;/h4&gt;
+&lt;h4 id=&#34;功能自动检测并定时发送hostnamedatetimecpumemdisk服务状态zabbix面板链接可自行添加&#34;&gt;功能：自动检测并定时发送hostname，datetime，cpu，mem，disk，服务状态；Zabbix面板链接可自行添加&lt;/h4&gt;
+&lt;h4 id=&#34;文本格式markdown&#34;&gt;文本格式：Markdown&lt;/h4&gt;
+&lt;h4 id=&#34;代码及解释&#34;&gt;代码及解释：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import psutil
+
+import socket
+
+import requests
+
+import json
+
+from datetime import datetime
+
+  
+
+#配置区==================================================
+
+  
+
+WEBHOOK_URL = &amp;#34;你的钉钉群机器人token&amp;#34;
+
+  
+
+#设置合理告警阈值：
+
+THRESHOLD_CPU = 80    #CPU
+
+THRESHOLD_MEM = 85    #内存
+
+THRESHOLD_DISK = 90   #磁盘
+
+  
+
+#=======================================================
+
+  
+  
+
+def get_sys_info():
+
+    &amp;#34;&amp;#34;&amp;#34;获取系统基础信息&amp;#34;&amp;#34;&amp;#34;
+
+    # 获取主机名和当前时间（格式自定义）
+
+    hostname = socket.gethostname()
+
+    now_time = datetime.now().strftime(&amp;#34;%Y-%m-%d %H-%M-%S&amp;#34;)
+
+  
+
+    # 1.CPU 使用率（采样1次/s）：
+
+    cpu_usage = psutil.cpu_percent(interval=1)
+    
+
+    # 2.MEM 使用率：
+
+    mem = psutil.virtual_memory()
+
+    mem_usage = mem.percent
+
+  
+
+    # 3.DISK 使用率：
+
+    disk = psutil.disk_usage(&amp;#39;/&amp;#39;)
+
+    disk_usage = disk.percent
+
+  
+
+    return hostname, now_time, cpu_usage, mem_usage, disk_usage
+
+  
+
+def check_service(service_name):
+
+    &amp;#34;&amp;#34;&amp;#34;检查特定进程（服务）是否在运行&amp;#34;&amp;#34;&amp;#34;
+
+    # 遍历当前所有进程名：
+
+    for proc in psutil.process_iter([&amp;#39;name&amp;#39;]):
+
+        if service_name.lower() in proc.info[&amp;#39;name&amp;#39;].lower():
+
+            return &amp;#34;✔️ 该服务正在运行中。&amp;#34;
+
+    return &amp;#34;❌️ 该服务已经停止！&amp;#34;
+
+  
+
+def send_markdown_msg(hostname, now_time, cpu, mem, disk, nginx_status):
+
+    &amp;#34;&amp;#34;&amp;#34;发送 MarkDown 格式告警&amp;#34;&amp;#34;&amp;#34;
+
+  
+
+    #根据状态判断标题颜色（若有异常则提醒）：
+
+    status_title = &amp;#34;🤚 系统巡检正常&amp;#34;
+
+    if cpu &amp;gt; THRESHOLD_CPU or mem &amp;gt; THRESHOLD_MEM or disk &amp;gt; THRESHOLD_DISK or &amp;#34;❌️&amp;#34; in nginx_status:
+
+        status_title = &amp;#34;🤦🏻‍♂️ 系统告警：检测到异常&amp;#34;
+
+  
+
+    # Markdown 内容
+
+    markdown_content = f&amp;#34;&amp;#34;&amp;#34;### {status_title}
+
+**主机名称**： {hostname}
+
+**巡检时间**： {now_time}
+
+  
+
+---
+
+- **CPU 使用率**：{cpu}%  {&amp;#39;⚠️&amp;#39; if cpu &amp;gt; THRESHOLD_CPU else &amp;#39;&amp;#39;}
+
+- **内存 使用率**：{mem}% {&amp;#39;⚠️&amp;#39; if mem &amp;gt; THRESHOLD_MEM else &amp;#39;&amp;#39;}
+
+- **磁盘 使用率**：{disk}% {&amp;#39;⚠️&amp;#39; if disk &amp;gt; THRESHOLD_DISK else &amp;#39;&amp;#39;}
+
+- **Nginx服务**: {nginx_status}
+
+  
+
+---
+
+[点击查看Zabbix监控看板](http://Zabbix地址)
+
+&amp;#34;&amp;#34;&amp;#34;
+
+  
+  
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;markdown&amp;#34;,
+
+        &amp;#34;markdown&amp;#34;: {
+
+            &amp;#34;title&amp;#34;: &amp;#34;服务器巡检报告&amp;#34;,
+
+            &amp;#34;text&amp;#34;: markdown_content
+
+        }
+
+    }
+
+  
+
+    headers = {&amp;#34;Content-Type&amp;#34;: &amp;#34;application/json&amp;#34;}
+
+    try:
+
+        res = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+        print(f&amp;#34;发送状态：{res.text}&amp;#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&amp;#34;发送失败：{e}&amp;#34;)
+
+  
+
+if __name__ == &amp;#34;__main__&amp;#34;:
+
+    #执行巡检
+
+    h, t, c, m, d = get_sys_info()
+
+  
+
+    #可换成其他进程名
+
+    n_status = check_service(&amp;#34;nginx&amp;#34;)
+
+  
+
+    #发送报告
+
+    send_markdown_msg(h, t, c, m, d, n_status)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;推荐emoji状态表情可自行复制进去&#34;&gt;推荐：Emoji状态表情可自行复制进去。&lt;/h4&gt;
+&lt;h4 id=&#34;函数及库的使用&#34;&gt;函数及库的使用&lt;/h4&gt;
+&lt;h5 id=&#34;1-库的调用&#34;&gt;1. 库的调用&lt;/h5&gt;
+&lt;p&gt;psutil: 专门用来读取 CPU、内存、进程等硬件和系统信息。
+socket: 用来获取 hostname（主机名），这在管理几十台服务器时非常重要，否则你不知道是哪台机器出的问题。
+datetime: 获取当前时间，所有的运维报告必须带时间戳。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>钉钉自动巡检告警--磁盘空间</title>
+      <link>http://localhost:1313/posts/2026-03-31-dingding/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-31-dingding/</guid>
+      <description>&lt;h3 id=&#34;钉钉自动巡检告警disk&#34;&gt;钉钉自动巡检告警&amp;ndash;Disk：&lt;/h3&gt;
+&lt;h4 id=&#34;注意在虚拟环境中要提前-pip-安装相应的库&#34;&gt;注意：在虚拟环境中要提前 pip 安装相应的库&lt;/h4&gt;
+&lt;h4 id=&#34;注意钉钉机器人有使用频率限制每个机器人最多20条min&#34;&gt;注意：钉钉机器人有使用频率限制：每个机器人最多20条/min&lt;/h4&gt;
+&lt;h4 id=&#34;建议采用python虚拟环境避免冲突&#34;&gt;建议采用Python虚拟环境避免冲突&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#新建文件夹：
+mkdir /to/your/myPython
+touch /to/your/myPython/DingDing.py
+
+#激活venv环境，使命令行前出现venv标志
+python3 -m venv venv 
+
+#在所在文件目录执行
+source venv/bin/activate
+
+#执行脚本
+python3 /to/your/myPython/DingDing.py
+
+#取消venv
+deactivate
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h4 id=&#34;脚本代码及解释&#34;&gt;脚本代码及解释：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import json
+
+import psutil
+
+import socket
+
+  
+#自己的token，在 钉钉自建群 ==》机器人 ==》 自定义机器人 ==》查看token ==》 安全策略带关键词，如&amp;#34;告警&amp;#34; 
+
+WEBHOOK_URL = &amp;#34;你的token&amp;#34;
+
+  
+
+def send_dingtalk_msg(content):
+
+    &amp;#34;&amp;#34;&amp;#34;发送钉钉告警的核心函数&amp;#34;&amp;#34;&amp;#34;
+
+    headers = {&amp;#34;Content-Type&amp;#34;: &amp;#34;application/json&amp;#34;}
+
+  
+
+    #构建消息体（必须包含关键词&amp;#34;告警&amp;#34;）
+
+    data = {
+
+        &amp;#34;msgtype&amp;#34;: &amp;#34;text&amp;#34;,
+
+        &amp;#34;text&amp;#34;: {
+        
+            &amp;#34;content&amp;#34;: f&amp;#34;【服务器自动巡检告警】\n{content}&amp;#34;
+
+        }
+
+    }
+
+  
+
+    try:
+
+        response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers)
+
+  
+
+        result =response.json()
+
+  
+
+        if response.status_code == 200:
+
+            print(&amp;#34;钉钉消息发送成功！！！&amp;#34;)
+
+  
+
+        else:
+
+            print(f&amp;#34;发送失败，错误码：{response.status_code}&amp;#34;)
+
+  
+
+    except Exception as e:
+
+        print(f&amp;#34;网络请求出错：{e}&amp;#34;)
+
+  
+
+def check_disk_usage():
+
+    &amp;#34;&amp;#34;&amp;#34;检查磁盘使用率&amp;#34;&amp;#34;&amp;#34;
+
+    hostname = socket.gethostname()
+
+  
+
+    disk_info = psutil.disk_usage(&amp;#39;/&amp;#39;)
+
+    percent = disk_info.percent
+
+  
+
+    print(f&amp;#34;当前磁盘使用率：{percent}&amp;#34;)
+
+  
+	#设置一个合理的磁盘空间&amp;#34;报警值&amp;#34;
+    if percent &amp;gt; 80:
+
+        msg = f&amp;#34;主机名：{hostname}\n状态：磁盘空间不足\n当前使用率：{percent}%\n请及时清理日志或扩容！！！&amp;#34;
+
+        send_dingtalk_msg(msg)
+
+    else:
+
+        print(&amp;#34;磁盘状态正常&amp;#34;)
+
+  
+
+if __name__ == &amp;#34;__main__&amp;#34;:
+
+    check_disk_usage()
+    
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h4 id=&#34;设置crontab定时脚本&#34;&gt;设置crontab定时脚本：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+#编辑脚本
+crontab -e
+
+#添加：
+0 * * * * /to/your/venv/bin/python /to/your/DingDing.py
+
+#完成后会出现新安装的提示
+
+#如果想要测试的话还是直接用： 
+python3 /to/your/DingDing.py
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;</description>
+    </item>
+    <item>
+      <title>Python自动下载整个网站的漫画 </title>
+      <link>http://localhost:1313/posts/2026-03-20-comics-python/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-20-comics-python/</guid>
+      <description>&lt;h3 id=&#34;实现源码&#34;&gt;实现源码：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests
+
+import os
+
+import bs4
+
+  
+
+def download_comics():
+
+    url = &amp;#39;https://xkcd.com/3216/&amp;#39;
+
+    floder_name = &amp;#39;xkcd_comics&amp;#39;
+
+    os.makedirs(floder_name, exist_ok=True)
+
+  
+
+    count = 0
+
+  
+
+    while not url.endswith(&amp;#39;#&amp;#39;) and count &amp;lt; 5:
+
+        print(f&amp;#34;正在访问网页： {url}&amp;#34;)
+
+  
+
+        headers = {&amp;#39;UserAgent&amp;#39;: &amp;#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&amp;#39;}
+
+        res = requests.get(url, headers=headers)
+
+        res.raise_for_status()
+
+  
+
+        soup = bs4.BeautifulSoup(res.text, &amp;#39;html.parser&amp;#39;)
+
+  
+
+        comic_elem = soup.select(&amp;#39;#comic img&amp;#39;)
+
+  
+
+        if comic_elem == []:
+
+            print(&amp;#34;未在该页面找到图片！！！&amp;#34;)
+
+        else:
+
+            comic_url = &amp;#39;https:&amp;#39; + comic_elem[0].get(&amp;#39;src&amp;#39;)
+
+  
+
+            print(f&amp;#39;下载图片：{comic_url}&amp;#39;)
+
+            res = requests.get(comic_url, headers=headers)
+
+            res.raise_for_status()
+
+  
+
+            image_name = os.path.basename(comic_url)
+
+            image_path = os.path.join(floder_name, image_name)
+
+  
+
+            with open(image_path, &amp;#39;wb&amp;#39;) as image_file:
+
+                for chunk in res.iter_content(100000):
+
+                    image_file.write(chunk)
+
+  
+  
+
+        prev_link = soup.select(&amp;#39;a[rel=&amp;#34;prev&amp;#34;]&amp;#39;)[0]
+
+        url = &amp;#39;https://xkcd.com&amp;#39; + prev_link.get(&amp;#39;href&amp;#39;)
+
+  
+
+        count += 1
+
+    print(&amp;#34;所有漫画下载完毕！！请看xkcd_comics文件夹&amp;#34;)
+
+  
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    download_comics()
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;注意处于网络问题可能有访问不了的情况&#34;&gt;注意：处于网络问题可能有访问不了的情况！&lt;/h5&gt;</description>
+    </item>
+    <item>
+      <title>《Nginx 恶意攻击 IP 自动分析与封禁拦截器》</title>
+      <link>http://localhost:1313/posts/2026-03-19-ips-ban/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-ips-ban/</guid>
+      <description>&lt;h4 id=&#34;背景nginx-服务器遭到恶意爬虫的疯狂扫描varlognginxerrorlog文件瞬间暴增了上万行--如果手动去找是哪些-ip-在攻击然后一条条加进防火墙费时费力&#34;&gt;背景：Nginx 服务器遭到恶意爬虫的疯狂扫描，/var/log/nginx/error.log 文件瞬间暴增了上万行。  如果手动去找是哪些 IP 在攻击，然后一条条加进防火墙，费时费力&lt;/h4&gt;
+&lt;h4 id=&#34;解决方案通过python自动化脚本运用-os-和-re库来自动化提取恶意ip并放入shell脚本中根据实际情况决定是否执行脚本&#34;&gt;解决方案：通过Python自动化脚本运用 os 和 re库来自动化提取恶意IP;并放入Shell脚本中,根据实际情况决定是否执行脚本&lt;/h4&gt;
+&lt;h4 id=&#34;操作检查下列代码有解释并根据自身实际情况修改将py代码与自身想要检索的日志放在同一个目录下&#34;&gt;操作：检查下列代码（有解释）；并根据自身实际情况修改，将py代码与自身想要检索的日志放在同一个目录下&lt;/h4&gt;
+&lt;h4 id=&#34;代码与逻辑&#34;&gt;代码与逻辑：&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import re
+
+import os
+
+  
+
+#============配置区=============
+
+LOG_FILE = &amp;#39;error.log&amp;#39;
+
+OUTPUT_FILE = &amp;#39;ban_ips.sh&amp;#39;
+
+THERESHOLD = 50        #报警阈值
+
+WHERELIST = [&amp;#39;192.168.1.6&amp;#39;, &amp;#39;10.0.0.6&amp;#39;]          #白名单
+
+#==============================
+
+  
+
+def main():
+
+    ip_Regex = re.compile(r&amp;#39;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}&amp;#39;)
+
+  
+
+    ip_Counts = {}          #空字典当“计数器”
+
+  
+  
+  
+
+    print(f&amp;#34;正在分析日志文件: {LOG_FILE}&amp;#34;)
+
+    if not os.path.exists(LOG_FILE):
+
+            print(&amp;#34;找不到日志文件，请检查路径。&amp;#34;)
+
+            return
+
+  
+
+    with open(LOG_FILE, &amp;#39;r&amp;#39;, encoding=&amp;#39;utf-8&amp;#39;, errors=&amp;#39;ignore&amp;#39;) as file:
+
+        for line in file:
+
+                match = ip_Regex.search(line)
+
+                if match:
+
+                    ip = match.group()
+
+                    if ip in WHERELIST:
+
+                        continue
+
+                    if ip in ip_Counts:
+
+                        ip_Counts[ip] += 1
+
+                    else:
+
+                        ip_Counts[ip] = 1
+
+  
+
+    malicious_ips = []
+
+    for ip, count in ip_Counts.items():
+
+        if count &amp;gt;= THERESHOLD:
+
+                malicious_ips.append(ip)
+
+                print(f&amp;#34;发现恶意IP {ip} 攻击了 {count} 次！！！&amp;#34;)
+
+  
+
+    if malicious_ips:
+
+        with open(OUTPUT_FILE, &amp;#39;w&amp;#39;,  encoding=&amp;#39;utf-8&amp;#39;) as out_file:
+
+                out_file.write(&amp;#34;#!/bin/bash\n&amp;#34;)
+
+                out_file.write(&amp;#34;# 自动生成的防火墙封禁脚本\n\n&amp;#34;)
+
+  
+
+                for ip in malicious_ips:
+
+                    cmd = f&amp;#34;firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=\&amp;#34;ipv4\&amp;#34; source address=\&amp;#34;{ip}\&amp;#34; drop&amp;#39; \n &amp;#34;
+
+                    out_file.write(cmd)
+
+                out_file.write(&amp;#34;\nfirewall-cmd --reload\n&amp;#34;)
+
+                out_file.write(f&amp;#34;echo &amp;#39;所有恶意ip已经被写入文件{OUTPUT_FILE}&amp;#39;\n&amp;#34;)
+
+  
+
+        print(f&amp;#34;\n 已经生成封禁IP脚本{OUTPUT_FILE}&amp;#34;)
+
+        print(f&amp;#34; 您只需要执行：bash {OUTPUT_FILE} 即可封禁恶意IP&amp;#34;)
+
+    else:
+
+        print(&amp;#34;\n 日志很干净没有发现恶意IP&amp;#34;)
+
+  
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+     main()
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;执行结果如下&#34;&gt;执行结果如下：&lt;/h4&gt;
+&lt;h5 id=&#34;终端中&#34;&gt;终端中：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@SERVER nginx]# python3 ./ips_blocker.py
+正在分析日志文件: error.log
+发现恶意IP 141.101.69.127 攻击了 896 次！！！
+发现恶意IP 172.71.126.94 攻击了 583 次！！！
+
+ 已经生成封禁IP脚本ban_ips.sh
+ 您只需要执行：bash ban_ips.sh 即可封禁恶意IP
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;shell脚本中&#34;&gt;Shell脚本中：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#!/bin/bash
+自动生成的防火墙封禁脚本
+
+firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;141.101.69.127&amp;#34; drop&amp;#39;
+ firewall-cmd --permanent --add-rich-rule=&amp;#39;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;172.71.126.94&amp;#34; drop&amp;#39;
+
+firewall-cmd --reload
+echo &amp;#39;所有恶意ip已经被写入文件ban_ips.sh&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Python--机器人自动备份文件到自动递增ZIP </title>
+      <link>http://localhost:1313/posts/2026-03-19-zip/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-zip/</guid>
+      <description>&lt;h5 id=&#34;项目背景&#34;&gt;项目背景：&lt;/h5&gt;
+&lt;h6 id=&#34;将appconfig-目录下的配置文件备份一下免得一会更新代码搞坏了-于是熟练地敲下tar--czvf-config_bak_20260318targz-appconfig-过了半小时因为改错地方需要再备份一次只能再敲一次并且小心翼翼地把文件名改成-config_bak_20260318_v2targz生怕覆盖了上一个版本&#34;&gt;将/app/config 目录下的配置文件备份一下，免得一会更新代码搞坏了。 于是熟练地敲下：tar -czvf config_bak_20260318.tar.gz /app/config。 过了半小时，因为改错地方需要再备份一次只能再敲一次，并且小心翼翼地把文件名改成 config_bak_20260318_v2.tar.gz，生怕覆盖了上一个版本。&lt;/h6&gt;
+&lt;h5 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h5&gt;
+&lt;h6 id=&#34;通过python编写自动备份机器人只需要告诉他要备份哪个文件夹即可自动扫描里面所有文件并递自动增生成版本号将其安全压缩成-zip-文件&#34;&gt;通过Python编写’自动备份机器人‘；只需要告诉他要备份哪个文件夹，即可自动扫描里面所有文件并递自动增生成版本号，将其安全压缩成 ZIP 文件&lt;/h6&gt;
+&lt;h5 id=&#34;准备&#34;&gt;准备：&lt;/h5&gt;
+&lt;h6 id=&#34;python自带的两个强大标准库&#34;&gt;Python自带的两个强大标准库：&lt;/h6&gt;
+&lt;h6 id=&#34;os用于进入文件夹-遍历文件检查文件是否存在&#34;&gt;os：用于进入文件夹 ，遍历文件，检查文件是否存在&lt;/h6&gt;
+&lt;h6 id=&#34;zipfile用于创建和写入-zip-压缩包&#34;&gt;zipfile：用于创建和写入 ZIP 压缩包&lt;/h6&gt;
+&lt;h5 id=&#34;流程图&#34;&gt;流程图：&lt;/h5&gt;
+&lt;h6 id=&#34;接收文件夹路径--检查当前目录--备份并剔除重复文件名&#34;&gt;接收文件夹路径 ==&amp;gt; 检查当前目录 ==&amp;gt; 备份并剔除重复文件名&lt;/h6&gt;
+&lt;h5 id=&#34;代码及解释&#34;&gt;代码及解释：&lt;/h5&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import zipfile
+import os
+
+  
+
+def backupToZip(folder):
+
+    # 1. 确保传入的文件夹路径是绝对路径
+
+    folder = os.path.abspath(/root/frp)
+    
+
+    # 提取文件夹的名字，比如 &amp;#39;/var/log/nginx&amp;#39; 会提取出 &amp;#39;nginx&amp;#39;
+
+    folder_name = os.path.basename(folder)
+    
+
+
+    # 2. 自动判定版本号 (核心逻辑)
+
+    number = 1
+
+    while True:
+
+        # 拼接即将生成的 ZIP 文件名
+
+        zip_filename = f&amp;#39;{folder_name}_backup_V{number}.zip&amp;#39;
+
+        # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环
+
+        if not os.path.exists(zip_filename):
+
+            break
+
+        # 如果存在，编号加 1，继续找下一个
+import zipfile
+
+import os
+
+#import sys
+
+  
+
+def backupToZip(folder):
+
+    &amp;#34;&amp;#34;&amp;#34;
+
+    将整个文件夹的内容备份到一个带有递增版本号的 ZIP 文件中。
+
+    &amp;#34;&amp;#34;&amp;#34;
+
+    # 1. 确保传入的文件夹路径是绝对路径
+
+    folder = os.path.abspath(folder)
+
+    # 提取文件夹的名字，比如 &amp;#39;/var/log/nginx&amp;#39; 会提取出 &amp;#39;nginx&amp;#39;
+
+    folder_name = os.path.basename(folder)
+
+  
+
+    # 2. 自动判定版本号 (核心逻辑)
+
+    number = 1
+
+    while True:
+
+        # 拼接即将生成的 ZIP 文件名
+
+        zip_filename = f&amp;#39;{folder_name}_backup_{number}.zip&amp;#39;
+
+        # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环
+
+        if not os.path.exists(zip_filename):
+
+            break
+
+        # 如果存在，编号加 1，继续找下一个
+
+        number = number + 1
+
+  
+  
+
+    # 3. 创建 ZIP 压缩文件
+
+    print(f&amp;#39;备份机器人正在创建备份归档: {zip_filename} ...&amp;#39;)
+
+    backup_zip = zipfile.ZipFile(zip_filename, &amp;#39;w&amp;#39;, zipfile.ZIP_DEFLATED)
+
+  
+  
+
+    # 4. 遍历目录树并添加到 ZIP 文件中
+
+    # os.walk 会像剥洋葱一样，一层层遍历文件夹里的所有内容
+
+    for foldername, subfolders, filenames in os.walk(folder):
+
+        print(f&amp;#39;正在添加文件夹: {foldername} ...&amp;#39;)
+
+        # 把当前文件夹本身加进压缩包
+
+        backup_zip.write(foldername)
+
+  
+
+        # 把当前文件夹里的所有文件加进压缩包
+
+        for filename in filenames:
+
+            # 安全防范：防止脚本把刚刚生成的 ZIP 包自己也打包进去（无限套娃）
+
+            if filename.startswith(f&amp;#39;{folder_name}_backup_&amp;#39;) and filename.endswith(&amp;#39;.zip&amp;#39;):
+
+                continue
+
+            # 获取文件的绝对路径并写入压缩包
+
+            file_path = os.path.join(foldername, filename)
+
+            backup_zip.write(file_path)
+
+  
+
+    # 5. 收工关门
+
+    backup_zip.close()
+
+    print(f&amp;#39;报告老板，备份完成！已成功生成：{zip_filename}&amp;#39;)
+
+  
+
+# ================= 运行区 =================
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+
+    # if len(sys.argv) &amp;lt; 2:
+
+    #     print(&amp;#34;用法错误！请在命令后面加上你要备份的文件夹路径。&amp;#34;)
+
+    #     print(&amp;#34;例如： python backup.py /var/log/nginx/error.log&amp;#34;)
+
+  
+
+    # target_folder = sys.argv[1]
+
+  
+  
+  
+  
+
+    # 假设我们要备份有/root/aaa这个路径文件夹
+
+    target_folder = &amp;#39;/root/aaa&amp;#39;
+
+    if os.path.exists(target_folder):
+
+        backupToZip(target_folder)
+
+    else:
+
+        print(f&amp;#34;找不到文件夹: {target_folder}，请检查路径！&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：sys库可以让别人引用脚本变得方便&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>电话号码和 E-mail 提取器</title>
+      <link>http://localhost:1313/posts/2026-03-19-email-number/</link>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-19-email-number/</guid>
+      <description>&lt;h3 id=&#34;提取电话和邮箱&#34;&gt;提取电话和邮箱&lt;/h3&gt;
+&lt;h4 id=&#34;导入库&#34;&gt;导入库&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import re, pyperclip
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建手机号正则表达式手机号格式&#34;&gt;创建手机号正则表达式(手机号格式)&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;phoneRegex = re.compile(r&amp;#39;\d{3}\S?\d{4}\S?\d{4}&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建邮箱正则表达式邮箱格式&#34;&gt;创建邮箱正则表达式（邮箱格式）&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;emailRegex = re.compile(r&amp;#39;&amp;#39;&amp;#39;(
+
+    [a-zA-Z0-9._%+-] +      # 用户名部分
+
+    \S                      # @ 符号
+
+    [a-zA-Z0-9.-] +         # 域名部分
+
+    (\.[a-zA-Z]{2,4})      # 最后的后缀 (.com/.cn)
+
+    )&amp;#39;&amp;#39;&amp;#39;, re.VERBOSE)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;从剪贴板获取文本&#34;&gt;从剪贴板获取文本&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;text = str(pyperclip.paste())
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;提取匹配项&#34;&gt;提取匹配项&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;matches = []
+
+for groups in phoneRegex.findall(text):
+
+    matches.append(groups)          #纯文本内容，所有全部加入
+
+for groups in emailRegex.findall(text):
+
+    matches.append(groups[0])       #最外层大括号内容全部加入
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;将结果存回剪贴板&#34;&gt;将结果存回剪贴板&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if len(matches) &amp;gt; 0:
+
+    pyperclip.copy(&amp;#39;\n&amp;#39;.join(matches))
+
+    print(&amp;#39;提取成功，已存入剪贴板！&amp;#39;)
+
+else:
+
+    print(&amp;#39;未发现电话或邮箱。&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

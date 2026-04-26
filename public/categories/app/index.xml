@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>APP on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/app/</link>
+    <description>Recent content in APP on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 03 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用Alist实现挂载本地</title>
+      <link>http://localhost:1313/posts/2026-03-03-alist-mount/</link>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-03-alist-mount/</guid>
+      <description>&lt;h3 id=&#34;alist云盘挂载&#34;&gt;Alist云盘挂载:&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 去官网尝试下载Alist到指定目录
+
+- 在alist.exe目录执行命令:
+		.\alist.exe server
+
+- 开启本地服务端口:
+		start server @ 0.0.0.0:5244
+
+- 通过本机地址访问Cloud_list:		
+		http://127.0.0.0:5244
+
+- 默认用户名:admin,密码==切记自行保存==(后续可更改username&amp;amp;&amp;amp;passwd)
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;若访问不成功可查看-是否开启服务访问时要一直开启服务&#34;&gt;若访问不成功可查看: 是否开启服务（&lt;strong&gt;访问时要一直开启服务&lt;/strong&gt;）&lt;/h4&gt;
+&lt;h4 id=&#34;若不想每次都手动开启服务可自行在运行中输入taskschmsc打开任务计划程序添加任务&#34;&gt;若不想每次都手动开启服务可自行在运行中输入tasksch.msc打开任务计划程序添加任务:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 步骤：
+	- 创建任务
+
+	- 不管是否登录都开启
+
+	- 触发器可设置登陆时
+
+	- &amp;#34;改用电池电源选项&amp;#34; 也可✔
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;后续还有其他设备远程访问通过本地服务感兴趣可自行研究&#34;&gt;后续还有其他设备远程访问通过本地服务，感兴趣可自行研究&lt;/h4&gt;</description>
+    </item>
+  </channel>
+</rss>

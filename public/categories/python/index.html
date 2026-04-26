@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Python | My SRE Knowledge Library</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/categories/python/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/python/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/categories/python/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Python
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">自动发送天气预报
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>接收方：钉钉 发送方：和风天气 API_HOST, WEBHOOK, API_KEY都在和风官方开发者后台里/头像首页 平台：Github托管代码 代码及解释（直接放在main分支）： import requests import json # ================= 配置区 ================= API_HOST = &#39;p34y3kvamv.re.qweatherapi.com&#39; # 你的控制台设置里 DINGTALK_WEBHOOK = 自己的 WEATHER_API_KEY = 自己的 CITY_ID = 天气api城市id #城市代码可自行查询当地天气代码 # ========================================== def get_weather(): &#34;&#34;&#34;获取和风天气数据&#34;&#34;&#34; url = f&#39;https://{API_HOST}/v7/weather/3d?location={CITY_ID}&#39; # 新版推荐将API KEY放在请求头中 headers = { &#39;X-QW-Api-Key&#39;: WEATHER_API_KEY } try: response = requests.get(url, headers=headers).json() if response[&#39;code&#39;] == &#39;200&#39;: today = response[&#39;daily&#39;][0] date = today[&#39;fxDate&#39;] temp_max = today[&#39;tempMax&#39;] temp_min = today[&#39;tempMin&#39;] text_day = today[&#39;textDay&#39;] wind_dir = today[&#39;windDirDay&#39;] uv_index = today[&#39;uvIndex&#39;] # 注意：正文中必须包含你在钉钉里设置的“自定义关键词”（如：天气） msg = f&#34;&#34;&#34;### 🌤️ 今日天气预报 **日期**：{date} **白天天气**：{text_day} **温度**：{temp_min}℃ ~ {temp_max}℃ **风向**：{wind_dir} **紫外线指数**：{uv_index} 祝你今天有个好心情！ &#34;&#34;&#34; return msg else: print(f&#34;获取天气失败，错误码：{response[&#39;code&#39;]}&#34;) return None except Exception as e: print(f&#34;请求发生异常: {e}&#34;) return None def send_to_dingtalk(msg_text): &#34;&#34;&#34;发送 Markdown消息到钉钉 &#34;&#34;&#34; headers = {&#39;Content-Type&#39;: &#39;application/json&#39;} data = { &#34;msgtype&#34;: &#34;markdown&#34;, &#34;markdown&#34;: { &#34;title&#34;: &#34;今日天气&#34;, &#34;text&#34;: msg_text } } response = requests.post(DINGTALK_WEBHOOK, headers=headers, data=json.dumps(data)) print(&#34;钉钉返回结果：&#34;, response.text) if __name__ == &#39;__main__&#39;: weather_info = get_weather() if weather_info: send_to_dingtalk(weather_info) 把yml文件放在workflows下： 代码： name: Daily Weather Bot on: schedule: - cron: &#39;30 23 * * *&#39; # 注意：这里是UTC时间！UTC的23:30相当于北京时间早上7:30。2000次最大/月 workflow_dispatch: # 允许手动点击运行 jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - name: Set up Python uses: actions/setup-python@v4 with: python-version: &#39;3.x&#39; - name: Install dependencies run: | python -m pip install --upgrade pip pip install requests - name: Run script run: python weather_bot.py #脚本名字 完成后每天7点半即可接收到钉钉消息！！！</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 自动发送天气预报" href="http://localhost:1313/posts/2026-03-31-hefeng-dingding/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">钉钉自动巡检告警--完全版
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>钉钉自动巡检告警： 注意：钉钉机器人有使用频率限制：每个机器人最多20条/min 注意：配置前安装好相应库 功能：自动检测并定时发送hostname，datetime，cpu，mem，disk，服务状态；Zabbix面板链接可自行添加 文本格式：Markdown 代码及解释： import psutil import socket import requests import json from datetime import datetime #配置区================================================== WEBHOOK_URL = &#34;你的钉钉群机器人token&#34; #设置合理告警阈值： THRESHOLD_CPU = 80 #CPU THRESHOLD_MEM = 85 #内存 THRESHOLD_DISK = 90 #磁盘 #======================================================= def get_sys_info(): &#34;&#34;&#34;获取系统基础信息&#34;&#34;&#34; # 获取主机名和当前时间（格式自定义） hostname = socket.gethostname() now_time = datetime.now().strftime(&#34;%Y-%m-%d %H-%M-%S&#34;) # 1.CPU 使用率（采样1次/s）： cpu_usage = psutil.cpu_percent(interval=1) # 2.MEM 使用率： mem = psutil.virtual_memory() mem_usage = mem.percent # 3.DISK 使用率： disk = psutil.disk_usage(&#39;/&#39;) disk_usage = disk.percent return hostname, now_time, cpu_usage, mem_usage, disk_usage def check_service(service_name): &#34;&#34;&#34;检查特定进程（服务）是否在运行&#34;&#34;&#34; # 遍历当前所有进程名： for proc in psutil.process_iter([&#39;name&#39;]): if service_name.lower() in proc.info[&#39;name&#39;].lower(): return &#34;✔️ 该服务正在运行中。&#34; return &#34;❌️ 该服务已经停止！&#34; def send_markdown_msg(hostname, now_time, cpu, mem, disk, nginx_status): &#34;&#34;&#34;发送 MarkDown 格式告警&#34;&#34;&#34; #根据状态判断标题颜色（若有异常则提醒）： status_title = &#34;🤚 系统巡检正常&#34; if cpu &gt; THRESHOLD_CPU or mem &gt; THRESHOLD_MEM or disk &gt; THRESHOLD_DISK or &#34;❌️&#34; in nginx_status: status_title = &#34;🤦🏻‍♂️ 系统告警：检测到异常&#34; # Markdown 内容 markdown_content = f&#34;&#34;&#34;### {status_title} **主机名称**： {hostname} **巡检时间**： {now_time} --- - **CPU 使用率**：{cpu}% {&#39;⚠️&#39; if cpu &gt; THRESHOLD_CPU else &#39;&#39;} - **内存 使用率**：{mem}% {&#39;⚠️&#39; if mem &gt; THRESHOLD_MEM else &#39;&#39;} - **磁盘 使用率**：{disk}% {&#39;⚠️&#39; if disk &gt; THRESHOLD_DISK else &#39;&#39;} - **Nginx服务**: {nginx_status} --- [点击查看Zabbix监控看板](http://Zabbix地址) &#34;&#34;&#34; data = { &#34;msgtype&#34;: &#34;markdown&#34;, &#34;markdown&#34;: { &#34;title&#34;: &#34;服务器巡检报告&#34;, &#34;text&#34;: markdown_content } } headers = {&#34;Content-Type&#34;: &#34;application/json&#34;} try: res = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers) print(f&#34;发送状态：{res.text}&#34;) except Exception as e: print(f&#34;发送失败：{e}&#34;) if __name__ == &#34;__main__&#34;: #执行巡检 h, t, c, m, d = get_sys_info() #可换成其他进程名 n_status = check_service(&#34;nginx&#34;) #发送报告 send_markdown_msg(h, t, c, m, d, n_status) 推荐：Emoji状态表情可自行复制进去。 函数及库的使用 1. 库的调用 psutil: 专门用来读取 CPU、内存、进程等硬件和系统信息。 socket: 用来获取 hostname（主机名），这在管理几十台服务器时非常重要，否则你不知道是哪台机器出的问题。 datetime: 获取当前时间，所有的运维报告必须带时间戳。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 钉钉自动巡检告警--完全版" href="http://localhost:1313/posts/2026-03-31-dingding-upgrade/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">钉钉自动巡检告警--磁盘空间
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>钉钉自动巡检告警–Disk： 注意：在虚拟环境中要提前 pip 安装相应的库 注意：钉钉机器人有使用频率限制：每个机器人最多20条/min 建议采用Python虚拟环境避免冲突 #新建文件夹： mkdir /to/your/myPython touch /to/your/myPython/DingDing.py #激活venv环境，使命令行前出现venv标志 python3 -m venv venv #在所在文件目录执行 source venv/bin/activate #执行脚本 python3 /to/your/myPython/DingDing.py #取消venv deactivate 脚本代码及解释： import requests import json import psutil import socket #自己的token，在 钉钉自建群 ==》机器人 ==》 自定义机器人 ==》查看token ==》 安全策略带关键词，如&#34;告警&#34; WEBHOOK_URL = &#34;你的token&#34; def send_dingtalk_msg(content): &#34;&#34;&#34;发送钉钉告警的核心函数&#34;&#34;&#34; headers = {&#34;Content-Type&#34;: &#34;application/json&#34;} #构建消息体（必须包含关键词&#34;告警&#34;） data = { &#34;msgtype&#34;: &#34;text&#34;, &#34;text&#34;: { &#34;content&#34;: f&#34;【服务器自动巡检告警】\n{content}&#34; } } try: response = requests.post(WEBHOOK_URL, data=json.dumps(data), headers=headers) result =response.json() if response.status_code == 200: print(&#34;钉钉消息发送成功！！！&#34;) else: print(f&#34;发送失败，错误码：{response.status_code}&#34;) except Exception as e: print(f&#34;网络请求出错：{e}&#34;) def check_disk_usage(): &#34;&#34;&#34;检查磁盘使用率&#34;&#34;&#34; hostname = socket.gethostname() disk_info = psutil.disk_usage(&#39;/&#39;) percent = disk_info.percent print(f&#34;当前磁盘使用率：{percent}&#34;) #设置一个合理的磁盘空间&#34;报警值&#34; if percent &gt; 80: msg = f&#34;主机名：{hostname}\n状态：磁盘空间不足\n当前使用率：{percent}%\n请及时清理日志或扩容！！！&#34; send_dingtalk_msg(msg) else: print(&#34;磁盘状态正常&#34;) if __name__ == &#34;__main__&#34;: check_disk_usage() 设置crontab定时脚本： #编辑脚本 crontab -e #添加： 0 * * * * /to/your/venv/bin/python /to/your/DingDing.py #完成后会出现新安装的提示 #如果想要测试的话还是直接用： python3 /to/your/DingDing.py </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 钉钉自动巡检告警--磁盘空间" href="http://localhost:1313/posts/2026-03-31-dingding/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Python自动下载整个网站的漫画 
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>实现源码： import requests import os import bs4 def download_comics(): url = &#39;https://xkcd.com/3216/&#39; floder_name = &#39;xkcd_comics&#39; os.makedirs(floder_name, exist_ok=True) count = 0 while not url.endswith(&#39;#&#39;) and count &lt; 5: print(f&#34;正在访问网页： {url}&#34;) headers = {&#39;UserAgent&#39;: &#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&#39;} res = requests.get(url, headers=headers) res.raise_for_status() soup = bs4.BeautifulSoup(res.text, &#39;html.parser&#39;) comic_elem = soup.select(&#39;#comic img&#39;) if comic_elem == []: print(&#34;未在该页面找到图片！！！&#34;) else: comic_url = &#39;https:&#39; &#43; comic_elem[0].get(&#39;src&#39;) print(f&#39;下载图片：{comic_url}&#39;) res = requests.get(comic_url, headers=headers) res.raise_for_status() image_name = os.path.basename(comic_url) image_path = os.path.join(floder_name, image_name) with open(image_path, &#39;wb&#39;) as image_file: for chunk in res.iter_content(100000): image_file.write(chunk) prev_link = soup.select(&#39;a[rel=&#34;prev&#34;]&#39;)[0] url = &#39;https://xkcd.com&#39; &#43; prev_link.get(&#39;href&#39;) count &#43;= 1 print(&#34;所有漫画下载完毕！！请看xkcd_comics文件夹&#34;) if __name__ == &#39;__main__&#39;: download_comics() 注意：处于网络问题可能有访问不了的情况！</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Python自动下载整个网站的漫画 " href="http://localhost:1313/posts/2026-03-20-comics-python/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">《Nginx 恶意攻击 IP 自动分析与封禁拦截器》
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景：Nginx 服务器遭到恶意爬虫的疯狂扫描，/var/log/nginx/error.log 文件瞬间暴增了上万行。 如果手动去找是哪些 IP 在攻击，然后一条条加进防火墙，费时费力 解决方案：通过Python自动化脚本运用 os 和 re库来自动化提取恶意IP;并放入Shell脚本中,根据实际情况决定是否执行脚本 操作：检查下列代码（有解释）；并根据自身实际情况修改，将py代码与自身想要检索的日志放在同一个目录下 代码与逻辑： import re import os #============配置区============= LOG_FILE = &#39;error.log&#39; OUTPUT_FILE = &#39;ban_ips.sh&#39; THERESHOLD = 50 #报警阈值 WHERELIST = [&#39;192.168.1.6&#39;, &#39;10.0.0.6&#39;] #白名单 #============================== def main(): ip_Regex = re.compile(r&#39;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}&#39;) ip_Counts = {} #空字典当“计数器” print(f&#34;正在分析日志文件: {LOG_FILE}&#34;) if not os.path.exists(LOG_FILE): print(&#34;找不到日志文件，请检查路径。&#34;) return with open(LOG_FILE, &#39;r&#39;, encoding=&#39;utf-8&#39;, errors=&#39;ignore&#39;) as file: for line in file: match = ip_Regex.search(line) if match: ip = match.group() if ip in WHERELIST: continue if ip in ip_Counts: ip_Counts[ip] &#43;= 1 else: ip_Counts[ip] = 1 malicious_ips = [] for ip, count in ip_Counts.items(): if count &gt;= THERESHOLD: malicious_ips.append(ip) print(f&#34;发现恶意IP {ip} 攻击了 {count} 次！！！&#34;) if malicious_ips: with open(OUTPUT_FILE, &#39;w&#39;, encoding=&#39;utf-8&#39;) as out_file: out_file.write(&#34;#!/bin/bash\n&#34;) out_file.write(&#34;# 自动生成的防火墙封禁脚本\n\n&#34;) for ip in malicious_ips: cmd = f&#34;firewall-cmd --permanent --add-rich-rule=&#39;rule family=\&#34;ipv4\&#34; source address=\&#34;{ip}\&#34; drop&#39; \n &#34; out_file.write(cmd) out_file.write(&#34;\nfirewall-cmd --reload\n&#34;) out_file.write(f&#34;echo &#39;所有恶意ip已经被写入文件{OUTPUT_FILE}&#39;\n&#34;) print(f&#34;\n 已经生成封禁IP脚本{OUTPUT_FILE}&#34;) print(f&#34; 您只需要执行：bash {OUTPUT_FILE} 即可封禁恶意IP&#34;) else: print(&#34;\n 日志很干净没有发现恶意IP&#34;) if __name__ == &#39;__main__&#39;: main() 执行结果如下： 终端中： [root@SERVER nginx]# python3 ./ips_blocker.py 正在分析日志文件: error.log 发现恶意IP 141.101.69.127 攻击了 896 次！！！ 发现恶意IP 172.71.126.94 攻击了 583 次！！！ 已经生成封禁IP脚本ban_ips.sh 您只需要执行：bash ban_ips.sh 即可封禁恶意IP Shell脚本中： #!/bin/bash 自动生成的防火墙封禁脚本 firewall-cmd --permanent --add-rich-rule=&#39;rule family=&#34;ipv4&#34; source address=&#34;141.101.69.127&#34; drop&#39; firewall-cmd --permanent --add-rich-rule=&#39;rule family=&#34;ipv4&#34; source address=&#34;172.71.126.94&#34; drop&#39; firewall-cmd --reload echo &#39;所有恶意ip已经被写入文件ban_ips.sh&#39; </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 《Nginx 恶意攻击 IP 自动分析与封禁拦截器》" href="http://localhost:1313/posts/2026-03-19-ips-ban/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Python--机器人自动备份文件到自动递增ZIP 
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>项目背景： 将/app/config 目录下的配置文件备份一下，免得一会更新代码搞坏了。 于是熟练地敲下：tar -czvf config_bak_20260318.tar.gz /app/config。 过了半小时，因为改错地方需要再备份一次只能再敲一次，并且小心翼翼地把文件名改成 config_bak_20260318_v2.tar.gz，生怕覆盖了上一个版本。 解决方案： 通过Python编写’自动备份机器人‘；只需要告诉他要备份哪个文件夹，即可自动扫描里面所有文件并递自动增生成版本号，将其安全压缩成 ZIP 文件 准备： Python自带的两个强大标准库： os：用于进入文件夹 ，遍历文件，检查文件是否存在 zipfile：用于创建和写入 ZIP 压缩包 流程图： 接收文件夹路径 ==&gt; 检查当前目录 ==&gt; 备份并剔除重复文件名 代码及解释： import zipfile import os def backupToZip(folder): # 1. 确保传入的文件夹路径是绝对路径 folder = os.path.abspath(/root/frp) # 提取文件夹的名字，比如 &#39;/var/log/nginx&#39; 会提取出 &#39;nginx&#39; folder_name = os.path.basename(folder) # 2. 自动判定版本号 (核心逻辑) number = 1 while True: # 拼接即将生成的 ZIP 文件名 zip_filename = f&#39;{folder_name}_backup_V{number}.zip&#39; # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环 if not os.path.exists(zip_filename): break # 如果存在，编号加 1，继续找下一个 import zipfile import os #import sys def backupToZip(folder): &#34;&#34;&#34; 将整个文件夹的内容备份到一个带有递增版本号的 ZIP 文件中。 &#34;&#34;&#34; # 1. 确保传入的文件夹路径是绝对路径 folder = os.path.abspath(folder) # 提取文件夹的名字，比如 &#39;/var/log/nginx&#39; 会提取出 &#39;nginx&#39; folder_name = os.path.basename(folder) # 2. 自动判定版本号 (核心逻辑) number = 1 while True: # 拼接即将生成的 ZIP 文件名 zip_filename = f&#39;{folder_name}_backup_{number}.zip&#39; # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环 if not os.path.exists(zip_filename): break # 如果存在，编号加 1，继续找下一个 number = number &#43; 1 # 3. 创建 ZIP 压缩文件 print(f&#39;备份机器人正在创建备份归档: {zip_filename} ...&#39;) backup_zip = zipfile.ZipFile(zip_filename, &#39;w&#39;, zipfile.ZIP_DEFLATED) # 4. 遍历目录树并添加到 ZIP 文件中 # os.walk 会像剥洋葱一样，一层层遍历文件夹里的所有内容 for foldername, subfolders, filenames in os.walk(folder): print(f&#39;正在添加文件夹: {foldername} ...&#39;) # 把当前文件夹本身加进压缩包 backup_zip.write(foldername) # 把当前文件夹里的所有文件加进压缩包 for filename in filenames: # 安全防范：防止脚本把刚刚生成的 ZIP 包自己也打包进去（无限套娃） if filename.startswith(f&#39;{folder_name}_backup_&#39;) and filename.endswith(&#39;.zip&#39;): continue # 获取文件的绝对路径并写入压缩包 file_path = os.path.join(foldername, filename) backup_zip.write(file_path) # 5. 收工关门 backup_zip.close() print(f&#39;报告老板，备份完成！已成功生成：{zip_filename}&#39;) # ================= 运行区 ================= if __name__ == &#39;__main__&#39;: # if len(sys.argv) &lt; 2: # print(&#34;用法错误！请在命令后面加上你要备份的文件夹路径。&#34;) # print(&#34;例如： python backup.py /var/log/nginx/error.log&#34;) # target_folder = sys.argv[1] # 假设我们要备份有/root/aaa这个路径文件夹 target_folder = &#39;/root/aaa&#39; if os.path.exists(target_folder): backupToZip(target_folder) else: print(f&#34;找不到文件夹: {target_folder}，请检查路径！&#34;) 注意：sys库可以让别人引用脚本变得方便
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Python--机器人自动备份文件到自动递增ZIP " href="http://localhost:1313/posts/2026-03-19-zip/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">电话号码和 E-mail 提取器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>提取电话和邮箱 导入库 import re, pyperclip 创建手机号正则表达式(手机号格式) phoneRegex = re.compile(r&#39;\d{3}\S?\d{4}\S?\d{4}&#39;) 创建邮箱正则表达式（邮箱格式） emailRegex = re.compile(r&#39;&#39;&#39;( [a-zA-Z0-9._%&#43;-] &#43; # 用户名部分 \S # @ 符号 [a-zA-Z0-9.-] &#43; # 域名部分 (\.[a-zA-Z]{2,4}) # 最后的后缀 (.com/.cn) )&#39;&#39;&#39;, re.VERBOSE) 从剪贴板获取文本 text = str(pyperclip.paste()) 提取匹配项 matches = [] for groups in phoneRegex.findall(text): matches.append(groups) #纯文本内容，所有全部加入 for groups in emailRegex.findall(text): matches.append(groups[0]) #最外层大括号内容全部加入 将结果存回剪贴板 if len(matches) &gt; 0: pyperclip.copy(&#39;\n&#39;.join(matches)) print(&#39;提取成功，已存入剪贴板！&#39;) else: print(&#39;未发现电话或邮箱。&#39;) </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 电话号码和 E-mail 提取器" href="http://localhost:1313/posts/2026-03-19-email-number/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

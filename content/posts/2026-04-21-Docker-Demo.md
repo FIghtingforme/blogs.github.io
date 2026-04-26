@@ -1,8 +1,9 @@
 ---
-layout: post
-title: Docker 
+
+title: "Docker "
 date: 2026-04-21
-catagories: Docker
+categories: Docker
+
 ---
 
 ### Docker Commands

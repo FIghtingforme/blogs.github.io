@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>SSHD 服务 on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/sshd-%E6%9C%8D%E5%8A%A1/</link>
+    <description>Recent content in SSHD 服务 on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 03 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/sshd-%E6%9C%8D%E5%8A%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSHD 远程工具连接失败</title>
+      <link>http://localhost:1313/posts/2026-03-03-sshd-remote-connect/</link>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-03-03-sshd-remote-connect/</guid>
+      <description>&lt;h4 id=&#34;关闭selinux&#34;&gt;关闭SElinux:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- getenforce        
+	查看SEllinux
+
+- setenforce 0	    
+	临时关闭测试
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;关闭防火墙&#34;&gt;关闭防火墙:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl stop firewalld	      
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;重启网卡&#34;&gt;重启网卡:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl restart NetworkManager    
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;查看ip&#34;&gt;查看ip:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 输入:ip a           
+	- 若ip更改则在shell输入nmtui 命令编辑
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;kali系统下&#34;&gt;kali系统下:&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;	powershell 下 ssh -v root@192.168.1.104             #输出详细模式,用于调试
+		提示:The fingerprint for the ECDSA key sent by the remote host is
+		      Host key verification failed.
+		      
+		解决方法:
+		ssh-keygen -R 192.168.1.104
+			自动删除旧指纹
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

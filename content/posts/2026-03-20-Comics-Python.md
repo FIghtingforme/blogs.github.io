@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: Python自动下载整个网站的漫画 
+title: "Python自动下载整个网站的漫画 "
 date: 2026-03-20
-catagories: Python
+categories: Python
 
 ---
 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Terraform on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/terraform/</link>
+    <description>Recent content in Terraform on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 18 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform Docker</title>
+      <link>http://localhost:1313/posts/2026-04-18-terraform-docker/</link>
+      <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-18-terraform-docker/</guid>
+      <description>&lt;h3 id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y
+[sudo] password for devops:
+Sorry, try again.
+[sudo] password for devops:
+Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.
+No match for argument: terraform
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;出现错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo
+Adding repo from: 
+Curl error (6): Couldn&amp;#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com]
+Error: Configuration of repo failed
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;网址fat-finger error，应该是&lt;code&gt;https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;开始排查----根据terraform官方安装步骤来&#34;&gt;开始排查：    根据Terraform官方安装步骤来&lt;/h4&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+# Install `yum-config-manager` to manage your repositories.
+$ sudo yum install -y yum-utils
+
+
+# Use `yum-config-manager` to add the official HashiCorp RHEL repository.
+# 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum
+# 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了
+$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+
+# Install Terraform from the new repository.
+$ sudo yum -y install terraform
+
+# 输入terraform 显示则安装成功！！！
+[devops@lb01 ~]$ terraform
+Usage: terraform [global options] &amp;lt;subcommand&amp;gt; [args]
+
+The available commands for execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;iac-用-terraform-控制-docker-生成-nginx镜像网站并访问&#34;&gt;Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;新建一个空文件夹：&lt;code&gt;mkdir tf-docker-test &amp;amp;&amp;amp; cd tf-docker-test&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~]$ mkdir ./tf-docker-test &amp;amp;&amp;amp; cd ./tf-docker-test
+[devops@lb01 ~/tf-docker-test]$ ls
+[devops@lb01 ~/tf-docker-test]$ pwd
+/home/devops/tf-docker-test
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建一个 &lt;code&gt;main.tf&lt;/code&gt; 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+terraform {
+  required_providers {
+    docker = {
+      source  = &amp;#34;kreuzwerker/docker&amp;#34;
+      version = &amp;#34;~&amp;gt; 3.0&amp;#34;
+    }
+  }
+}
+
+provider &amp;#34;docker&amp;#34; {}
+
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+  name         = &amp;#34;nginx:latest&amp;#34;
+  keep_locally = false
+}
+
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+  image = docker_image.nginx.image_id
+  name  = &amp;#34;sre-tutorial-nginx&amp;#34;
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;依次敲下三个命令来构建docker并加载容器&#34;&gt;依次敲下三个命令来构建Docker并加载容器：&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;terraform init&lt;/code&gt;   (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: Nginx--网站搭建
+title: "Nginx--网站搭建"
 date: 2026-03-08
-catagories: Nginx
+categories: Nginx
 
 ---
 

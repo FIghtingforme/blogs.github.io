@@ -1,9 +1,8 @@
 ---
 
-layout: post
-title: 钉钉自动巡检告警--完全版
+title: "钉钉自动巡检告警--完全版"
 date: 2026-03-31
-catagories: Python
+categories: Python
 
 ---
 ### 钉钉自动巡检告警：
