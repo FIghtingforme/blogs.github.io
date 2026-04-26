@@ -1,0 +1,4 @@
+baseURL = 'https://github.fightingforme.top/'
+languageCode = 'zh-cn'
+theme = 'PaperMod'
+title = 'My SRE Knowledge Library'
