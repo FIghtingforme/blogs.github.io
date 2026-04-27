@@ -119,6 +119,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">内存告急，快加swap！！！
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>内存不足创建swap空间 痛点：云服务器的内存太小，又想要极致性价比 解决方案： 创建swapfile的大文件放在swap下 - 创建swap空间： - - 创建swapfile空间 ==&gt; 转为swap ==&gt; 激活swap并加入linux ==&gt; 配置永久挂载 - if - - input file - - of - - output file - bs - - block size 每次读取多少 - - count - - 读取次数 - dd if=/dev/zero of=/tmp/swapfile bs=1M count=1000 - - - mkswap /tmp/swapfile - - free -h - - chmod 600 /tmp/swapfile - - mkswap /tmp/swapfile - - swapon /tmp/swapfile - free -h - - - 先卸载当前的 Swap 文件 - - swapoff /tmp/swapfile - - 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） - - swapon -a - vim /etc/fstab（修改） - /swapfile swap swap defaults 0 0 - free -h - 再次查看挂载情况 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-17 00:00:00 +0000 UTC'>March 17, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>259 words</span></footer>
+  <a class="entry-link" aria-label="post link to 内存告急，快加swap！！！" href="http://localhost:1313/posts/2026-03-17-add-swap/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">SSH 配置踩坑
     </h2>
   </header>
@@ -228,22 +240,12 @@
   <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>290 words</span></footer>
   <a class="entry-link" aria-label="post link to 用Alist实现挂载本地" href="http://localhost:1313/posts/2026-03-03-alist-mount/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Nginx 软链接升级流程
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>创建nginx软链接 #替换 从而让用户实现无感 - 源码编译安装： - 获取源码： - wget http://nginx…… -P /root/test/ - 在/root/test/nginx-1.20下解压 - tar -zxvf /root/test/nginx-1.20.tar.gz -C /root/test/nginx_1.20/ - 编译源码： - 在/root/test/nginx_1.20/nginx1.20 下 ./configure --prefix=/root/test/nginx_1.20 - make - make install - 当前目录下可看到configure文件 - 在前一个目录检查： - /root/test/nginx-1.24/sbin/nginx -v - 之前已经创建的软链接： - ln -s /root/test/nginx-1.20 /usr/local/nginx - 源文件是在源码编译后的目录 - /usr/local/nginx -&gt; /root/test/nginx-1.20 当前软链接 - 确认nginx正在运行：ps -ef | grep nginx - ls -l /usr/local/nginx 软链接指向 - 备份软链接指向的路径 #防止出错回退 - cp -r /usr/local/nginx /root/test/nginx-backup-1.20 - 物理备份 - 创建新的源码 - 编译安装 - 建立新的软链接 --- - 方案A： - 直接覆盖原链接（用户不中断） - ln -sfn /root/test/nginx-1.22 /usr/local/nginx - -f 如果存在旧链接则覆盖 - -n 处理目标是目录时不进入目录 - 立即指向新版本 - 如果新版本异常 #立即回滚 - ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx - /usr/local/nginx/sbin/nginx -s reload - 方案B： - 创建新链接 - 停nginx/reload后切换 - systemctl stop nginx - mv /usr/local/nginx /usr/local/nginx_backup - mv /usr/local/nginx1.22 /usr/local/nginx - systemctl start nginx </p>
-  </div>
-  <footer class="entry-footer"><span title='2026-02-24 00:00:00 +0000 UTC'>February 24, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>409 words</span></footer>
-  <a class="entry-link" aria-label="post link to Nginx 软链接升级流程" href="http://localhost:1313/posts/2026-02-24-nginx-softlink-upgrade/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="http://localhost:1313/page/2/">
       «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="http://localhost:1313/page/4/">Next&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>

@@ -7,18 +7,539 @@ categories: ["Linux"]
 ---
 
 
-
-## Bash Scripting
-
-
-### Bash: "Bourne Again Shell"
-
-### Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.
+## Bash Scripting  
 
 
-### Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).
+### Bash: `Bourne Again Shell`  
 
-### The first line of the shell script file begins with a "sha-bang" (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the "sha-bang" is incorrect, then an error message e.g. "Command not found.", may be the result of the script execution. It is common to name the shell script with the ".sh" extension. The first line may look like this:
+---
+
+
+
+### Bash Syntax for Scripting
+
+```
+
+Bash scripts are sequences of commands executed by the Bash shell. 
+They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.
+
+```
+
+### Basic Syntax
+- Here are some basic rules for using Bash in scripts:
+
+```
+
+Comments: Comments start with a # and Bash ignores them.
+Command Order: Commands run one after the other, from top to bottom.
+Semicolons: Use ; to run multiple commands on the same line.
+Let's go through them one by one with examples.
+
+```
+
+### This script prints a greeting message
+
+```
+
+  [devops@lb01 ~]$ # This script prints a greeting message!
+  [devops@lb01 ~]$ echo "hello!!"
+  echo "hello# This script prints a greeting message!"
+  hello# This script prints a greeting message!
+
+```
+
+
+
+
+### Best Practices for Writing Scripts
+- Here are some tips for writing clean and efficient scripts:
+
+```
+
+  Use comments to explain your code.
+  Choose meaningful variable names.
+  Test your scripts thoroughly before using them in production.
+
+```
+
+
+
+
+
+### Introduction to Bash Scripting  
+  
+- Bash scripts are files containing commands that you run in the terminal.   
+- They automate tasks and make your work more efficient.  
+
+
+### Creating a Bash Script  
+
+- To create a script, start with the shebang `#!` followed by the path to Bash, usually `/bin/bash`. Make sure your script has execute permissions.  
+
+#### Example: Simple Bash Script  
+
+```
+
+#!/bin/bash
+# This script prints a greeting message
+echo "Hello, World!"
+
+```
+
+
+#### Using Variables in Scripts
+
+- Variables store data that your script can use. Assign values using the `=` sign without spaces.
+
+#### Example: Using Variables
+
+```
+
+[devops@lb01 ~]$ name="dslfaj"
+[devops@lb01 ~]$ echo "hello,$name"
+hello,dslfaj
+
+======================================
+#!/bin/bash
+# Assign a value to a variable 
+name="World" 
+echo "Hello, $name!"
+
+```
+
+
+### Bash Variables
+
+
+#### Understanding Variables in Bash  
+
+Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session. 
+Bash variables are untyped, meaning they can hold any type of data.
+
+
+### Declaring Variables
+
+Variables are declared by simply assigning a value to a name. There should be no spaces around the equal sign:
+
+- `variable_name=value`
+- To access the value of a variable, prefix it with a dollar sign: `$variable_name`
+
+### Example
+
+```
+
+name="John Doe"
+echo "Hello, $name!"
+number=42
+echo "The number is $number"
+
+```
+
+
+### Environment Variables
+
+Environment variables are special variables that affect the way processes run on your system. They are often used to store system-wide values like the location of executables or the default editor.
+
+### Example: Using Environment Variables
+
+```
+# shell script:
+# Display the PATH environment variable
+echo "Your PATH is $PATH"
+
+[devops@lb01 ~]$ vim ./shell.sh
+[devops@lb01 ~]$ bash ./shell.sh
+your PATH is /home/devops/.local/bin:/home/devops/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+```
+
+### Local vs. Global Variables
+
+Local variables are only available within the block of code in which they are defined, such as within a function. Global variables are accessible from anywhere in the script.
+
+### Example: Local Variable
+
+```
+# shell script
+# Define a local variable in a function
+my_function() {
+  local local_var="I am local variable"
+  echo $local_var
+}
+my_function
+
+
+[devops@lb01 ~]$ vim ./shell.sh
+[devops@lb01 ~]$ bash ./shell.sh
+I am local variable
+
+```
+
+
+### Common Variable Operations  
+
+Variables can be used in various operations, such as concatenation and arithmetic.  
+
+- **Concatenation:** Combine strings using variables.  
+- **Arithmetic:** Perform calculations using variables.  
+
+### Example: Variable Operations  
+
+```
+# shell script:
+#!/usr/bin/bash
+
+# Concatenation
+greeting="hello"
+name="world"
+echo "$greeting,$name!!!"
+
+# Arithmetic
+num1=1
+num2=2
+sum=$((num1+num2))
+echo "The sum is $sum"
+
+======================================
+
+[devops@lb01 ~]$ bash ./shell.sh
+hello,world!!!
+The sum is 3
+
+```
+
+
+
+
+### Bash Data Types
+
+
+### Understanding Bash Data Types
+
+This section introduces the different data types available in Bash scripting.
+
+
+### Strings
+
+Strings are sequences of characters used to store text. 
+They can be manipulated using various string operations such as concatenation and substring extraction.
+
+### Example: Strings
+
+```
+
+#!/usr/bin/bash
+# string example:
+greeting="hello,world!"
+name="Alice"
+full_greeting="$greeting,$name"
+echo $full_greeting
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+hello,world!,Alice
+
+```
+
+
+### Numbers
+
+Numbers in Bash can be used for arithmetic operations. 
+Bash supports integer arithmetic natively, such as addition, subtraction, multiplication, and division.
+
+### Example: Numbers
+
+```
+
+# shell script:
+#!/usr/bin/bash
+# Number example:
+num1=1
+num2=2
+sum=$((num1 + num2))
+difference=$((num2 - num1))
+product=$((num1 * num2))
+quotient=$((num1 / num2))
+echo "Sum: $sum; Difference: $difference; Product: $product; Quotient: $quotient
+"
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Sum: 3; Difference: 1; Product: 2; Quotient: 0
+
+```
+
+### Arrays
+
+Arrays are used to store multiple values in a single variable. 
+Each element in an array is accessed using an index. You can iterate over arrays and modify elements.
+
+### Example: Arrays
+
+```
+
+#!/usr/bin/bash
+# Array example
+fruits=("apple" "banana" "orange")
+for fruit in "${fruits[@]}"; do
+  echo $fruit
+done
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+apple
+banana
+orange
+
+```
+
+
+### Associative Arrays
+
+Associative arrays allow you to use named keys to access values.
+They are similar to dictionaries in other programming languages. 
+You can add or remove keys and values.
+
+### Example: Associative Arrays
+
+```
+
+#!/usr/bin/bash
+# Associative array example
+declare -A colors
+colors[apple]="red"
+colors[banana]="yellow"
+colors[grape]="purple"
+unset colors[banana]
+echo ${colors[apple]}  #red
+echo ${colors[grape]}  #purple
+echo ${colors[banana]}
+
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+red
+purple
+# `nothing`
+=============================================
+
+```
+
+### Data Type Limitations
+
+Bash does not support floating-point arithmetic natively. 
+For such operations, consider using external tools like `bc` or `awk`.
+
+
+
+### Bash Operators
+
+
+### Understanding Bash Operators
+
+This section provides an overview of operators used in Bash scripting, including comparison, string, arithmetic, logical, and file test operators.
+
+
+### Comparison Operators
+
+- `-eq`: Equal to
+- `-ne`: Not equal to
+- `-lt`: Less than
+- `-le`: Less than or equal to
+- `-gt`: Greater than
+- `-ge`: Greater than or equal to
+
+
+### String Comparison Operators
+
+- `=`: Equal to
+- `!=`: Not equal to
+- `<`: Less than, in ASCII alphabetical order
+- `>`: Greater than, in ASCII alphabetical order
+
+
+### Arithmetic Operators
+
+- `+`: Addition
+- `-`: Subtraction
+- `*`: Multiplication
+- `/`: Division
+- `%`: Modulus (remainder of division)
+- For exponentiation, use external tools like `bc` or `awk`.
+
+
+### Logical Operators
+
+- `&&`: Logical AND
+- `||`: Logical OR
+- `!`: Logical NOT
+
+
+
+### File Test Operators
+
+- `-e`: Checks if a file exists
+- `-d`: Checks if a directory exists
+- `-f`: Checks if a file is a regular file
+- `-s`: Checks if a file is not empty
+
+
+
+
+### Bash If...Else
+
+
+### Using If...Else Statements in Bash
+
+This section explains how to use conditional statements in Bash scripting.
+
+
+### If Statements
+
+If statements allow you to execute code based on a condition. 
+If the condition is true, the code block will run.
+
+The condition is enclosed in square brackets `[ ]` and the statement ends with `fi`, which is `if` spelled backward, marking the end of the if block.
+
+### Example: If Statement
+
+```
+
+# shell script:
+# Basic if statement
+#!/usr/bin/bash
+num=5
+if [ $num -gt 1 ]; then
+  echo "Number is greater than 1"
+fi
+
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Number is greater than 1
+
+```
+
+
+
+### If...Else Statements
+
+If...else statements provide a way to execute one block of code if a condition is true and another block if it is false.
+
+The `else` keyword introduces the alternative block, and the statement ends with `fi`.
+
+### Example: If...Else Statement
+
+```
+
+#!/usr/bin/bash
+num=10
+if [ $num -gt 100 ]; then
+  echo "Number is greater than 1"
+else
+  echo "Number is less than 1"
+fi
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Number is less than 1
+
+
+```
+
+### Elif Statements
+
+Elif statements allow you to check multiple conditions in sequence. 
+If the first condition is false, the next one is checked.
+
+- The `elif` keyword stands for "else if," and the statement still ends with `fi`.
+
+### Example: Elif Statement
+
+```
+
+#!/usr/bin/bash
+num=10
+if [ $num -gt 10 ]; then
+  echo "$num is greater than 1"
+elif [ $num -lt 10 ]; then
+  echo "$num is less than 1"
+else
+  echo "$num is equal to 10"
+fi
+
+
+
+[devops@lb01 ~]$ bash shell.sh
+10 is equal to 10
+
+```
+
+
+
+### Nested If Statements
+
+Nested if statements allow you to place an if statement inside another if statement, enabling more complex logic.
+
+Each if block must be closed with its own `fi`.
+
+### Example: Nested If Statement
+
+```
+
+#!/usr/bin/bash
+num=10
+if [ $num -lt 100 ]; then
+  if [ $num -gt 5 ]; then
+    echo "The num $num is between 5 and 100"
+  fi
+fi
+
+
+
+
+[devops@lb01 ~]$ bash shell.sh
+The num 10 is between 5 and 100
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+```
+
+- Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.
+
+
+- Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).
+
+- The first line of the shell script file begins with a "sha-bang" (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the "sha-bang" is incorrect, then an error message e.g. "Command not found.", may be the result of the script execution. It is common to name the shell script with the ".sh" extension. The first line may look like this:
+
+```
 
 
 ```

@@ -8,191 +8,68 @@
 <title>Bash Scripting Documetry | My SRE Knowledge Library</title>
 <meta name="keywords" content="">
 <meta name="description" content="Bash Scripting
-Bash: &ldquo;Bourne Again Shell&rdquo;
-Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.
-Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod &#43;x filename).
-The first line of the shell script file begins with a &ldquo;sha-bang&rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &ldquo;sha-bang&rdquo; is incorrect, then an error message e.g. &ldquo;Command not found.&rdquo;, may be the result of the script execution. It is common to name the shell script with the &ldquo;.sh&rdquo; extension. The first line may look like this:
+Bash: Bourne Again Shell
+
+Bash Syntax for Scripting
+
+Bash scripts are sequences of commands executed by the Bash shell. 
+They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.
+Basic Syntax
+
+Here are some basic rules for using Bash in scripts:
+
+
+Comments: Comments start with a # and Bash ignores them.
+Command Order: Commands run one after the other, from top to bottom.
+Semicolons: Use ; to run multiple commands on the same line.
+Let&#39;s go through them one by one with examples.
+This script prints a greeting message
+
+  [devops@lb01 ~]$ # This script prints a greeting message!
+  [devops@lb01 ~]$ echo &#34;hello!!&#34;
+  echo &#34;hello# This script prints a greeting message!&#34;
+  hello# This script prints a greeting message!
+Best Practices for Writing Scripts
+
+Here are some tips for writing clean and efficient scripts:
+
+
+  Use comments to explain your code.
+  Choose meaningful variable names.
+  Test your scripts thoroughly before using them in production.
+Introduction to Bash Scripting
+
+Bash scripts are files containing commands that you run in the terminal.
+They automate tasks and make your work more efficient.
+
+Creating a Bash Script
+
+To create a script, start with the shebang #! followed by the path to Bash, usually /bin/bash. Make sure your script has execute permissions.
+
+Example: Simple Bash Script
 
 #!/bin/bash
-# Adding comments: any text following the &#34;#&#34; is considered a comment
-To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):
+# This script prints a greeting message
+echo &#34;Hello, World!&#34;
+Using Variables in Scripts
 
-[devops@lb01 ~]$ ps | grep $$
- 185152 pts/1    00:00:00 bash
- 
- # This response shows that the shell you are using is of type &#39;bash&#39;. 
-next find out the full path of the shell interpreter
+Variables store data that your script can use. Assign values using the = sign without spaces.
 
-[devops@lb01 ~]$ which bash
-/usr/bin/bash
+Example: Using Variables
 
-# This response shows the full execution path of the shell interpreter. 
-Make sure that the &ldquo;sha-bang&rdquo; (#!) line at the beginning of your script, matches this same execution path:
+[devops@lb01 ~]$ name=&#34;dslfaj&#34;
+[devops@lb01 ~]$ echo &#34;hello,$name&#34;
+hello,dslfaj
 
-[devops@lb01 ~/scripts/shell]$ ls
-111  first.sh  server_performance_stats
-[devops@lb01 ~/scripts/shell]$   &gt;  111
-[devops@lb01 ~/scripts/shell]$   &gt;  first.sh
--bash: first.sh: Permission denied
-# It&#39;s not available to clear the bash file 
-
-to edit the first.sh
-
-
-#!/usr/bin/bash
-echo &#34;hello world&#34;
-
-output:
-
-
-[devops@lb01 ~/scripts/shell]$ less  ./first.sh
-[devops@lb01 ~/scripts/shell]$ sh ./first.sh
-hello world
-
-==Variables==
-Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore &ldquo;_&rdquo;. Value assignment is done using the &ldquo;=&rdquo; sign. Note that no space permitted on either side of = sign when initializing variables.
-
-[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
-[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
-[devops@lb01 ~/scripts/shell]$ greeting=&#39;hello          world!&#39;
-
-# Referencing the variables
-A backslash \ is used to escape special character meaning
-
-[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
-[devops@lb01 ~/scripts/shell]$ echo &#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&#34;
-The price of an Apple today is: $HK 5
-Encapsulating the variable name with ${} is used to avoid ambiguity
-
-[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
-[devops@lb01 ~/scripts/shell]$ echo &#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&#34;
-The first 10 letters in the alphabet are: ABCDEFGHIJKL
-Encapsulating the variable name with &quot;&quot; will preserve any white space values
-
-[devops@lb01 ~/scripts/shell]$ greeting=&#34;hello    world&#34;
-[devops@lb01 ~/scripts/shell]$ echo $greeting&#34; now with spaces: $greeting&#34;
-hello world now with spaces: hello    world
-Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()
-
-[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
-[devops@lb01 ~/scripts/shell]$ $(ls)
--bash: 111: command not found
-[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date &#43;^C
-[devops@lb01 ~/scripts/shell]$ which date
-/usr/bin/date
-
-[devops@lb01 ~/scripts/shell]$ which date
-/usr/bin/date
-[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date &#43;%Y-%m-%d).txt
-
-# Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
-Exercise
-The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text &ldquo;Jan 1, 2000&rdquo;. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday.
-
-Note that the &lsquo;date&rsquo; command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:
-
-
-date -d &#34;$date1&#34; &#43;%A
-
-You can use Shell Check to detective your codes.
-
-
+======================================
 #!/bin/bash
-
-set -euo pipefail
-
-BIRTHDATE=&#34;Jan 1, 2000&#34;
-
-Presents=10
-
-BIRTHDAY=$(date -d &#34;$BIRTHDATE&#34; &#43;%A)
-
-
-# BIRTHDATE:
-if [ &#34;$BIRTHDATE&#34; == &#34;Jan 1, 2000&#34; ]; then
-  echo &#34;BIRTHDATE is correct,it is $BIRTHDATE&#34;
-else
-  echo &#34;BIRTHDATE is incorrect,try again!&#34;
-fi
-
-# Presents:
-if [ &#34;$Presents&#34; == 10 ]; then
-  echo &#34;I have received $Presents presents&#34;
-else
-  echo &#34;Presents is incorrect,plz try again!&#34;
-fi
-
-# BIRTHDAY:
-if [ &#34;$BIRTHDAY&#34; == &#34;Saturday&#34; ]; then
-  echo &#34;I was born on a $BIRTHDAY&#34;
-else
-  echo &#34;BIRTHDAY is incorrect,plz try again!&#34;
-fi
-
-
-##############################################
-# output:
-[devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh
-BIRTHDATE is correct,it is Jan 1, 2000
-I have received 10 presents
-I was born on a Saturday
-
-==Passing Arguments to the Script==
-Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.
-Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.
-Example
-
-4_17.sh file contains below code
-
-
-#!/bin/bash
-echo &#34;File name is $0&#34;
-echo $3
-Data=$5
-echo &#34;A $Data costs just $6.&#34;
-echo $#
-echo $@
-
-############################################
-# The variable $# holds the number of arguments passed to the script
-
-# The variable $@ holds a space delimited string of all arguments passed to the script
-
-# output:
-[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &#34;Fruit Basket&#34; 15
-File name is ./4_17.sh
-banana
-A Fruit Basket costs just 15.
-6
-apple 5 banana 8 Fruit Basket 15
-Exercise
-
-Pass &ldquo;Shell is fun&rdquo; (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.
-
-
-#!/usr/bin/bash
-
-function File {
-  echo $#
-}
-
-if [ ! $# -lt 1 ]; then
-  File &#34;$@&#34;
-  exit 0
-fi
-
-#####################################################
-# output:
-3
-
-Arrays
-An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()
-
-[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;a pear&#34;)
-[devops@lb01 ~/scripts/shell]$ new_array[2]=apricot
-
-
-Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.">
+# Assign a value to a variable 
+name=&#34;World&#34; 
+echo &#34;Hello, $name!&#34;
+Bash Variables
+Understanding Variables in Bash
+Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session.
+Bash variables are untyped, meaning they can hold any type of data.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/2026-04-18-bash-scripting/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
@@ -306,16 +183,345 @@ Array members need not be consecutive or contiguous. Some members of the array c
     <h1 class="post-title entry-hint-parent">
       Bash Scripting Documetry
     </h1>
-    <div class="post-meta"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>1459 words</span>
+    <div class="post-meta"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>&nbsp;·&nbsp;<span>13 min</span>&nbsp;·&nbsp;<span>2750 words</span>
 
 </div>
   </header> 
   <div class="post-content md-content"><h2 id="bash-scripting">Bash Scripting<a hidden class="anchor" aria-hidden="true" href="#bash-scripting">#</a></h2>
-<h3 id="bash-bourne-again-shell">Bash: &ldquo;Bourne Again Shell&rdquo;<a hidden class="anchor" aria-hidden="true" href="#bash-bourne-again-shell">#</a></h3>
-<h3 id="shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash">Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.<a hidden class="anchor" aria-hidden="true" href="#shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash">#</a></h3>
-<h3 id="shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename">Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).<a hidden class="anchor" aria-hidden="true" href="#shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename">#</a></h3>
-<h3 id="the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this">The first line of the shell script file begins with a &ldquo;sha-bang&rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &ldquo;sha-bang&rdquo; is incorrect, then an error message e.g. &ldquo;Command not found.&rdquo;, may be the result of the script execution. It is common to name the shell script with the &ldquo;.sh&rdquo; extension. The first line may look like this:<a hidden class="anchor" aria-hidden="true" href="#the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this">#</a></h3>
+<h3 id="bash-bourne-again-shell">Bash: <code>Bourne Again Shell</code><a hidden class="anchor" aria-hidden="true" href="#bash-bourne-again-shell">#</a></h3>
+<hr>
+<h3 id="bash-syntax-for-scripting">Bash Syntax for Scripting<a hidden class="anchor" aria-hidden="true" href="#bash-syntax-for-scripting">#</a></h3>
 <pre tabindex="0"><code>
+Bash scripts are sequences of commands executed by the Bash shell. 
+They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.
+</code></pre><h3 id="basic-syntax">Basic Syntax<a hidden class="anchor" aria-hidden="true" href="#basic-syntax">#</a></h3>
+<ul>
+<li>Here are some basic rules for using Bash in scripts:</li>
+</ul>
+<pre tabindex="0"><code>
+Comments: Comments start with a # and Bash ignores them.
+Command Order: Commands run one after the other, from top to bottom.
+Semicolons: Use ; to run multiple commands on the same line.
+Let&#39;s go through them one by one with examples.
+</code></pre><h3 id="this-script-prints-a-greeting-message">This script prints a greeting message<a hidden class="anchor" aria-hidden="true" href="#this-script-prints-a-greeting-message">#</a></h3>
+<pre tabindex="0"><code>
+  [devops@lb01 ~]$ # This script prints a greeting message!
+  [devops@lb01 ~]$ echo &#34;hello!!&#34;
+  echo &#34;hello# This script prints a greeting message!&#34;
+  hello# This script prints a greeting message!
+</code></pre><h3 id="best-practices-for-writing-scripts">Best Practices for Writing Scripts<a hidden class="anchor" aria-hidden="true" href="#best-practices-for-writing-scripts">#</a></h3>
+<ul>
+<li>Here are some tips for writing clean and efficient scripts:</li>
+</ul>
+<pre tabindex="0"><code>
+  Use comments to explain your code.
+  Choose meaningful variable names.
+  Test your scripts thoroughly before using them in production.
+</code></pre><h3 id="introduction-to-bash-scripting">Introduction to Bash Scripting<a hidden class="anchor" aria-hidden="true" href="#introduction-to-bash-scripting">#</a></h3>
+<ul>
+<li>Bash scripts are files containing commands that you run in the terminal.</li>
+<li>They automate tasks and make your work more efficient.</li>
+</ul>
+<h3 id="creating-a-bash-script">Creating a Bash Script<a hidden class="anchor" aria-hidden="true" href="#creating-a-bash-script">#</a></h3>
+<ul>
+<li>To create a script, start with the shebang <code>#!</code> followed by the path to Bash, usually <code>/bin/bash</code>. Make sure your script has execute permissions.</li>
+</ul>
+<h4 id="example-simple-bash-script">Example: Simple Bash Script<a hidden class="anchor" aria-hidden="true" href="#example-simple-bash-script">#</a></h4>
+<pre tabindex="0"><code>
+#!/bin/bash
+# This script prints a greeting message
+echo &#34;Hello, World!&#34;
+</code></pre><h4 id="using-variables-in-scripts">Using Variables in Scripts<a hidden class="anchor" aria-hidden="true" href="#using-variables-in-scripts">#</a></h4>
+<ul>
+<li>Variables store data that your script can use. Assign values using the <code>=</code> sign without spaces.</li>
+</ul>
+<h4 id="example-using-variables">Example: Using Variables<a hidden class="anchor" aria-hidden="true" href="#example-using-variables">#</a></h4>
+<pre tabindex="0"><code>
+[devops@lb01 ~]$ name=&#34;dslfaj&#34;
+[devops@lb01 ~]$ echo &#34;hello,$name&#34;
+hello,dslfaj
+
+======================================
+#!/bin/bash
+# Assign a value to a variable 
+name=&#34;World&#34; 
+echo &#34;Hello, $name!&#34;
+</code></pre><h3 id="bashvariables">Bash Variables<a hidden class="anchor" aria-hidden="true" href="#bashvariables">#</a></h3>
+<h4 id="understanding-variables-in-bash">Understanding Variables in Bash<a hidden class="anchor" aria-hidden="true" href="#understanding-variables-in-bash">#</a></h4>
+<p>Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session.
+Bash variables are untyped, meaning they can hold any type of data.</p>
+<h3 id="declaring-variables">Declaring Variables<a hidden class="anchor" aria-hidden="true" href="#declaring-variables">#</a></h3>
+<p>Variables are declared by simply assigning a value to a name. There should be no spaces around the equal sign:</p>
+<ul>
+<li><code>variable_name=value</code></li>
+<li>To access the value of a variable, prefix it with a dollar sign: <code>$variable_name</code></li>
+</ul>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<pre tabindex="0"><code>
+name=&#34;John Doe&#34;
+echo &#34;Hello, $name!&#34;
+number=42
+echo &#34;The number is $number&#34;
+</code></pre><h3 id="environment-variables">Environment Variables<a hidden class="anchor" aria-hidden="true" href="#environment-variables">#</a></h3>
+<p>Environment variables are special variables that affect the way processes run on your system. They are often used to store system-wide values like the location of executables or the default editor.</p>
+<h3 id="example-using-environment-variables">Example: Using Environment Variables<a hidden class="anchor" aria-hidden="true" href="#example-using-environment-variables">#</a></h3>
+<pre tabindex="0"><code># shell script:
+# Display the PATH environment variable
+echo &#34;Your PATH is $PATH&#34;
+
+[devops@lb01 ~]$ vim ./shell.sh
+[devops@lb01 ~]$ bash ./shell.sh
+your PATH is /home/devops/.local/bin:/home/devops/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+</code></pre><h3 id="local-vs-global-variables">Local vs. Global Variables<a hidden class="anchor" aria-hidden="true" href="#local-vs-global-variables">#</a></h3>
+<p>Local variables are only available within the block of code in which they are defined, such as within a function. Global variables are accessible from anywhere in the script.</p>
+<h3 id="example-local-variable">Example: Local Variable<a hidden class="anchor" aria-hidden="true" href="#example-local-variable">#</a></h3>
+<pre tabindex="0"><code># shell script
+# Define a local variable in a function
+my_function() {
+  local local_var=&#34;I am local variable&#34;
+  echo $local_var
+}
+my_function
+
+
+[devops@lb01 ~]$ vim ./shell.sh
+[devops@lb01 ~]$ bash ./shell.sh
+I am local variable
+</code></pre><h3 id="common-variable-operations">Common Variable Operations<a hidden class="anchor" aria-hidden="true" href="#common-variable-operations">#</a></h3>
+<p>Variables can be used in various operations, such as concatenation and arithmetic.</p>
+<ul>
+<li><strong>Concatenation:</strong> Combine strings using variables.</li>
+<li><strong>Arithmetic:</strong> Perform calculations using variables.</li>
+</ul>
+<h3 id="example-variable-operations">Example: Variable Operations<a hidden class="anchor" aria-hidden="true" href="#example-variable-operations">#</a></h3>
+<pre tabindex="0"><code># shell script:
+#!/usr/bin/bash
+
+# Concatenation
+greeting=&#34;hello&#34;
+name=&#34;world&#34;
+echo &#34;$greeting,$name!!!&#34;
+
+# Arithmetic
+num1=1
+num2=2
+sum=$((num1+num2))
+echo &#34;The sum is $sum&#34;
+
+======================================
+
+[devops@lb01 ~]$ bash ./shell.sh
+hello,world!!!
+The sum is 3
+</code></pre><h3 id="bash-data-types">Bash Data Types<a hidden class="anchor" aria-hidden="true" href="#bash-data-types">#</a></h3>
+<h3 id="understanding-bash-data-types">Understanding Bash Data Types<a hidden class="anchor" aria-hidden="true" href="#understanding-bash-data-types">#</a></h3>
+<p>This section introduces the different data types available in Bash scripting.</p>
+<h3 id="strings">Strings<a hidden class="anchor" aria-hidden="true" href="#strings">#</a></h3>
+<p>Strings are sequences of characters used to store text.
+They can be manipulated using various string operations such as concatenation and substring extraction.</p>
+<h3 id="example-strings">Example: Strings<a hidden class="anchor" aria-hidden="true" href="#example-strings">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+# string example:
+greeting=&#34;hello,world!&#34;
+name=&#34;Alice&#34;
+full_greeting=&#34;$greeting,$name&#34;
+echo $full_greeting
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+hello,world!,Alice
+</code></pre><h3 id="numbers">Numbers<a hidden class="anchor" aria-hidden="true" href="#numbers">#</a></h3>
+<p>Numbers in Bash can be used for arithmetic operations.
+Bash supports integer arithmetic natively, such as addition, subtraction, multiplication, and division.</p>
+<h3 id="example-numbers">Example: Numbers<a hidden class="anchor" aria-hidden="true" href="#example-numbers">#</a></h3>
+<pre tabindex="0"><code>
+# shell script:
+#!/usr/bin/bash
+# Number example:
+num1=1
+num2=2
+sum=$((num1 + num2))
+difference=$((num2 - num1))
+product=$((num1 * num2))
+quotient=$((num1 / num2))
+echo &#34;Sum: $sum; Difference: $difference; Product: $product; Quotient: $quotient
+&#34;
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Sum: 3; Difference: 1; Product: 2; Quotient: 0
+</code></pre><h3 id="arrays">Arrays<a hidden class="anchor" aria-hidden="true" href="#arrays">#</a></h3>
+<p>Arrays are used to store multiple values in a single variable.
+Each element in an array is accessed using an index. You can iterate over arrays and modify elements.</p>
+<h3 id="example-arrays">Example: Arrays<a hidden class="anchor" aria-hidden="true" href="#example-arrays">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+# Array example
+fruits=(&#34;apple&#34; &#34;banana&#34; &#34;orange&#34;)
+for fruit in &#34;${fruits[@]}&#34;; do
+  echo $fruit
+done
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+apple
+banana
+orange
+</code></pre><h3 id="associative-arrays">Associative Arrays<a hidden class="anchor" aria-hidden="true" href="#associative-arrays">#</a></h3>
+<p>Associative arrays allow you to use named keys to access values.
+They are similar to dictionaries in other programming languages.
+You can add or remove keys and values.</p>
+<h3 id="example-associative-arrays">Example: Associative Arrays<a hidden class="anchor" aria-hidden="true" href="#example-associative-arrays">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+# Associative array example
+declare -A colors
+colors[apple]=&#34;red&#34;
+colors[banana]=&#34;yellow&#34;
+colors[grape]=&#34;purple&#34;
+unset colors[banana]
+echo ${colors[apple]}  #red
+echo ${colors[grape]}  #purple
+echo ${colors[banana]}
+
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+red
+purple
+# `nothing`
+=============================================
+</code></pre><h3 id="data-type-limitations">Data Type Limitations<a hidden class="anchor" aria-hidden="true" href="#data-type-limitations">#</a></h3>
+<p>Bash does not support floating-point arithmetic natively.
+For such operations, consider using external tools like <code>bc</code> or <code>awk</code>.</p>
+<h3 id="bash-operators">Bash Operators<a hidden class="anchor" aria-hidden="true" href="#bash-operators">#</a></h3>
+<h3 id="understanding-bash-operators">Understanding Bash Operators<a hidden class="anchor" aria-hidden="true" href="#understanding-bash-operators">#</a></h3>
+<p>This section provides an overview of operators used in Bash scripting, including comparison, string, arithmetic, logical, and file test operators.</p>
+<h3 id="comparison-operators">Comparison Operators<a hidden class="anchor" aria-hidden="true" href="#comparison-operators">#</a></h3>
+<ul>
+<li><code>-eq</code>: Equal to</li>
+<li><code>-ne</code>: Not equal to</li>
+<li><code>-lt</code>: Less than</li>
+<li><code>-le</code>: Less than or equal to</li>
+<li><code>-gt</code>: Greater than</li>
+<li><code>-ge</code>: Greater than or equal to</li>
+</ul>
+<h3 id="string-comparison-operators">String Comparison Operators<a hidden class="anchor" aria-hidden="true" href="#string-comparison-operators">#</a></h3>
+<ul>
+<li><code>=</code>: Equal to</li>
+<li><code>!=</code>: Not equal to</li>
+<li><code>&lt;</code>: Less than, in ASCII alphabetical order</li>
+<li><code>&gt;</code>: Greater than, in ASCII alphabetical order</li>
+</ul>
+<h3 id="arithmetic-operators">Arithmetic Operators<a hidden class="anchor" aria-hidden="true" href="#arithmetic-operators">#</a></h3>
+<ul>
+<li><code>+</code>: Addition</li>
+<li><code>-</code>: Subtraction</li>
+<li><code>*</code>: Multiplication</li>
+<li><code>/</code>: Division</li>
+<li><code>%</code>: Modulus (remainder of division)</li>
+<li>For exponentiation, use external tools like <code>bc</code> or <code>awk</code>.</li>
+</ul>
+<h3 id="logical-operators">Logical Operators<a hidden class="anchor" aria-hidden="true" href="#logical-operators">#</a></h3>
+<ul>
+<li><code>&amp;&amp;</code>: Logical AND</li>
+<li><code>||</code>: Logical OR</li>
+<li><code>!</code>: Logical NOT</li>
+</ul>
+<h3 id="file-test-operators">File Test Operators<a hidden class="anchor" aria-hidden="true" href="#file-test-operators">#</a></h3>
+<ul>
+<li><code>-e</code>: Checks if a file exists</li>
+<li><code>-d</code>: Checks if a directory exists</li>
+<li><code>-f</code>: Checks if a file is a regular file</li>
+<li><code>-s</code>: Checks if a file is not empty</li>
+</ul>
+<h3 id="bash-ifelse">Bash If&hellip;Else<a hidden class="anchor" aria-hidden="true" href="#bash-ifelse">#</a></h3>
+<h3 id="using-ifelse-statements-in-bash">Using If&hellip;Else Statements in Bash<a hidden class="anchor" aria-hidden="true" href="#using-ifelse-statements-in-bash">#</a></h3>
+<p>This section explains how to use conditional statements in Bash scripting.</p>
+<h3 id="if-statements">If Statements<a hidden class="anchor" aria-hidden="true" href="#if-statements">#</a></h3>
+<p>If statements allow you to execute code based on a condition.
+If the condition is true, the code block will run.</p>
+<p>The condition is enclosed in square brackets <code>[ ]</code> and the statement ends with <code>fi</code>, which is <code>if</code> spelled backward, marking the end of the if block.</p>
+<h3 id="example-if-statement">Example: If Statement<a hidden class="anchor" aria-hidden="true" href="#example-if-statement">#</a></h3>
+<pre tabindex="0"><code>
+# shell script:
+# Basic if statement
+#!/usr/bin/bash
+num=5
+if [ $num -gt 1 ]; then
+  echo &#34;Number is greater than 1&#34;
+fi
+
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Number is greater than 1
+</code></pre><h3 id="ifelse-statements">If&hellip;Else Statements<a hidden class="anchor" aria-hidden="true" href="#ifelse-statements">#</a></h3>
+<p>If&hellip;else statements provide a way to execute one block of code if a condition is true and another block if it is false.</p>
+<p>The <code>else</code> keyword introduces the alternative block, and the statement ends with <code>fi</code>.</p>
+<h3 id="example-ifelse-statement">Example: If&hellip;Else Statement<a hidden class="anchor" aria-hidden="true" href="#example-ifelse-statement">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+num=10
+if [ $num -gt 100 ]; then
+  echo &#34;Number is greater than 1&#34;
+else
+  echo &#34;Number is less than 1&#34;
+fi
+
+
+[devops@lb01 ~]$ bash ./shell.sh
+Number is less than 1
+</code></pre><h3 id="elif-statements">Elif Statements<a hidden class="anchor" aria-hidden="true" href="#elif-statements">#</a></h3>
+<p>Elif statements allow you to check multiple conditions in sequence.
+If the first condition is false, the next one is checked.</p>
+<ul>
+<li>The <code>elif</code> keyword stands for &ldquo;else if,&rdquo; and the statement still ends with <code>fi</code>.</li>
+</ul>
+<h3 id="example-elif-statement">Example: Elif Statement<a hidden class="anchor" aria-hidden="true" href="#example-elif-statement">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+num=10
+if [ $num -gt 10 ]; then
+  echo &#34;$num is greater than 1&#34;
+elif [ $num -lt 10 ]; then
+  echo &#34;$num is less than 1&#34;
+else
+  echo &#34;$num is equal to 10&#34;
+fi
+
+
+
+[devops@lb01 ~]$ bash shell.sh
+10 is equal to 10
+</code></pre><h3 id="nested-if-statements">Nested If Statements<a hidden class="anchor" aria-hidden="true" href="#nested-if-statements">#</a></h3>
+<p>Nested if statements allow you to place an if statement inside another if statement, enabling more complex logic.</p>
+<p>Each if block must be closed with its own <code>fi</code>.</p>
+<h3 id="example-nested-if-statement">Example: Nested If Statement<a hidden class="anchor" aria-hidden="true" href="#example-nested-if-statement">#</a></h3>
+<pre tabindex="0"><code>
+#!/usr/bin/bash
+num=10
+if [ $num -lt 100 ]; then
+  if [ $num -gt 5 ]; then
+    echo &#34;The num $num is between 5 and 100&#34;
+  fi
+fi
+
+
+
+
+[devops@lb01 ~]$ bash shell.sh
+The num 10 is between 5 and 100
+</code></pre><hr>
+<pre tabindex="0"><code>
+- Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.
+
+
+- Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).
+
+- The first line of the shell script file begins with a &#34;sha-bang&#34; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &#34;sha-bang&#34; is incorrect, then an error message e.g. &#34;Command not found.&#34;, may be the result of the script execution. It is common to name the shell script with the &#34;.sh&#34; extension. The first line may look like this:
+</code></pre><pre tabindex="0"><code>
 #!/bin/bash
 # Adding comments: any text following the &#34;#&#34; is considered a comment
 </code></pre><h4 id="to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow">To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):<a hidden class="anchor" aria-hidden="true" href="#to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow">#</a></h4>
@@ -443,7 +649,7 @@ I was born on a Saturday
 <h3 id="passing-arguments-to-the-script">==Passing Arguments to the Script==<a hidden class="anchor" aria-hidden="true" href="#passing-arguments-to-the-script">#</a></h3>
 <h4 id="arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name">Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.<a hidden class="anchor" aria-hidden="true" href="#arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name">#</a></h4>
 <h4 id="inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments">Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.<a hidden class="anchor" aria-hidden="true" href="#inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments">#</a></h4>
-<h4 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h4>
+<h4 id="example-1">Example<a hidden class="anchor" aria-hidden="true" href="#example-1">#</a></h4>
 <ul>
 <li>4_17.sh file contains below code</li>
 </ul>
@@ -488,7 +694,7 @@ fi
 # output:
 3
 </code></pre><hr>
-<h3 id="arrays">Arrays<a hidden class="anchor" aria-hidden="true" href="#arrays">#</a></h3>
+<h3 id="arrays-1">Arrays<a hidden class="anchor" aria-hidden="true" href="#arrays-1">#</a></h3>
 <h4 id="an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-">An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()<a hidden class="anchor" aria-hidden="true" href="#an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-">#</a></h4>
 <pre tabindex="0"><code>
 [devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;a pear&#34;)

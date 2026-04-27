@@ -119,6 +119,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">自动发送天气预报
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>接收方：钉钉 发送方：和风天气 API_HOST, WEBHOOK, API_KEY都在和风官方开发者后台里/头像首页 平台：Github托管代码 代码及解释（直接放在main分支）： import requests import json # ================= 配置区 ================= API_HOST = &#39;p34y3kvamv.re.qweatherapi.com&#39; # 你的控制台设置里 DINGTALK_WEBHOOK = 自己的 WEATHER_API_KEY = 自己的 CITY_ID = 天气api城市id #城市代码可自行查询当地天气代码 # ========================================== def get_weather(): &#34;&#34;&#34;获取和风天气数据&#34;&#34;&#34; url = f&#39;https://{API_HOST}/v7/weather/3d?location={CITY_ID}&#39; # 新版推荐将API KEY放在请求头中 headers = { &#39;X-QW-Api-Key&#39;: WEATHER_API_KEY } try: response = requests.get(url, headers=headers).json() if response[&#39;code&#39;] == &#39;200&#39;: today = response[&#39;daily&#39;][0] date = today[&#39;fxDate&#39;] temp_max = today[&#39;tempMax&#39;] temp_min = today[&#39;tempMin&#39;] text_day = today[&#39;textDay&#39;] wind_dir = today[&#39;windDirDay&#39;] uv_index = today[&#39;uvIndex&#39;] # 注意：正文中必须包含你在钉钉里设置的“自定义关键词”（如：天气） msg = f&#34;&#34;&#34;### 🌤️ 今日天气预报 **日期**：{date} **白天天气**：{text_day} **温度**：{temp_min}℃ ~ {temp_max}℃ **风向**：{wind_dir} **紫外线指数**：{uv_index} 祝你今天有个好心情！ &#34;&#34;&#34; return msg else: print(f&#34;获取天气失败，错误码：{response[&#39;code&#39;]}&#34;) return None except Exception as e: print(f&#34;请求发生异常: {e}&#34;) return None def send_to_dingtalk(msg_text): &#34;&#34;&#34;发送 Markdown消息到钉钉 &#34;&#34;&#34; headers = {&#39;Content-Type&#39;: &#39;application/json&#39;} data = { &#34;msgtype&#34;: &#34;markdown&#34;, &#34;markdown&#34;: { &#34;title&#34;: &#34;今日天气&#34;, &#34;text&#34;: msg_text } } response = requests.post(DINGTALK_WEBHOOK, headers=headers, data=json.dumps(data)) print(&#34;钉钉返回结果：&#34;, response.text) if __name__ == &#39;__main__&#39;: weather_info = get_weather() if weather_info: send_to_dingtalk(weather_info) 把yml文件放在workflows下： 代码： name: Daily Weather Bot on: schedule: - cron: &#39;30 23 * * *&#39; # 注意：这里是UTC时间！UTC的23:30相当于北京时间早上7:30。2000次最大/月 workflow_dispatch: # 允许手动点击运行 jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - name: Set up Python uses: actions/setup-python@v4 with: python-version: &#39;3.x&#39; - name: Install dependencies run: | python -m pip install --upgrade pip pip install requests - name: Run script run: python weather_bot.py #脚本名字 完成后每天7点半即可接收到钉钉消息！！！</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>728 words</span></footer>
+  <a class="entry-link" aria-label="post link to 自动发送天气预报" href="http://localhost:1313/posts/2026-03-31-hefeng-dingding/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">钉钉自动巡检告警--完全版
     </h2>
   </header>
@@ -228,18 +240,6 @@
   </div>
   <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>205 words</span></footer>
   <a class="entry-link" aria-label="post link to 电话号码和 E-mail 提取器" href="http://localhost:1313/posts/2026-03-19-email-number/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">内存告急，快加swap！！！
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>内存不足创建swap空间 痛点：云服务器的内存太小，又想要极致性价比 解决方案： 创建swapfile的大文件放在swap下 - 创建swap空间： - - 创建swapfile空间 ==&gt; 转为swap ==&gt; 激活swap并加入linux ==&gt; 配置永久挂载 - if - - input file - - of - - output file - bs - - block size 每次读取多少 - - count - - 读取次数 - dd if=/dev/zero of=/tmp/swapfile bs=1M count=1000 - - - mkswap /tmp/swapfile - - free -h - - chmod 600 /tmp/swapfile - - mkswap /tmp/swapfile - - swapon /tmp/swapfile - free -h - - - 先卸载当前的 Swap 文件 - - swapoff /tmp/swapfile - - 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） - - swapon -a - vim /etc/fstab（修改） - /swapfile swap swap defaults 0 0 - free -h - 再次查看挂载情况 </p>
-  </div>
-  <footer class="entry-footer"><span title='2026-03-17 00:00:00 +0000 UTC'>March 17, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>259 words</span></footer>
-  <a class="entry-link" aria-label="post link to 内存告急，快加swap！！！" href="http://localhost:1313/posts/2026-03-17-add-swap/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
