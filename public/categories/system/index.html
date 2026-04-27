@@ -96,6 +96,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -117,7 +132,7 @@ Prompt–The Over-Permissioned Pipeline Disaster-Real Security Risk:
 Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they attackAdministratorAccess policy to fix it quickly Pipeline works!Problems solved…or is it? CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket Attacker compromises the build through malicious code in dependencies Now attacker has admin access to your entire AWS account The Principle of Least Privilege - Only What’s needed,Nothing More. Least Privilege = Grant minimum permissions required to do the job CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets CodeDeploy nedds to update EC2 instances?Grant only deployment permission Dont’t grant Full S3 access EC2 admin IAM modification Think: What’s the smallest set of permissions for this to work? Benefits: Limits blast radius if compromised Building Secure IAM Policies for Pipeline Services IAM Policy = JSON document with permissions
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-20 00:00:00 +0000 UTC'>April 20, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-20 00:00:00 +0000 UTC'>April 20, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>638 words</span></footer>
   <a class="entry-link" aria-label="post link to IAM-Least Privilege Principle" href="http://localhost:1313/posts/2026-04-20-iam/"></a>
 </article>
 
@@ -129,20 +144,9 @@ Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they atta
   <div class="entry-content">
     <p>探究yum源的混乱 更换yum源核心逻辑：注释metalink；更换国内的baseurl
 解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
-配置yum的目的： 直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 地理位置更近、带宽更高的镜像站 高可用：国内大厂的镜像站有极高的负载均衡，保证 7X24 小时不中断 版本一致性：使用私有的企业内部私有源保证服务器安装的 软件版本一致 /etc/yum.repos.d/ 文件拆解： 核心系统源（BaseOS， AppStream）： rocky.repo
-包含 linux内核，li，cp，ssh等操作系统生存必须的基础包
-必须改！！！
-官方拓展源 ( Extras, Plus)： rocky-extras.repo
-包含官方支持但不属于核心系统的插件
-建议改
-第三方社区源（ EPEL ）： epel.repo
-由 Federa 社区维护，提供很多红帽系官方不带的工具
-必须改
-repo 文件示例： [epel] # 仓库 ID name=Extra Packages for Enterprise Linux 9 # 仓库名称 # metalink=https://mirrors... # 自动寻找最快节点的地址（通常由于网络问题失效） baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ # 真正的下载地址 enabled=1 # 是否启用（1为启用） gpgcheck=1 # 是否校验签名（为了安全，必须为1） gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 # 校验用的公钥 Yum 源案例实践：
-First Step — 删除所有乱七八糟的 .repo 文件和备份文件
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1380 words</span></footer>
   <a class="entry-link" aria-label="post link to yum 进阶" href="http://localhost:1313/posts/2026-04-11-yum-advanced/"></a>
 </article>
 
@@ -153,10 +157,9 @@ First Step — 删除所有乱七八糟的 .repo 文件和备份文件
   </header>
   <div class="entry-content">
     <p>搭建服务器的FTP文件夹挂载在win上 简单介绍： FTP（VSFTP） 类unix系统使用的FTP服务器软件 安全，高速，稳定 vim /etc/services 查端口 20 传数据；21 传指令 FTP会话通道： 20数据通道：正文 21控制通道：敲门，输密码，发指令 主动模式： C随机开高位端口&amp;发给S，Server通过20端口与Client连接&amp;发数据
-被动模式(passive)： 相对的 S开放随机高位端口&amp;发给C,然后等待Client连接
-配置实现： dnf install vsftpd y systemctl start vsftpd systemctl status vsftpd firewallcmd permanent addservice=ftp firewallcmd reload vim /etc/vsftpd/vsftpd.conf local_enables=YES write_enables=YES setenforce 0 大功告成！！！最后： win 下资源管理器输入： ftp：//虚拟机IP </p>
+...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>264 words</span></footer>
   <a class="entry-link" aria-label="post link to FTP办公挂载文件夹" href="http://localhost:1313/posts/2026-03-20-ftp-win/"></a>
 </article>
 
@@ -168,7 +171,7 @@ First Step — 删除所有乱七八糟的 .repo 文件和备份文件
   <div class="entry-content">
     <p>内存不足创建swap空间 痛点：云服务器的内存太小，又想要极致性价比 解决方案： 创建swapfile的大文件放在swap下 - 创建swap空间： - - 创建swapfile空间 ==&gt; 转为swap ==&gt; 激活swap并加入linux ==&gt; 配置永久挂载 - if - - input file - - of - - output file - bs - - block size 每次读取多少 - - count - - 读取次数 - dd if=/dev/zero of=/tmp/swapfile bs=1M count=1000 - - - mkswap /tmp/swapfile - - free -h - - chmod 600 /tmp/swapfile - - mkswap /tmp/swapfile - - swapon /tmp/swapfile - free -h - - - 先卸载当前的 Swap 文件 - - swapoff /tmp/swapfile - - 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） - - swapon -a - vim /etc/fstab（修改） - /swapfile swap swap defaults 0 0 - free -h - 再次查看挂载情况 </p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-17 00:00:00 +0000 UTC'>March 17, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-17 00:00:00 +0000 UTC'>March 17, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>259 words</span></footer>
   <a class="entry-link" aria-label="post link to 内存告急，快加swap！！！" href="http://localhost:1313/posts/2026-03-17-add-swap/"></a>
 </article>
 
@@ -180,7 +183,7 @@ First Step — 删除所有乱七八糟的 .repo 文件和备份文件
   <div class="entry-content">
     <p>5分钟紧急救援RHEL-Root密码 原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码 步骤： - 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑 - 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl&#43;X进入紧急救援 - 随后进入到switch_root:/# 下，依次输入以下5个命令： - mount -o remount,rw /sysroot 重新挂载根目录可读写 - chroot /sysroot 切换到系统根目录（真实root） - 提示符会变成sh-4.2# - passwd root 修改root密码 - touch /.autorelabel - 自动重新标记，**这一步非常重要** - 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除 - exit 退出chroot环境 - exit - 退出紧急救援模式 - 随后系统开始自动重启 </p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-04 00:00:00 +0000 UTC'>March 4, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-04 00:00:00 +0000 UTC'>March 4, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>362 words</span></footer>
   <a class="entry-link" aria-label="post link to Rocky9忘记密码--紧急救援" href="http://localhost:1313/posts/2026-03-04-rocky9-resume/"></a>
 </article>
     </main>

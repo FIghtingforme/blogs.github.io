@@ -9,69 +9,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="探究yum源的混乱
 更换yum源核心逻辑：注释metalink；更换国内的baseurl
-解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
-配置yum的目的：
-直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 地理位置更近、带宽更高的镜像站
-高可用：国内大厂的镜像站有极高的负载均衡，保证 7X24 小时不中断
-版本一致性：使用私有的企业内部私有源保证服务器安装的 软件版本一致
-
-/etc/yum.repos.d/ 文件拆解：
-核心系统源（BaseOS， AppStream）：
-
-
-rocky.repo
-
-
-包含 linux内核，li，cp，ssh等操作系统生存必须的基础包
-
-
-必须改！！！
-
-
-官方拓展源 ( Extras, Plus)：
-
-
-rocky-extras.repo
-
-
-包含官方支持但不属于核心系统的插件
-
-
-建议改
-
-
-第三方社区源（ EPEL ）：
-
-
-epel.repo
-
-
-由 Federa 社区维护，提供很多红帽系官方不带的工具
-
-
-必须改
-
-
-
-repo 文件示例：
-
-[epel] 
-# 仓库 ID 
-name=Extra Packages for Enterprise Linux 9 
-# 仓库名称 
-
-# metalink=https://mirrors... 
-# 自动寻找最快节点的地址（通常由于网络问题失效） 
-
-baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
-# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
-
-gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
-# 校验用的公钥
-
-Yum 源案例实践：
-First Step &mdash; 删除所有乱七八糟的 .repo 文件和备份文件">
+解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/2026-04-11-yum-advanced/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
@@ -159,6 +97,21 @@ First Step &mdash; 删除所有乱七八糟的 .repo 文件和备份文件">
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -170,7 +123,7 @@ First Step &mdash; 删除所有乱七八糟的 .repo 文件和备份文件">
     <h1 class="post-title entry-hint-parent">
       yum 进阶
     </h1>
-    <div class="post-meta"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>
+    <div class="post-meta"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1380 words</span>
 
 </div>
   </header> 
@@ -370,6 +323,17 @@ extras              Rocky Linux 9 - Extras
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/">
+    <span class="title">« Prev</span>
+    <span>Docker--- Nodejs</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/2026-03-31-hefeng-dingding/">
+    <span class="title">Next »</span>
+    <span>自动发送天气预报</span>
+  </a>
+</nav>
+
   </footer>
 </article>
     </main>

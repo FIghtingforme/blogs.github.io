@@ -97,6 +97,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span class="active">首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -109,15 +124,9 @@
   </header>
   <div class="entry-content">
     <p>jekyll 博客迁移为 Hugo 痛点：Hugo (对比 Jekyll) 在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
-1. Zero Dependency Jekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
-Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
-2. 最快的静态网站生成器 Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
-Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
-3. 极简的本地预览指令 在 Hugo 中，只需要在博客根目录下敲下这一行命令：
-# -D 参数表示同时渲染草稿 (Drafts) hugo server -D 本地实时更新： http://localhost:1313/ Jekyll 到 Hugo 的企业级迁移 SOP： 阶段一：本地架构重组 (Directory Restructuring) Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作： 1. 清理历史包袱 (Drop Legacy Dependencies) 既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2198 words</span></footer>
   <a class="entry-link" aria-label="post link to jekyll 博客迁移为 Hugo" href="http://localhost:1313/posts/2026-04-26-hugo-blog/"></a>
 </article>
 
@@ -129,7 +138,7 @@ Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕�
   <div class="entry-content">
     <p></p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-25 14:30:00 +0800 CST'>April 25, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-25 14:30:00 +0800 CST'>April 25, 2026</span>&nbsp;·&nbsp;<span>0 min</span>&nbsp;·&nbsp;<span>0 words</span></footer>
   <a class="entry-link" aria-label="post link to Tailscale 组网实践" href="http://localhost:1313/posts/2026-04-25-tailscale/"></a>
 </article>
 
@@ -142,7 +151,7 @@ Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕�
     <p>Docker Commands docker pull redis:8. redis:8.0.6-alpine docker images [devops@lb01 ~/docker/redis]$ docker images IMAGE ID DISK USAGE CONTENT SIZE EXTRA my-nodejs:v1 954fdbfce62a 194MB 48.1MB U nginx:latest 7f0adca1fc6c 237MB 65.8MB U redis:8.0.6-alpine 5f61955be8ab 86.8MB 24.9MB U docker run -p 6000:3000 –name -d redis-example redis:8.0.6-alpine [devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name redis-example redis:8.0.6-alpine d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 8 seconds ago Up 7 seconds 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ ss -lntup Netid State Recv-Q Send-Q Local Address:Port Peer Address:Port Process udp UNCONN 0 0 127.0.0.1:323 0.0.0.0:* udp UNCONN 0 0 [::1]:323 [::]:* tcp LISTEN 0 4096 0.0.0.0:6000 0.0.0.0:* tcp LISTEN 0 511 0.0.0.0:80 0.0.0.0:* tcp LISTEN 0 128 0.0.0.0:22 0.0.0.0:* tcp LISTEN 0 4096 [::]:6000 [::]:* tcp LISTEN 0 511 [::]:80 [::]:* tcp LISTEN 0 128 [::]:22 [::]:* tcp LISTEN 0 32 *:21 *:* docker exec -it d7d16d237b5f /bin/bash [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash OCI runtime exec failed: exec failed: unable to start container process: exec: &#34;/bin/bash&#34;: stat /bin/bash: no such file or directory # 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内 [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # ls /data # pwd /data [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # cd / / # ls bin dev home media opt root sbin sys usr data etc lib mnt proc run srv tmp var / # env HOSTNAME=d7d16d237b5f SHLVL=1 HOME=/root OLDPWD=/data TERM=xterm PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin PWD=/ / # / # exit [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # curl /bin/sh: curl: not found Difference： docker ps / docker ps -a [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ docker ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example 37fb32f3b1f9 redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 43 minutes ago Exited (0) 43 minutes ago redis-1 8ffc7554566c 7f0adca1fc6c &#34;/docker-entrypoint.…&#34; 31 hours ago Exited (0) 30 hours ago sre-tutorial-nginx e329c77b6133 my-nodejs:v1 &#34;docker-entrypoint.s…&#34; 3 days ago Exited (1) 30 hours ago web Docker Deploy the Demo Project Workflow with Docker: Push: js,Mongo DB ==&gt; Git ==&gt; Jenkins: Build JS APP &amp; Create Docker Image ==&gt; Docker Repository( Docker Hub ) Pull: From &#34;Docker Hub&#34; Developing with Containers need: JS and Node application, MongoDB Docker Container
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-21 00:00:00 +0000 UTC'>April 21, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-21 00:00:00 +0000 UTC'>April 21, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>755 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker " href="http://localhost:1313/posts/2026-04-21-docker-demo/"></a>
 </article>
 
@@ -157,7 +166,7 @@ Prompt–The Over-Permissioned Pipeline Disaster-Real Security Risk:
 Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they attackAdministratorAccess policy to fix it quickly Pipeline works!Problems solved…or is it? CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket Attacker compromises the build through malicious code in dependencies Now attacker has admin access to your entire AWS account The Principle of Least Privilege - Only What’s needed,Nothing More. Least Privilege = Grant minimum permissions required to do the job CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets CodeDeploy nedds to update EC2 instances?Grant only deployment permission Dont’t grant Full S3 access EC2 admin IAM modification Think: What’s the smallest set of permissions for this to work? Benefits: Limits blast radius if compromised Building Secure IAM Policies for Pipeline Services IAM Policy = JSON document with permissions
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-20 00:00:00 +0000 UTC'>April 20, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-20 00:00:00 +0000 UTC'>April 20, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>638 words</span></footer>
   <a class="entry-link" aria-label="post link to IAM-Least Privilege Principle" href="http://localhost:1313/posts/2026-04-20-iam/"></a>
 </article>
 
@@ -170,7 +179,7 @@ Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they atta
     <p>Bash Scripting Bash: “Bourne Again Shell” Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash. Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod &#43;x filename). The first line of the shell script file begins with a “sha-bang” (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the “sha-bang” is incorrect, then an error message e.g. “Command not found.”, may be the result of the script execution. It is common to name the shell script with the “.sh” extension. The first line may look like this: #!/bin/bash # Adding comments: any text following the &#34;#&#34; is considered a comment To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow): [devops@lb01 ~]$ ps | grep $$ 185152 pts/1 00:00:00 bash # This response shows that the shell you are using is of type &#39;bash&#39;. next find out the full path of the shell interpreter [devops@lb01 ~]$ which bash /usr/bin/bash # This response shows the full execution path of the shell interpreter. Make sure that the “sha-bang” (#!) line at the beginning of your script, matches this same execution path: [devops@lb01 ~/scripts/shell]$ ls 111 first.sh server_performance_stats [devops@lb01 ~/scripts/shell]$ &gt; 111 [devops@lb01 ~/scripts/shell]$ &gt; first.sh -bash: first.sh: Permission denied # It&#39;s not available to clear the bash file to edit the first.sh #!/usr/bin/bash echo &#34;hello world&#34; output: [devops@lb01 ~/scripts/shell]$ less ./first.sh [devops@lb01 ~/scripts/shell]$ sh ./first.sh hello world ==Variables== Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore “_”. Value assignment is done using the “=” sign. Note that no space permitted on either side of = sign when initializing variables. [devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5 [devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC [devops@lb01 ~/scripts/shell]$ greeting=&#39;hello world!&#39; # Referencing the variables A backslash \ is used to escape special character meaning [devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5 [devops@lb01 ~/scripts/shell]$ echo &#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&#34; The price of an Apple today is: $HK 5 Encapsulating the variable name with ${} is used to avoid ambiguity [devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC [devops@lb01 ~/scripts/shell]$ echo &#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&#34; The first 10 letters in the alphabet are: ABCDEFGHIJKL Encapsulating the variable name with &#34;&#34; will preserve any white space values [devops@lb01 ~/scripts/shell]$ greeting=&#34;hello world&#34; [devops@lb01 ~/scripts/shell]$ echo $greeting&#34; now with spaces: $greeting&#34; hello world now with spaces: hello world Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $() [devops@lb01 ~/scripts/shell]$ FileList=$(ls) [devops@lb01 ~/scripts/shell]$ $(ls) -bash: 111: command not found [devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date &#43;^C [devops@lb01 ~/scripts/shell]$ which date /usr/bin/date [devops@lb01 ~/scripts/shell]$ which date /usr/bin/date [devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date &#43;%Y-%m-%d).txt # Note that when the script runs, it will run the command inside the $() parenthesis and capture its output. Exercise The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text “Jan 1, 2000”. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday. Note that the ‘date’ command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use: date -d &#34;$date1&#34; &#43;%A You can use Shell Check to detective your codes. #!/bin/bash set -euo pipefail BIRTHDATE=&#34;Jan 1, 2000&#34; Presents=10 BIRTHDAY=$(date -d &#34;$BIRTHDATE&#34; &#43;%A) # BIRTHDATE: if [ &#34;$BIRTHDATE&#34; == &#34;Jan 1, 2000&#34; ]; then echo &#34;BIRTHDATE is correct,it is $BIRTHDATE&#34; else echo &#34;BIRTHDATE is incorrect,try again!&#34; fi # Presents: if [ &#34;$Presents&#34; == 10 ]; then echo &#34;I have received $Presents presents&#34; else echo &#34;Presents is incorrect,plz try again!&#34; fi # BIRTHDAY: if [ &#34;$BIRTHDAY&#34; == &#34;Saturday&#34; ]; then echo &#34;I was born on a $BIRTHDAY&#34; else echo &#34;BIRTHDAY is incorrect,plz try again!&#34; fi ############################################## # output: [devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh BIRTHDATE is correct,it is Jan 1, 2000 I have received 10 presents I was born on a Saturday ==Passing Arguments to the Script== Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name. Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments. Example 4_17.sh file contains below code #!/bin/bash echo &#34;File name is $0&#34; echo $3 Data=$5 echo &#34;A $Data costs just $6.&#34; echo $# echo $@ ############################################ # The variable $# holds the number of arguments passed to the script # The variable $@ holds a space delimited string of all arguments passed to the script # output: [devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &#34;Fruit Basket&#34; 15 File name is ./4_17.sh banana A Fruit Basket costs just 15. 6 apple 5 banana 8 Fruit Basket 15 Exercise Pass “Shell is fun” (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments. #!/usr/bin/bash function File { echo $# } if [ ! $# -lt 1 ]; then File &#34;$@&#34; exit 0 fi ##################################################### # output: 3 Arrays An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in () [devops@lb01 ~/scripts/shell]$ my_array=(apple banana &#34;a pear&#34;) [devops@lb01 ~/scripts/shell]$ new_array[2]=apricot Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>1459 words</span></footer>
   <a class="entry-link" aria-label="post link to Bash Scripting Documetry" href="http://localhost:1313/posts/2026-04-18-bash-scripting/"></a>
 </article>
 
@@ -181,11 +190,9 @@ Developer sets up CodeBuild,gets “Access Denied” errors Frustrated,they atta
   </header>
   <div class="entry-content">
     <p>今天安装Terraform的时候突然安装不上的情况，于是开始排查： [devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y [sudo] password for devops: Sorry, try again. [sudo] password for devops: Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST. No match for argument: terraform 猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系
-出现错误
-ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo Adding repo from: Curl error (6): Couldn&#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com] Error: Configuration of repo failed 网址fat-finger error，应该是https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo 开始排查： 根据Terraform官方安装步骤来 # Install `yum-config-manager` to manage your repositories. $ sudo yum install -y yum-utils # Use `yum-config-manager` to add the official HashiCorp RHEL repository. # 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum # 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了 $ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo # Install Terraform from the new repository. $ sudo yum -y install terraform # 输入terraform 显示则安装成功！！！ [devops@lb01 ~]$ terraform Usage: terraform [global options] &lt;subcommand&gt; [args] The available commands for execution are listed below. The primary workflow commands are given first, followed by less common or more advanced commands. Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问 新建一个空文件夹：mkdir tf-docker-test &amp;&amp; cd tf-docker-test [devops@lb01 ~]$ mkdir ./tf-docker-test &amp;&amp; cd ./tf-docker-test [devops@lb01 ~/tf-docker-test]$ ls [devops@lb01 ~/tf-docker-test]$ pwd /home/devops/tf-docker-test 新建一个 main.tf 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）： terraform { required_providers { docker = { source = &#34;kreuzwerker/docker&#34; version = &#34;~&gt; 3.0&#34; } } } provider &#34;docker&#34; {} resource &#34;docker_image&#34; &#34;nginx&#34; { name = &#34;nginx:latest&#34; keep_locally = false } resource &#34;docker_container&#34; &#34;nginx&#34; { image = docker_image.nginx.image_id name = &#34;sre-tutorial-nginx&#34; ports { internal = 80 external = 8080 } } 依次敲下三个命令来构建Docker并加载容器： terraform init (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>&nbsp;·&nbsp;<span>16 min</span>&nbsp;·&nbsp;<span>7921 words</span></footer>
   <a class="entry-link" aria-label="post link to Terraform Docker" href="http://localhost:1313/posts/2026-04-18-terraform-docker/"></a>
 </article>
 
@@ -200,7 +207,7 @@ find =&gt; xargs ==&gt; cat 查找文件 到 处理文件内容
 find . -type f -name `&#34;*.txt&#34;` mkdir -p ./test ls . cp ./test ./test.backup ls ./ cd ./test touch test{1..3}.txt ls . ####The `sort` command is used to sort lines of text files. ####It&#39;s a handy tool for organizing data in files. ###vim 4_17.txt apples,1 kiwis,3 kiwis,4 oranges,3 banana,10
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-16 00:00:00 +0000 UTC'>April 16, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-16 00:00:00 +0000 UTC'>April 16, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2455 words</span></footer>
   <a class="entry-link" aria-label="post link to Linux Common Commands" href="http://localhost:1313/posts/2026-04-16-linux-commands/"></a>
 </article>
 
@@ -213,7 +220,7 @@ find . -type f -name `&#34;*.txt&#34;` mkdir -p ./test ls . cp ./test ./test.bac
     <p>目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器 Troubleshooting Record [devops@lb01 ~]$ sudo docker build -t nginx-image . [&#43;] Building 0.1s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.1s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 需要先创建一个文件/文件夹 [devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock 没有权限访问 socket 文件：/var/run/docker.sock 检查sock文件权限：660 / 666 将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。 [devops@lb01 ~/docker]$ docker build -t nginx-image . [&#43;] Building 0.0s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.0s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 显示没有文件/文件夹 尝试用文件夹建立dockerfile 发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了 docker images
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1259 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker--- Nodejs" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/"></a>
 </article>
 
@@ -225,20 +232,9 @@ find . -type f -name `&#34;*.txt&#34;` mkdir -p ./test ls . cp ./test ./test.bac
   <div class="entry-content">
     <p>探究yum源的混乱 更换yum源核心逻辑：注释metalink；更换国内的baseurl
 解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
-配置yum的目的： 直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 地理位置更近、带宽更高的镜像站 高可用：国内大厂的镜像站有极高的负载均衡，保证 7X24 小时不中断 版本一致性：使用私有的企业内部私有源保证服务器安装的 软件版本一致 /etc/yum.repos.d/ 文件拆解： 核心系统源（BaseOS， AppStream）： rocky.repo
-包含 linux内核，li，cp，ssh等操作系统生存必须的基础包
-必须改！！！
-官方拓展源 ( Extras, Plus)： rocky-extras.repo
-包含官方支持但不属于核心系统的插件
-建议改
-第三方社区源（ EPEL ）： epel.repo
-由 Federa 社区维护，提供很多红帽系官方不带的工具
-必须改
-repo 文件示例： [epel] # 仓库 ID name=Extra Packages for Enterprise Linux 9 # 仓库名称 # metalink=https://mirrors... # 自动寻找最快节点的地址（通常由于网络问题失效） baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ # 真正的下载地址 enabled=1 # 是否启用（1为启用） gpgcheck=1 # 是否校验签名（为了安全，必须为1） gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 # 校验用的公钥 Yum 源案例实践：
-First Step — 删除所有乱七八糟的 .repo 文件和备份文件
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1380 words</span></footer>
   <a class="entry-link" aria-label="post link to yum 进阶" href="http://localhost:1313/posts/2026-04-11-yum-advanced/"></a>
 </article>
 
@@ -250,7 +246,7 @@ First Step — 删除所有乱七八糟的 .repo 文件和备份文件
   <div class="entry-content">
     <p>接收方：钉钉 发送方：和风天气 API_HOST, WEBHOOK, API_KEY都在和风官方开发者后台里/头像首页 平台：Github托管代码 代码及解释（直接放在main分支）： import requests import json # ================= 配置区 ================= API_HOST = &#39;p34y3kvamv.re.qweatherapi.com&#39; # 你的控制台设置里 DINGTALK_WEBHOOK = 自己的 WEATHER_API_KEY = 自己的 CITY_ID = 天气api城市id #城市代码可自行查询当地天气代码 # ========================================== def get_weather(): &#34;&#34;&#34;获取和风天气数据&#34;&#34;&#34; url = f&#39;https://{API_HOST}/v7/weather/3d?location={CITY_ID}&#39; # 新版推荐将API KEY放在请求头中 headers = { &#39;X-QW-Api-Key&#39;: WEATHER_API_KEY } try: response = requests.get(url, headers=headers).json() if response[&#39;code&#39;] == &#39;200&#39;: today = response[&#39;daily&#39;][0] date = today[&#39;fxDate&#39;] temp_max = today[&#39;tempMax&#39;] temp_min = today[&#39;tempMin&#39;] text_day = today[&#39;textDay&#39;] wind_dir = today[&#39;windDirDay&#39;] uv_index = today[&#39;uvIndex&#39;] # 注意：正文中必须包含你在钉钉里设置的“自定义关键词”（如：天气） msg = f&#34;&#34;&#34;### 🌤️ 今日天气预报 **日期**：{date} **白天天气**：{text_day} **温度**：{temp_min}℃ ~ {temp_max}℃ **风向**：{wind_dir} **紫外线指数**：{uv_index} 祝你今天有个好心情！ &#34;&#34;&#34; return msg else: print(f&#34;获取天气失败，错误码：{response[&#39;code&#39;]}&#34;) return None except Exception as e: print(f&#34;请求发生异常: {e}&#34;) return None def send_to_dingtalk(msg_text): &#34;&#34;&#34;发送 Markdown消息到钉钉 &#34;&#34;&#34; headers = {&#39;Content-Type&#39;: &#39;application/json&#39;} data = { &#34;msgtype&#34;: &#34;markdown&#34;, &#34;markdown&#34;: { &#34;title&#34;: &#34;今日天气&#34;, &#34;text&#34;: msg_text } } response = requests.post(DINGTALK_WEBHOOK, headers=headers, data=json.dumps(data)) print(&#34;钉钉返回结果：&#34;, response.text) if __name__ == &#39;__main__&#39;: weather_info = get_weather() if weather_info: send_to_dingtalk(weather_info) 把yml文件放在workflows下： 代码： name: Daily Weather Bot on: schedule: - cron: &#39;30 23 * * *&#39; # 注意：这里是UTC时间！UTC的23:30相当于北京时间早上7:30。2000次最大/月 workflow_dispatch: # 允许手动点击运行 jobs: build: runs-on: ubuntu-latest steps: - uses: actions/checkout@v3 - name: Set up Python uses: actions/setup-python@v4 with: python-version: &#39;3.x&#39; - name: Install dependencies run: | python -m pip install --upgrade pip pip install requests - name: Run script run: python weather_bot.py #脚本名字 完成后每天7点半即可接收到钉钉消息！！！</p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-31 00:00:00 +0000 UTC'>March 31, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>728 words</span></footer>
   <a class="entry-link" aria-label="post link to 自动发送天气预报" href="http://localhost:1313/posts/2026-03-31-hefeng-dingding/"></a>
 </article>
 <footer class="page-footer">

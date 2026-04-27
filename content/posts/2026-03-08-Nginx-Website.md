@@ -2,7 +2,7 @@
 
 title: "Nginx--网站搭建"
 date: 2026-03-08
-categories: Nginx
+categories: ["Nginx"]
 
 ---
 

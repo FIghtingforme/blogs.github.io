@@ -2,7 +2,7 @@
 
 title: "Python自动下载整个网站的漫画 "
 date: 2026-03-20
-categories: Python
+categories: ["Python"]
 
 ---
 

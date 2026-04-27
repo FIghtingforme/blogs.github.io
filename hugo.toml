@@ -2,3 +2,44 @@ baseURL = 'https://github.fightingforme.top/'
 languageCode = 'zh-cn'
 theme = 'PaperMod'
 title = 'My SRE Knowledge Library'
+
+# 开启 CJK 语言支持，保证中文字数计算的绝对精准
+hasCJKLanguage = true
+
+# --- 全局导航栏配置 (Main Menu) ---
+[menu]
+  # 首页入口
+  [[menu.main]]
+    identifier = "home"
+    name = "首页"
+    url = "/"
+    weight = 10
+
+  # 分类入口 
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 20
+
+  # 标签入口 
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 30
+
+
+# 在具体文章内部补充
+
+[params]
+  ShowPostMeta = true     # 显示文章日期、字数等元数据
+  ShowPostNavLinks = true # 显示上一篇/下一篇文章链接
+
+  
+  # 强制显示字数统计 (Word Count)
+  ShowWordCount = true
+  
+  # 强制显示预计阅读时间 (Reading Time)
+  ShowReadingTime = true
+

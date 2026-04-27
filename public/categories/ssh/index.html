@@ -96,6 +96,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -113,11 +128,9 @@
   </header>
   <div class="entry-content">
     <p>SSH服务—Github 远程连接报错排查 远程连接到github时出现报错，不能连接 估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件 尝试： 删除原来的公钥，重新建一个在正确目录下 ssh-keygen -t ed25519 -C &#34;xxx@xxx.com&#34; 填自己邮箱，生成ssh密钥 将公钥内容复制到github中的ssh管理页面中添加公钥 成功后页面会有提示 - 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力 - 解决痛点： - - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥 - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！ 用私钥测试是否匹配： ssh -T -i ~/.ssh/id_rsa git@github.com 用git bash写在~/.ssh/config的内容： — 第 1 把钥匙：专门给个人的 GitHub 用 — Host github.com HostName github.com User git # 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub） IdentityFile ~/.ssh/id_ed25519
-Host gitee.com HostName gitee.com User git IdentityFile ~/.ssh/id_rsa_work
-Host vps HostName User root Port 22 IdentityFile ~/.ssh/id_rsa_vps
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-15 00:00:00 +0000 UTC'>March 15, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-15 00:00:00 +0000 UTC'>March 15, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>469 words</span></footer>
   <a class="entry-link" aria-label="post link to SSH 配置踩坑" href="http://localhost:1313/posts/2026-03-15-ssh-remote/"></a>
 </article>
     </main>

@@ -50,15 +50,7 @@
 HostName github.com
 User git
 # 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）
-IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;
-&lt;p&gt;Host gitee.com
-HostName gitee.com
-User git
-IdentityFile ~/.ssh/id_rsa_work&lt;/p&gt;
-&lt;p&gt;Host vps HostName
-User root
-Port 22
-IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;</description>
+IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -15,39 +15,7 @@
       <guid>http://localhost:1313/posts/2026-04-26-hugo-blog/</guid>
       <description>&lt;h3 id=&#34;jekyll-博客迁移为-hugo&#34;&gt;jekyll 博客迁移为 Hugo&lt;/h3&gt;
 &lt;h4 id=&#34;痛点hugo-对比-jekyll&#34;&gt;痛点：Hugo (对比 Jekyll)&lt;/h4&gt;
-&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;
-&lt;h4 id=&#34;1-zero-dependency&#34;&gt;1. Zero Dependency&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 &lt;code&gt;bundler&lt;/code&gt;、解决 &lt;code&gt;Gemfile&lt;/code&gt; 版本冲突。换台电脑经常跑不起来，让人非常崩溃。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 它是用 Go 语言编写的。Hugo 编译出来就是一个&lt;strong&gt;独立的二进制文件&lt;/strong&gt;。不需要装 Go 环境，不需要装任何依赖，下载那个 &lt;code&gt;.exe&lt;/code&gt; 或执行 &lt;code&gt;brew install hugo&lt;/code&gt;，立刻就能跑，极其干净。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;2-最快的静态网站生成器&#34;&gt;2. 最快的&lt;code&gt;静态网站生成器&lt;/code&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Jekyll 的痛点：&lt;/strong&gt; 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Hugo 的优势：&lt;/strong&gt; 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以&lt;strong&gt;毫秒&lt;/strong&gt;计算的。保存瞬间，渲染完成。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;3-极简的本地预览指令&#34;&gt;3. 极简的本地预览指令&lt;/h4&gt;
-&lt;p&gt;在 Hugo 中，只需要在博客根目录下敲下这一行命令：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# -D 参数表示同时渲染草稿 (Drafts)
-hugo server -D
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;本地实时更新： http://localhost:1313/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;jekyll-到-hugo-的企业级迁移-sop&#34;&gt;&lt;strong&gt;Jekyll 到 Hugo 的企业级迁移 SOP&lt;/strong&gt;：&lt;/h3&gt;
-&lt;h4 id=&#34;阶段一本地架构重组-directory-restructuring&#34;&gt;阶段一：本地架构重组 (Directory Restructuring)&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;1-清理历史包袱-drop-legacy-dependencies&#34;&gt;1. 清理历史包袱 (Drop Legacy Dependencies)&lt;/h4&gt;
-&lt;p&gt;既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。&lt;/p&gt;</description>
+&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Tailscale 组网实践</title>
@@ -411,81 +379,7 @@ Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.
 No match for argument: terraform
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;出现错误&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo
-Adding repo from: 
-Curl error (6): Couldn&amp;#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com]
-Error: Configuration of repo failed
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;网址fat-finger error，应该是&lt;code&gt;https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;开始排查----根据terraform官方安装步骤来&#34;&gt;开始排查：    根据Terraform官方安装步骤来&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-# Install `yum-config-manager` to manage your repositories.
-$ sudo yum install -y yum-utils
-
-
-# Use `yum-config-manager` to add the official HashiCorp RHEL repository.
-# 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum
-# 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了
-$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-
-
-# Install Terraform from the new repository.
-$ sudo yum -y install terraform
-
-# 输入terraform 显示则安装成功！！！
-[devops@lb01 ~]$ terraform
-Usage: terraform [global options] &amp;lt;subcommand&amp;gt; [args]
-
-The available commands for execution are listed below.
-The primary workflow commands are given first, followed by
-less common or more advanced commands.
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;iac-用-terraform-控制-docker-生成-nginx镜像网站并访问&#34;&gt;Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;新建一个空文件夹：&lt;code&gt;mkdir tf-docker-test &amp;amp;&amp;amp; cd tf-docker-test&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~]$ mkdir ./tf-docker-test &amp;amp;&amp;amp; cd ./tf-docker-test
-[devops@lb01 ~/tf-docker-test]$ ls
-[devops@lb01 ~/tf-docker-test]$ pwd
-/home/devops/tf-docker-test
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;新建一个 &lt;code&gt;main.tf&lt;/code&gt; 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-terraform {
-  required_providers {
-    docker = {
-      source  = &amp;#34;kreuzwerker/docker&amp;#34;
-      version = &amp;#34;~&amp;gt; 3.0&amp;#34;
-    }
-  }
-}
-
-provider &amp;#34;docker&amp;#34; {}
-
-resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
-  name         = &amp;#34;nginx:latest&amp;#34;
-  keep_locally = false
-}
-
-resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
-  image = docker_image.nginx.image_id
-  name  = &amp;#34;sre-tutorial-nginx&amp;#34;
-  ports {
-    internal = 80
-    external = 8080
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;依次敲下三个命令来构建docker并加载容器&#34;&gt;依次敲下三个命令来构建Docker并加载容器：&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;terraform init&lt;/code&gt;   (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)&lt;/p&gt;</description>
+&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;</description>
     </item>
     <item>
       <title>Linux Common Commands</title>
@@ -574,69 +468,7 @@ ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerf
       <guid>http://localhost:1313/posts/2026-04-11-yum-advanced/</guid>
       <description>&lt;h2 id=&#34;探究yum源的混乱&#34;&gt;探究yum源的混乱&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;更换yum源核心逻辑：注释metalink；更换国内的baseurl&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;配置yum的目的&#34;&gt;配置yum的目的：&lt;/h3&gt;
-&lt;h4 id=&#34;直接跨海访问国外会有极高的延迟和丢包率从而使用国内的镜像加速本质上是切换到了-地理位置更近带宽更高的镜像站&#34;&gt;直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 &lt;strong&gt;地理位置更近、带宽更高的镜像站&lt;/strong&gt;&lt;/h4&gt;
-&lt;h4 id=&#34;高可用国内大厂的镜像站有极高的负载均衡保证-7x24-小时不中断&#34;&gt;高可用：国内大厂的镜像站有极高的负载均衡，保证 &lt;strong&gt;7X24 小时不中断&lt;/strong&gt;&lt;/h4&gt;
-&lt;h4 id=&#34;版本一致性使用私有的企业内部私有源保证服务器安装的-软件版本一致&#34;&gt;版本一致性：使用私有的企业内部私有源保证服务器安装的 &lt;strong&gt;软件版本一致&lt;/strong&gt;&lt;/h4&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;etcyumreposd-文件拆解&#34;&gt;/etc/yum.repos.d/ 文件拆解：&lt;/h3&gt;
-&lt;h4 id=&#34;核心系统源baseos-appstream&#34;&gt;核心系统源（BaseOS， AppStream）：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;rocky.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;包含 linux内核，li，cp，ssh等操作系统生存必须的基础包&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;必须改！！！&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;官方拓展源--extras-plus&#34;&gt;官方拓展源 ( Extras, Plus)：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;rocky-extras.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;包含官方支持但不属于核心系统的插件&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;建议改&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;第三方社区源-epel-&#34;&gt;第三方社区源（ EPEL ）：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;epel.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;由 Federa 社区维护，提供很多红帽系官方不带的工具&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;必须改&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;repo-文件示例&#34;&gt;repo 文件示例：&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[epel] 
-# 仓库 ID 
-name=Extra Packages for Enterprise Linux 9 
-# 仓库名称 
-
-# metalink=https://mirrors... 
-# 自动寻找最快节点的地址（通常由于网络问题失效） 
-
-baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
-# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
-
-gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
-# 校验用的公钥
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;p&gt;Yum 源案例实践：&lt;/p&gt;
-&lt;p&gt;First Step &amp;mdash; 删除所有乱七八糟的 .repo 文件和备份文件&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>自动发送天气预报</title>
@@ -1152,47 +984,7 @@ python3 /to/your/DingDing.py
       <pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-21-ssh-pubkey/</guid>
       <description>&lt;h2 id=&#34;ssh开放高位端口以及免密钥匙登录&#34;&gt;==SSH开放高位端口以及免密钥匙登录==&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！&lt;/strong&gt; 所有的测试请在&lt;strong&gt;新开的终端窗口&lt;/strong&gt;中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。&lt;/p&gt;
-&lt;h2 id=&#34;以下是完整的操作步骤&#34;&gt;以下是完整的操作步骤：&lt;/h2&gt;
-&lt;h3 id=&#34;第一步确保你已经配置好了密钥登录&#34;&gt;第一步：确保你已经配置好了密钥登录&lt;/h3&gt;
-&lt;h4 id=&#34;在禁用密码登录之前你必须确保密钥登录已经可以成功使用&#34;&gt;在禁用密码登录之前，你必须确保密钥登录已经可以成功使用。&lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;如果你在本地还没有生成过密钥，请在&lt;strong&gt;本地电脑&lt;/strong&gt;终端执行：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh-keygen -t ed25519 -C &amp;#34;your_email@example.com&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;将公钥上传到服务器（把 user 和 ip 换成你的服务器账号和IP）：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh-copy-id user@ip
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;&lt;strong&gt;测试密钥登录&lt;/strong&gt;：新开一个终端，输入 ssh user@ip，如果不需要输入密码就能直接登入，说明密钥配置成功。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;第二步修改-ssh-配置文件&#34;&gt;第二步：修改 SSH 配置文件&lt;/h3&gt;
-&lt;p&gt;在服务器上，使用你熟悉的编辑器（如 vim 或 nano）编辑 sshd 服务器端配置文件：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo vim /etc/ssh/sshd_config
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;找到并修改以下三项内容（如果没有找到该项，或者前面有 # 注释符，请去掉 # 并修改）：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;修改端口&lt;/strong&gt;：找到 Port 22，将其修改为你想要的的高位端口（建议在 10000 - 65535 之间，例如 50022）：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Port 50022
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;&lt;strong&gt;禁用密码登录&lt;/strong&gt;：找到 PasswordAuthentication，将其修改为 no：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PasswordAuthentication no
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;确认开启密钥登录&lt;/strong&gt;：找到 PubkeyAuthentication，确保其为 yes：&lt;/p&gt;
-&lt;p&gt;codeText&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PubkeyAuthentication yes
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;保存并退出编辑器。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;第三步放行防火墙规则非常关键&#34;&gt;第三步：放行防火墙规则（非常关键）&lt;/h3&gt;
-&lt;p&gt;在重启 SSH 服务之前，必须在防火墙中放行你刚才设置的高位端口，否则你将被拦截在外面。&lt;br&gt;
-根据你的系统，选择对应的防火墙命令：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;如果是 Ubuntu / Debian (UFW):&lt;/strong&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！&lt;/strong&gt; 所有的测试请在&lt;strong&gt;新开的终端窗口&lt;/strong&gt;中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker简单配置</title>
@@ -1265,27 +1057,7 @@ docker rmi nginx
 &lt;h6 id=&#34;21控制通道敲门输密码发指令&#34;&gt;21控制通道：敲门，输密码，发指令&lt;/h6&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h6 id=&#34;主动模式&#34;&gt;主动模式：&lt;/h6&gt;
-&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;
-&lt;h6 id=&#34;被动模式passive-相对的&#34;&gt;被动模式(passive)： 相对的&lt;/h6&gt;
-&lt;p&gt;S开放随机高位端口&amp;amp;发给C,然后等待Client连接&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h4 id=&#34;配置实现&#34;&gt;配置实现：&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dnf install vsftpd y
-systemctl start vsftpd
-systemctl status vsftpd
-
-firewallcmd permanent addservice=ftp
-firewallcmd reload
-
-vim /etc/vsftpd/vsftpd.conf
-local_enables=YES
-write_enables=YES
-
-setenforce 0
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;大功告成最后&#34;&gt;大功告成！！！最后：&lt;/h5&gt;
-&lt;h5 id=&#34;win-下资源管理器输入&#34;&gt;win 下资源管理器输入：&lt;/h5&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ftp：//虚拟机IP
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;</description>
     </item>
     <item>
       <title>Python自动下载整个网站的漫画 </title>
@@ -1870,15 +1642,7 @@ else:
 HostName github.com
 User git
 # 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）
-IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;
-&lt;p&gt;Host gitee.com
-HostName gitee.com
-User git
-IdentityFile ~/.ssh/id_rsa_work&lt;/p&gt;
-&lt;p&gt;Host vps HostName
-User root
-Port 22
-IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;</description>
+IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;</description>
     </item>
     <item>
       <title>Github Pages绑定域名</title>
@@ -2038,46 +1802,7 @@ IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;</description>
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;2-nginx-配置&#34;&gt;2. Nginx 配置&lt;/h3&gt;
-&lt;p&gt;编辑配置文件：&lt;/p&gt;
-&lt;p&gt;vim /etc/nginx/conf.d/buy.fighting.top.conf&lt;/p&gt;
-&lt;p&gt;写入：&lt;/p&gt;
-&lt;p&gt;server {
-listen 80;
-server_name buy.fighting.top;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;root /app/code/buy;
-
-location / {
-    index index.html;
-}
-
-location /admin/ {
-    allow 172.16.1.0/24;
-    deny all;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;}
-3. 关键概念&lt;/p&gt;
-&lt;p&gt;URL&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://buy.fighting.top/admin&#34;&gt;http://buy.fighting.top/admin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;URI&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;/admin/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;URL = 域名 + URI
-&lt;!-- raw HTML omitted --&gt;
-&lt;strong&gt;Nginx 实际匹配的是 URI&lt;/strong&gt;&lt;/p&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;创建测试文件
-mkdir -p /app/code/buy/admin/&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;echo &amp;ldquo;购物网站&amp;rdquo; &amp;gt; /app/code/buy/index.html
-echo &amp;ldquo;admin&amp;rdquo; &amp;gt; /app/code/buy/admin/index.html
-5. 本地测试
-curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1
-curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1/admin/
-二、进阶：静态资源缓存优化&lt;/p&gt;</description>
+&lt;p&gt;编辑配置文件：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Nginx--网站搭建</title>

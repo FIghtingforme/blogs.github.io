@@ -66,69 +66,7 @@
       <guid>http://localhost:1313/posts/2026-04-11-yum-advanced/</guid>
       <description>&lt;h2 id=&#34;探究yum源的混乱&#34;&gt;探究yum源的混乱&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;更换yum源核心逻辑：注释metalink；更换国内的baseurl&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;配置yum的目的&#34;&gt;配置yum的目的：&lt;/h3&gt;
-&lt;h4 id=&#34;直接跨海访问国外会有极高的延迟和丢包率从而使用国内的镜像加速本质上是切换到了-地理位置更近带宽更高的镜像站&#34;&gt;直接跨海访问国外会有极高的延迟和丢包率，从而使用国内的镜像加速，本质上是切换到了 &lt;strong&gt;地理位置更近、带宽更高的镜像站&lt;/strong&gt;&lt;/h4&gt;
-&lt;h4 id=&#34;高可用国内大厂的镜像站有极高的负载均衡保证-7x24-小时不中断&#34;&gt;高可用：国内大厂的镜像站有极高的负载均衡，保证 &lt;strong&gt;7X24 小时不中断&lt;/strong&gt;&lt;/h4&gt;
-&lt;h4 id=&#34;版本一致性使用私有的企业内部私有源保证服务器安装的-软件版本一致&#34;&gt;版本一致性：使用私有的企业内部私有源保证服务器安装的 &lt;strong&gt;软件版本一致&lt;/strong&gt;&lt;/h4&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;etcyumreposd-文件拆解&#34;&gt;/etc/yum.repos.d/ 文件拆解：&lt;/h3&gt;
-&lt;h4 id=&#34;核心系统源baseos-appstream&#34;&gt;核心系统源（BaseOS， AppStream）：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;rocky.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;包含 linux内核，li，cp，ssh等操作系统生存必须的基础包&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;必须改！！！&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;官方拓展源--extras-plus&#34;&gt;官方拓展源 ( Extras, Plus)：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;rocky-extras.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;包含官方支持但不属于核心系统的插件&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;建议改&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;第三方社区源-epel-&#34;&gt;第三方社区源（ EPEL ）：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;epel.repo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;由 Federa 社区维护，提供很多红帽系官方不带的工具&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;必须改&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;repo-文件示例&#34;&gt;repo 文件示例：&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[epel] 
-# 仓库 ID 
-name=Extra Packages for Enterprise Linux 9 
-# 仓库名称 
-
-# metalink=https://mirrors... 
-# 自动寻找最快节点的地址（通常由于网络问题失效） 
-
-baseurl=https://mirrors.aliyun.com/epel/9/Everything/x86_64/ 
-# 真正的下载地址 enabled=1 # 是否启用（1为启用） 
-
-gpgcheck=1 # 是否校验签名（为了安全，必须为1） 
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9 
-# 校验用的公钥
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;p&gt;Yum 源案例实践：&lt;/p&gt;
-&lt;p&gt;First Step &amp;mdash; 删除所有乱七八糟的 .repo 文件和备份文件&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>FTP办公挂载文件夹</title>
@@ -150,27 +88,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9
 &lt;h6 id=&#34;21控制通道敲门输密码发指令&#34;&gt;21控制通道：敲门，输密码，发指令&lt;/h6&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h6 id=&#34;主动模式&#34;&gt;主动模式：&lt;/h6&gt;
-&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;
-&lt;h6 id=&#34;被动模式passive-相对的&#34;&gt;被动模式(passive)： 相对的&lt;/h6&gt;
-&lt;p&gt;S开放随机高位端口&amp;amp;发给C,然后等待Client连接&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h4 id=&#34;配置实现&#34;&gt;配置实现：&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dnf install vsftpd y
-systemctl start vsftpd
-systemctl status vsftpd
-
-firewallcmd permanent addservice=ftp
-firewallcmd reload
-
-vim /etc/vsftpd/vsftpd.conf
-local_enables=YES
-write_enables=YES
-
-setenforce 0
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;大功告成最后&#34;&gt;大功告成！！！最后：&lt;/h5&gt;
-&lt;h5 id=&#34;win-下资源管理器输入&#34;&gt;win 下资源管理器输入：&lt;/h5&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ftp：//虚拟机IP
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;</description>
     </item>
     <item>
       <title>内存告急，快加swap！！！</title>

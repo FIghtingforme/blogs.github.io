@@ -2,7 +2,7 @@
 
 title: "Docker "
 date: 2026-04-21
-categories: Docker
+categories: ["Docker"]
 
 ---
 

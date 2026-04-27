@@ -1,7 +1,7 @@
 ---
 title: "Rsync远程同步文件时的排错流程"
 date: 2026-03-05
-categories: Rsync
+categories: ["Rsync"]
 ---
 ### 配置Rsync服务：
 

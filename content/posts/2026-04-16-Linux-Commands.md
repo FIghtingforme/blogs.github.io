@@ -2,7 +2,7 @@
 
 date: 2026-04-16
 title: "Linux Common Commands"
-categories: Linux
+categories: ["Linux"]
 
 ---
 

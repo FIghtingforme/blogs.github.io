@@ -2,7 +2,7 @@
 
 date: 2026-04-18
 title:  "Bash Scripting Documetry"
-categories: Linux
+categories: ["Linux"]
 
 ---
 

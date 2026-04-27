@@ -96,6 +96,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -113,11 +128,9 @@
   </header>
   <div class="entry-content">
     <p>今天安装Terraform的时候突然安装不上的情况，于是开始排查： [devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y [sudo] password for devops: Sorry, try again. [sudo] password for devops: Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST. No match for argument: terraform 猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系
-出现错误
-ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo Adding repo from: Curl error (6): Couldn&#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com] Error: Configuration of repo failed 网址fat-finger error，应该是https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo 开始排查： 根据Terraform官方安装步骤来 # Install `yum-config-manager` to manage your repositories. $ sudo yum install -y yum-utils # Use `yum-config-manager` to add the official HashiCorp RHEL repository. # 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum # 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了 $ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo # Install Terraform from the new repository. $ sudo yum -y install terraform # 输入terraform 显示则安装成功！！！ [devops@lb01 ~]$ terraform Usage: terraform [global options] &lt;subcommand&gt; [args] The available commands for execution are listed below. The primary workflow commands are given first, followed by less common or more advanced commands. Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问 新建一个空文件夹：mkdir tf-docker-test &amp;&amp; cd tf-docker-test [devops@lb01 ~]$ mkdir ./tf-docker-test &amp;&amp; cd ./tf-docker-test [devops@lb01 ~/tf-docker-test]$ ls [devops@lb01 ~/tf-docker-test]$ pwd /home/devops/tf-docker-test 新建一个 main.tf 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）： terraform { required_providers { docker = { source = &#34;kreuzwerker/docker&#34; version = &#34;~&gt; 3.0&#34; } } } provider &#34;docker&#34; {} resource &#34;docker_image&#34; &#34;nginx&#34; { name = &#34;nginx:latest&#34; keep_locally = false } resource &#34;docker_container&#34; &#34;nginx&#34; { image = docker_image.nginx.image_id name = &#34;sre-tutorial-nginx&#34; ports { internal = 80 external = 8080 } } 依次敲下三个命令来构建Docker并加载容器： terraform init (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-18 00:00:00 +0000 UTC'>April 18, 2026</span>&nbsp;·&nbsp;<span>16 min</span>&nbsp;·&nbsp;<span>7921 words</span></footer>
   <a class="entry-link" aria-label="post link to Terraform Docker" href="http://localhost:1313/posts/2026-04-18-terraform-docker/"></a>
 </article>
     </main>

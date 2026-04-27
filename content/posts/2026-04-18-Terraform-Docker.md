@@ -2,7 +2,7 @@
 
 date: 2026-04-18
 title: "Terraform Docker"
-categories: terraform
+categories: ["terraform"]
 
 ---
 

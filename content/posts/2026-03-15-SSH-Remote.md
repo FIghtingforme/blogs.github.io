@@ -2,7 +2,7 @@
 
 date: 2026-03-15
 title: "SSH 配置踩坑"
-categories: SSH
+categories: ["SSH"]
 
 ---
 

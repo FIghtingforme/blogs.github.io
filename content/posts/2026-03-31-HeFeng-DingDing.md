@@ -2,7 +2,7 @@
 
 title: "自动发送天气预报"
 date: 2026-03-31
-categories: Python
+categories: ["Python"]
 
 ---
 #### 接收方：钉钉

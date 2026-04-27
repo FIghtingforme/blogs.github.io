@@ -22,46 +22,7 @@
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;2-nginx-配置&#34;&gt;2. Nginx 配置&lt;/h3&gt;
-&lt;p&gt;编辑配置文件：&lt;/p&gt;
-&lt;p&gt;vim /etc/nginx/conf.d/buy.fighting.top.conf&lt;/p&gt;
-&lt;p&gt;写入：&lt;/p&gt;
-&lt;p&gt;server {
-listen 80;
-server_name buy.fighting.top;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;root /app/code/buy;
-
-location / {
-    index index.html;
-}
-
-location /admin/ {
-    allow 172.16.1.0/24;
-    deny all;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;}
-3. 关键概念&lt;/p&gt;
-&lt;p&gt;URL&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://buy.fighting.top/admin&#34;&gt;http://buy.fighting.top/admin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;URI&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;/admin/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;URL = 域名 + URI
-&lt;!-- raw HTML omitted --&gt;
-&lt;strong&gt;Nginx 实际匹配的是 URI&lt;/strong&gt;&lt;/p&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;创建测试文件
-mkdir -p /app/code/buy/admin/&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;echo &amp;ldquo;购物网站&amp;rdquo; &amp;gt; /app/code/buy/index.html
-echo &amp;ldquo;admin&amp;rdquo; &amp;gt; /app/code/buy/admin/index.html
-5. 本地测试
-curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1
-curl -H &amp;ldquo;Host: buy.fighting.top&amp;rdquo; http://127.0.0.1/admin/
-二、进阶：静态资源缓存优化&lt;/p&gt;</description>
+&lt;p&gt;编辑配置文件：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Nginx--网站搭建</title>

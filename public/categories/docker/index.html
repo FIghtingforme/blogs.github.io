@@ -96,6 +96,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -115,7 +130,7 @@
     <p>Docker Commands docker pull redis:8. redis:8.0.6-alpine docker images [devops@lb01 ~/docker/redis]$ docker images IMAGE ID DISK USAGE CONTENT SIZE EXTRA my-nodejs:v1 954fdbfce62a 194MB 48.1MB U nginx:latest 7f0adca1fc6c 237MB 65.8MB U redis:8.0.6-alpine 5f61955be8ab 86.8MB 24.9MB U docker run -p 6000:3000 –name -d redis-example redis:8.0.6-alpine [devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name redis-example redis:8.0.6-alpine d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 8 seconds ago Up 7 seconds 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ ss -lntup Netid State Recv-Q Send-Q Local Address:Port Peer Address:Port Process udp UNCONN 0 0 127.0.0.1:323 0.0.0.0:* udp UNCONN 0 0 [::1]:323 [::]:* tcp LISTEN 0 4096 0.0.0.0:6000 0.0.0.0:* tcp LISTEN 0 511 0.0.0.0:80 0.0.0.0:* tcp LISTEN 0 128 0.0.0.0:22 0.0.0.0:* tcp LISTEN 0 4096 [::]:6000 [::]:* tcp LISTEN 0 511 [::]:80 [::]:* tcp LISTEN 0 128 [::]:22 [::]:* tcp LISTEN 0 32 *:21 *:* docker exec -it d7d16d237b5f /bin/bash [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash OCI runtime exec failed: exec failed: unable to start container process: exec: &#34;/bin/bash&#34;: stat /bin/bash: no such file or directory # 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内 [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # ls /data # pwd /data [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # cd / / # ls bin dev home media opt root sbin sys usr data etc lib mnt proc run srv tmp var / # env HOSTNAME=d7d16d237b5f SHLVL=1 HOME=/root OLDPWD=/data TERM=xterm PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin PWD=/ / # / # exit [devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh /data # curl /bin/sh: curl: not found Difference： docker ps / docker ps -a [devops@lb01 ~/docker/redis]$ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example [devops@lb01 ~/docker/redis]$ docker ps -a CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES d7d16d237b5f redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 31 minutes ago Up 31 minutes 6379/tcp, 0.0.0.0:6000-&gt;3000/tcp, [::]:6000-&gt;3000/tcp redis-example 37fb32f3b1f9 redis:8.0.6-alpine &#34;docker-entrypoint.s…&#34; 43 minutes ago Exited (0) 43 minutes ago redis-1 8ffc7554566c 7f0adca1fc6c &#34;/docker-entrypoint.…&#34; 31 hours ago Exited (0) 30 hours ago sre-tutorial-nginx e329c77b6133 my-nodejs:v1 &#34;docker-entrypoint.s…&#34; 3 days ago Exited (1) 30 hours ago web Docker Deploy the Demo Project Workflow with Docker: Push: js,Mongo DB ==&gt; Git ==&gt; Jenkins: Build JS APP &amp; Create Docker Image ==&gt; Docker Repository( Docker Hub ) Pull: From &#34;Docker Hub&#34; Developing with Containers need: JS and Node application, MongoDB Docker Container
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-21 00:00:00 +0000 UTC'>April 21, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-21 00:00:00 +0000 UTC'>April 21, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>755 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker " href="http://localhost:1313/posts/2026-04-21-docker-demo/"></a>
 </article>
 
@@ -128,7 +143,7 @@
     <p>目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器 Troubleshooting Record [devops@lb01 ~]$ sudo docker build -t nginx-image . [&#43;] Building 0.1s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.1s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 需要先创建一个文件/文件夹 [devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock 没有权限访问 socket 文件：/var/run/docker.sock 检查sock文件权限：660 / 666 将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。 [devops@lb01 ~/docker]$ docker build -t nginx-image . [&#43;] Building 0.0s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.0s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 显示没有文件/文件夹 尝试用文件夹建立dockerfile 发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了 docker images
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1259 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker--- Nodejs" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/"></a>
 </article>
 
@@ -141,7 +156,7 @@
     <p>Docker配置命令： # 1）先清理冲突包 dnf remove y podmandocker podman runc # 2）安装仓库管理工具 dnf y install dnfpluginscore # 3）添加 Docker 官方 RHEL 仓库 dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo # 4）安装 Docker dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin # 5）启动并设置开机自启 systemctl enable now docker # 6） 验证 docker version docker info 这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。 # 阶段 1：认识镜像 docker search nginx docker pull nginx docker images # 阶段 2：跑第一个容器 docker run d name mynginx p 80:80 nginx docker ps docker logs f mynginx docker exec it mynginx bash # 阶段 3：理解生命周期 docker stop mynginx docker start mynginx docker rm f mynginx # 阶段 4：练习镜像管理 docker image inspect nginx docker image save nginx &gt; nginx.tar docker image load i nginx.tar docker rmi nginx 报错点（环境被污染）：
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-03-20 00:00:00 +0000 UTC'>March 20, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>394 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker简单配置" href="http://localhost:1313/posts/2026-03-20-docker-junior/"></a>
 </article>
     </main>

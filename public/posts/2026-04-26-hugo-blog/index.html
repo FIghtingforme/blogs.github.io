@@ -9,39 +9,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="jekyll 博客迁移为 Hugo
 痛点：Hugo (对比 Jekyll)
-在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
-1. Zero Dependency
-
-
-Jekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
-
-
-Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
-
-
-2. 最快的静态网站生成器
-
-
-Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
-
-
-Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
-
-
-3. 极简的本地预览指令
-在 Hugo 中，只需要在博客根目录下敲下这一行命令：
-# -D 参数表示同时渲染草稿 (Drafts)
-hugo server -D
-
-本地实时更新： http://localhost:1313/
-
-Jekyll 到 Hugo 的企业级迁移 SOP：
-阶段一：本地架构重组 (Directory Restructuring)
-
-Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：
-
-1. 清理历史包袱 (Drop Legacy Dependencies)
-既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。">
+在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/2026-04-26-hugo-blog/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
@@ -129,6 +97,21 @@ Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的�
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -140,7 +123,7 @@ Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的�
     <h1 class="post-title entry-hint-parent">
       jekyll 博客迁移为 Hugo
     </h1>
-    <div class="post-meta"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span>
+    <div class="post-meta"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2198 words</span>
 
 </div>
   </header> 
@@ -416,6 +399,59 @@ jobs:
 	git commit -m &#34;chore: migrate from Jekyll to Hugo and setup CI/CD&#34;
 	git push origin main
 	
+</code></pre><ul>
+<li>修改categories：的内容为categories：[&ldquo;tools&rdquo;] 格式让hugo识别出来：</li>
+</ul>
+<pre tabindex="0"><code>
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ find content/posts/ -name &#34;*.md&#34; | xargs sed -i -E &#39;s/^categories:[[:space:]]*([a-zA-Z0-9_-]+)[[:space:]]*$/categories: [&#34;\1&#34;]/g&#39;
+</code></pre><ul>
+<li>
+<p>直接在浏览器的地址栏里输入并访问后端分类页面：
+<code>http://localhost:1313/categories/</code></p>
+</li>
+<li>
+<p>在 <code>hugo.toml</code> 文件追加前端显示功能：</p>
+</li>
+</ul>
+<pre tabindex="0"><code>
+# --- 全局导航栏配置 (Main Menu) ---
+[menu]
+  # 首页入口
+  [[menu.main]]
+    identifier = &#34;home&#34;
+    name = &#34;首页&#34;
+    url = &#34;/&#34;
+    weight = 10
+
+  # 分类入口 
+  [[menu.main]]
+    identifier = &#34;categories&#34;
+    name = &#34;分类&#34;
+    url = &#34;/categories/&#34;
+    weight = 20
+
+  # 标签入口 
+  [[menu.main]]
+    identifier = &#34;tags&#34;
+    name = &#34;标签&#34;
+    url = &#34;/tags/&#34;
+    weight = 30
+
+
+# 在具体文章内部补充
+
+[params] # 开启文章元数据展示（日期、字数等） 
+	
+	hasCJKLanguage = true   # 开启 CJK 语言支持，保证中文字数计算的绝对精准
+	ShowPostMeta = true     # 显示文章日期、字数等元数据
+	ShowPostNavLinks = true # 显示上一篇/下一篇文章链接
+	
+	
+	
+	ShowPostMeta = true # 强制显示字数统计 (Word Count) 
+	ShowWordCount = true # 强制显示预计阅读时间 (Reading Time) 
+	ShowReadingTime = true
 </code></pre>
 
   </div>
@@ -423,6 +459,13 @@ jobs:
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/2026-04-25-tailscale/">
+    <span class="title">Next »</span>
+    <span>Tailscale 组网实践</span>
+  </a>
+</nav>
+
   </footer>
 </article>
     </main>

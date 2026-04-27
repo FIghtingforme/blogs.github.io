@@ -2,7 +2,7 @@
 
 title: "Github Pages绑定域名"
 date: 2026-03-12
-categories: Github
+categories: ["Github"]
 
 ---
 

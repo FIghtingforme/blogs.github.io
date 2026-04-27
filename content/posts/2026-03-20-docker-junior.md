@@ -1,7 +1,7 @@
 ---
 title: "Docker简单配置"
 date: 2026-03-20
-categories: Docker
+categories: ["Docker"]
 ---
 
 #### Docker配置命令：

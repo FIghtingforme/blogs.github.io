@@ -96,6 +96,21 @@
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -113,15 +128,9 @@
   </header>
   <div class="entry-content">
     <p>jekyll 博客迁移为 Hugo 痛点：Hugo (对比 Jekyll) 在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
-1. Zero Dependency Jekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
-Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
-2. 最快的静态网站生成器 Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
-Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
-3. 极简的本地预览指令 在 Hugo 中，只需要在博客根目录下敲下这一行命令：
-# -D 参数表示同时渲染草稿 (Drafts) hugo server -D 本地实时更新： http://localhost:1313/ Jekyll 到 Hugo 的企业级迁移 SOP： 阶段一：本地架构重组 (Directory Restructuring) Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作： 1. 清理历史包袱 (Drop Legacy Dependencies) 既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span></footer>
+  <footer class="entry-footer"><span title='2026-04-26 00:00:00 +0000 UTC'>April 26, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>1863 words</span></footer>
   <a class="entry-link" aria-label="post link to jekyll 博客迁移为 Hugo" href="http://localhost:1313/posts/2026-04-26-hugo-blog/"></a>
 </article>
     </main>

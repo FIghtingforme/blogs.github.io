@@ -2,7 +2,7 @@
 
 date: 2026-04-11
 title: "yum 进阶"
-categories: system
+categories: ["system"]
 
 ---
 

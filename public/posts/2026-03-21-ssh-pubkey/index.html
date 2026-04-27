@@ -8,47 +8,7 @@
 <title>SSH安全密钥设置 | My SRE Knowledge Library</title>
 <meta name="keywords" content="">
 <meta name="description" content="==SSH开放高位端口以及免密钥匙登录==
-极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！ 所有的测试请在新开的终端窗口中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。
-以下是完整的操作步骤：
-第一步：确保你已经配置好了密钥登录
-在禁用密码登录之前，你必须确保密钥登录已经可以成功使用。
-
-如果你在本地还没有生成过密钥，请在本地电脑终端执行：
-
-ssh-keygen -t ed25519 -C &#34;your_email@example.com&#34;
-
-将公钥上传到服务器（把 user 和 ip 换成你的服务器账号和IP）：
-
-ssh-copy-id user@ip
-
-测试密钥登录：新开一个终端，输入 ssh user@ip，如果不需要输入密码就能直接登入，说明密钥配置成功。
-
-
-第二步：修改 SSH 配置文件
-在服务器上，使用你熟悉的编辑器（如 vim 或 nano）编辑 sshd 服务器端配置文件：
-sudo vim /etc/ssh/sshd_config
-找到并修改以下三项内容（如果没有找到该项，或者前面有 # 注释符，请去掉 # 并修改）：
-
-修改端口：找到 Port 22，将其修改为你想要的的高位端口（建议在 10000 - 65535 之间，例如 50022）：
-
-Port 50022
-
-禁用密码登录：找到 PasswordAuthentication，将其修改为 no：
-
-PasswordAuthentication no
-
-
-确认开启密钥登录：找到 PubkeyAuthentication，确保其为 yes：
-codeText
-
-
-PubkeyAuthentication yes
-保存并退出编辑器。
-
-第三步：放行防火墙规则（非常关键）
-在重启 SSH 服务之前，必须在防火墙中放行你刚才设置的高位端口，否则你将被拦截在外面。
-根据你的系统，选择对应的防火墙命令：
-如果是 Ubuntu / Debian (UFW):">
+极度重要提示：在进行以下操作时，请务必全程保持当前 SSH 连接不断开！ 所有的测试请在新开的终端窗口中进行。如果配置有误，你可以使用未断开的原窗口进行修改挽救，否则你可能会被彻底锁在服务器外面。">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/2026-03-21-ssh-pubkey/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
@@ -136,6 +96,21 @@ PubkeyAuthentication yes
             </div>
         </div>
         <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -147,7 +122,7 @@ PubkeyAuthentication yes
     <h1 class="post-title entry-hint-parent">
       SSH安全密钥设置
     </h1>
-    <div class="post-meta"><span title='2026-03-21 00:00:00 +0000 UTC'>March 21, 2026</span>
+    <div class="post-meta"><span title='2026-03-21 00:00:00 +0000 UTC'>March 21, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1004 words</span>
 
 </div>
   </header> 
@@ -233,6 +208,17 @@ sudo firewall-cmd --reload
   <footer class="post-footer">
     <ul class="post-tags">
     </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/2026-03-31-dingding/">
+    <span class="title">« Prev</span>
+    <span>钉钉自动巡检告警--磁盘空间</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/2026-03-20-docker-junior/">
+    <span class="title">Next »</span>
+    <span>Docker简单配置</span>
+  </a>
+</nav>
+
   </footer>
 </article>
     </main>
