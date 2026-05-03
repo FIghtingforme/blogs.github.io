@@ -119,6 +119,18 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">电话号码和 E-mail 提取器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>提取电话和邮箱 导入库 import re, pyperclip 创建手机号正则表达式(手机号格式) phoneRegex = re.compile(r&#39;\d{3}\S?\d{4}\S?\d{4}&#39;) 创建邮箱正则表达式（邮箱格式） emailRegex = re.compile(r&#39;&#39;&#39;( [a-zA-Z0-9._%&#43;-] &#43; # 用户名部分 \S # @ 符号 [a-zA-Z0-9.-] &#43; # 域名部分 (\.[a-zA-Z]{2,4}) # 最后的后缀 (.com/.cn) )&#39;&#39;&#39;, re.VERBOSE) 从剪贴板获取文本 text = str(pyperclip.paste()) 提取匹配项 matches = [] for groups in phoneRegex.findall(text): matches.append(groups) #纯文本内容，所有全部加入 for groups in emailRegex.findall(text): matches.append(groups[0]) #最外层大括号内容全部加入 将结果存回剪贴板 if len(matches) &gt; 0: pyperclip.copy(&#39;\n&#39;.join(matches)) print(&#39;提取成功，已存入剪贴板！&#39;) else: print(&#39;未发现电话或邮箱。&#39;) </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>205 words</span></footer>
+  <a class="entry-link" aria-label="post link to 电话号码和 E-mail 提取器" href="http://localhost:1313/posts/2026-03-19-email-number/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">内存告急，快加swap！！！
     </h2>
   </header>
@@ -227,18 +239,6 @@
   </div>
   <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>145 words</span></footer>
   <a class="entry-link" aria-label="post link to SSHD 远程工具连接失败" href="http://localhost:1313/posts/2026-03-03-sshd-remote-connect/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">用Alist实现挂载本地
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Alist云盘挂载: - 去官网尝试下载Alist到指定目录 - 在alist.exe目录执行命令: .\alist.exe server - 开启本地服务端口: start server @ 0.0.0.0:5244 - 通过本机地址访问Cloud_list:	http://127.0.0.0:5244 - 默认用户名:admin,密码==切记自行保存==(后续可更改username&amp;&amp;passwd) 若访问不成功可查看: 是否开启服务（访问时要一直开启服务） 若不想每次都手动开启服务可自行在运行中输入tasksch.msc打开任务计划程序添加任务: - 步骤： - 创建任务 - 不管是否登录都开启 - 触发器可设置登陆时 - &#34;改用电池电源选项&#34; 也可✔ 后续还有其他设备远程访问通过本地服务，感兴趣可自行研究</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>290 words</span></footer>
-  <a class="entry-link" aria-label="post link to 用Alist实现挂载本地" href="http://localhost:1313/posts/2026-03-03-alist-mount/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

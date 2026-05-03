@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Regex | My SRE Knowledge Library</title>
+<title>Posts | My SRE Knowledge Library</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="Posts - My SRE Knowledge Library">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/tags/regex/">
+<link rel="canonical" href="http://localhost:1313/posts/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/regex/index.xml" title="rss">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/regex/">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/">
 <noscript>
     <style>
         #theme-toggle,
@@ -117,22 +117,40 @@
 <main class="main"> 
 <header class="page-header">
   <h1>
-    Regex
+    Posts
   </h1>
 </header>
 
-<article class="post-entry tag-entry"> 
+<article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Regex
+    <h2 class="entry-hint-parent">用Alist实现挂载本地
     </h2>
   </header>
   <div class="entry-content">
-    <p>What is a regular expression (or regex)? Wikipedia defines regular expressions as: “a sequence of characters that define a search pattern” They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).
-...</p>
+    <p>Alist云盘挂载: - 去官网尝试下载Alist到指定目录 - 在alist.exe目录执行命令: .\alist.exe server - 开启本地服务端口: start server @ 0.0.0.0:5244 - 通过本机地址访问Cloud_list:	http://127.0.0.0:5244 - 默认用户名:admin,密码==切记自行保存==(后续可更改username&amp;&amp;passwd) 若访问不成功可查看: 是否开启服务（访问时要一直开启服务） 若不想每次都手动开启服务可自行在运行中输入tasksch.msc打开任务计划程序添加任务: - 步骤： - 创建任务 - 不管是否登录都开启 - 触发器可设置登陆时 - &#34;改用电池电源选项&#34; 也可✔ 后续还有其他设备远程访问通过本地服务，感兴趣可自行研究</p>
   </div>
-  <footer class="entry-footer"><span title='2026-04-27 20:10:00 +0800 CST'>April 27, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1387 words</span></footer>
-  <a class="entry-link" aria-label="post link to Regex" href="http://localhost:1313/posts/2026-04-27-regex/"></a>
+  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>290 words</span></footer>
+  <a class="entry-link" aria-label="post link to 用Alist实现挂载本地" href="http://localhost:1313/posts/2026-03-03-alist-mount/"></a>
 </article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Nginx 软链接升级流程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>创建nginx软链接 #替换 从而让用户实现无感 - 源码编译安装： - 获取源码： - wget http://nginx…… -P /root/test/ - 在/root/test/nginx-1.20下解压 - tar -zxvf /root/test/nginx-1.20.tar.gz -C /root/test/nginx_1.20/ - 编译源码： - 在/root/test/nginx_1.20/nginx1.20 下 ./configure --prefix=/root/test/nginx_1.20 - make - make install - 当前目录下可看到configure文件 - 在前一个目录检查： - /root/test/nginx-1.24/sbin/nginx -v - 之前已经创建的软链接： - ln -s /root/test/nginx-1.20 /usr/local/nginx - 源文件是在源码编译后的目录 - /usr/local/nginx -&gt; /root/test/nginx-1.20 当前软链接 - 确认nginx正在运行：ps -ef | grep nginx - ls -l /usr/local/nginx 软链接指向 - 备份软链接指向的路径 #防止出错回退 - cp -r /usr/local/nginx /root/test/nginx-backup-1.20 - 物理备份 - 创建新的源码 - 编译安装 - 建立新的软链接 --- - 方案A： - 直接覆盖原链接（用户不中断） - ln -sfn /root/test/nginx-1.22 /usr/local/nginx - -f 如果存在旧链接则覆盖 - -n 处理目标是目录时不进入目录 - 立即指向新版本 - 如果新版本异常 #立即回滚 - ln -sfn /root/test/nginx-1.20_backup /usr/local/nginx - /usr/local/nginx/sbin/nginx -s reload - 方案B： - 创建新链接 - 停nginx/reload后切换 - systemctl stop nginx - mv /usr/local/nginx /usr/local/nginx_backup - mv /usr/local/nginx1.22 /usr/local/nginx - systemctl start nginx </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-24 00:00:00 +0000 UTC'>February 24, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>409 words</span></footer>
+  <a class="entry-link" aria-label="post link to Nginx 软链接升级流程" href="http://localhost:1313/posts/2026-02-24-nginx-softlink-upgrade/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="http://localhost:1313/posts/page/3/">
+      «&nbsp;Prev&nbsp;
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

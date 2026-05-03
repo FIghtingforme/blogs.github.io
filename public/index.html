@@ -119,6 +119,20 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">网络工程师
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>让不同网段下的pc互通： 拓扑图： pc1： pc2： AR2220配置 0/0/0接口：192.168.10.1/24
+0/0/1接口：192.168.20.1/24
+[Huawei]interface giga	[Huawei]interface GigabitEthernet 0/0/0[Huawei-GigabitEthernet0/0/0]ip address 192.168.10.1 24May 3 2026 18:52:02-08:00 Huawei %%01IFNET/4/LINK_STATE(l)[0]:The line protocolIP on the interface GigabitEthernet0/0/0 has entered the UP state. [Huawei-GigabitEthernet0/0/0]undo shutdownInfo: Interface GigabitEthernet0/0/0 is not shutdown.[Huawei-GigabitEthernet0/0/0]q[Huawei]q&lt;Huawei&gt;saveThe current configuration will be written to the device. Are you sure to continue? (y/n)[n]:yIt will take several minutes to save configuration file, please wait.......Configuration file had been saved successfullyNote: The configuration file will take effect after being activated&lt;Huawei&gt;sysEnter system view, return user view with Ctrl&#43;Z.[Huawei]inter	[Huawei]interface giga	[Huawei]interface GigabitEthernet 0/0/1[Huawei-GigabitEthernet0/0/1]ip add	[Huawei-GigabitEthernet0/0/1]ip address 192.168.20.1 24May 3 2026 18:53:06-08:00 Huawei %%01IFNET/4/LINK_STATE(l)[1]:The line protocolIP on the interface GigabitEthernet0/0/1 has entered the UP state. [Huawei-GigabitEthernet0/0/1][Huawei-GigabitEthernet0/0/1]q[Huawei]q&lt;Huawei&gt;saveThe current configuration will be written to the device. Are you sure to continue? (y/n)[n]:yIt will take several minutes to save configuration file, please wait.......Configuration file had been saved successfullyNote: The configuration file will take effect after being activated 测试两台pc间连通性： pc1 ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-05-03 20:00:00 +0800 CST'>May 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>267 words</span></footer>
+  <a class="entry-link" aria-label="post link to 网络工程师" href="http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Regex
     </h2>
   </header>
@@ -235,20 +249,6 @@ find . -type f -name `&#34;*.txt&#34;` mkdir -p ./test ls . cp ./test ./test.bac
   </div>
   <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1259 words</span></footer>
   <a class="entry-link" aria-label="post link to Docker--- Nodejs" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">yum 进阶
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>探究yum源的混乱 更换yum源核心逻辑：注释metalink；更换国内的baseurl
-解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-04-11 00:00:00 +0000 UTC'>April 11, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1380 words</span></footer>
-  <a class="entry-link" aria-label="post link to yum 进阶" href="http://localhost:1313/posts/2026-04-11-yum-advanced/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
