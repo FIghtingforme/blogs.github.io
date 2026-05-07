@@ -6,199 +6,102 @@
     <description>Recent content in Linux on My SRE Knowledge Library</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 18 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 20:10:00 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Regex</title>
+      <link>http://localhost:1313/posts/2026-04-27-regex/</link>
+      <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2026-04-27-regex/</guid>
+      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;
+&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Regex</title>
+      <link>http://localhost:1313/posts/2026-05-07-enterprise-devices/</link>
+      <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2026-05-07-enterprise-devices/</guid>
+      <description>&lt;h3 id=&#34;打印机&#34;&gt;打印机&lt;/h3&gt;
+&lt;p&gt;企业复合机支持热插拔（Hot-Swap）架构。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;开盖：&lt;/strong&gt; 机器报“缺粉”时，直接在开机状态下打开前盖。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;拔出：&lt;/strong&gt; 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Bash Scripting Documetry</title>
       <link>http://localhost:1313/posts/2026-04-18-bash-scripting/</link>
       <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-18-bash-scripting/</guid>
       <description>&lt;h2 id=&#34;bash-scripting&#34;&gt;Bash Scripting&lt;/h2&gt;
-&lt;h3 id=&#34;bash-bourne-again-shell&#34;&gt;Bash: &amp;ldquo;Bourne Again Shell&amp;rdquo;&lt;/h3&gt;
-&lt;h3 id=&#34;shell-programming-using-other-common-shells-such-as-sh-csh-tcsh-will-also-be-referenced-as-they-sometime-differ-from-bash&#34;&gt;Shell programming using other common shells such as sh, csh, tcsh, will also be referenced, as they sometime differ from bash.&lt;/h3&gt;
-&lt;h3 id=&#34;shell-programming-can-be-accomplished-by-directly-executing-shell-commands-at-the-shell-prompt-or-by-storing-them-in-the-order-of-execution-in-a-text-file-called-a-shell-script-and-then-executing-the-shell-script-to-execute-simply-write-the-shell-script-file-name-once-the-file-has-execute-permission-chmod-x-filename&#34;&gt;Shell programming can be accomplished by directly executing shell commands at the shell prompt or by storing them in the order of execution, in a text file, called a shell script, and then executing the shell script. To execute, simply write the shell script file name, once the file has execute permission (chmod +x filename).&lt;/h3&gt;
-&lt;h3 id=&#34;the-first-line-of-the-shell-script-file-begins-with-a-sha-bang--which-is-not-read-as-a-comment-followed-by-the-full-path-where-the-shell-interpreter-is-located-this-path-tells-the-operating-system-that-this-file-is-a-set-of-commands-to-be-fed-into-the-interpreter-indicated-note-that-if-the-path-given-at-the-sha-bang-is-incorrect-then-an-error-message-eg-command-not-found-may-be-the-result-of-the-script-execution-it-is-common-to-name-the-shell-script-with-the-sh-extension-the-first-line-may-look-like-this&#34;&gt;The first line of the shell script file begins with a &amp;ldquo;sha-bang&amp;rdquo; (#!) which is not read as a comment, followed by the full path where the shell interpreter is located. This path, tells the operating system that this file is a set of commands to be fed into the interpreter indicated. Note that if the path given at the &amp;ldquo;sha-bang&amp;rdquo; is incorrect, then an error message e.g. &amp;ldquo;Command not found.&amp;rdquo;, may be the result of the script execution. It is common to name the shell script with the &amp;ldquo;.sh&amp;rdquo; extension. The first line may look like this:&lt;/h3&gt;
+&lt;h3 id=&#34;bash-bourne-again-shell&#34;&gt;Bash: &lt;code&gt;Bourne Again Shell&lt;/code&gt;&lt;/h3&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;bash-syntax-for-scripting&#34;&gt;Bash Syntax for Scripting&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+Bash scripts are sequences of commands executed by the Bash shell. 
+They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;basic-syntax&#34;&gt;Basic Syntax&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Here are some basic rules for using Bash in scripts:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+Comments: Comments start with a # and Bash ignores them.
+Command Order: Commands run one after the other, from top to bottom.
+Semicolons: Use ; to run multiple commands on the same line.
+Let&amp;#39;s go through them one by one with examples.
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;this-script-prints-a-greeting-message&#34;&gt;This script prints a greeting message&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+  [devops@lb01 ~]$ # This script prints a greeting message!
+  [devops@lb01 ~]$ echo &amp;#34;hello!!&amp;#34;
+  echo &amp;#34;hello# This script prints a greeting message!&amp;#34;
+  hello# This script prints a greeting message!
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;best-practices-for-writing-scripts&#34;&gt;Best Practices for Writing Scripts&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Here are some tips for writing clean and efficient scripts:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+  Use comments to explain your code.
+  Choose meaningful variable names.
+  Test your scripts thoroughly before using them in production.
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;introduction-to-bash-scripting&#34;&gt;Introduction to Bash Scripting&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Bash scripts are files containing commands that you run in the terminal.&lt;/li&gt;
+&lt;li&gt;They automate tasks and make your work more efficient.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;creating-a-bash-script&#34;&gt;Creating a Bash Script&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;To create a script, start with the shebang &lt;code&gt;#!&lt;/code&gt; followed by the path to Bash, usually &lt;code&gt;/bin/bash&lt;/code&gt;. Make sure your script has execute permissions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;example-simple-bash-script&#34;&gt;Example: Simple Bash Script&lt;/h4&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
 #!/bin/bash
-# Adding comments: any text following the &amp;#34;#&amp;#34; is considered a comment
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;to-find-out-what-is-currently-active-shell-and-what-is-its-path-type-the-highlighted-command-at-the-shell-prompt-sample-responses-follow&#34;&gt;To find out what is currently active shell, and what is its path, type the highlighted command at the shell prompt (sample responses follow):&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~]$ ps | grep $$
- 185152 pts/1    00:00:00 bash
- 
- # This response shows that the shell you are using is of type &amp;#39;bash&amp;#39;. 
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;next-find-out-the-full-path-of-the-shell-interpreter&#34;&gt;next find out the full path of the shell interpreter&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~]$ which bash
-/usr/bin/bash
-
-# This response shows the full execution path of the shell interpreter. 
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;make-sure-that-the-sha-bang--line-at-the-beginning-of-your-script-matches-this-same-execution-path&#34;&gt;Make sure that the &amp;ldquo;sha-bang&amp;rdquo; (#!) line at the beginning of your script, matches this same execution path:&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ ls
-111  first.sh  server_performance_stats
-[devops@lb01 ~/scripts/shell]$   &amp;gt;  111
-[devops@lb01 ~/scripts/shell]$   &amp;gt;  first.sh
--bash: first.sh: Permission denied
-# It&amp;#39;s not available to clear the bash file 
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;to edit the first.sh&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-#!/usr/bin/bash
-echo &amp;#34;hello world&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;output:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ less  ./first.sh
-[devops@lb01 ~/scripts/shell]$ sh ./first.sh
-hello world
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h3 id=&#34;variables&#34;&gt;==Variables==&lt;/h3&gt;
-&lt;h4 id=&#34;shell-variables-are-created-once-they-are-assigned-a-value-a-variable-can-contain-a-number-a-character-or-a-string-of-characters-variable-name-is-case-sensitive-and-can-consist-of-a-combination-of-letters-and-the-underscore-_-value-assignment-is-done-using-the--sign-note-that-no-space-permitted-on-either-side-of--sign-when-initializing-variables&#34;&gt;Shell variables are created once they are assigned a value. A variable can contain a number, a character or a string of characters. Variable name is case sensitive and can consist of a combination of letters and the underscore &amp;ldquo;_&amp;rdquo;. Value assignment is done using the &amp;ldquo;=&amp;rdquo; sign. Note that no space permitted on either side of = sign when initializing variables.&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
-[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
-[devops@lb01 ~/scripts/shell]$ greeting=&amp;#39;hello          world!&amp;#39;
-
-# Referencing the variables
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;a-backslash--is-used-to-escape-special-character-meaning&#34;&gt;A backslash &lt;code&gt;\&lt;/code&gt; is used to escape special character meaning&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ PRICE_PER_APPLE=5
-[devops@lb01 ~/scripts/shell]$ echo &amp;#34;The price of an Apple today is: \$HK $PRICE_PER_APPLE&amp;#34;
-The price of an Apple today is: $HK 5
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;encapsulating-the-variable-name-with--is-used-to-avoid-ambiguity&#34;&gt;Encapsulating the variable name with ${} is used to avoid ambiguity&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ MyFirstLetters=ABC
-[devops@lb01 ~/scripts/shell]$ echo &amp;#34;The first 10 letters in the alphabet are: ${MyFirstLetters}DEFGHIJKL&amp;#34;
-The first 10 letters in the alphabet are: ABCDEFGHIJKL
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;encapsulating-the-variable-name-with--will-preserve-any-white-space-values&#34;&gt;Encapsulating the variable name with &amp;quot;&amp;quot; will preserve any white space values&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ greeting=&amp;#34;hello    world&amp;#34;
-[devops@lb01 ~/scripts/shell]$ echo $greeting&amp;#34; now with spaces: $greeting&amp;#34;
-hello world now with spaces: hello    world
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;variables-can-be-assigned-with-the-value-of-a-command-output-this-is-referred-to-as-substitution-substitution-can-be-done-by-encapsulating-the-command-with--known-as-back-ticks-or-with-&#34;&gt;Variables can be assigned with the value of a command output. This is referred to as substitution. Substitution can be done by encapsulating the command with `` (known as back-ticks) or with $()&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ FileList=$(ls)
-[devops@lb01 ~/scripts/shell]$ $(ls)
--bash: 111: command not found
-[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/bin/date +^C
-[devops@lb01 ~/scripts/shell]$ which date
-/usr/bin/date
-
-[devops@lb01 ~/scripts/shell]$ which date
-/usr/bin/date
-[devops@lb01 ~/scripts/shell]$ FileWithTimeStamp=/tmp/my-dir/file_$(/usr/bin/date +%Y-%m-%d).txt
-
-# Note that when the script runs, it will run the command inside the $() parenthesis and capture its output.
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;exercise&#34;&gt;Exercise&lt;/h4&gt;
-&lt;h5 id=&#34;the-target-of-this-exercise-is-to-create-a-string-an-integer-and-a-complex-variable-using-command-substitution-the-string-should-be-named-birthdate-and-should-contain-the-text-jan-1-2000-the-integer-should-be-named-presents-and-should-contain-the-number-10-the-complex-variable-should-be-named-birthday-and-should-contain-the-full-weekday-name-of-the-day-matching-the-date-in-variable-birthdate-eg-saturday&#34;&gt;The target of this exercise is to create a string, an integer, and a complex variable using command substitution. The string should be named BIRTHDATE and should contain the text &amp;ldquo;Jan 1, 2000&amp;rdquo;. The integer should be named Presents and should contain the number 10. The complex variable should be named BIRTHDAY and should contain the full weekday name of the day matching the date in variable BIRTHDATE e.g. Saturday.&lt;/h5&gt;
+# This script prints a greeting message
+echo &amp;#34;Hello, World!&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;using-variables-in-scripts&#34;&gt;Using Variables in Scripts&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Note that the &amp;lsquo;date&amp;rsquo; command can be used to convert a date format into a different date format. For example, to convert date value, $date1, to day of the week of date1, use:&lt;/li&gt;
+&lt;li&gt;Variables store data that your script can use. Assign values using the &lt;code&gt;=&lt;/code&gt; sign without spaces.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h4 id=&#34;example-using-variables&#34;&gt;Example: Using Variables&lt;/h4&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-date -d &amp;#34;$date1&amp;#34; +%A
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;You can use Shell Check to detective your codes.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[devops@lb01 ~]$ name=&amp;#34;dslfaj&amp;#34;
+[devops@lb01 ~]$ echo &amp;#34;hello,$name&amp;#34;
+hello,dslfaj
+
+======================================
 #!/bin/bash
-
-set -euo pipefail
-
-BIRTHDATE=&amp;#34;Jan 1, 2000&amp;#34;
-
-Presents=10
-
-BIRTHDAY=$(date -d &amp;#34;$BIRTHDATE&amp;#34; +%A)
-
-
-# BIRTHDATE:
-if [ &amp;#34;$BIRTHDATE&amp;#34; == &amp;#34;Jan 1, 2000&amp;#34; ]; then
-  echo &amp;#34;BIRTHDATE is correct,it is $BIRTHDATE&amp;#34;
-else
-  echo &amp;#34;BIRTHDATE is incorrect,try again!&amp;#34;
-fi
-
-# Presents:
-if [ &amp;#34;$Presents&amp;#34; == 10 ]; then
-  echo &amp;#34;I have received $Presents presents&amp;#34;
-else
-  echo &amp;#34;Presents is incorrect,plz try again!&amp;#34;
-fi
-
-# BIRTHDAY:
-if [ &amp;#34;$BIRTHDAY&amp;#34; == &amp;#34;Saturday&amp;#34; ]; then
-  echo &amp;#34;I was born on a $BIRTHDAY&amp;#34;
-else
-  echo &amp;#34;BIRTHDAY is incorrect,plz try again!&amp;#34;
-fi
-
-
-##############################################
-# output:
-[devops@lb01 ~/scripts/shell]$ sh ./Birthday.sh
-BIRTHDATE is correct,it is Jan 1, 2000
-I have received 10 presents
-I was born on a Saturday
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h3 id=&#34;passing-arguments-to-the-script&#34;&gt;==Passing Arguments to the Script==&lt;/h3&gt;
-&lt;h4 id=&#34;arguments-can-be-passed-to-the-script-when-it-is-executed-by-writing-them-as-a-space-delimited-list-following-the-script-file-name&#34;&gt;Arguments can be passed to the script when it is executed, by writing them as a space-delimited list following the script file name.&lt;/h4&gt;
-&lt;h4 id=&#34;inside-the-script-the-1-variable-references-the-first-argument-in-the-command-line-2-the-second-argument-and-so-forth-the-variable-0-references-to-the-current-script-in-the-following-example-the-script-name-is-followed-by-6-arguments&#34;&gt;Inside the script, the $1 variable references the first argument in the command line, $2 the second argument and so forth. The variable $0 references to the current script. In the following example, the script name is followed by 6 arguments.&lt;/h4&gt;
-&lt;h4 id=&#34;example&#34;&gt;Example&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;4_17.sh file contains below code&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-#!/bin/bash
-echo &amp;#34;File name is $0&amp;#34;
-echo $3
-Data=$5
-echo &amp;#34;A $Data costs just $6.&amp;#34;
-echo $#
-echo $@
-
-############################################
-# The variable $# holds the number of arguments passed to the script
-
-# The variable $@ holds a space delimited string of all arguments passed to the script
-
-# output:
-[devops@lb01 ~/scripts/shell]$ sh ./4_17.sh apple 5 banana 8 &amp;#34;Fruit Basket&amp;#34; 15
-File name is ./4_17.sh
-banana
-A Fruit Basket costs just 15.
-6
-apple 5 banana 8 Fruit Basket 15
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;exercise-1&#34;&gt;Exercise&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Pass &amp;ldquo;Shell is fun&amp;rdquo; (3 arguments) to the script(prog.sh) as an arguments and print the length of the arguments.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-#!/usr/bin/bash
-
-function File {
-  echo $#
-}
-
-if [ ! $# -lt 1 ]; then
-  File &amp;#34;$@&amp;#34;
-  exit 0
-fi
-
-#####################################################
-# output:
-3
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h3 id=&#34;arrays&#34;&gt;Arrays&lt;/h3&gt;
-&lt;h4 id=&#34;an-array-can-hold-several-values-under-one-name-array-naming-is-the-same-as-variables-naming-an-array-is-initialized-by-assign-space-delimited-values-enclosed-in-&#34;&gt;An array can hold several values under one name. Array naming is the same as variables naming. An array is initialized by assign space-delimited values enclosed in ()&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/scripts/shell]$ my_array=(apple banana &amp;#34;a pear&amp;#34;)
-[devops@lb01 ~/scripts/shell]$ new_array[2]=apricot
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Array members need not be consecutive or contiguous. Some members of the array can be left uninitialized.&lt;/p&gt;</description>
+# Assign a value to a variable 
+name=&amp;#34;World&amp;#34; 
+echo &amp;#34;Hello, $name!&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bashvariables&#34;&gt;Bash Variables&lt;/h3&gt;
+&lt;h4 id=&#34;understanding-variables-in-bash&#34;&gt;Understanding Variables in Bash&lt;/h4&gt;
+&lt;p&gt;Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session.
+Bash variables are untyped, meaning they can hold any type of data.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Linux Common Commands</title>

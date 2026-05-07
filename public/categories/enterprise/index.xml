@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Enterprise on My SRE Knowledge Library</title>
+    <link>http://localhost:1313/categories/enterprise/</link>
+    <description>Recent content in Enterprise on My SRE Knowledge Library</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 May 2026 18:40:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/enterprise/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/posts/2026-05-07-enterprise-devices/</link>
+      <pubDate>Thu, 07 May 2026 18:40:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/2026-05-07-enterprise-devices/</guid>
+      <description>&lt;h3 id=&#34;打印机&#34;&gt;打印机&lt;/h3&gt;
+&lt;p&gt;企业复合机支持热插拔（Hot-Swap）架构。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;开盖：&lt;/strong&gt; 机器报“缺粉”时，直接在开机状态下打开前盖。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;拔出：&lt;/strong&gt; 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

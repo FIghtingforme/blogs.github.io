@@ -111,6 +111,16 @@
                     <span>标签</span>
                 </a>
             </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于我">
+                    <span>关于我</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/incident-runbook/" title="TroubleShooting">
+                    <span>TroubleShooting</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -120,6 +130,19 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Python--机器人自动备份文件到自动递增ZIP 
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>项目背景： 将/app/config 目录下的配置文件备份一下，免得一会更新代码搞坏了。 于是熟练地敲下：tar -czvf config_bak_20260318.tar.gz /app/config。 过了半小时，因为改错地方需要再备份一次只能再敲一次，并且小心翼翼地把文件名改成 config_bak_20260318_v2.tar.gz，生怕覆盖了上一个版本。 解决方案： 通过Python编写’自动备份机器人‘；只需要告诉他要备份哪个文件夹，即可自动扫描里面所有文件并递自动增生成版本号，将其安全压缩成 ZIP 文件 准备： Python自带的两个强大标准库： os：用于进入文件夹 ，遍历文件，检查文件是否存在 zipfile：用于创建和写入 ZIP 压缩包 流程图： 接收文件夹路径 ==&gt; 检查当前目录 ==&gt; 备份并剔除重复文件名 代码及解释： import zipfile import os def backupToZip(folder): # 1. 确保传入的文件夹路径是绝对路径 folder = os.path.abspath(/root/frp) # 提取文件夹的名字，比如 &#39;/var/log/nginx&#39; 会提取出 &#39;nginx&#39; folder_name = os.path.basename(folder) # 2. 自动判定版本号 (核心逻辑) number = 1 while True: # 拼接即将生成的 ZIP 文件名 zip_filename = f&#39;{folder_name}_backup_V{number}.zip&#39; # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环 if not os.path.exists(zip_filename): break # 如果存在，编号加 1，继续找下一个 import zipfile import os #import sys def backupToZip(folder): &#34;&#34;&#34; 将整个文件夹的内容备份到一个带有递增版本号的 ZIP 文件中。 &#34;&#34;&#34; # 1. 确保传入的文件夹路径是绝对路径 folder = os.path.abspath(folder) # 提取文件夹的名字，比如 &#39;/var/log/nginx&#39; 会提取出 &#39;nginx&#39; folder_name = os.path.basename(folder) # 2. 自动判定版本号 (核心逻辑) number = 1 while True: # 拼接即将生成的 ZIP 文件名 zip_filename = f&#39;{folder_name}_backup_{number}.zip&#39; # 如果这个文件不存在，说明我们找到了一个可用的新版本号！跳出循环 if not os.path.exists(zip_filename): break # 如果存在，编号加 1，继续找下一个 number = number &#43; 1 # 3. 创建 ZIP 压缩文件 print(f&#39;备份机器人正在创建备份归档: {zip_filename} ...&#39;) backup_zip = zipfile.ZipFile(zip_filename, &#39;w&#39;, zipfile.ZIP_DEFLATED) # 4. 遍历目录树并添加到 ZIP 文件中 # os.walk 会像剥洋葱一样，一层层遍历文件夹里的所有内容 for foldername, subfolders, filenames in os.walk(folder): print(f&#39;正在添加文件夹: {foldername} ...&#39;) # 把当前文件夹本身加进压缩包 backup_zip.write(foldername) # 把当前文件夹里的所有文件加进压缩包 for filename in filenames: # 安全防范：防止脚本把刚刚生成的 ZIP 包自己也打包进去（无限套娃） if filename.startswith(f&#39;{folder_name}_backup_&#39;) and filename.endswith(&#39;.zip&#39;): continue # 获取文件的绝对路径并写入压缩包 file_path = os.path.join(foldername, filename) backup_zip.write(file_path) # 5. 收工关门 backup_zip.close() print(f&#39;报告老板，备份完成！已成功生成：{zip_filename}&#39;) # ================= 运行区 ================= if __name__ == &#39;__main__&#39;: # if len(sys.argv) &lt; 2: # print(&#34;用法错误！请在命令后面加上你要备份的文件夹路径。&#34;) # print(&#34;例如： python backup.py /var/log/nginx/error.log&#34;) # target_folder = sys.argv[1] # 假设我们要备份有/root/aaa这个路径文件夹 target_folder = &#39;/root/aaa&#39; if os.path.exists(target_folder): backupToZip(target_folder) else: print(f&#34;找不到文件夹: {target_folder}，请检查路径！&#34;) 注意：sys库可以让别人引用脚本变得方便
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-19 00:00:00 +0000 UTC'>March 19, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1063 words</span></footer>
+  <a class="entry-link" aria-label="post link to Python--机器人自动备份文件到自动递增ZIP " href="http://localhost:1313/posts/2026-03-19-zip/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -231,18 +254,6 @@
   </div>
   <footer class="entry-footer"><span title='2026-03-04 00:00:00 +0000 UTC'>March 4, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>362 words</span></footer>
   <a class="entry-link" aria-label="post link to Rocky9忘记密码--紧急救援" href="http://localhost:1313/posts/2026-03-04-rocky9-resume/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">SSHD 远程工具连接失败
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>关闭SElinux: - getenforce 查看SEllinux - setenforce 0	临时关闭测试 关闭防火墙: systemctl stop firewalld	重启网卡: systemctl restart NetworkManager 查看ip: - 输入:ip a - 若ip更改则在shell输入nmtui 命令编辑 kali系统下: powershell 下 ssh -v root@192.168.1.104 #输出详细模式,用于调试 提示:The fingerprint for the ECDSA key sent by the remote host is Host key verification failed. 解决方法: ssh-keygen -R 192.168.1.104 自动删除旧指纹 </p>
-  </div>
-  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>145 words</span></footer>
-  <a class="entry-link" aria-label="post link to SSHD 远程工具连接失败" href="http://localhost:1313/posts/2026-03-03-sshd-remote-connect/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

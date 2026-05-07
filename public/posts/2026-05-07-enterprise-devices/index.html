@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Enterprise Devices | My SRE Knowledge Library</title>
+<meta name="keywords" content="Devices">
+<meta name="description" content="打印机
+企业复合机支持热插拔（Hot-Swap）架构。
+
+
+开盖： 机器报“缺粉”时，直接在开机状态下打开前盖。
+
+
+拔出： 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/2026-05-07-enterprise-devices/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2026-05-07-enterprise-devices/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="My SRE Knowledge Library (Alt + H)">My SRE Knowledge Library</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于我">
+                    <span>关于我</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/incident-runbook/" title="TroubleShooting">
+                    <span>TroubleShooting</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Enterprise Devices
+    </h1>
+    <div class="post-meta"><span title='2026-05-07 18:40:00 +0800 CST'>May 7, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>849 words</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h3 id="打印机">打印机<a hidden class="anchor" aria-hidden="true" href="#打印机">#</a></h3>
+<p>企业复合机支持热插拔（Hot-Swap）架构。</p>
+<ol>
+<li>
+<p><strong>开盖：</strong> 机器报“缺粉”时，直接在开机状态下打开前盖。</p>
+</li>
+<li>
+<p><strong>拔出：</strong> 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。</p>
+</li>
+<li>
+<p><strong>摇匀（关键动作）：</strong> 拿出新的碳粉盒，<strong>左右水平摇晃 5-6 下</strong>。因为碳粉是物理颗粒，长时间静置会结块，摇匀是为了防止打印出白条。</p>
+</li>
+<li>
+<p><strong>推入：</strong> 顺着轨道推到底，关上门。</p>
+</li>
+<li>
+<p><strong>等待自检：</strong> 机器屏幕会提示“正在补充碳粉”，电机转动一两分钟后，自动恢复打印。全程对用户无感。</p>
+</li>
+</ol>
+<hr>
+<h3 id="ip-电话与视频会议连不上网络与协议层排障">IP 电话与视频会议连不上（网络与协议层排障）<a hidden class="anchor" aria-hidden="true" href="#ip-电话与视频会议连不上网络与协议层排障">#</a></h3>
+<h4 id="1-ip-电话voip排障逻辑">1. IP 电话（VoIP）排障逻辑<a hidden class="anchor" aria-hidden="true" href="#1-ip-电话voip排障逻辑">#</a></h4>
+<p>IP 电话本质上就是一台只有一块小屏幕的“Linux 微型电脑”。</p>
+<ul>
+<li>
+<p><strong>电源层（L1）：</strong> 绝大多数企业 IP 电话<strong>没有电源插头</strong>！它们使用的是 <strong>PoE（以太网供电）</strong> 交换机。如果电话黑屏不开机，第一步不是找插座，而是去机房看对应的交换机端口灯亮不亮，或者网线是不是断了。</p>
+</li>
+<li>
+<p><strong>网络层（L2/L3）：</strong> 企业的交换机里通常划分了 <strong>Voice VLAN（语音专网）</strong>。如果一台电脑能上网，但拔下这根网线插到电话上却打不通，通常是因为交换机端口没有配置正确的 Voice VLAN ID，导致电话无法获取语音网段的 DHCP 地址。</p>
+</li>
+<li>
+<p><strong>应用层（L7）：</strong> 如果屏幕亮了，也有 IP 地址，但是打不出电话。这就去检查 <strong>SIP 注册状态</strong>。这说明电话没有成功连接到总部的 Call Manager（呼叫中心服务器），这时候才需要你去 Ping 语音服务器的 IP 看通不通。</p>
+</li>
+</ul>
+<hr>
+<h3 id="视频会议设备如-polycom-宝利通罗技华为-te-等">视频会议设备（如 Polycom 宝利通、罗技、华为 TE 等）<a hidden class="anchor" aria-hidden="true" href="#视频会议设备如-polycom-宝利通罗技华为-te-等">#</a></h3>
+<p>视频会议设备的故障，90% 集中在两个极端：<strong>最底层的物理线缆，和最顶层的防火墙策略。</strong></p>
+<ul>
+<li>
+<p><strong>物理 I/O 故障（最常见）：</strong> “会议室没声音/没图像！”
+过去一看，HDMI 线被上一个开会的人拔了，或者麦克风阵列的线被保洁阿姨扫地时碰掉了。
+所以排障第一步：<strong>永远先顺着设备把所有物理线缆摸一遍，按紧。</strong></p>
+</li>
+<li>
+<p><strong>防火墙 UDP 阻断：</strong> 视频会议走的是极其消耗带宽的 UDP 视频流。如果设备能连上网，但是加入会议后“黑屏”或者“听不到对方声音”，极大概率是公司的边缘防火墙（Firewall）没有放行特定的音视频端口（比如 UDP 10000-20000 段）。这时候你只需收集好设备的 IP 和目标会议室的 IP，把工单丢给网络安全组去开通策略即可。</p>
+</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/devices/">Devices</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/">
+    <span class="title">Next »</span>
+    <span>网络工程师</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">My SRE Knowledge Library</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

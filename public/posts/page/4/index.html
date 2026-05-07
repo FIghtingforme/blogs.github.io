@@ -111,6 +111,16 @@
                     <span>标签</span>
                 </a>
             </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于我">
+                    <span>关于我</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/incident-runbook/" title="TroubleShooting">
+                    <span>TroubleShooting</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -120,6 +130,18 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">SSHD 远程工具连接失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>关闭SElinux: - getenforce 查看SEllinux - setenforce 0	临时关闭测试 关闭防火墙: systemctl stop firewalld	重启网卡: systemctl restart NetworkManager 查看ip: - 输入:ip a - 若ip更改则在shell输入nmtui 命令编辑 kali系统下: powershell 下 ssh -v root@192.168.1.104 #输出详细模式,用于调试 提示:The fingerprint for the ECDSA key sent by the remote host is Host key verification failed. 解决方法: ssh-keygen -R 192.168.1.104 自动删除旧指纹 </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-03 00:00:00 +0000 UTC'>March 3, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>145 words</span></footer>
+  <a class="entry-link" aria-label="post link to SSHD 远程工具连接失败" href="http://localhost:1313/posts/2026-03-03-sshd-remote-connect/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">

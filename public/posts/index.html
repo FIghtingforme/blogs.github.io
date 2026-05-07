@@ -111,6 +111,16 @@
                     <span>标签</span>
                 </a>
             </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于我">
+                    <span>关于我</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/incident-runbook/" title="TroubleShooting">
+                    <span>TroubleShooting</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -120,6 +130,21 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Enterprise Devices
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>打印机 企业复合机支持热插拔（Hot-Swap）架构。
+开盖： 机器报“缺粉”时，直接在开机状态下打开前盖。
+拔出： 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-05-07 18:40:00 +0800 CST'>May 7, 2026</span>&nbsp;·&nbsp;<span>2 min</span>&nbsp;·&nbsp;<span>849 words</span></footer>
+  <a class="entry-link" aria-label="post link to Enterprise Devices" href="http://localhost:1313/posts/2026-05-07-enterprise-devices/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -240,19 +265,6 @@ find . -type f -name `&#34;*.txt&#34;` mkdir -p ./test ls . cp ./test ./test.bac
   </div>
   <footer class="entry-footer"><span title='2026-04-16 00:00:00 +0000 UTC'>April 16, 2026</span>&nbsp;·&nbsp;<span>17 min</span>&nbsp;·&nbsp;<span>8064 words</span></footer>
   <a class="entry-link" aria-label="post link to Linux Common Commands" href="http://localhost:1313/posts/2026-04-16-linux-commands/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Docker--- Nodejs
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器 Troubleshooting Record [devops@lb01 ~]$ sudo docker build -t nginx-image . [&#43;] Building 0.1s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.1s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 需要先创建一个文件/文件夹 [devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock 没有权限访问 socket 文件：/var/run/docker.sock 检查sock文件权限：660 / 666 将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。 [devops@lb01 ~/docker]$ docker build -t nginx-image . [&#43;] Building 0.0s (1/1) FINISHED docker:default =&gt; [internal] load build definition from Dockerfile 0.0s =&gt; =&gt; transferring dockerfile: 2B 0.0s ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory 显示没有文件/文件夹 尝试用文件夹建立dockerfile 发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了 docker images
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-04-15 00:00:00 +0000 UTC'>April 15, 2026</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1259 words</span></footer>
-  <a class="entry-link" aria-label="post link to Docker--- Nodejs" href="http://localhost:1313/posts/2026-04-15-docker-nodejs/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
