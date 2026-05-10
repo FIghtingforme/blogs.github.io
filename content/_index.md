@@ -8,7 +8,7 @@ type: "docs"
 
 ### 构建高可用架构，沉淀自动化运维最佳实践。
 
-- 个人技术Vault
+- Self Technical Vault
 - 排错日常更新！！
 
 ---
@@ -20,7 +20,7 @@ type: "docs"
 {{< cards >}}
   {{< card link="/incident-runbook/" title="🚑 应急排障手册 (Runbook)" subtitle="生产环境故障处理 SOP 与踩坑记录" >}}
   {{< card link="/blog/" title="📝 技术博客模块" subtitle="关于架构设计、云原生与效能优化的深度思考" >}}
-  {{< card link="/blog/Devops_Skill/" title="⚙️ DevOps 实践" subtitle="CI/CD 流水线、IaC 与自动化运维脚本" >}}
+  {{< card link="/blog/devops_skill/" title="⚙️ DevOps 实践" subtitle="CI/CD 流水线、IaC 与自动化运维脚本" >}}
   {{< card link="/blog/about/" title="👨‍💻 关于作者" subtitle="了解我的履历、技术栈与联系方式" >}}
 {{< /cards >}}
 
