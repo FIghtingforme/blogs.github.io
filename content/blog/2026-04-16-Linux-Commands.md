@@ -12,24 +12,24 @@ categories: ["Linux"]
 
 #### Commands:
 
-```
+```bash
 
 ls  cp  find  |  xargs  cat  |  grep  |  sort  |  uniq  >  >>
 
-```
+```bash
 
 串联命令：
 
-```
+```bash
 
 find  =>  xargs  ==>  cat
 
-```
+```bash
 
 
 查找文件 到  处理文件内容   
 
-```
+```bash
 
 find . -type f -name `"*.txt"`
 
@@ -53,7 +53,7 @@ ls .
 
 ####It's a handy tool for organizing data in files.
 
-```
+```bash
 ###vim  4_17.txt
 apples,1
 kiwis,3
@@ -92,7 +92,7 @@ apples,1
 
 ######################################################
 
-```
+```bash
 
 
 ####man ls (for more help.)
@@ -100,7 +100,7 @@ apples,1
 
 ####Alian:To create an alias, use the syntax `alias name='command'`, where `name` is the shortcut you want to use, and `command` is the full command you want to run.
 
-```
+```bash
 
 [devops@lb01 ~/scripts/shell]$ alias ll='ls -la'
 [devops@lb01 ~/scripts/shell]$ ll
@@ -128,11 +128,11 @@ Your branch is up to date with 'origin/main'.
 nothing to commit, working tree clean
 
 ############################################
-```
+```bash
 
 ####To copy a file to a remote host, use `scp file user@hostname:/path`:
 
-```
+```bash
 [devops@lb01 ~/scripts/shell]$ scp ./4_17.sh root@10.0.0.6:/
 root@10.0.0.6's password:
 4_17.sh                                       100%  247   115.1KB/s   00:00
@@ -149,16 +149,16 @@ anaconda-ks.cfg  DingDing_py  python.py  ZipFile.py
 lib64
 
 #Congratuate,it's successful!!!
-```
+```bash
 
 
 
 ####Clear the file contents:
 
-```
+```bash
 [devops@lb01 ~/scripts/shell]$  > ./4_17.txt
 [devops@lb01 ~/scripts/shell]$
-```
+```bash
 
 ---
 
@@ -167,7 +167,7 @@ lib64
 
 ####It's useful for handling text files and used for data extraction and reporting.
 
-```
+```bash
 #Edit the file:
 id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
@@ -184,7 +184,7 @@ id
 3
 4
 
-```
+```bash
 
 ---
 
@@ -194,7 +194,7 @@ id
 ####It's a powerful tool for making quick edits to files or streams of data.
 
 
-```
+```bash
 #edit the file:
 id,Created,Amount,Currency,Description,Customer
 1,2024-11-01,100,USD,Payment,John Doe
@@ -214,7 +214,7 @@ id,Created,Amount,Currency,Description,Customer
 
 #################################################
 
-```
+```bash
 
 
 ####Options
@@ -237,7 +237,7 @@ The `sed` command has options to change how it works:
 
 - By default, `sed` prints each line of input to the output. Using `-n` allows you to control which lines are printed, typically with the `p` command.
 
-```
+```bash
 
 [devops@lb01 ~/test]$ sed -n 's/sa/saaaa/p' ./test1.txt
 saaaafj
@@ -257,7 +257,7 @@ safj
 salj
 aslkj
 
-```
+```bash
 
 
 ####Extended Regular Expressions
@@ -266,7 +266,7 @@ aslkj
 
 - Without this option, `sed` uses basic regular expressions.
 
-```
+```bash
 
 #text
 safj
@@ -279,7 +279,7 @@ aaaa
 aaaa
 aslkj
 
-```
+```bash
 
 
 ####Script from a File
@@ -290,7 +290,7 @@ aslkj
 
 
 
-```
+```bash
 
 #Content of `script.sed` file:  
 s/salj/saaalj/g
@@ -308,7 +308,7 @@ safj
 saaalj
 aslkj
 
-```
+```bash
 
 ####Specify Line Length
 
@@ -316,7 +316,8 @@ aslkj
 
 - This option is useful for formatting output when dealing with long lines.
 
-```
+
+```bash
 
 #text:
 alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
@@ -332,7 +333,7 @@ alfjioaj#\
 $%$
 alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 
-```
+```bash
 
 - This option appends a `$` at the end of each line to indicate the end of the line.
 - 默认 `$` 换行,即使指定宽度 -1 N 也要遵守。
@@ -343,7 +344,7 @@ alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 - To save the changes made by `sed` to a file, you can redirect the output to a new file. This is useful when you don't want to overwrite the `original file` .
 
 
-```
+```bash
 
 #sed 's/a/aaaaaa/g' ./test1.txt > ./test2.txt
 
@@ -351,7 +352,7 @@ alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 [devops@lb01 ~/test]$ less ./test2.txt
 aaaaaalfjioaaaaaaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 
-```
+```bash
 
 
 ####Using `sed` for Advanced Text Processing
@@ -359,7 +360,7 @@ aaaaaalfjioaaaaaaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
 - Sed can perform advanced text processing tasks. For example, `sed 's/^/Prefix: /' example_text.txt` adds a prefix to each line.
 
 
-```
+```bash
 
 #text:
 alfjioaj#!$ 5345 $%#joi540238709@%%9 345%$$( lkj435 %$%
@@ -374,7 +375,7 @@ prefix: safdsafsd
 prefix: arewg
 prefix: fdsbsfdg
 
-```
+```bash
 
 ####Common Errors and Troubleshooting
 
@@ -388,9 +389,11 @@ prefix: fdsbsfdg
 
 ###rmdir
 
-```
+```bash
+
  `rmdir` is a command-line utility used to remove empty directories. It's a straightforward tool that helps in cleaning up directory structures by deleting directories that no longer contain any files or subdirectories. The command will return an error if the directory is not empty.
-```
+
+```bash
 
 
 
@@ -402,23 +405,27 @@ prefix: fdsbsfdg
 
 ####All examples below use the `example.txt` file:
 
-```
+```bash
+
 Kai Refsnes 30,Norway 
 Robin Smith 25,Denmark 
 Sienna Davis 40,Germany
-```
+
+```bash
 
 
 ####Basic Usage
 
 - To extract the first field of a file, use `cut -f1 example.txt`:
 
-```
+```bash
+
 [devops@lb01 ~]$ cut -f1 example.txt
 Kai
 Robin
 Sienna
-```
+
+```bash
 
 - By default, `cut` uses a tab as the delimiter.
 
@@ -435,7 +442,7 @@ Sienna
 
 - The `-d` option allows you to choose what separates the fields.
 
-```
+```bash
 #text:
 Kai     Refsnes 30,Norway
 Robin   Smith   25,Denmark
@@ -445,13 +452,13 @@ Sienna  Davis   40,Germany
 Norway
 Denmark
 Germany
-```
+```bash
 
 ####Select Specific Fields
 
 - The `-f` option allows you to select specific fields to display.
 
-```
+```bash
 #text:
 Kai     Refsnes 30,Norway
 Robin   Smith   25,Denmark
@@ -463,14 +470,14 @@ Kai     Refsnes
 Robin   Smith
 Sienna  Davis
 
-```
+```bash
 
 
 ####Show Complement
 
 The `--complement` option allows you to show all fields except the selected ones.
 
-```
+```bash
 
 #text:
 Kai     Refsnes 30,Norway
@@ -483,7 +490,7 @@ Refsnes 30,Norway
 Smith   25,Denmark
 Davis   40,Germany
 
-```
+```bash
 
 
 
@@ -494,7 +501,7 @@ Davis   40,Germany
 - For example, `cut -d   -f2-3 example_data.txt` extracts fields 2 through 3 from the file.
 
 
-```
+```bash
 
 #text:
 
@@ -507,7 +514,7 @@ Sienna  Davis   40,Germany
 Robin   Smith   25,Denmark
 Sienna  Davis   40,Germany
 
-```
+```bash
 
 
 
@@ -548,13 +555,15 @@ Sienna  Davis   40,Germany
 
 - The basic syntax of the `tail` command is:
 
-```bash
+```bashbash
+
 tail [OPTION]... [FILE]...
-```
+
+```bash
 
 ### Example
 
-```
+```bash
 
 [devops@lb01 ~]$ tail /etc/passwd
 sssd:x:998:997:User for sssd:/:/sbin/nologin
@@ -568,7 +577,7 @@ sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
 nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
-```
+```bash
 
 
 #### Options
@@ -591,7 +600,7 @@ sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
 #### Example: Display Last 5 Lines
 
-```
+```bash
 
 [devops@lb01 ~]$ tail -n 5 /etc/passwd
 devops:x:1002:1002::/home/devops:/bin/bash
@@ -600,7 +609,7 @@ sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
 nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
-```
+```bash
 
 #### Option: -f
 
@@ -608,7 +617,7 @@ The `-f` option is used to follow a file as it grows, which is particularly us
 
 #### Example: Follow Log File
 
-```
+```bash
 
 
 [devops@lb01 ~]$ tail -f /etc/passwd
@@ -623,7 +632,7 @@ sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
 nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
-```
+```bash
 
 
 #### Option: -c [number]
@@ -632,7 +641,7 @@ sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
 #### Example: Display Last 20 Bytes
 
-```
+```bash
 
 [devops@lb01 ~]$ tail -c 20 /etc/passwd
 share:/sbin/nologin
@@ -642,7 +651,7 @@ sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
 nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
-```
+```bash
 
 
 #### Option: --pid=[pid]
@@ -653,7 +662,7 @@ The `--pid` option terminates tailing after the process with the given PID die
 
 - 可以在另一个终端用vim新开文件，ps -ef 获取vim的进程号，用他的进程号来taile --pid /etc/passwd，当vim关闭时进程号消失随即tail 不再运行
 
-```
+```bash
 
 [devops@lb01 ~]$ ps -ef | grep 310599
 devops    310599  310521  0 12:33 pts/1    00:00:00 vim ./aaa.txt
@@ -673,7 +682,7 @@ sync_runner:x:996:994::/opt/alist_sync:/sbin/nologin
 nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
-```
+```bash
 
 #### Option: --retry
 
@@ -681,7 +690,7 @@ sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 
 #### Example: Retry Opening File
 
-```
+```bash
 
 [devops@lb01 ~]$ tail --retry /etc/passwd
 tail: warning: --retry ignored; --retry is useful only when following
@@ -701,7 +710,7 @@ sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 tail: warning: --retry only effective for the initial open
 tail: cannot open '/aaa' for reading: No such file or directory
 
-```
+```bash
 
 
 #### Use Cases
@@ -728,7 +737,7 @@ Common scenarios where the `tail` command is beneficial include:
 
 - All examples below use the `/etc/ansible/ansible.cfg` file:
 
-```
+```bash
 
 [devops@lb01 ~]$ head /etc/ansible/ansible.cfg
 # Since Ansible 2.12 (core):
@@ -742,7 +751,7 @@ Common scenarios where the `tail` command is beneficial include:
 # Note that this file was always incomplete  and lagging changes to configuration settings
 
 
-```
+```bash
 
 #### Basic Usage
 
@@ -750,7 +759,7 @@ Common scenarios where the `tail` command is beneficial include:
 
 #### Example: Display First 10 Lines
 
-```
+```bash
 
 passwd
 root:x:0:0:root:/root:/bin/bash
@@ -759,7 +768,7 @@ daemon:x:2:2:daemon:/sbin:/sbin/nologin
 adm:x:3:4:adm:/var/adm:/sbin/nologin
 lp:x:4:7:lp:/var/spool/lpd:/sbin/
 
-```
+```bash
 
 
 #### Options
@@ -777,7 +786,7 @@ lp:x:4:7:lp:/var/spool/lpd:/sbin/
 
 #### Example: Display First 5 Lines
 
-```
+```bash
 
 [devops@lb01 ~]$ head -n 5 /etc/passwd
 root:x:0:0:root:/root:/bin/bash
@@ -786,7 +795,7 @@ daemon:x:2:2:daemon:/sbin:/sbin/nologin
 adm:x:3:4:adm:/var/adm:/sbin/nologin
 lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
 
-```
+```bash
 
 
 
@@ -796,12 +805,12 @@ lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
 
 #### Example: Display First 20 Bytes
 
-```
+```bash
 
 [devops@lb01 ~]$ head -c 20 /etc/passwd
 root:x:0:0:root:/roo
 
-```
+```bash
 
 
 
@@ -811,7 +820,7 @@ root:x:0:0:root:/roo
 
 #### Example: Display First 3 Lines of Multiple Files
 
-```
+```bash
 
 [devops@lb01 ~]$ head -n 4 ./4_25.txt ./4_25_1.txt
 ==> ./4_25.txt <==
@@ -826,7 +835,7 @@ juice
 0033
 444
 
-```
+```bash
 
 
 
@@ -836,7 +845,7 @@ juice
 
 #### Example: Suppress Headers
 
-```
+```bash
 
 # 两个文件内容是直接连起来的
 [devops@lb01 ~]$ head -q -n 3 ./4_25.txt ./4_25_1.txt
@@ -848,7 +857,7 @@ orange
 0033
 [devops@lb01 ~]$
 
-```
+```bash
 
 
 #### Common Uses
@@ -878,14 +887,14 @@ orange
 
 - All examples below use a hypothetical process list for demonstration:
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps
     PID TTY          TIME CMD
   27583 pts/1    00:00:00 bash
   27638 pts/1    00:00:00 ps
 
-```
+```bash
 
 
 #### Understanding the Output
@@ -904,7 +913,7 @@ The `ps` command output consists of several columns, each representing differe
 
 #### Example: Basic Usage
 
-```bash
+```bashbash
 
 ps
 PID TTY          TIME CMD
@@ -912,7 +921,7 @@ PID TTY          TIME CMD
 5678 pts/1    00:00:02 python
 9101 pts/2    00:00:03 node
 
-```
+```bash
 
 
 #### Options
@@ -932,7 +941,7 @@ The `ps` command has options to change how it works:
 
 ### Example: Show All Processes
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -e
     PID TTY          TIME CMD
@@ -975,7 +984,7 @@ The `ps` command has options to change how it works:
      45 ?        00:00:00 kworker/R-kinte
      46 ?        00:00:00 kworker/R-kbloc
 
-```
+```bash
 
 
 #### Show Detailed Information
@@ -984,14 +993,14 @@ The `ps` command has options to change how it works:
 
 #### Example: Show Detailed Information
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -f
 UID          PID    PPID  C STIME TTY          TIME CMD
 devops     33399   33397  0 15:57 pts/0    00:00:00 -bash
 devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
 
-```
+```bash
 
 
 #### Show Processes for a Specific User
@@ -1000,7 +1009,7 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
 
 #### Example: Show Processes for a Specific User
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -u devops
     PID TTY          TIME CMD
@@ -1014,7 +1023,7 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
   33431 ?        00:00:00 sftp-server
   33653 pts/0    00:00:00 ps
 
-```
+```bash
 
 
 #### Show Processes with a Terminal
@@ -1023,13 +1032,13 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
 
 #### Example: Show Processes with a Terminal
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -a
     PID TTY          TIME CMD
   33926 pts/0    00:00:00 ps
 
-```
+```bash
 
 
 
@@ -1039,7 +1048,7 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
 
 #### Example: Show Processes without a Terminal
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -x
     PID TTY      STAT   TIME COMMAND
@@ -1053,7 +1062,7 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
   33431 ?        Ss     0:00 /usr/libexec/openssh/sftp-server
   33935 pts/0    R+     0:00 ps -x
 
-```
+```bash
 
 
 
@@ -1064,7 +1073,7 @@ devops     33618   33399  0 16:03 pts/0    00:00:00 ps -f
 
 #### Example: Combine Options
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
@@ -1086,7 +1095,7 @@ root          16       2  0 May02 ?        00:00:05 [ksoftirqd/0]
 root          17       2  0 May02 ?        00:00:02 [rcu_preempt]
 root          18       2  0 May02 ?        00:00:00 [rcu_exp_par_gp_]
 
-```
+```bash
 
 
 
@@ -1104,7 +1113,7 @@ root          18       2  0 May02 ?        00:00:00 [rcu_exp_par_gp_]
 
 - Examples:
 
-```bash
+```bashbash
 
 top - 16:25:37 up 20:42,  2 users,  load average: 0.03, 0.03, 0.05
 Tasks: 166 total,   1 running, 165 sleeping,   0 stopped,   0 zombie
@@ -1129,7 +1138,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1470.0 avail Mem
      13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas+
      14 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas+
      
-```
+```bash
 
 
 #### Understanding the Output
@@ -1156,7 +1165,7 @@ The `top` command output consists of several columns, each representing differ
 
 #### Example: Basic Usage
 
-```bash
+```bashbash
 
 top - 16:32:27 up 20:49,  2 users,  load average: 0.80, 0.32, 0.15
 Tasks: 166 total,   1 running, 165 sleeping,   0 stopped,   0 zombie
@@ -1180,7 +1189,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1464.4 avail Mem
      12 root      20   0       0      0      0 I   0.0   0.0   0:00.03 kworker+
      13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas
 
-```
+```bash
 
 #### Options
 
@@ -1200,7 +1209,7 @@ The `top` command has options to change how it works:
 
 #### Example: Set Update Interval
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ top -d 10
 top - 16:34:24 up 20:51,  2 users,  load average: 0.97, 0.54, 0.25
@@ -1217,7 +1226,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1456.4 avail Mem
       2 root      20   0       0      0      0 S   0.0   0.0   0:00.05 kthreadd
       3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+
 
-```
+```bash
 
 
 #### Monitor Specific PIDs
@@ -1226,7 +1235,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1456.4 avail Mem
 
 #### Example: Monitor Specific PIDs
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ ps -ef | grep tail
 devops     34435   34345  0 16:35 pts/2    00:00:00 tail -f /etc/passwd
@@ -1243,7 +1252,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1465.1 avail Mem
     PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
   34435 devops    20   0  220996   1984   1872 S   0.0   0.1   0:00.00 tail
 
-```
+```bash
 
 
 #### Show Tasks for a Specific User
@@ -1252,7 +1261,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1465.1 avail Mem
 
 #### Example: Show Tasks for a Specific User
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ top -u devops
 top - 16:37:59 up 20:54,  3 users,  load average: 0.85, 0.74, 0.40
@@ -1276,7 +1285,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1453.1 avail Mem
   34377 devops    20   0   10064   6380   5352 S   0.0   0.3   0:00.01 sftp-se+
   34503 devops    20   0  225844   4244   3456 R   0.0   0.2   0:00.01 top
 
-```
+```bash
 
 
 #### Set Number of Iterations
@@ -1285,7 +1294,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1453.1 avail Mem
 
 #### Example: Set Number of Iterations
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ top -n 5
 top - 16:40:01 up 20:56,  3 users,  load average: 0.20, 0.51, 0.35
@@ -1312,7 +1321,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1447.9 avail Mem
      12 root      20   0       0      0      0 I   0.0   0.0   0:00.03 kworker+
 [devops@lb01 ~]$
 
-```
+```bash
 
 
 #### Batch Mode Operation
@@ -1321,7 +1330,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1447.9 avail Mem
 
 #### Example: Batch Mode Operation
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ top -b -n 1
 top - 16:46:45 up 21:03,  3 users,  load average: 0.03, 0.16, 0.23
@@ -1340,7 +1349,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1451.4 avail Mem
       7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
       9 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
 
-```
+```bash
 
 
 #### Combining Options
@@ -1349,7 +1358,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1451.4 avail Mem
 
 #### Example: Combine Options
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ top -bn 1 | tee aaa.txt
 top - 16:54:20 up 21:11,  3 users,  load average: 0.04, 0.06, 0.15
@@ -1370,7 +1379,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1458.5 avail Mem
      10 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker+
      11 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
 
-```
+```bash
 
 
 
@@ -1389,7 +1398,7 @@ MiB Swap:    512.0 total,    512.0 free,      0.0 used.   1458.5 avail Mem
 
 - All examples below use a hypothetical output for demonstration:
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df
 Filesystem           1K-blocks    Used Available Use% Mounted on
@@ -1400,7 +1409,7 @@ tmpfs                   403380   36708    366672  10% /run
 /dev/nvme0n1p2          996780  327360    600608  36% /boot
 tmpfs                   201688       0    201688   0% /run/user/1002
 
-```
+```bash
 
 
 #### Understanding the Output
@@ -1421,7 +1430,7 @@ The `df` command output consists of several columns, each representing differe
 
 #### Example: Basic Usage
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -h
 Filesystem            Size  Used Avail Use% Mounted on
@@ -1432,7 +1441,7 @@ tmpfs                 394M   36M  359M  10% /run
 /dev/nvme0n1p2        974M  320M  587M  36% /boot
 tmpfs                 197M     0  197M   0% /run/user/1002
 
-```
+```bash
 
 
 #### Options
@@ -1452,7 +1461,7 @@ The `df` command has options to change how it works:
 
 #### Example: Show Sizes in Human-Readable Format
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -h
 Filesystem            Size  Used Avail Use% Mounted on
@@ -1463,7 +1472,7 @@ tmpfs                 394M   36M  359M  10% /run
 /dev/nvme0n1p2        974M  320M  587M  36% /boot
 tmpfs                 197M     0  197M   0% /run/user/1002
 
-```
+```bash
 
 
 #### Show All File Systems
@@ -1472,7 +1481,7 @@ tmpfs                 197M     0  197M   0% /run/user/1002
 
 #### Example: Show All File Systems
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -a
 Filesystem           1K-blocks    Used Available Use% Mounted on
@@ -1500,7 +1509,7 @@ none                         0       0         0    - /run/credentials/systemd-t
 none                         0       0         0    - /run/credentials/systemd-tmpfiles-setup.service
 tmpfs                   201688       0    201688   0% /run/user/1002
 
-```
+```bash
 
 
 #### Show File System Type
@@ -1509,7 +1518,7 @@ tmpfs                   201688       0    201688   0% /run/user/1002
 
 #### Example: Show File System Type
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -Th
 Filesystem           Type      Size  Used Avail Use% Mounted on
@@ -1520,7 +1529,7 @@ tmpfs                tmpfs     394M   36M  359M  10% /run
 /dev/nvme0n1p2       ext4      974M  320M  587M  36% /boot
 tmpfs                tmpfs     197M     0  197M   0% /run/user/1002
 
-```
+```bash
 
 - **File System Type:** This indicates the format and structure used to store and organize data on a disk.
 
@@ -1535,7 +1544,7 @@ tmpfs                tmpfs     197M     0  197M   0% /run/user/1002
 
 #### Example: Show Inode Usage
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -i
 Filesystem            Inodes IUsed   IFree IUse% Mounted on
@@ -1546,7 +1555,7 @@ tmpfs                 819200   734  818466    1% /run
 /dev/nvme0n1p2         65536   376   65160    1% /boot
 tmpfs                  50422    14   50408    1% /run/user/1002
 
-```
+```bash
 
 #### **Inodes:** Inodes are data structures used by many file systems to store information about files and directories, such as their size, owner, permissions, and timestamps.
 
@@ -1559,7 +1568,7 @@ tmpfs                  50422    14   50408    1% /run/user/1002
 
 #### Example: Use POSIX Output Format
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -P
 Filesystem           1024-blocks    Used Available Capacity Mounted on
@@ -1571,7 +1580,7 @@ tmpfs                     403380   36712    366668      10% /run
 tmpfs                     201688       0    201688       0% /run/user/1002
 tmpfs                     201688       0    201688       0% /run/user/0
 
-```
+```bash
 
 - **POSIX:** POSIX (Portable Operating System Interface) is a set of standards specified by the IEEE for maintaining compatibility between operating systems.
 
@@ -1586,7 +1595,7 @@ tmpfs                     201688       0    201688       0% /run/user/0
 
 #### Example: Combine Options
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ df -Th
 Filesystem           Type      Size  Used Avail Use% Mounted on
@@ -1598,7 +1607,7 @@ tmpfs                tmpfs     394M   36M  359M  10% /run
 tmpfs                tmpfs     197M     0  197M   0% /run/user/1002
 [devops@lb01 ~]$
 
-```
+```bash
 
 
 
@@ -1616,7 +1625,7 @@ tmpfs                tmpfs     197M     0  197M   0% /run/user/1002
 
 - examples:
 
-```bash
+```bashbash
 
 80K     ./Scripts/python/venv/lib/python3.9/site-packages/google_genai-1.47.0.dist-info
 53M     ./Scripts/python/venv/lib/python3.9/site-packages
@@ -1628,7 +1637,7 @@ tmpfs                tmpfs     197M     0  197M   0% /run/user/1002
 53M     ./Scripts
 355M    .
 
-```
+```bash
 
 
 #### Understanding the Output
@@ -1645,12 +1654,12 @@ The `du` command output consists of two columns:
 
 #### Example: Basic Usage
 
-```bash
+```bashbash
 du
 8.0K    ./dir1
 12K     ./dir2
 20K     .
-```
+```bash
 
 
 #### Options
@@ -1670,7 +1679,7 @@ The `du` command has options to change how it works:
 
 #### Example: Show Sizes in Human-Readable Format
 
-```bash
+```bashbash
 
 
 du -h
@@ -1685,7 +1694,7 @@ du -h
 53M     ./Scripts
 355M    .
 
-```
+```bash
 
 
 #### Show Only Total Size
@@ -1694,12 +1703,12 @@ du -h
 
 #### Example: Show Only Total Size
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ du -sh
 355M    .
 
-```
+```bash
 
 
 #### Show Sizes for All Files
@@ -1708,7 +1717,7 @@ du -h
 
 #### Example: Show Sizes for All Files
 
-```bash
+```bashbash
 
 
 du -a
@@ -1726,7 +1735,7 @@ du -a
 16K     ./aaa.txt
 355M    .
 
-```
+```bash
 
 
 #### Produce a Grand Total
@@ -1735,7 +1744,7 @@ du -a
 
 #### Example: Produce a Grand Total
 
-```bash
+```bashbash
 
 80K     ./Scripts/python/venv/lib/python3.9/site-packages/google_genai-1.47.0.dist-info
 53M     ./Scripts/python/venv/lib/python3.9/site-packages
@@ -1748,7 +1757,7 @@ du -a
 355M    .
 355M    total
 
-```
+```bash
 
 
 #### Limit Directory Traversal Depth
@@ -1759,7 +1768,7 @@ du -a
 
 #### Example: Limit Directory Traversal Depth
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ du --max-depth=1
 4       ./.config
@@ -1774,13 +1783,13 @@ du -a
 54256   ./Scripts
 362796  .
 
-```
+```bash
 
 - In this example, `du --max-depth=1` shows the space used by each directory at the top level, without diving deeper into subdirectories.
 
 #### Example: Limit Directory Traversal Depth to 2
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ du --max-depth=2
 0       ./.config/procps
@@ -1825,7 +1834,7 @@ du -a
 
 10 directories, 1 file
 
-```
+```bash
 
 - Here, `du --max-depth=2` provides a summary of disk usage up to two levels deep, including subdirectories.
 
@@ -1836,7 +1845,7 @@ du -a
 
 #### Example: Combine Options
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ du -h --max-depth=2
 0       ./.config/procps
@@ -1864,7 +1873,7 @@ du -a
 53M     ./Scripts
 355M    .
 
-```
+```bash
 
 
 
@@ -1890,12 +1899,12 @@ du -a
 
 #### Example
 
-```bash
+```bashbash
 free -k
               total        used        free      shared  buff/cache   available
 Mem:        8176588     1376568     5869188      146532     1051172     6352280
 Swap:       2097148           0     2097148
-```
+```bash
 
 
 
@@ -1920,14 +1929,14 @@ The `free` command has options to change how it works:
 
 #### Example: Show Memory in Human-Readable Format
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ free -h
                total        used        free      shared  buff/cache   available
 Mem:           1.9Gi       505Mi       1.0Gi        35Mi       585Mi       1.4Gi
 Swap:          511Mi          0B       511Mi
 
-```
+```bash
 
 
 #### Show Memory in Bytes
@@ -1938,14 +1947,14 @@ Swap:          511Mi          0B       511Mi
 
 #### Example: Show Memory in Bytes
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ free -b
                total        used        free      shared  buff/cache   available
 Mem:      2065297408   534020096  1119330304    37597184   613793792  1531277312
 Swap:      536866816           0   536866816
 
-```
+```bash
 
 
 #### Show Memory in Kilobytes
@@ -1956,14 +1965,14 @@ Swap:      536866816           0   536866816
 
 #### Example: Show Memory in Kilobytes
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ free -k
                total        used        free      shared  buff/cache   available
 Mem:         2016892      517516     1097080       36716      599404     1499376
 Swap:         524284           0      524284
 
-```
+```bash
 
 
 #### Show Memory in Megabytes
@@ -1974,14 +1983,14 @@ Swap:         524284           0      524284
 
 #### Example: Show Memory in Megabytes
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ free -m
                total        used        free      shared  buff/cache   available
 Mem:            1969         500        1076          35         585        1469
 Swap:            511           0         511
 
-```
+```bash
 
 
 #### Show Memory in Gigabytes
@@ -1992,14 +2001,14 @@ Swap:            511           0         511
 
 #### Example: Show Memory in Gigabytes
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ free -g
                total        used        free      shared  buff/cache   available
 Mem:               1           0           1           0           0           1
 Swap:              0           0           0
 
-```
+```bash
 
 
 #### Continuously Display Memory Usage
@@ -2008,7 +2017,7 @@ Swap:              0           0           0
 
 #### Example: Continuously Display Memory Usage
 
-```bash
+```bashbash
 
 free -s 5
                total        used        free      shared  buff/cache   available
@@ -2028,7 +2037,7 @@ Mem:         2016892      510512     1103988       36708      599496     1506380
 Swap:         524284           0      524284
 
 
-```
+```bash
 
 - This command will update the memory usage every 5 seconds.
 
@@ -2040,14 +2049,14 @@ Swap:         524284           0      524284
 
 #### Example: Display Total Memory
 
-```bash
+```bashbash
 
                total        used        free      shared  buff/cache   available
 Mem:         2016892      521684     1092752       36708      599556     1495208
 Swap:         524284           0      524284
 Total:       2541176      521684     1617036
 
-```
+```bash
 
 
 
@@ -2077,9 +2086,9 @@ The `kill` command is commonly used to:
 
 - The basic syntax of the `kill` command is:
 
-```bash
+```bashbash
 kill [OPTION]... ...
-```
+```bash
 
 
 
@@ -2099,7 +2108,7 @@ The `kill` command has several options to customize its behavior:
 
 #### Example: Forcefully Kill a Process
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ kill -9 36112
 
@@ -2117,7 +2126,7 @@ nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 Killed
 
-```
+```bash
 
 
 #### List All Signal Names
@@ -2127,7 +2136,7 @@ Killed
 
 #### Example: List Signal Names
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ kill -l
  1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
@@ -2144,7 +2153,7 @@ Killed
 12) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
 13) SIGRTMAX-1  64) SIGRTMAX
 
-```
+```bash
 
 
 #### Specify a Signal to Send
@@ -2154,7 +2163,7 @@ Killed
 
 #### Example: Send a Custom Signal
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ kill -s SIGTERM 36167
 
@@ -2172,7 +2181,7 @@ nginx:x:995:993:Nginx web server:/var/lib/nginx:/sbin/nologin
 sre_share:x:1004:1005::/home/sre_share:/sbin/nologin
 Terminated
 
-```
+```bash
 
 
 #### Print the Process ID
@@ -2182,9 +2191,9 @@ Terminated
 
 #### Example: Print Process ID
 
-```bash
+```bashbash
 kill -p 1234
-```
+```bash
 
 
 
@@ -2210,9 +2219,9 @@ It provides a quick overview of the system's performance, including:
 
 - The basic syntax of the `uptime` command is:
 
-```bash
+```bashbash
 uptime
-```
+```bash
 
 - This command displays information like the current time, uptime duration, number of users, and load averages.
 
@@ -2234,12 +2243,12 @@ The output of the `uptime` command shows information like:
 
 #### Example: Understanding Uptime Output
 
-```bash
+```bashbash
 
 [devops@lb01 ~]$ uptime
  17:52:33 up 22:09,  2 users,  load average: 0.03, 0.07, 0.08
 
-```
+```bash
 
 In this example:
 
@@ -2259,9 +2268,9 @@ The load averages provide a snapshot of the system's workload:
 
 #### Example: Interpreting Load Averages
 
-```bash
+```bashbash
 load average: 0.75, 0.60, 0.50
-```
+```bash
 
 - In this example, the system load is decreasing over time, indicating that the system is becoming less busy.
 

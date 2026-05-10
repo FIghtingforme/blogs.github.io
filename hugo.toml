@@ -75,9 +75,20 @@ title = 'My SRE Knowledge Vault'
   # 显式强化配置：确保导航栏开启
   navbar = { enable = true }
 
-  # 显式强化配置：强制开启搜索功能
-  [params.hextra.search]
-    enable = true
+  
+  
 
 
 
+
+# ==========================================
+# 开启 Goldmark 引擎的数学公式原样直通车
+# ==========================================
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]

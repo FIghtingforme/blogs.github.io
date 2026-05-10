@@ -6,6 +6,8 @@ categories: ["Network"]         # 使用标准的 YAML 数组格式 []，可扩�
 tags: ["Engineer"]    # 强烈建议增加 tags 字段，这在 Hugo 中是默认的二级索引
 draft: false                  # 显式声明发布状态，防止漏发
 
+math: true
+
 ---
 
 
@@ -139,8 +141,22 @@ draft: false                  # 显式声明发布状态，防止漏发
 ### 2️⃣ 数据通信与信道极限计算：解析曼彻斯特等编码方式、信号调制技术，以及历年常考的奈氏准则和香农公式计算题型 。
 
 
+{{< callout type="info" >}}
+**核心架构公式：**
+
+$$
+\text{Availability} = \frac{\text{MTBF}}{\text{MTBF} + \text{MTTR}}
+$$
+{{< /callout >}}
 
 
+> $$
+> e=mc^2
+> $$
+
+> $$
+> E = mc^2
+> $$
 
 ---
 
