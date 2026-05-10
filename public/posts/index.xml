@@ -23,73 +23,27 @@
 &lt;p&gt;&lt;strong&gt;拔出：&lt;/strong&gt; 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>网络工程师</title>
+      <title>Network Engineer</title>
       <link>http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/</link>
       <pubDate>Sun, 03 May 2026 20:00:00 +0800</pubDate>
       <guid>http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/</guid>
-      <description>&lt;h3 id=&#34;让不同网段下的pc互通&#34;&gt;让不同网段下的pc互通：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;拓扑图：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-3.png&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;pc1：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-1.png&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;pc2：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-2.png&#34;&gt;&lt;/p&gt;
+      <description>&lt;h2 id=&#34;1x&#34;&gt;1.x：&lt;/h2&gt;
 &lt;hr&gt;
-&lt;h4 id=&#34;ar2220配置&#34;&gt;AR2220配置&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;0/0/0接口：192.168.10.1/24&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;0/0/1接口：192.168.20.1/24&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&#34;1-网络体系结构与通信过程探讨-osi-七层模型与-tcpip-模型的对应关系以及数据在各层是如何自上向下封装自下向上解封装的-&#34;&gt;1️⃣ &lt;strong&gt;网络体系结构与通信过程&lt;/strong&gt;：探讨 OSI 七层模型与 TCP/IP 模型的对应关系，以及数据在各层是如何自上向下封装、自下向上解封装的 。&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[Huawei]interface giga	
-[Huawei]interface GigabitEthernet 0/0/0
-[Huawei-GigabitEthernet0/0/0]ip address 192.168.10.1 24
-May  3 2026 18:52:02-08:00 Huawei %%01IFNET/4/LINK_STATE(l)[0]:The line protocol
- IP on the interface GigabitEthernet0/0/0 has entered the UP state. 
-[Huawei-GigabitEthernet0/0/0]undo shutdown
-Info: Interface GigabitEthernet0/0/0 is not shutdown.
-[Huawei-GigabitEthernet0/0/0]q
-[Huawei]q
-&amp;lt;Huawei&amp;gt;save
-  The current configuration will be written to the device. 
-  Are you sure to continue? (y/n)[n]:y
-  It will take several minutes to save configuration file, please wait.......
-  Configuration file had been saved successfully
-  Note: The configuration file will take effect after being activated
-&amp;lt;Huawei&amp;gt;sys
-Enter system view, return user view with Ctrl+Z.
-[Huawei]inter	
-[Huawei]interface giga	
-[Huawei]interface GigabitEthernet 0/0/1
-[Huawei-GigabitEthernet0/0/1]ip add	
-[Huawei-GigabitEthernet0/0/1]ip address 192.168.20.1 24
-May  3 2026 18:53:06-08:00 Huawei %%01IFNET/4/LINK_STATE(l)[1]:The line protocol
- IP on the interface GigabitEthernet0/0/1 has entered the UP state. 
-[Huawei-GigabitEthernet0/0/1]
-[Huawei-GigabitEthernet0/0/1]q
-[Huawei]q
-&amp;lt;Huawei&amp;gt;save
-  The current configuration will be written to the device. 
-  Are you sure to continue? (y/n)[n]:y
-  It will take several minutes to save configuration file, please wait.......
-  Configuration file had been saved successfully
-  Note: The configuration file will take effect after being activated
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h4 id=&#34;测试两台pc间连通性&#34;&gt;测试两台pc间连通性：&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;pc1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-4.png&#34;&gt;&lt;/p&gt;</description>
+网络协议三要素:
+
+
+语法（Syntax）： 规定数据与控制信息的结构或格式 。
+
+
+语义（Semantics）： 规定各个控制信息的具体含义 。
+                    比如系统发出这个控制信息，是要求完成何种动作（是建立连接还是断开连接）。
+
+
+同步 / 时序（Timing）： 对事件实现顺序和时间的详细说明 。比如数据应该在何时发送、以多快的速率发送 。
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;考点二架构师的系统分层视角三大体系结构对比&#34;&gt;考点二：架构师的系统分层视角（三大体系结构对比）&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-5.png&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Regex</title>

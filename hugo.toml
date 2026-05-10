@@ -43,6 +43,12 @@ hasCJKLanguage = true
     weight = 50
 
 
+
+# 搜索功能
+[outputs]
+  home = ["HTML", "RSS", "JSON"] # 关键是加上 JSON
+
+
 # 在具体文章内部补充
 
 [params]

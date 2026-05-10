@@ -20,19 +20,5 @@
 &lt;/ul&gt;
 &lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>Regex</title>
-      <link>http://localhost:1313/posts/2026-05-07-enterprise-devices/</link>
-      <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2026-05-07-enterprise-devices/</guid>
-      <description>&lt;h3 id=&#34;打印机&#34;&gt;打印机&lt;/h3&gt;
-&lt;p&gt;企业复合机支持热插拔（Hot-Swap）架构。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;开盖：&lt;/strong&gt; 机器报“缺粉”时，直接在开机状态下打开前盖。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;拔出：&lt;/strong&gt; 捏住对应的颜色（CMYK）碳粉盒把手，直接抽出来。&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>
