@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/github/</link>
@@ -13,36 +13,7 @@
       <link>http://localhost:1313/posts/2026-03-12-pages-cloudflare/</link>
       <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-12-pages-cloudflare/</guid>
-      <description>&lt;h3 id=&#34;github-pages绑定域名并用cloudflare加速&#34;&gt;Github Pages绑定域名并用cloudFlare加速&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 假设域名为：
-	
-	- github.fighting.top
-	
-	- 需要在github ==&amp;gt; Settings ==&amp;gt; pages ==&amp;gt; 添加域名：github.fighting.top
-	- 
-		- 随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证
-	
-	- 你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)
-	
-		- 三级域名添加：
-		- 
-			- 用CNAME记录，加github前缀，后面写用户名.github.io
-			- 注意：先不开小黄云
-			
-		- 再添加一个TXT类型，用于身份验证：
-		- 
-			- 提供官方给的信息：
-			- 
-			- CNAME          record            number 
-		
-	- 两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效
-	- 
-	- 有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站
-	- 
-	- 注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面
-	
-	- 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;h3 id=&#34;github-pages绑定域名并用cloudflare加速&#34;&gt;Github Pages绑定域名并用cloudFlare加速&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 假设域名为：&#xA;&#x9;&#xA;&#x9;- github.fighting.top&#xA;&#x9;&#xA;&#x9;- 需要在github ==&amp;gt; Settings ==&amp;gt; pages ==&amp;gt; 添加域名：github.fighting.top&#xA;&#x9;- &#xA;&#x9;&#x9;- 随即官方会给您发需要在您的域名厂商那添加的： record 和 txt记录；用于身份验证&#xA;&#x9;&#xA;&#x9;- 你需要提前在cloudFlare托管好自己的根域名，并且添加需要绑定Pages的三级域名（github.fighting.top)&#xA;&#x9;&#xA;&#x9;&#x9;- 三级域名添加：&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 用CNAME记录，加github前缀，后面写用户名.github.io&#xA;&#x9;&#x9;&#x9;- 注意：先不开小黄云&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;- 再添加一个TXT类型，用于身份验证：&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 提供官方给的信息：&#xA;&#x9;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- CNAME          record            number &#xA;&#x9;&#x9;&#xA;&#x9;- 两个添加完成后需要等github官方授权，或者自己可以先用绑定的域名查看网站要用http协议，因为https需要等dns验证完后在仓库的setting选项栏点强制https后才生效&#xA;&#x9;- &#xA;&#x9;- 有的浏览器会有cookie等信息记录强制指定到https导致网页打不开，这时候需要使用无痕页面查看网站&#xA;&#x9;- &#xA;&#x9;- 注意：Pages绑定域名后需要在config_yaml中把baseurl和url修改；否则会指向错误页面&#xA;&#x9;&#xA;&#x9;- 一段时间后可以在github的仓库中的setting和头像页的setting查看dns检查情况，成功验证后即可勾选https和dns的verity&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

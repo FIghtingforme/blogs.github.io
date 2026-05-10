@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/docker/</link>
@@ -13,186 +13,21 @@
       <link>http://localhost:1313/posts/2026-04-21-docker-demo/</link>
       <pubDate>Tue, 21 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-21-docker-demo/</guid>
-      <description>&lt;h3 id=&#34;docker-commands&#34;&gt;Docker Commands&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;docker pull redis:8.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;redis:8.0.6-alpine
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;docker images&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/docker/redis]$ docker images
-IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
-my-nodejs:v1         954fdbfce62a        194MB         48.1MB    U
-nginx:latest         7f0adca1fc6c        237MB         65.8MB    U
-redis:8.0.6-alpine   5f61955be8ab       86.8MB         24.9MB    U
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;docker run -p 6000:3000 &amp;ndash;name -d redis-example redis:8.0.6-alpine&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name  redis-example redis:8.0.6-alpine
-d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c
-[devops@lb01 ~/docker/redis]$ docker ps
-CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                                   NAMES
-d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   8 seconds ago   Up 7 seconds   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
-[devops@lb01 ~/docker/redis]$ ss -lntup
-Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process
-udp    UNCONN  0       0            127.0.0.1:323         0.0.0.0:*
-udp    UNCONN  0       0                [::1]:323            [::]:*
-tcp    LISTEN  0       4096           0.0.0.0:6000        0.0.0.0:*
-tcp    LISTEN  0       511            0.0.0.0:80          0.0.0.0:*
-tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*
-tcp    LISTEN  0       4096              [::]:6000           [::]:*
-tcp    LISTEN  0       511               [::]:80             [::]:*
-tcp    LISTEN  0       128               [::]:22             [::]:*
-tcp    LISTEN  0       32                   *:21                *:*
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;docker exec -it d7d16d237b5f /bin/bash&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash
-OCI runtime exec failed: exec failed: unable to start container process: exec: &amp;#34;/bin/bash&amp;#34;: stat /bin/bash: no such file or directory
-
-# 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内
-[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
-/data # ls
-/data # pwd
-/data
-
-[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
-/data # cd /
-/ # ls
-bin    dev    home   media  opt    root   sbin   sys    usr
-data   etc    lib    mnt    proc   run    srv    tmp    var
-/ # env
-HOSTNAME=d7d16d237b5f
-SHLVL=1
-HOME=/root
-OLDPWD=/data
-TERM=xterm
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-PWD=/
-/ #
-/ # exit
-[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh
-/data # curl
-/bin/sh: curl: not found
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;Difference： docker ps  /  docker  ps  -a&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/docker/redis]$ docker ps
-CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                                   NAMES
-d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
-[devops@lb01 ~/docker/redis]$ docker ps -a
-CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                                                   NAMES
-d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes               6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example
-37fb32f3b1f9   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   43 minutes ago   Exited (0) 43 minutes ago                                                           redis-1
-8ffc7554566c   7f0adca1fc6c         &amp;#34;/docker-entrypoint.…&amp;#34;   31 hours ago     Exited (0) 30 hours ago                                                             sre-tutorial-nginx
-e329c77b6133   my-nodejs:v1         &amp;#34;docker-entrypoint.s…&amp;#34;   3 days ago       Exited (1) 30 hours ago                                                             web
-&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h3 id=&#34;docker-deploy-the-demo-project&#34;&gt;Docker Deploy the Demo Project&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Workflow with Docker:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-Push: js,Mongo DB ==&amp;gt; Git ==&amp;gt; Jenkins: Build JS APP &amp;amp; Create Docker Image ==&amp;gt; Docker Repository( Docker Hub )  
-
-Pull: From &amp;#34;Docker Hub&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;developing-with-containers&#34;&gt;Developing with Containers&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;need: JS and Node application, MongoDB Docker Container&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;docker-commands&#34;&gt;Docker Commands&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;docker pull redis:8.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;redis:8.0.6-alpine&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;docker images&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/docker/redis]$ docker images&#xA;IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA&#xA;my-nodejs:v1         954fdbfce62a        194MB         48.1MB    U&#xA;nginx:latest         7f0adca1fc6c        237MB         65.8MB    U&#xA;redis:8.0.6-alpine   5f61955be8ab       86.8MB         24.9MB    U&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;docker run -p 6000:3000 &amp;ndash;name -d redis-example redis:8.0.6-alpine&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/docker/redis]$ docker run -p 6000:3000 -d --name  redis-example redis:8.0.6-alpine&#xA;d7d16d237b5f664fa779edeb6af5b7696ef8b595b76104aa6a7475a27a4ac10c&#xA;[devops@lb01 ~/docker/redis]$ docker ps&#xA;CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                                   NAMES&#xA;d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   8 seconds ago   Up 7 seconds   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example&#xA;[devops@lb01 ~/docker/redis]$ ss -lntup&#xA;Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process&#xA;udp    UNCONN  0       0            127.0.0.1:323         0.0.0.0:*&#xA;udp    UNCONN  0       0                [::1]:323            [::]:*&#xA;tcp    LISTEN  0       4096           0.0.0.0:6000        0.0.0.0:*&#xA;tcp    LISTEN  0       511            0.0.0.0:80          0.0.0.0:*&#xA;tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*&#xA;tcp    LISTEN  0       4096              [::]:6000           [::]:*&#xA;tcp    LISTEN  0       511               [::]:80             [::]:*&#xA;tcp    LISTEN  0       128               [::]:22             [::]:*&#xA;tcp    LISTEN  0       32                   *:21                *:*&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;docker exec -it d7d16d237b5f /bin/bash&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/bash&#xA;OCI runtime exec failed: exec failed: unable to start container process: exec: &amp;#34;/bin/bash&amp;#34;: stat /bin/bash: no such file or directory&#xA;&#xA;# 报错后查询 Github issus ，了解到切换到 /bin/sh 后成功运行并进入到容器内&#xA;[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh&#xA;/data # ls&#xA;/data # pwd&#xA;/data&#xA;&#xA;[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh&#xA;/data # cd /&#xA;/ # ls&#xA;bin    dev    home   media  opt    root   sbin   sys    usr&#xA;data   etc    lib    mnt    proc   run    srv    tmp    var&#xA;/ # env&#xA;HOSTNAME=d7d16d237b5f&#xA;SHLVL=1&#xA;HOME=/root&#xA;OLDPWD=/data&#xA;TERM=xterm&#xA;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#xA;PWD=/&#xA;/ #&#xA;/ # exit&#xA;[devops@lb01 ~/docker/redis]$ docker exec -it d7d16d237b5f /bin/sh&#xA;/data # curl&#xA;/bin/sh: curl: not found&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;Difference： docker ps  /  docker  ps  -a&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/docker/redis]$ docker ps&#xA;CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                                   NAMES&#xA;d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes   6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example&#xA;[devops@lb01 ~/docker/redis]$ docker ps -a&#xA;CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                                                   NAMES&#xA;d7d16d237b5f   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   31 minutes ago   Up 31 minutes               6379/tcp, 0.0.0.0:6000-&amp;gt;3000/tcp, [::]:6000-&amp;gt;3000/tcp   redis-example&#xA;37fb32f3b1f9   redis:8.0.6-alpine   &amp;#34;docker-entrypoint.s…&amp;#34;   43 minutes ago   Exited (0) 43 minutes ago                                                           redis-1&#xA;8ffc7554566c   7f0adca1fc6c         &amp;#34;/docker-entrypoint.…&amp;#34;   31 hours ago     Exited (0) 30 hours ago                                                             sre-tutorial-nginx&#xA;e329c77b6133   my-nodejs:v1         &amp;#34;docker-entrypoint.s…&amp;#34;   3 days ago       Exited (1) 30 hours ago                                                             web&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;&#xA;&lt;h3 id=&#34;docker-deploy-the-demo-project&#34;&gt;Docker Deploy the Demo Project&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Workflow with Docker:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;Push: js,Mongo DB ==&amp;gt; Git ==&amp;gt; Jenkins: Build JS APP &amp;amp; Create Docker Image ==&amp;gt; Docker Repository( Docker Hub )  &#xA;&#xA;Pull: From &amp;#34;Docker Hub&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;developing-with-containers&#34;&gt;Developing with Containers&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;need: JS and Node application, MongoDB Docker Container&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker--- Nodejs</title>
       <link>http://localhost:1313/posts/2026-04-15-docker-nodejs/</link>
       <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-15-docker-nodejs/</guid>
-      <description>&lt;h3 id=&#34;目标docker-建立-nodejs-镜像并跑一个-nodejs-容器&#34;&gt;目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器&lt;/h3&gt;
-&lt;h4 id=&#34;troubleshooting-record&#34;&gt;Troubleshooting Record&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ sudo docker build -t nginx-image .
-
-[+] Building 0.1s (1/1) FINISHED                               docker:default
- =&amp;gt; [internal] load build definition from Dockerfile                     0.1s
- =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s
-ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;需要先创建一个文件/文件夹&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image
-ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;没有权限访问 socket 文件：/var/run/docker.sock
-&lt;ul&gt;
-&lt;li&gt;检查sock文件权限：660 / 666&lt;/li&gt;
-&lt;li&gt;将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~/docker]$ docker build -t nginx-image .
-[+] Building 0.0s (1/1) FINISHED                               docker:default
- =&amp;gt; [internal] load build definition from Dockerfile                     0.0s
- =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s
-ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;显示没有文件/文件夹&lt;/li&gt;
-&lt;li&gt;尝试用文件夹建立dockerfile&lt;/li&gt;
-&lt;li&gt;发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;docker images&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;目标docker-建立-nodejs-镜像并跑一个-nodejs-容器&#34;&gt;目标：Docker 建立 Nodejs 镜像并跑一个 Nodejs 容器&lt;/h3&gt;&#xA;&lt;h4 id=&#34;troubleshooting-record&#34;&gt;Troubleshooting Record&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ sudo docker build -t nginx-image .&#xA;&#xA;[+] Building 0.1s (1/1) FINISHED                               docker:default&#xA; =&amp;gt; [internal] load build definition from Dockerfile                     0.1s&#xA; =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s&#xA;ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;需要先创建一个文件/文件夹&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~]$ docker build -t nginx-image ./docker/nginx-image&#xA;ERROR: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;没有权限访问 socket 文件：/var/run/docker.sock&#xA;&lt;ul&gt;&#xA;&lt;li&gt;检查sock文件权限：660 / 666&lt;/li&gt;&#xA;&lt;li&gt;将当前用户加入docker组：sudo usermod -aG docker $USER；然后退出重登。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[devops@lb01 ~/docker]$ docker build -t nginx-image .&#xA;[+] Building 0.0s (1/1) FINISHED                               docker:default&#xA; =&amp;gt; [internal] load build definition from Dockerfile                     0.0s&#xA; =&amp;gt; =&amp;gt; transferring dockerfile: 2B                                       0.0s&#xA;ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;显示没有文件/文件夹&lt;/li&gt;&#xA;&lt;li&gt;尝试用文件夹建立dockerfile&lt;/li&gt;&#xA;&lt;li&gt;发现仍然报错，显示文件不存在搜索后发现是dockerfile没有提前建立的关系，于是先建立Dockerfile文件在项目下，再次docker build -t my-nodejs就没有报错了&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;docker images&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker简单配置</title>
       <link>http://localhost:1313/posts/2026-03-20-docker-junior/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-20-docker-junior/</guid>
-      <description>&lt;h4 id=&#34;docker配置命令&#34;&gt;Docker配置命令：&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 1）先清理冲突包  
-dnf remove y podmandocker podman runc  
-  
-# 2）安装仓库管理工具  
-dnf y install dnfpluginscore  
-  
-# 3）添加 Docker 官方 RHEL 仓库  
-dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  
-  
-# 4）安装 Docker  
-dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  
-  
-# 5）启动并设置开机自启  
-systemctl enable now docker  
-  
-# 6） 验证  
-docker version  
-docker info
-
-这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。
-
-
-# 阶段 1：认识镜像  
-docker search nginx  
-docker pull nginx  
-docker images  
-  
-# 阶段 2：跑第一个容器  
-docker run d name mynginx p 80:80 nginx  
-docker ps  
-docker logs f mynginx  
-docker exec it mynginx bash  
-  
-# 阶段 3：理解生命周期  
-docker stop mynginx  
-docker start mynginx  
-docker rm f mynginx  
-  
-# 阶段 4：练习镜像管理  
-docker image inspect nginx  
-docker image save nginx &amp;gt; nginx.tar  
-docker image load i nginx.tar  
-docker rmi nginx
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;报错点（环境被污染）：&lt;/p&gt;</description>
+      <description>&lt;h4 id=&#34;docker配置命令&#34;&gt;Docker配置命令：&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 1）先清理冲突包  &#xA;dnf remove y podmandocker podman runc  &#xA;  &#xA;# 2）安装仓库管理工具  &#xA;dnf y install dnfpluginscore  &#xA;  &#xA;# 3）添加 Docker 官方 RHEL 仓库  &#xA;dnf configmanager addrepo https://download.docker.com/linux/rhel/dockerce.repo  &#xA;  &#xA;# 4）安装 Docker  &#xA;dnf y install dockerce dockercecli containerd.io dockerbuildxplugin dockercomposeplugin  &#xA;  &#xA;# 5）启动并设置开机自启  &#xA;systemctl enable now docker  &#xA;  &#xA;# 6） 验证  &#xA;docker version  &#xA;docker info&#xA;&#xA;这条路径和 Docker 官方给 RHEL 8/9/10 的安装方式一致；Rocky 的官方文档也给出了相同的仓库地址和安装包组合。&#xA;&#xA;&#xA;# 阶段 1：认识镜像  &#xA;docker search nginx  &#xA;docker pull nginx  &#xA;docker images  &#xA;  &#xA;# 阶段 2：跑第一个容器  &#xA;docker run d name mynginx p 80:80 nginx  &#xA;docker ps  &#xA;docker logs f mynginx  &#xA;docker exec it mynginx bash  &#xA;  &#xA;# 阶段 3：理解生命周期  &#xA;docker stop mynginx  &#xA;docker start mynginx  &#xA;docker rm f mynginx  &#xA;  &#xA;# 阶段 4：练习镜像管理  &#xA;docker image inspect nginx  &#xA;docker image save nginx &amp;gt; nginx.tar  &#xA;docker image load i nginx.tar  &#xA;docker rmi nginx&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;报错点（环境被污染）：&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/linux/</link>
@@ -13,123 +13,21 @@
       <link>http://localhost:1313/posts/2026-04-27-regex/</link>
       <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
       <guid>http://localhost:1313/posts/2026-04-27-regex/</guid>
-      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;
-&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;&#xA;&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
     </item>
     <item>
       <title>Bash Scripting Documetry</title>
       <link>http://localhost:1313/posts/2026-04-18-bash-scripting/</link>
       <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-18-bash-scripting/</guid>
-      <description>&lt;h2 id=&#34;bash-scripting&#34;&gt;Bash Scripting&lt;/h2&gt;
-&lt;h3 id=&#34;bash-bourne-again-shell&#34;&gt;Bash: &lt;code&gt;Bourne Again Shell&lt;/code&gt;&lt;/h3&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;bash-syntax-for-scripting&#34;&gt;Bash Syntax for Scripting&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-Bash scripts are sequences of commands executed by the Bash shell. 
-They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;basic-syntax&#34;&gt;Basic Syntax&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Here are some basic rules for using Bash in scripts:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-Comments: Comments start with a # and Bash ignores them.
-Command Order: Commands run one after the other, from top to bottom.
-Semicolons: Use ; to run multiple commands on the same line.
-Let&amp;#39;s go through them one by one with examples.
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;this-script-prints-a-greeting-message&#34;&gt;This script prints a greeting message&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-  [devops@lb01 ~]$ # This script prints a greeting message!
-  [devops@lb01 ~]$ echo &amp;#34;hello!!&amp;#34;
-  echo &amp;#34;hello# This script prints a greeting message!&amp;#34;
-  hello# This script prints a greeting message!
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;best-practices-for-writing-scripts&#34;&gt;Best Practices for Writing Scripts&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Here are some tips for writing clean and efficient scripts:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-  Use comments to explain your code.
-  Choose meaningful variable names.
-  Test your scripts thoroughly before using them in production.
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;introduction-to-bash-scripting&#34;&gt;Introduction to Bash Scripting&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Bash scripts are files containing commands that you run in the terminal.&lt;/li&gt;
-&lt;li&gt;They automate tasks and make your work more efficient.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;creating-a-bash-script&#34;&gt;Creating a Bash Script&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;To create a script, start with the shebang &lt;code&gt;#!&lt;/code&gt; followed by the path to Bash, usually &lt;code&gt;/bin/bash&lt;/code&gt;. Make sure your script has execute permissions.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;example-simple-bash-script&#34;&gt;Example: Simple Bash Script&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-#!/bin/bash
-# This script prints a greeting message
-echo &amp;#34;Hello, World!&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;using-variables-in-scripts&#34;&gt;Using Variables in Scripts&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Variables store data that your script can use. Assign values using the &lt;code&gt;=&lt;/code&gt; sign without spaces.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;example-using-variables&#34;&gt;Example: Using Variables&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~]$ name=&amp;#34;dslfaj&amp;#34;
-[devops@lb01 ~]$ echo &amp;#34;hello,$name&amp;#34;
-hello,dslfaj
-
-======================================
-#!/bin/bash
-# Assign a value to a variable 
-name=&amp;#34;World&amp;#34; 
-echo &amp;#34;Hello, $name!&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bashvariables&#34;&gt;Bash Variables&lt;/h3&gt;
-&lt;h4 id=&#34;understanding-variables-in-bash&#34;&gt;Understanding Variables in Bash&lt;/h4&gt;
-&lt;p&gt;Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session.
-Bash variables are untyped, meaning they can hold any type of data.&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;bash-scripting&#34;&gt;Bash Scripting&lt;/h2&gt;&#xA;&lt;h3 id=&#34;bash-bourne-again-shell&#34;&gt;Bash: &lt;code&gt;Bourne Again Shell&lt;/code&gt;&lt;/h3&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;bash-syntax-for-scripting&#34;&gt;Bash Syntax for Scripting&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;Bash scripts are sequences of commands executed by the Bash shell. &#xA;They automate tasks and can be used to perform complex operations. Understanding Bash syntax is crucial for writing effective scripts.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;basic-syntax&#34;&gt;Basic Syntax&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Here are some basic rules for using Bash in scripts:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;Comments: Comments start with a # and Bash ignores them.&#xA;Command Order: Commands run one after the other, from top to bottom.&#xA;Semicolons: Use ; to run multiple commands on the same line.&#xA;Let&amp;#39;s go through them one by one with examples.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;this-script-prints-a-greeting-message&#34;&gt;This script prints a greeting message&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;  [devops@lb01 ~]$ # This script prints a greeting message!&#xA;  [devops@lb01 ~]$ echo &amp;#34;hello!!&amp;#34;&#xA;  echo &amp;#34;hello# This script prints a greeting message!&amp;#34;&#xA;  hello# This script prints a greeting message!&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;best-practices-for-writing-scripts&#34;&gt;Best Practices for Writing Scripts&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Here are some tips for writing clean and efficient scripts:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;  Use comments to explain your code.&#xA;  Choose meaningful variable names.&#xA;  Test your scripts thoroughly before using them in production.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;introduction-to-bash-scripting&#34;&gt;Introduction to Bash Scripting&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Bash scripts are files containing commands that you run in the terminal.&lt;/li&gt;&#xA;&lt;li&gt;They automate tasks and make your work more efficient.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;creating-a-bash-script&#34;&gt;Creating a Bash Script&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;To create a script, start with the shebang &lt;code&gt;#!&lt;/code&gt; followed by the path to Bash, usually &lt;code&gt;/bin/bash&lt;/code&gt;. Make sure your script has execute permissions.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;example-simple-bash-script&#34;&gt;Example: Simple Bash Script&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;#!/bin/bash&#xA;# This script prints a greeting message&#xA;echo &amp;#34;Hello, World!&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;using-variables-in-scripts&#34;&gt;Using Variables in Scripts&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Variables store data that your script can use. Assign values using the &lt;code&gt;=&lt;/code&gt; sign without spaces.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;example-using-variables&#34;&gt;Example: Using Variables&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~]$ name=&amp;#34;dslfaj&amp;#34;&#xA;[devops@lb01 ~]$ echo &amp;#34;hello,$name&amp;#34;&#xA;hello,dslfaj&#xA;&#xA;======================================&#xA;#!/bin/bash&#xA;# Assign a value to a variable &#xA;name=&amp;#34;World&amp;#34; &#xA;echo &amp;#34;Hello, $name!&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bashvariables&#34;&gt;Bash Variables&lt;/h3&gt;&#xA;&lt;h4 id=&#34;understanding-variables-in-bash&#34;&gt;Understanding Variables in Bash&lt;/h4&gt;&#xA;&lt;p&gt;Variables in Bash are used to store data that can be used and manipulated throughout your script or command-line session.&#xA;Bash variables are untyped, meaning they can hold any type of data.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Linux Common Commands</title>
       <link>http://localhost:1313/posts/2026-04-16-linux-commands/</link>
       <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-16-linux-commands/</guid>
-      <description>&lt;h3 id=&#34;linux-commands-in-read-world&#34;&gt;Linux Commands in Read-World:&lt;/h3&gt;
-&lt;h4 id=&#34;commands&#34;&gt;Commands:&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-ls  cp  find  |  xargs  cat  |  grep  |  sort  |  uniq  &amp;gt;  &amp;gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;串联命令：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-find  =&amp;gt;  xargs  ==&amp;gt;  cat
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查找文件 到  处理文件内容&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-find . -type f -name `&amp;#34;*.txt&amp;#34;`
-
-mkdir -p ./test
-
-ls .
-
-cp ./test ./test.backup
-
-ls ./
-
-cd ./test
-
-touch test{1..3}.txt
-
-ls .
-
-
-
-####The `sort` command is used to sort lines of text files.
-
-####It&amp;#39;s a handy tool for organizing data in files.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;###vim  4_17.txt
-apples,1
-kiwis,3
-kiwis,4
-oranges,3
-banana,10&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;linux-commands-in-read-world&#34;&gt;Linux Commands in Read-World:&lt;/h3&gt;&#xA;&lt;h4 id=&#34;commands&#34;&gt;Commands:&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;ls  cp  find  |  xargs  cat  |  grep  |  sort  |  uniq  &amp;gt;  &amp;gt;&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;串联命令：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;find  =&amp;gt;  xargs  ==&amp;gt;  cat&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查找文件 到  处理文件内容&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;find . -type f -name `&amp;#34;*.txt&amp;#34;`&#xA;&#xA;mkdir -p ./test&#xA;&#xA;ls .&#xA;&#xA;cp ./test ./test.backup&#xA;&#xA;ls ./&#xA;&#xA;cd ./test&#xA;&#xA;touch test{1..3}.txt&#xA;&#xA;ls .&#xA;&#xA;&#xA;&#xA;####The `sort` command is used to sort lines of text files.&#xA;&#xA;####It&amp;#39;s a handy tool for organizing data in files.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;###vim  4_17.txt&#xA;apples,1&#xA;kiwis,3&#xA;kiwis,4&#xA;oranges,3&#xA;banana,10&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

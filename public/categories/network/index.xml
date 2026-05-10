@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/network/</link>
@@ -13,23 +13,7 @@
       <link>http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/</link>
       <pubDate>Sun, 03 May 2026 20:00:00 +0800</pubDate>
       <guid>http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/</guid>
-      <description>&lt;h2 id=&#34;1x&#34;&gt;1.x：&lt;/h2&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;1-网络体系结构与通信过程探讨-osi-七层模型与-tcpip-模型的对应关系以及数据在各层是如何自上向下封装自下向上解封装的-&#34;&gt;1️⃣ &lt;strong&gt;网络体系结构与通信过程&lt;/strong&gt;：探讨 OSI 七层模型与 TCP/IP 模型的对应关系，以及数据在各层是如何自上向下封装、自下向上解封装的 。&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-网络协议三要素:
-
-
-语法（Syntax）： 规定数据与控制信息的结构或格式 。
-
-
-语义（Semantics）： 规定各个控制信息的具体含义 。
-                    比如系统发出这个控制信息，是要求完成何种动作（是建立连接还是断开连接）。
-
-
-同步 / 时序（Timing）： 对事件实现顺序和时间的详细说明 。比如数据应该在何时发送、以多快的速率发送 。
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;考点二架构师的系统分层视角三大体系结构对比&#34;&gt;考点二：架构师的系统分层视角（三大体系结构对比）&lt;/h4&gt;
-&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/image-5.png&#34;&gt;&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;1x&#34;&gt;1.x：&lt;/h2&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;1-网络体系结构与通信过程探讨-osi-七层模型与-tcpip-模型的对应关系以及数据在各层是如何自上向下封装自下向上解封装的-&#34;&gt;1️⃣ &lt;strong&gt;网络体系结构与通信过程&lt;/strong&gt;：探讨 OSI 七层模型与 TCP/IP 模型的对应关系，以及数据在各层是如何自上向下封装、自下向上解封装的 。&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xD;&#xA;网络协议三要素:&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;语法（Syntax）： 规定数据与控制信息的结构或格式 。&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;语义（Semantics）： 规定各个控制信息的具体含义 。&#xD;&#xA;                    比如系统发出这个控制信息，是要求完成何种动作（是建立连接还是断开连接）。&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;同步 / 时序（Timing）： 对事件实现顺序和时间的详细说明 。比如数据应该在何时发送、以多快的速率发送 。&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;考点二架构师的系统分层视角三大体系结构对比&#34;&gt;考点二：架构师的系统分层视角（三大体系结构对比）&lt;/h4&gt;&#xA;&lt;p&gt;&lt;img src=&#34;image-5.png&#34; alt=&#34;alt text&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

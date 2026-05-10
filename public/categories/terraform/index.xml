@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Terraform on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/terraform/</link>
@@ -13,17 +13,7 @@
       <link>http://localhost:1313/posts/2026-04-18-terraform-docker/</link>
       <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-18-terraform-docker/</guid>
-      <description>&lt;h3 id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
-[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y
-[sudo] password for devops:
-Sorry, try again.
-[sudo] password for devops:
-Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.
-No match for argument: terraform
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y&#xA;[sudo] password for devops:&#xA;Sorry, try again.&#xA;[sudo] password for devops:&#xA;Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.&#xA;No match for argument: terraform&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

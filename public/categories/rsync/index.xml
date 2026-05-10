@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rsync on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/rsync/</link>
@@ -13,74 +13,7 @@
       <link>http://localhost:1313/posts/2026-03-05-rsync-errors/</link>
       <pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-05-rsync-errors/</guid>
-      <description>&lt;h3 id=&#34;配置rsync服务&#34;&gt;配置Rsync服务：&lt;/h3&gt;
-&lt;h4 id=&#34;server10005&#34;&gt;&lt;strong&gt;Server(10.0.0.5)：&lt;/strong&gt;&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;	dnf install rsync -y
-
-	dnf list installed | grep rsync
-
-	vim /etc/rsync.conf
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fake super = yes
-uid = rsync
-gid = rsync
-use chroot = no
-max connections = 2000
-log file = /var/log/rsyncd.log
-read only = false
-list = false
-ignore errors = yes
-hosts allow = 10.0.0.210/24
-#hosts deny = 0.0.0.0/24
-auth users = rsync_backup
-secrets file = /etc/rsyncd.passwd
-#####################################
-[data]
-path = /data
-comment = test module	
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;useradd -s /sbin/nologin -M rsync     
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建虚拟用户来启动rsync进程&#34;&gt;创建虚拟用户来启动Rsync进程&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;rsync_backup:123456&amp;#39; &amp;gt; /etc/rsyncd.passwd 
-
-- chmod 600 /etc/rsyncd.passwd
-
-
-- mkdir -p /data/
-
-- chown -R rsync:rsync /data/
-	- 创建模块路径对应文件名
-	- -R递归更改
-
-
-
-- rsync --daemon            
-
-	- 旨在将rsync升级为后台守护进程，监听文件传输，端口为873
-
-- systemctl enable rsyncd
-
-- systemctl start rsyncd
-
-- systemctl status rsyncd
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;本地测试&#34;&gt;本地测试：&lt;/h5&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- touch ./a.txt
-
-- rsync -Paz ./a.txt rsync_backup@10.0.0.5::data
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;client1000210&#34;&gt;&lt;strong&gt;Client(10.0.0.210):&lt;/strong&gt;&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;123456&amp;#39; &amp;gt; /etc/client.passwd
-	
-	- 文件名及位置无硬性要求
-
-- chmod 600 /etc/client.passwd
-
-
-- touch ./asd.txt
-
-- rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data
-
-- rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd
-	- 使用密码文件传输，减少手输密码		
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- /var/log/rsync.log
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;日志非常重要,可以多开一个窗口查看错误输出&lt;/strong&gt;&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;配置rsync服务&#34;&gt;配置Rsync服务：&lt;/h3&gt;&#xA;&lt;h4 id=&#34;server10005&#34;&gt;&lt;strong&gt;Server(10.0.0.5)：&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#x9;dnf install rsync -y&#xA;&#xA;&#x9;dnf list installed | grep rsync&#xA;&#xA;&#x9;vim /etc/rsync.conf&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fake super = yes&#xA;uid = rsync&#xA;gid = rsync&#xA;use chroot = no&#xA;max connections = 2000&#xA;log file = /var/log/rsyncd.log&#xA;read only = false&#xA;list = false&#xA;ignore errors = yes&#xA;hosts allow = 10.0.0.210/24&#xA;#hosts deny = 0.0.0.0/24&#xA;auth users = rsync_backup&#xA;secrets file = /etc/rsyncd.passwd&#xA;#####################################&#xA;[data]&#xA;path = /data&#xA;comment = test module&#x9;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;useradd -s /sbin/nologin -M rsync     &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;创建虚拟用户来启动rsync进程&#34;&gt;创建虚拟用户来启动Rsync进程&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;rsync_backup:123456&amp;#39; &amp;gt; /etc/rsyncd.passwd &#xA;&#xA;- chmod 600 /etc/rsyncd.passwd&#xA;&#xA;&#xA;- mkdir -p /data/&#xA;&#xA;- chown -R rsync:rsync /data/&#xA;&#x9;- 创建模块路径对应文件名&#xA;&#x9;- -R递归更改&#xA;&#xA;&#xA;&#xA;- rsync --daemon            &#xA;&#xA;&#x9;- 旨在将rsync升级为后台守护进程，监听文件传输，端口为873&#xA;&#xA;- systemctl enable rsyncd&#xA;&#xA;- systemctl start rsyncd&#xA;&#xA;- systemctl status rsyncd&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;本地测试&#34;&gt;本地测试：&lt;/h5&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- touch ./a.txt&#xA;&#xA;- rsync -Paz ./a.txt rsync_backup@10.0.0.5::data&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;client1000210&#34;&gt;&lt;strong&gt;Client(10.0.0.210):&lt;/strong&gt;&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- echo &amp;#39;123456&amp;#39; &amp;gt; /etc/client.passwd&#xA;&#x9;&#xA;&#x9;- 文件名及位置无硬性要求&#xA;&#xA;- chmod 600 /etc/client.passwd&#xA;&#xA;&#xA;- touch ./asd.txt&#xA;&#xA;- rsync -Paz ./asd.txt rsync_backup@10.0.0.5::data&#xA;&#xA;- rsync -paz /etc/hostname rsync_backup@10.0.0.5::data --password-file /etc/client.passwd&#xA;&#x9;- 使用密码文件传输，减少手输密码&#x9;&#x9;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- /var/log/rsync.log&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;日志非常重要,可以多开一个窗口查看错误输出&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

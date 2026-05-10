@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Regex on My SRE Knowledge Library</title>
     <link>http://localhost:1313/tags/regex/</link>
@@ -13,12 +13,7 @@
       <link>http://localhost:1313/posts/2026-04-27-regex/</link>
       <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
       <guid>http://localhost:1313/posts/2026-04-27-regex/</guid>
-      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;
-&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;&#xA;&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

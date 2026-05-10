@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/hugo/</link>
@@ -13,9 +13,7 @@
       <link>http://localhost:1313/posts/2026-04-26-hugo-blog/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-26-hugo-blog/</guid>
-      <description>&lt;h3 id=&#34;jekyll-博客迁移为-hugo&#34;&gt;jekyll 博客迁移为 Hugo&lt;/h3&gt;
-&lt;h4 id=&#34;痛点hugo-对比-jekyll&#34;&gt;痛点：Hugo (对比 Jekyll)&lt;/h4&gt;
-&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;jekyll-博客迁移为-hugo&#34;&gt;jekyll 博客迁移为 Hugo&lt;/h3&gt;&#xA;&lt;h4 id=&#34;痛点hugo-对比-jekyll&#34;&gt;痛点：Hugo (对比 Jekyll)&lt;/h4&gt;&#xA;&lt;p&gt;在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

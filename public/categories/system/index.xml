@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>System on My SRE Knowledge Library</title>
     <link>http://localhost:1313/categories/system/</link>
@@ -13,189 +13,35 @@
       <link>http://localhost:1313/posts/2026-04-20-iam/</link>
       <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-20-iam/</guid>
-      <description>&lt;h3 id=&#34;use-least-privilege-principle-to-secure-your-cicd-pipeline&#34;&gt;Use least privilege principle to secure your CI/CD pipeline&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;IAM Permissions &amp;amp;&amp;amp; Access Control&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Prompt&amp;ndash;The Over-Permissioned Pipeline Disaster-Real Security Risk:&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;Developer sets up CodeBuild,&lt;!-- raw HTML omitted --&gt;gets &amp;ldquo;Access Denied&amp;rdquo; errors&lt;/th&gt;
-          &lt;th&gt;Frustrated,they attack&lt;!-- raw HTML omitted --&gt;AdministratorAccess policy to fix it quickly&lt;/th&gt;
-          &lt;th&gt;Pipeline works!Problems solved&amp;hellip;or is it?&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket&lt;/td&gt;
-          &lt;td&gt;Attacker compromises the build through malicious code in dependencies&lt;/td&gt;
-          &lt;td&gt;Now attacker has admin access to your entire AWS account&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;the-principle-of-least-privilege---only-whats-needednothing-more&#34;&gt;The Principle of Least Privilege - Only What&amp;rsquo;s needed,Nothing More.&lt;/h4&gt;
-&lt;h5 id=&#34;least-privilege--grant-minimum-permissions-required-to-do-the-job&#34;&gt;Least Privilege = Grant minimum permissions required to do the job&lt;/h5&gt;
-&lt;ul&gt;
-&lt;li&gt;CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets&lt;/li&gt;
-&lt;li&gt;CodeDeploy nedds to update EC2 instances?Grant only deployment permission&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5 id=&#34;dontt-grant&#34;&gt;Dont&amp;rsquo;t grant&lt;/h5&gt;
-&lt;ul&gt;
-&lt;li&gt;Full S3 access&lt;/li&gt;
-&lt;li&gt;EC2 admin&lt;/li&gt;
-&lt;li&gt;IAM modification&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5 id=&#34;think-whats-the-smallest-set-of-permissions-for-this-to-work&#34;&gt;Think: What&amp;rsquo;s the smallest set of permissions for this to work?&lt;/h5&gt;
-&lt;ul&gt;
-&lt;li&gt;Benefits: Limits blast radius if compromised&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;building-secure-iam-policies-for-pipeline-services&#34;&gt;Building Secure IAM Policies for Pipeline Services&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;IAM Policy = JSON document with permissions&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;use-least-privilege-principle-to-secure-your-cicd-pipeline&#34;&gt;Use least privilege principle to secure your CI/CD pipeline&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;IAM Permissions &amp;amp;&amp;amp; Access Control&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Prompt&amp;ndash;The Over-Permissioned Pipeline Disaster-Real Security Risk:&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;Developer sets up CodeBuild,&lt;!-- raw HTML omitted --&gt;gets &amp;ldquo;Access Denied&amp;rdquo; errors&lt;/th&gt;&#xA;          &lt;th&gt;Frustrated,they attack&lt;!-- raw HTML omitted --&gt;AdministratorAccess policy to fix it quickly&lt;/th&gt;&#xA;          &lt;th&gt;Pipeline works!Problems solved&amp;hellip;or is it?&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;CodeBuild now has full access to delete databases,modify IAM,access all s3 bucket&lt;/td&gt;&#xA;          &lt;td&gt;Attacker compromises the build through malicious code in dependencies&lt;/td&gt;&#xA;          &lt;td&gt;Now attacker has admin access to your entire AWS account&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h4 id=&#34;the-principle-of-least-privilege---only-whats-needednothing-more&#34;&gt;The Principle of Least Privilege - Only What&amp;rsquo;s needed,Nothing More.&lt;/h4&gt;&#xA;&lt;h5 id=&#34;least-privilege--grant-minimum-permissions-required-to-do-the-job&#34;&gt;Least Privilege = Grant minimum permissions required to do the job&lt;/h5&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;CodeBuild needs to read one S3 bucket?Grant exactly that,not all S3 buckets&lt;/li&gt;&#xA;&lt;li&gt;CodeDeploy nedds to update EC2 instances?Grant only deployment permission&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h5 id=&#34;dontt-grant&#34;&gt;Dont&amp;rsquo;t grant&lt;/h5&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Full S3 access&lt;/li&gt;&#xA;&lt;li&gt;EC2 admin&lt;/li&gt;&#xA;&lt;li&gt;IAM modification&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h5 id=&#34;think-whats-the-smallest-set-of-permissions-for-this-to-work&#34;&gt;Think: What&amp;rsquo;s the smallest set of permissions for this to work?&lt;/h5&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Benefits: Limits blast radius if compromised&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;building-secure-iam-policies-for-pipeline-services&#34;&gt;Building Secure IAM Policies for Pipeline Services&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;IAM Policy = JSON document with permissions&lt;/p&gt;</description>
     </item>
     <item>
       <title>yum 进阶</title>
       <link>http://localhost:1313/posts/2026-04-11-yum-advanced/</link>
       <pubDate>Sat, 11 Apr 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-04-11-yum-advanced/</guid>
-      <description>&lt;h2 id=&#34;探究yum源的混乱&#34;&gt;探究yum源的混乱&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;更换yum源核心逻辑：注释metalink；更换国内的baseurl&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;探究yum源的混乱&#34;&gt;探究yum源的混乱&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;更换yum源核心逻辑：注释metalink；更换国内的baseurl&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;解决方案：源于yum错乱，为了尽快解决最好的办法就是删除原来错乱的配置重新配置官方的yum源&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>FTP办公挂载文件夹</title>
       <link>http://localhost:1313/posts/2026-03-20-ftp-win/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-20-ftp-win/</guid>
-      <description>&lt;h3 id=&#34;搭建服务器的ftp文件夹挂载在win上&#34;&gt;搭建服务器的FTP文件夹挂载在win上&lt;/h3&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h4 id=&#34;简单介绍&#34;&gt;简单介绍：&lt;/h4&gt;
-&lt;h5 id=&#34;ftpvsftp&#34;&gt;FTP（VSFTP）&lt;/h5&gt;
-&lt;h5 id=&#34;类unix系统使用的ftp服务器软件&#34;&gt;类unix系统使用的FTP服务器软件&lt;/h5&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h5 id=&#34;安全高速稳定&#34;&gt;安全，高速，稳定&lt;/h5&gt;
-&lt;h6 id=&#34;vim-etcservices----查端口&#34;&gt;vim /etc/services    查端口&lt;/h6&gt;
-&lt;h6 id=&#34;20--传数据21--传指令&#34;&gt;20  传数据；21  传指令&lt;/h6&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h5 id=&#34;ftp会话通道&#34;&gt;FTP会话通道：&lt;/h5&gt;
-&lt;h6 id=&#34;20数据通道正文&#34;&gt;20数据通道：正文&lt;/h6&gt;
-&lt;h6 id=&#34;21控制通道敲门输密码发指令&#34;&gt;21控制通道：敲门，输密码，发指令&lt;/h6&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;h6 id=&#34;主动模式&#34;&gt;主动模式：&lt;/h6&gt;
-&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;搭建服务器的ftp文件夹挂载在win上&#34;&gt;搭建服务器的FTP文件夹挂载在win上&lt;/h3&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h4 id=&#34;简单介绍&#34;&gt;简单介绍：&lt;/h4&gt;&#xA;&lt;h5 id=&#34;ftpvsftp&#34;&gt;FTP（VSFTP）&lt;/h5&gt;&#xA;&lt;h5 id=&#34;类unix系统使用的ftp服务器软件&#34;&gt;类unix系统使用的FTP服务器软件&lt;/h5&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h5 id=&#34;安全高速稳定&#34;&gt;安全，高速，稳定&lt;/h5&gt;&#xA;&lt;h6 id=&#34;vim-etcservices----查端口&#34;&gt;vim /etc/services    查端口&lt;/h6&gt;&#xA;&lt;h6 id=&#34;20--传数据21--传指令&#34;&gt;20  传数据；21  传指令&lt;/h6&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h5 id=&#34;ftp会话通道&#34;&gt;FTP会话通道：&lt;/h5&gt;&#xA;&lt;h6 id=&#34;20数据通道正文&#34;&gt;20数据通道：正文&lt;/h6&gt;&#xA;&lt;h6 id=&#34;21控制通道敲门输密码发指令&#34;&gt;21控制通道：敲门，输密码，发指令&lt;/h6&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;h6 id=&#34;主动模式&#34;&gt;主动模式：&lt;/h6&gt;&#xA;&lt;p&gt;C随机开高位端口&amp;amp;发给S，Server通过20端口与Client连接&amp;amp;发数据&lt;/p&gt;</description>
     </item>
     <item>
       <title>内存告急，快加swap！！！</title>
       <link>http://localhost:1313/posts/2026-03-17-add-swap/</link>
       <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-17-add-swap/</guid>
-      <description>&lt;h3 id=&#34;内存不足创建swap空间&#34;&gt;内存不足创建swap空间&lt;/h3&gt;
-&lt;h4 id=&#34;痛点云服务器的内存太小又想要极致性价比&#34;&gt;痛点：云服务器的内存太小，又想要极致性价比&lt;/h4&gt;
-&lt;h4 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h4&gt;
-&lt;h5 id=&#34;创建swapfile的大文件放在swap下&#34;&gt;创建swapfile的大文件放在swap下&lt;/h5&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 创建swap空间：
-- 
-	- 创建swapfile空间 ==&amp;gt;  转为swap  ==&amp;gt;  激活swap并加入linux   ==&amp;gt;  配置永久挂载
-	
-	
-	- if        
-	- 
-		- input file
-	
-	- 
-	- of
-	- 
-		- output file
-		
-	
-	- bs
-	- 
-		- block size 每次读取多少
-	
-	- 
-	- count     
-	- 
-		- 读取次数
-	
-	- dd  if=/dev/zero  of=/tmp/swapfile  bs=1M  count=1000
-	- 
-	- 
-	- mkswap  /tmp/swapfile
-	- 
-	- free -h
-	- 
-	- chmod  600  /tmp/swapfile
-	- 
-	- mkswap /tmp/swapfile
-	- 
-	- swapon  /tmp/swapfile
-
-		
-
-	- free -h
-	- 
-
-	- 
-	- 先卸载当前的 Swap 文件 
-	- 
-		- swapoff /tmp/swapfile 
-		
-		- 
-	- 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） 
-		- 
-		- swapon -a
-		
-	- vim /etc/fstab（修改）
-
-		- /swapfile   swap   swap    defaults    0    0 
-	
-	
-	- free -h 
-		
-		- 再次查看挂载情况
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;h3 id=&#34;内存不足创建swap空间&#34;&gt;内存不足创建swap空间&lt;/h3&gt;&#xA;&lt;h4 id=&#34;痛点云服务器的内存太小又想要极致性价比&#34;&gt;痛点：云服务器的内存太小，又想要极致性价比&lt;/h4&gt;&#xA;&lt;h4 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h4&gt;&#xA;&lt;h5 id=&#34;创建swapfile的大文件放在swap下&#34;&gt;创建swapfile的大文件放在swap下&lt;/h5&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 创建swap空间：&#xA;- &#xA;&#x9;- 创建swapfile空间 ==&amp;gt;  转为swap  ==&amp;gt;  激活swap并加入linux   ==&amp;gt;  配置永久挂载&#xA;&#x9;&#xA;&#x9;&#xA;&#x9;- if        &#xA;&#x9;- &#xA;&#x9;&#x9;- input file&#xA;&#x9;&#xA;&#x9;- &#xA;&#x9;- of&#xA;&#x9;- &#xA;&#x9;&#x9;- output file&#xA;&#x9;&#x9;&#xA;&#x9;&#xA;&#x9;- bs&#xA;&#x9;- &#xA;&#x9;&#x9;- block size 每次读取多少&#xA;&#x9;&#xA;&#x9;- &#xA;&#x9;- count     &#xA;&#x9;- &#xA;&#x9;&#x9;- 读取次数&#xA;&#x9;&#xA;&#x9;- dd  if=/dev/zero  of=/tmp/swapfile  bs=1M  count=1000&#xA;&#x9;- &#xA;&#x9;- &#xA;&#x9;- mkswap  /tmp/swapfile&#xA;&#x9;- &#xA;&#x9;- free -h&#xA;&#x9;- &#xA;&#x9;- chmod  600  /tmp/swapfile&#xA;&#x9;- &#xA;&#x9;- mkswap /tmp/swapfile&#xA;&#x9;- &#xA;&#x9;- swapon  /tmp/swapfile&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;- free -h&#xA;&#x9;- &#xA;&#xA;&#x9;- &#xA;&#x9;- 先卸载当前的 Swap 文件 &#xA;&#x9;- &#xA;&#x9;&#x9;- swapoff /tmp/swapfile &#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- &#xA;&#x9;- 使用 swapon -a 命令（它会读取 /etc/fstab 中的所有 swap 条目并尝试挂载） &#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- swapon -a&#xA;&#x9;&#x9;&#xA;&#x9;- vim /etc/fstab（修改）&#xA;&#xA;&#x9;&#x9;- /swapfile   swap   swap    defaults    0    0 &#xA;&#x9;&#xA;&#x9;&#xA;&#x9;- free -h &#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- 再次查看挂载情况&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     <item>
       <title>Rocky9忘记密码--紧急救援</title>
       <link>http://localhost:1313/posts/2026-03-04-rocky9-resume/</link>
       <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/2026-03-04-rocky9-resume/</guid>
-      <description>&lt;h3 id=&#34;5分钟紧急救援rhel-root密码&#34;&gt;5分钟紧急救援RHEL-Root密码&lt;/h3&gt;
-&lt;h4 id=&#34;原理在系统未完全启动强行中断引导程序此时未加载密码验证模块进入内核的紧急救援模式从而越过密码&#34;&gt;原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码&lt;/h4&gt;
-&lt;h4 id=&#34;步骤&#34;&gt;步骤：&lt;/h4&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑
-
-- 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl+X进入紧急救援
-
-- 随后进入到switch_root:/# 下，依次输入以下5个命令：
-	
-	- mount -o remount,rw /sysroot       重新挂载根目录可读写
-	
-	- chroot /sysroot                               切换到系统根目录（真实root）
-		- 提示符会变成sh-4.2#
-	
-	- passwd root                                    修改root密码
-
-	- touch /.autorelabel            
-
-        - 自动重新标记，**这一步非常重要**
-
-		- 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除
-
-	- exit                                                 
-        退出chroot环境
-        
-	- exit                                                 
-        - 退出紧急救援模式
-
-		- 随后系统开始自动重启
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;h3 id=&#34;5分钟紧急救援rhel-root密码&#34;&gt;5分钟紧急救援RHEL-Root密码&lt;/h3&gt;&#xA;&lt;h4 id=&#34;原理在系统未完全启动强行中断引导程序此时未加载密码验证模块进入内核的紧急救援模式从而越过密码&#34;&gt;原理：在系统未完全启动强行中断引导程序（此时未加载密码验证模块），进入内核的紧急救援模式，从而越过密码&lt;/h4&gt;&#xA;&lt;h4 id=&#34;步骤&#34;&gt;步骤：&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- 重启时出现内核选项前迅速上下按键停止倒计时，按下e进入编辑&#xA;&#xA;- 找到以 linux 开头且在 initrd 前输入 rd.break；然后按下Ctrl+X进入紧急救援&#xA;&#xA;- 随后进入到switch_root:/# 下，依次输入以下5个命令：&#xA;&#x9;&#xA;&#x9;- mount -o remount,rw /sysroot       重新挂载根目录可读写&#xA;&#x9;&#xA;&#x9;- chroot /sysroot                               切换到系统根目录（真实root）&#xA;&#x9;&#x9;- 提示符会变成sh-4.2#&#xA;&#x9;&#xA;&#x9;- passwd root                                    修改root密码&#xA;&#xA;&#x9;- touch /.autorelabel            &#xA;&#xA;        - 自动重新标记，**这一步非常重要**&#xA;&#xA;&#x9;&#x9;- 因为RHEL的SElinux安全机制，修改密码文件会导致安全标签错乱，这段命令为了让系统下次重启时重新认领这些文件，不用担心文件在重启后会自动删除&#xA;&#xA;&#x9;- exit                                                 &#xA;        退出chroot环境&#xA;        &#xA;&#x9;- exit                                                 &#xA;        - 退出紧急救援模式&#xA;&#xA;&#x9;&#x9;- 随后系统开始自动重启&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

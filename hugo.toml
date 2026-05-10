@@ -1,6 +1,6 @@
 baseURL = 'https://github.fightingforme.top/'
 languageCode = 'zh-cn'
-theme = 'PaperMod'
+theme = 'hextra'
 title = 'My SRE Knowledge Library'
 
 # 开启 CJK 语言支持，保证中文字数计算的绝对精准
