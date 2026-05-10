@@ -1,19 +1,2133 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Terraform on My SRE Knowledge Library</title>
+    <title>My SRE Knowledge Vault – Terraform</title>
     <link>http://localhost:1313/categories/terraform/</link>
-    <description>Recent content in Terraform on My SRE Knowledge Library</description>
-    <generator>Hugo</generator>
+    <description>Recent content in Terraform on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 18 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/categories/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>Terraform Docker</title>
-      <link>http://localhost:1313/posts/2026-04-18-terraform-docker/</link>
+      <link>http://localhost:1313/blog/2026-04-18-terraform-docker/</link>
       <pubDate>Sat, 18 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-04-18-terraform-docker/</guid>
-      <description>&lt;h3 id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xA;[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y&#xA;[sudo] password for devops:&#xA;Sorry, try again.&#xA;[sudo] password for devops:&#xA;Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.&#xA;No match for argument: terraform&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;</description>
+      
+      <guid>http://localhost:1313/blog/2026-04-18-terraform-docker/</guid>
+      <description>
+        
+        
+        &lt;h3&gt;今天安装Terraform的时候突然安装不上的情况，于是开始排查：&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;今天安装terraform的时候突然安装不上的情况于是开始排查&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8a%e5%a4%a9%e5%ae%89%e8%a3%85terraform%e7%9a%84%e6%97%b6%e5%80%99%e7%aa%81%e7%84%b6%e5%ae%89%e8%a3%85%e4%b8%8d%e4%b8%8a%e7%9a%84%e6%83%85%e5%86%b5%e4%ba%8e%e6%98%af%e5%bc%80%e5%a7%8b%e6%8e%92%e6%9f%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/infrastructure/terraform]$ sudo dnf install terraform -y
+[sudo] password for devops:
+Sorry, try again.
+[sudo] password for devops:
+Last metadata expiration check: 2:47:45 ago on Tue 14 Apr 2026 01:05:35 PM CST.
+No match for argument: terraform&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;猜测原因：可能与我之前在rocky上折腾yum清理repo/缓存有关系&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;出现错误&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+ps://rpm.release.hashicorp.com/RHEL/hashicorp.repo
+Adding repo from: 
+Curl error (6): Couldn&amp;#39;t resolve host name for https://rpm.release.hashicorp.com/RHEL/hashicorp.repo [Could not resolve host: rpm.release.hashicorp.com]
+Error: Configuration of repo failed&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;网址fat-finger error，应该是&lt;code&gt;https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;开始排查：    根据Terraform官方安装步骤来&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;开始排查----根据terraform官方安装步骤来&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%bc%80%e5%a7%8b%e6%8e%92%e6%9f%a5----%e6%a0%b9%e6%8d%aeterraform%e5%ae%98%e6%96%b9%e5%ae%89%e8%a3%85%e6%ad%a5%e9%aa%a4%e6%9d%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+# Install `yum-config-manager` to manage your repositories.
+$ sudo yum install -y yum-utils
+
+
+# Use `yum-config-manager` to add the official HashiCorp RHEL repository.
+# 注意这一步会出现错误，重新建立缓存（sudo dnf makecache）后成功加入到本地yum
+# 还有就是rocky中yum已经被dnf代替所以这条命令还需要用yum可以自行安装，我之前已经安装过yum了
+$ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+
+# Install Terraform from the new repository.
+$ sudo yum -y install terraform
+
+# 输入terraform 显示则安装成功！！！
+[devops@lb01 ~]$ terraform
+Usage: terraform [global options] &amp;lt;subcommand&amp;gt; [args]
+
+The available commands for execution are listed below.
+The primary workflow commands are given first, followed by
+less common or more advanced commands.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Iac ：用 Terraform 控制 Docker 生成 nginx镜像网站并访问&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;iac-用-terraform-控制-docker-生成-nginx镜像网站并访问&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#iac-%e7%94%a8-terraform-%e6%8e%a7%e5%88%b6-docker-%e7%94%9f%e6%88%90-nginx%e9%95%9c%e5%83%8f%e7%bd%91%e7%ab%99%e5%b9%b6%e8%ae%bf%e9%97%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;新建一个空文件夹：&lt;code&gt;mkdir tf-docker-test &amp;amp;&amp;amp; cd tf-docker-test&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~]$ mkdir ./tf-docker-test &amp;amp;&amp;amp; cd ./tf-docker-test
+[devops@lb01 ~/tf-docker-test]$ ls
+[devops@lb01 ~/tf-docker-test]$ pwd
+/home/devops/tf-docker-test&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建一个 &lt;code&gt;main.tf&lt;/code&gt; 文件，输入以下代码（这是 Terraform 控制 Docker 的代码）：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+terraform {
+  required_providers {
+    docker = {
+      source  = &amp;#34;kreuzwerker/docker&amp;#34;
+      version = &amp;#34;~&amp;gt; 3.0&amp;#34;
+    }
+  }
+}
+
+provider &amp;#34;docker&amp;#34; {}
+
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+  name         = &amp;#34;nginx:latest&amp;#34;
+  keep_locally = false
+}
+
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+  image = docker_image.nginx.image_id
+  name  = &amp;#34;sre-tutorial-nginx&amp;#34;
+  ports {
+    internal = 80
+    external = 8080
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;依次敲下三个命令来构建Docker并加载容器：&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;依次敲下三个命令来构建docker并加载容器&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%be%9d%e6%ac%a1%e6%95%b2%e4%b8%8b%e4%b8%89%e4%b8%aa%e5%91%bd%e4%bb%a4%e6%9d%a5%e6%9e%84%e5%bb%badocker%e5%b9%b6%e5%8a%a0%e8%bd%bd%e5%ae%b9%e5%99%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;code&gt;terraform init&lt;/code&gt;   (这一步初始化花费了蛮长时间大概5-10分钟！好在成功构建镜像和容器)&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/tf-docker-test]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Finding kreuzwerker/docker versions matching &amp;#34;~&amp;gt; 3.0&amp;#34;...
+- Installing kreuzwerker/docker v3.9.0...
+- Installed kreuzwerker/docker v3.9.0 (self-signed, key ID 0DCE698927DAF8EC)
+Partner and community providers are signed by their developers.
+If you&amp;#39;d like to know more about provider signing, you can read about it here:
+https://developer.hashicorp.com/terraform/cli/plugins/signing
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run &amp;#34;terraform init&amp;#34; in the future.
+
+Terraform has been successfully initialized!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;terraform plan&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+# 这条命令用于确认计划
+[devops@lb01 ~/tf-docker-test]$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  &amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; attach                                      = false
+      &amp;#43; bridge                                      = (known after apply)
+      &amp;#43; command                                     = (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      &amp;#43; container_read_refresh_timeout_milliseconds = 15000
+      &amp;#43; entrypoint                                  = (known after apply)
+      &amp;#43; env                                         = (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      &amp;#43; hostname                                    = (known after apply)
+      &amp;#43; id                                          = (known after apply)
+      &amp;#43; image                                       = (known after apply)
+      &amp;#43; init                                        = (known after apply)
+      &amp;#43; ipc_mode                                    = (known after apply)
+      &amp;#43; log_driver                                  = (known after apply)
+      &amp;#43; logs                                        = false
+      &amp;#43; memory_reservation                          = 0
+      &amp;#43; must_run                                    = true
+      &amp;#43; name                                        = &amp;#34;sre-tutorial-nginx&amp;#34;
+      &amp;#43; network_data                                = (known after apply)
+      &amp;#43; network_mode                                = &amp;#34;bridge&amp;#34;
+      &amp;#43; read_only                                   = false
+      &amp;#43; remove_volumes                              = true
+      &amp;#43; restart                                     = &amp;#34;no&amp;#34;
+      &amp;#43; rm                                          = false
+      &amp;#43; runtime                                     = (known after apply)
+      &amp;#43; security_opts                               = (known after apply)
+      &amp;#43; shm_size                                    = (known after apply)
+      &amp;#43; start                                       = true
+      &amp;#43; stdin_open                                  = false
+      &amp;#43; stop_signal                                 = (known after apply)
+      &amp;#43; stop_timeout                                = (known after apply)
+      &amp;#43; tty                                         = false
+      &amp;#43; wait                                        = false
+      &amp;#43; wait_timeout                                = 60
+
+      &amp;#43; healthcheck (known after apply)
+
+      &amp;#43; labels (known after apply)
+
+      &amp;#43; ports {
+          &amp;#43; external = 8080
+          &amp;#43; internal = 80
+          &amp;#43; ip       = &amp;#34;0.0.0.0&amp;#34;
+          &amp;#43; protocol = &amp;#34;tcp&amp;#34;
+        }
+    }
+
+  # docker_image.nginx will be created
+  &amp;#43; resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; id           = (known after apply)
+      &amp;#43; image_id     = (known after apply)
+      &amp;#43; keep_locally = false
+      &amp;#43; name         = &amp;#34;nginx:latest&amp;#34;
+      &amp;#43; repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn&amp;#39;t use the -out option to save this plan, so Terraform can&amp;#39;t
+guarantee to take exactly these actions if you run &amp;#34;terraform apply&amp;#34; now.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;terraform apply -auto-approve&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+# 生成镜像和容器，中途会遇到暂停输入“yes”可以获得actions
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &amp;#39;yes&amp;#39; will be accepted to approve.
+
+  Enter a value: yes
+
+docker_image.nginx: Creating...
+docker_image.nginx: Still creating... [00m10s elapsed]
+docker_image.nginx: Still creating... [00m20s elapsed]
+docker_image.nginx: Still creating... [00m30s elapsed]
+docker_image.nginx: Still creating... [00m40s elapsed]
+docker_image.nginx: Still creating... [00m50s elapsed]
+docker_image.nginx: Still creating... [01m00s elapsed]
+docker_image.nginx: Creation complete after 1m1s [id=sha256:7f0adca1fc6c29c8dc49a2e90037a10ba20dc266baaed0988e9fb4d0d8b85ba0nginx:latest]
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 0s [id=8ffc7554566c86148d1873e5c320683e79fb6eebd22cdf8283aa8212237cff46]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;验证：是否能在终端里看到它自动拉取镜像并启动了 Nginx,若能访问80映射的8080端口则成功建立了Docker-Nginx镜像网站&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;验证是否能在终端里看到它自动拉取镜像并启动了-nginx若能访问80映射的8080端口则成功建立了docker-nginx镜像网站&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e9%aa%8c%e8%af%81%e6%98%af%e5%90%a6%e8%83%bd%e5%9c%a8%e7%bb%88%e7%ab%af%e9%87%8c%e7%9c%8b%e5%88%b0%e5%ae%83%e8%87%aa%e5%8a%a8%e6%8b%89%e5%8f%96%e9%95%9c%e5%83%8f%e5%b9%b6%e5%90%af%e5%8a%a8%e4%ba%86-nginx%e8%8b%a5%e8%83%bd%e8%ae%bf%e9%97%ae80%e6%98%a0%e5%b0%84%e7%9a%848080%e7%ab%af%e5%8f%a3%e5%88%99%e6%88%90%e5%8a%9f%e5%bb%ba%e7%ab%8b%e4%ba%86docker-nginx%e9%95%9c%e5%83%8f%e7%bd%91%e7%ab%99&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~]$ curl localhost:8080
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;title&amp;gt;Welcome to nginx!&amp;lt;/title&amp;gt;
+&amp;lt;style&amp;gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;h1&amp;gt;Welcome to nginx!&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy,
+API gateway, load balancer, content cache, or other features.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;For online documentation and support please refer to
+&amp;lt;a href=&amp;#34;https://nginx.org/&amp;#34;&amp;gt;nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+To engage with the community please visit
+&amp;lt;a href=&amp;#34;https://community.nginx.org/&amp;#34;&amp;gt;community.nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+For enterprise grade support, professional services, additional
+security features and capabilities please refer to
+&amp;lt;a href=&amp;#34;https://f5.com/nginx&amp;#34;&amp;gt;f5.com/nginx&amp;lt;/a&amp;gt;.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;em&amp;gt;Thank you for using nginx.&amp;lt;/em&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+
+
+
+#####################################################
+# 查看 (docker images) 
+[devops@lb01 ~]$ docker images
+                                                            i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+my-nodejs:v1   954fdbfce62a        194MB         48.1MB    U
+nginx:latest   7f0adca1fc6c        237MB         65.8MB    U
+
+
+# 查看docker containers (docker ps -a)
+[devops@lb01 ~]$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                NAMES
+8ffc7554566c   7f0adca1fc6c   &amp;#34;/docker-entrypoint.…&amp;#34;   17 seconds ago   Up 16 seconds   0.0.0.0:8080-&amp;gt;80/tcp                 sre-tutorial-nginx
+e329c77b6133   my-nodejs:v1   &amp;#34;docker-entrypoint.s…&amp;#34;   45 hours ago     Up 45 hours     2000/tcp, 127.0.0.1:5555-&amp;gt;4444/tcp   web&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;成功完成部署！！！&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;成功完成部署&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%88%90%e5%8a%9f%e5%ae%8c%e6%88%90%e9%83%a8%e7%bd%b2&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;h3&gt;Deploy the &lt;code&gt;Nginx Image &amp;amp;&amp;amp; Countainer&lt;/code&gt;&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;deploy-the-nginx-image--countainer&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#deploy-the-nginx-image--countainer&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;Terraform Block&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;terraform-block&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#terraform-block&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;terraform {}&lt;/code&gt; block contains Terraform settings, including the required providers Terraform will use to provision your infrastructure. For each provider, the &lt;code&gt;source&lt;/code&gt; attribute defines an optional hostname, a namespace, and the provider type. Terraform installs providers from the &lt;a href=&#34;https://registry.terraform.io/&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Terraform Registry&lt;/a&gt; by default. In this example configuration, the &lt;code&gt;docker&lt;/code&gt; provider&amp;rsquo;s source is defined as &lt;code&gt;kreuzwerker/docker&lt;/code&gt;, which is shorthand for &lt;code&gt;registry.terraform.io/kreuzwerker/docker&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Providers&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;providers&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#providers&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;code&gt;provider&lt;/code&gt; block configures the specified provider, in this case &lt;code&gt;docker&lt;/code&gt;. A provider is a plugin that Terraform uses to create and manage your resources.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can use multiple provider blocks in your Terraform configuration to manage resources from different providers. You can even use different providers together. For example, you could pass the Docker image ID to a Kubernetes service.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Resources&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;resources&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#resources&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Use &lt;code&gt;resource&lt;/code&gt; blocks to define components of your infrastructure. A resource might be a physical or virtual component such as a Docker container, or it can be a logical resource such as a Heroku application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resource blocks have two strings before the block: the resource type and the resource name. In this example, the first resource type is &lt;code&gt;docker_image&lt;/code&gt; and the name is &lt;code&gt;nginx&lt;/code&gt;. The prefix of the type maps to the name of the provider. In the example configuration, Terraform manages the &lt;code&gt;docker_image&lt;/code&gt; resource with the &lt;code&gt;docker&lt;/code&gt; provider. Together, the resource type and resource name form a unique ID for the resource. For example, the ID for your Docker image is &lt;code&gt;docker_image.nginx&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resource blocks contain arguments which you use to configure the resource. Arguments can include things like machine sizes, disk image names, or VPC IDs. Our &lt;a href=&#34;https://developer.hashicorp.com/terraform/language/providers&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;providers reference&lt;/a&gt; documents the required and optional arguments for each resource. For your container, the example configuration sets the Docker image as the image source for your &lt;code&gt;docker_container&lt;/code&gt; resource.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;vim ./main.tf&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;vim-maintf&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#vim-maintf&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+terraform {
+  required_providers {
+    docker = {
+      source = &amp;#34;kreuzwerker/docker&amp;#34;
+      version = &amp;#34;~&amp;gt; 3.0.1&amp;#34;
+    }
+  }
+}
+
+provider &amp;#34;docker&amp;#34; {}
+
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+  name         = &amp;#34;nginx:latest&amp;#34;
+  keep_locally = false
+}
+
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+  image = docker_image.nginx.image_id
+  name  = &amp;#34;tutorial&amp;#34;
+  ports {
+    internal = 80
+    external = 8000
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;terraform init 时候出现了报错：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Finding kreuzwerker/docker versions matching &amp;#34;~&amp;gt; 3.0.1&amp;#34;...
+╷
+│ Error: Failed to query available provider packages
+│
+│ Could not retrieve the list of available versions for provider
+│ kreuzwerker/docker: provider registry.terraform.io/kreuzwerker/docker was not
+│ found in any of the search locations&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;经分析可能是网络问题，搜寻官方资料了解到 terraform alicloud 可能有延迟，遂在文件（~/.terraformrc) 加入多个镜像确保网络可用：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+provider_installation {
+  network_mirror {
+    url = &amp;#34;https://mirrors.aliyun.com/terraform/&amp;#34;
+    // Setting alicloud from Alibaba Cloud Mirror Service
+    include = [&amp;#34;registry.terraform.io/aliyun/alicloud&amp;#34;,
+               &amp;#34;registry.terraform.io/hashicorp/alicloud&amp;#34;,
+              ]
+  }
+  direct {
+    // setting other providers from Terraform Registry
+    exclude = [&amp;#34;registry.terraform.io/aliyun/alicloud&amp;#34;,
+               &amp;#34;registry.terraform.io/hashicorp/alicloud&amp;#34;,
+              ]
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;重新执行 terraform init 成功！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Terraform downloads the &lt;code&gt;docker&lt;/code&gt; provider and installs it in a hidden subdirectory of your current working directory, named &lt;code&gt;.terraform&lt;/code&gt;. The &lt;code&gt;terraform init&lt;/code&gt; command prints out which version of the provider was installed. Terraform also creates a lock file named &lt;code&gt;.terraform.lock.hcl&lt;/code&gt; which specifies the exact provider versions used, so that you can control when you want to update the providers used for your project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;terraform plan&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  &amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; attach                                      = false
+      &amp;#43; bridge                                      = (known after apply)
+      &amp;#43; command                                     = (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      &amp;#43; container_read_refresh_timeout_milliseconds = 15000
+      &amp;#43; entrypoint                                  = (known after apply)
+      &amp;#43; env                                         = (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      &amp;#43; hostname                                    = (known after apply)
+      &amp;#43; id                                          = (known after apply)
+      &amp;#43; image                                       = (known after apply)
+      &amp;#43; init                                        = (known after apply)
+      &amp;#43; ipc_mode                                    = (known after apply)
+      &amp;#43; log_driver                                  = (known after apply)
+      &amp;#43; logs                                        = false
+      &amp;#43; must_run                                    = true
+      &amp;#43; name                                        = &amp;#34;nginx_tutorials&amp;#34;
+      &amp;#43; network_data                                = (known after apply)
+      &amp;#43; read_only                                   = false
+      &amp;#43; remove_volumes                              = true
+      &amp;#43; restart                                     = &amp;#34;no&amp;#34;
+      &amp;#43; rm                                          = false
+      &amp;#43; runtime                                     = (known after apply)
+      &amp;#43; security_opts                               = (known after apply)
+      &amp;#43; shm_size                                    = (known after apply)
+      &amp;#43; start                                       = true
+      &amp;#43; stdin_open                                  = false
+      &amp;#43; stop_signal                                 = (known after apply)
+      &amp;#43; stop_timeout                                = (known after apply)
+      &amp;#43; tty                                         = false
+      &amp;#43; wait                                        = false
+      &amp;#43; wait_timeout                                = 60
+
+      &amp;#43; healthcheck (known after apply)
+
+      &amp;#43; labels (known after apply)
+
+      &amp;#43; ports {
+          &amp;#43; external = 8000
+          &amp;#43; internal = 80
+          &amp;#43; ip       = &amp;#34;0.0.0.0&amp;#34;
+          &amp;#43; protocol = &amp;#34;tcp&amp;#34;
+        }
+    }
+
+  # docker_image.nginx will be created
+  &amp;#43; resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; id           = (known after apply)
+      &amp;#43; image_id     = (known after apply)
+      &amp;#43; keep_locally = false
+      &amp;#43; name         = &amp;#34;nginx:latest&amp;#34;
+      &amp;#43; repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;terraform apply&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+docker_image.nginx: Creation complete after 5m18s [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 1s [id=5ba46db57f65e503e117871455a6cf7482b58b8e67faedf5227576a64e55f512]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;创建 &lt;code&gt;Nginx镜像 &amp;amp;&amp;amp; 容器&lt;/code&gt; 完成&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入本地8000端口查看nignx网页是否可访问：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ docker images
+                                                            i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+nginx:latest   6e23479198b9        237MB         65.8MB    U
+
+
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS              PORTS                  NAMES
+5ba46db57f65   6e23479198b9   &amp;#34;/docker-entrypoint.…&amp;#34;   About a minute ago   Up About a minute   0.0.0.0:8000-&amp;gt;80/tcp   nginx_tutorials
+
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ ss -lntup
+Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process
+udp    UNCONN  0       0            127.0.0.1:323         0.0.0.0:*
+udp    UNCONN  0       0                [::1]:323            [::]:*
+tcp    LISTEN  0       4096           0.0.0.0:8000        0.0.0.0:*
+tcp    LISTEN  0       511            0.0.0.0:80          0.0.0.0:*
+tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*
+tcp    LISTEN  0       511               [::]:80             [::]:*
+tcp    LISTEN  0       128               [::]:22             [::]:*
+tcp    LISTEN  0       32                   *:21                *:*
+
+
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ curl localhost:8000
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;title&amp;gt;Welcome to nginx!&amp;lt;/title&amp;gt;
+&amp;lt;style&amp;gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;h1&amp;gt;Welcome to nginx!&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy,
+API gateway, load balancer, content cache, or other features.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;For online documentation and support please refer to
+&amp;lt;a href=&amp;#34;https://nginx.org/&amp;#34;&amp;gt;nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+To engage with the community please visit
+&amp;lt;a href=&amp;#34;https://community.nginx.org/&amp;#34;&amp;gt;community.nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+For enterprise grade support, professional services, additional
+security features and capabilities please refer to
+&amp;lt;a href=&amp;#34;https://f5.com/nginx&amp;#34;&amp;gt;f5.com/nginx&amp;lt;/a&amp;gt;.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;em&amp;gt;Thank you for using nginx.&amp;lt;/em&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Notice!!! Format and validate the configuration&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;notice-format-and-validate-the-configuration&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#notice-format-and-validate-the-configuration&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;We recommend using consistent formatting in all of your configuration files. The &lt;code&gt;terraform fmt&lt;/code&gt; command automatically updates configurations in the current directory for readability and consistency.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Format your configuration. Terraform will print out the names of the files it modified, if any. In this case, your configuration file was already formatted correctly, so Terraform won&amp;rsquo;t return any file names.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform fmt
+main.tf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You can also make sure your configuration is syntactically valid and internally consistent by using the &lt;code&gt;terraform validate&lt;/code&gt; command.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Validate your configuration. The example configuration provided above is valid, so Terraform will return a success message.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform validate
+Success! The configuration is valid.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;部署成功！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Inspect state&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;inspect-state&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#inspect-state&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;When you applied your configuration, Terraform wrote data into a file called &lt;code&gt;terraform.tfstate&lt;/code&gt;. Terraform stores the IDs and properties of the resources it manages in this file, so that it can update or destroy those resources going forward.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The Terraform state file is the only way Terraform can track which resources it manages, and often contains sensitive information, so you must store your state file securely and restrict access to only trusted team members who need to manage your infrastructure. In production, we recommend &lt;a href=&#34;https://developer.hashicorp.com/terraform/tutorials/cloud/cloud-migrate&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;storing your state remotely&lt;/a&gt; with HCP Terraform or Terraform Enterprise. Terraform also supports several other &lt;a href=&#34;https://developer.hashicorp.com/terraform/language/backend&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;remote backends&lt;/a&gt; you can use to store and manage your state.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Inspect the current state using &lt;code&gt;terraform show&lt;/code&gt; :&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ ls
+main.tf  terraform.tfstate
+
+
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform show
+# docker_container.nginx:
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+    attach                                      = false
+    bridge                                      = null
+    command                                     = [
+        &amp;#34;nginx&amp;#34;,
+        &amp;#34;-g&amp;#34;,
+        &amp;#34;daemon off;&amp;#34;,
+    ]
+    container_read_refresh_timeout_milliseconds = 15000
+    cpu_set                                     = null
+    cpu_shares                                  = 0
+    domainname                                  = null
+    entrypoint                                  = [
+        &amp;#34;/docker-entrypoint.sh&amp;#34;,
+    ]
+    env                                         = []
+    hostname                                    = &amp;#34;5ba46db57f65&amp;#34;
+    id                                          = &amp;#34;5ba46db57f65e503e117871455a6cf7482b58b8e67faedf5227576a64e55f512&amp;#34;
+    image                                       = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc&amp;#34;
+    init                                        = false
+    ipc_mode                                    = &amp;#34;private&amp;#34;
+    log_driver                                  = &amp;#34;json-file&amp;#34;
+    logs                                        = false
+    max_retry_count                             = 0
+    memory                                      = 0
+    memory_swap                                 = 0
+    must_run                                    = true
+    name                                        = &amp;#34;nginx_tutorials&amp;#34;
+    network_data                                = [
+        {
+            gateway                   = &amp;#34;172.17.0.1&amp;#34;
+            global_ipv6_address       = null
+            global_ipv6_prefix_length = 0
+            ip_address                = &amp;#34;172.17.0.2&amp;#34;
+            ip_prefix_length          = 16
+            ipv6_gateway              = null
+            mac_address               = &amp;#34;f6:00:a5:5f:98:c0&amp;#34;
+            network_name              = &amp;#34;bridge&amp;#34;
+        },
+    ]
+    network_mode                                = &amp;#34;bridge&amp;#34;
+    pid_mode                                    = null
+    privileged                                  = false
+    publish_all_ports                           = false
+    read_only                                   = false
+    remove_volumes                              = true
+    restart                                     = &amp;#34;no&amp;#34;
+    rm                                          = false
+    runtime                                     = &amp;#34;runc&amp;#34;
+    security_opts                               = []
+    shm_size                                    = 64
+    start                                       = true
+    stdin_open                                  = false
+    stop_signal                                 = &amp;#34;SIGQUIT&amp;#34;
+    stop_timeout                                = 0
+    tty                                         = false
+    user                                        = null
+    userns_mode                                 = null
+    wait                                        = false
+    wait_timeout                                = 60
+    working_dir                                 = null
+
+    ports {
+        external = 8000
+        internal = 80
+        ip       = &amp;#34;0.0.0.0&amp;#34;
+        protocol = &amp;#34;tcp&amp;#34;
+    }
+}
+
+# docker_image.nginx:
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+    id           = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest&amp;#34;
+    image_id     = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc&amp;#34;
+    keep_locally = false
+    name         = &amp;#34;nginx:latest&amp;#34;
+    repo_digest  = &amp;#34;nginx@sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc&amp;#34;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;When Terraform created this container, it also gathered the resource&amp;rsquo;s metadata from the Docker provider and wrote the metadata to the state file. Later, you will modify your configuration to reference these values to configure other resources and output values.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Manually Managing State&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;manually-managing-state&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#manually-managing-state&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Terraform has a built-in command called &lt;code&gt;terraform state&lt;/code&gt; for advanced state management. Use the &lt;code&gt;list&lt;/code&gt; subcommand to list of the resources in your project&amp;rsquo;s state.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terraform-docker-container]$ terraform state list
+docker_container.nginx
+docker_image.nginx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3&gt;Destroy infrastructure&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;destroy-infrastructure&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#destroy-infrastructure&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You have now created and updated a Docker container on your machine with Terraform. In this tutorial, you will use Terraform to destroy this infrastructure.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once you no longer need infrastructure, you may want to destroy it to reduce your security exposure, costs, or resource overhead. For example, you may remove a production environment from service, or manage short-lived environments like build or testing systems. In addition to building and modifying infrastructure, Terraform can destroy or recreate the infrastructure it manages.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Destroy&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;destroy&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#destroy&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;code&gt;terraform destroy&lt;/code&gt; command terminates resources managed by your Terraform project. This command is the inverse of &lt;code&gt;terraform apply&lt;/code&gt; in that it terminates all the resources specified in your Terraform state. It does &lt;em&gt;not&lt;/em&gt; destroy resources running elsewhere that are not managed by the current Terraform project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;code&gt;-&lt;/code&gt; prefix indicates that the container will be destroyed. As with apply, Terraform shows its execution plan and waits for approval before making any changes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Answer &lt;code&gt;yes&lt;/code&gt; to execute this plan and destroy the infrastructure.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Destroy the resources you created:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/restore_project]$ terraform destroy
+alicloud_oss_bucket.my_first_bucket: Refreshing state... [id=devops-state-bucket-yourname-2026-04-24]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be destroyed
+  - resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {
+      - acl                                      = &amp;#34;private&amp;#34; -&amp;gt; null
+      - bucket                                   = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34; -&amp;gt; null
+      - creation_date                            = &amp;#34;2026-04-24&amp;#34; -&amp;gt; null
+      - extranet_endpoint                        = &amp;#34;oss-cn-hangzhou.aliyuncs.com&amp;#34; -&amp;gt; null
+      - force_destroy                            = true -&amp;gt; null
+      - id                                       = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34; -&amp;gt; null
+      - intranet_endpoint                        = &amp;#34;oss-cn-hangzhou-internal.aliyuncs.com&amp;#34; -&amp;gt; null
+      - lifecycle_rule_allow_same_action_overlap = false -&amp;gt; null
+      - location                                 = &amp;#34;oss-cn-hangzhou&amp;#34; -&amp;gt; null
+      - owner                                    = &amp;#34;1320472794666459&amp;#34; -&amp;gt; null
+      - redundancy_type                          = &amp;#34;LRS&amp;#34; -&amp;gt; null
+      - resource_group_id                        = &amp;#34;rg-acfmxu73chcjlwy&amp;#34; -&amp;gt; null
+      - storage_class                            = &amp;#34;Standard&amp;#34; -&amp;gt; null
+      - tags                                     = {} -&amp;gt; null
+        # (1 unchanged attribute hidden)
+
+      - access_monitor {
+          - status = &amp;#34;Disabled&amp;#34; -&amp;gt; null
+        }
+    }
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+╷
+│ Warning: &amp;#34;acl&amp;#34;: [DEPRECATED] Field &amp;#39;acl&amp;#39; has been deprecated since provider version 1.220.0. New resource &amp;#39;alicloud_oss_bucket_acl&amp;#39; instead.
+│
+│   with alicloud_oss_bucket.my_first_bucket,
+│   on main.tf line 13, in resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34;:
+│   13: resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {
+│
+╵
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &amp;#39;yes&amp;#39; will be accepted to confirm.
+
+  Enter a value: yes
+
+alicloud_oss_bucket.my_first_bucket: Destroying... [id=devops-state-bucket-yourname-2026-04-24]
+alicloud_oss_bucket.my_first_bucket: Destruction complete after 1s&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3&gt;Define input variables&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;define-input-variables&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#define-input-variables&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;You now have enough Terraform knowledge to create useful configurations, but the examples so far have used hard-coded values. Terraform configurations can include variables to make your configuration more dynamic and flexible.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Prerequisites&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;prerequisites&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#prerequisites&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;After following previous tutorials, you will have a directory named &lt;code&gt;learn-terraform-docker-container&lt;/code&gt; with the following configuration in a file called &lt;code&gt;main.tf&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+# 1.下载工具（找资源）
+
+terraform {
+  required_providers {
+    docker = {
+      source  = &amp;#34;kreuzwerker/docker&amp;#34;
+      version = &amp;#34;~&amp;gt; 3.0.1&amp;#34;
+    }
+  }
+}
+
+
+
+# 2.配置工具，用于实例化并配置与 Docker 守护进程(Docker Daemon)的通信连接
+# 约定优于配置：留空让Terraform默认自动去找本地Docker进程
+
+provider &amp;#34;docker&amp;#34; {}
+
+
+
+# 3.resource块：使用工具，用于下发指令
+
+resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+  name         = &amp;#34;nginx:latest&amp;#34;
+  keep_locally = false
+}
+
+resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+  image = docker_image.nginx.image_id
+  name  = &amp;#34;tutorial&amp;#34;
+  ports {
+    internal = 80
+    external = 8080
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Ensure that your configuration matches this, and that you have run &lt;code&gt;terraform init&lt;/code&gt; in the &lt;code&gt;learn-terraform-docker-container&lt;/code&gt; directory.&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ vim ./main.tf
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Finding kreuzwerker/docker versions matching &amp;#34;~&amp;gt; 3.0.1&amp;#34;...
+- Installing kreuzwerker/docker v3.0.2...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Up: 用本地的 Terraform，去管理一台远在阿里云上的 ECS 服务器里的 Docker 容器”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;provider &amp;#34;docker&amp;#34; {
+  # 告诉 Terraform：不要连本地的 Docker！通过 SSH 连到阿里云的那台生产服务器上去！
+  host = &amp;#34;ssh://root@123.45.67.89:22&amp;#34;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2&gt;Set the container name with a variable&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;set-the-container-name-with-a-variable&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#set-the-container-name-with-a-variable&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The current configuration includes a number of hard-coded values. Terraform variables allow you to write configuration that is flexible and easier to re-use.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a variable to define the container name.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a new file called &lt;code&gt;variables.tf&lt;/code&gt; with a block defining a new &lt;code&gt;container_name&lt;/code&gt; variable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;variable &amp;#34;container_name&amp;#34; {
+  description = &amp;#34;Value of the name for the Docker container&amp;#34;
+  type        = string
+  default     = &amp;#34;ExampleNginxContainer&amp;#34;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Note:Terraform loads all files in the current directory ending in &lt;code&gt;.tf&lt;/code&gt;, so you can name your configuration files however you choose.&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;noteterraform-loads-all-files-in-the-current-directory-ending-intf-so-you-can-name-your-configuration-files-however-you-choose&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#noteterraform-loads-all-files-in-the-current-directory-ending-intf-so-you-can-name-your-configuration-files-however-you-choose&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;In &lt;code&gt;main.tf&lt;/code&gt;, update the &lt;code&gt;docker_container&lt;/code&gt; resource block to use the new variable. The &lt;code&gt;container_name&lt;/code&gt; variable block will default to its default value (&amp;ldquo;ExampleNginxContainer&amp;rdquo;) unless you declare a different value.&lt;/li&gt;
+&lt;li&gt;Modify the main.tf:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+ image = docker_image.nginx.image_id
+ name  = var.container_name
+  ports {
+    internal = 80
+    external = 8080
+  }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;terraform&lt;/code&gt; plan to view:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  &amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; attach                                      = false
+      &amp;#43; bridge                                      = (known after apply)
+      &amp;#43; command                                     = (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      &amp;#43; container_read_refresh_timeout_milliseconds = 15000
+      &amp;#43; entrypoint                                  = (known after apply)
+      &amp;#43; env                                         = (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      &amp;#43; hostname                                    = (known after apply)
+      &amp;#43; id                                          = (known after apply)
+      &amp;#43; image                                       = (known after apply)
+      &amp;#43; init                                        = (known after apply)
+      &amp;#43; ipc_mode                                    = (known after apply)
+      &amp;#43; log_driver                                  = (known after apply)
+      &amp;#43; logs                                        = false
+      &amp;#43; must_run                                    = true
+      &amp;#43; name                                        = &amp;#34;varible_container&amp;#34;
+      &amp;#43; network_data                                = (known after apply)
+      &amp;#43; read_only                                   = false
+      &amp;#43; remove_volumes                              = true
+      &amp;#43; restart                                     = &amp;#34;no&amp;#34;
+      &amp;#43; rm                                          = false
+      &amp;#43; runtime                                     = (known after apply)
+      &amp;#43; security_opts                               = (known after apply)
+      &amp;#43; shm_size                                    = (known after apply)
+      &amp;#43; start                                       = true
+      &amp;#43; stdin_open                                  = false
+      &amp;#43; stop_signal                                 = (known after apply)
+      &amp;#43; stop_timeout                                = (known after apply)
+      &amp;#43; tty                                         = false
+      &amp;#43; wait                                        = false
+      &amp;#43; wait_timeout                                = 60
+
+      &amp;#43; healthcheck (known after apply)
+
+      &amp;#43; labels (known after apply)
+
+      &amp;#43; ports {
+          &amp;#43; external = 8000
+          &amp;#43; internal = 80
+          &amp;#43; ip       = &amp;#34;0.0.0.0&amp;#34;
+          &amp;#43; protocol = &amp;#34;tcp&amp;#34;
+        }
+    }
+
+  # docker_image.nginx will be created
+  &amp;#43; resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; id           = (known after apply)
+      &amp;#43; image_id     = (known after apply)
+      &amp;#43; keep_locally = false
+      &amp;#43; name         = &amp;#34;nginx:latest&amp;#34;
+      &amp;#43; repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn&amp;#39;t use the -out option to save this plan, so Terraform can&amp;#39;t
+guarantee to take exactly these actions if you run &amp;#34;terraform apply&amp;#34; now.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Apply your configuration&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;apply-your-configuration&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#apply-your-configuration&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;Apply the configuration. Respond to the confirmation prompt with a  &lt;code&gt;yes&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Now apply the configuration again, this time overriding the default container name by passing in a variable using the &lt;code&gt;-var&lt;/code&gt; flag. Terraform will update the container&amp;rsquo;s &lt;code&gt;name&lt;/code&gt; attribute with the new name. Respond to the confirmation prompt with &lt;code&gt;yes&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx will be created
+  &amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; attach                                      = false
+      &amp;#43; bridge                                      = (known after apply)
+      &amp;#43; command                                     = (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      &amp;#43; container_read_refresh_timeout_milliseconds = 15000
+      &amp;#43; entrypoint                                  = (known after apply)
+      &amp;#43; env                                         = (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      &amp;#43; hostname                                    = (known after apply)
+      &amp;#43; id                                          = (known after apply)
+      &amp;#43; image                                       = (known after apply)
+      &amp;#43; init                                        = (known after apply)
+      &amp;#43; ipc_mode                                    = (known after apply)
+      &amp;#43; log_driver                                  = (known after apply)
+      &amp;#43; logs                                        = false
+      &amp;#43; must_run                                    = true
+      &amp;#43; name                                        = &amp;#34;varible_container&amp;#34;
+      &amp;#43; network_data                                = (known after apply)
+      &amp;#43; read_only                                   = false
+      &amp;#43; remove_volumes                              = true
+      &amp;#43; restart                                     = &amp;#34;no&amp;#34;
+      &amp;#43; rm                                          = false
+      &amp;#43; runtime                                     = (known after apply)
+      &amp;#43; security_opts                               = (known after apply)
+      &amp;#43; shm_size                                    = (known after apply)
+      &amp;#43; start                                       = true
+      &amp;#43; stdin_open                                  = false
+      &amp;#43; stop_signal                                 = (known after apply)
+      &amp;#43; stop_timeout                                = (known after apply)
+      &amp;#43; tty                                         = false
+      &amp;#43; wait                                        = false
+      &amp;#43; wait_timeout                                = 60
+
+      &amp;#43; healthcheck (known after apply)
+
+      &amp;#43; labels (known after apply)
+
+      &amp;#43; ports {
+          &amp;#43; external = 8000
+          &amp;#43; internal = 80
+          &amp;#43; ip       = &amp;#34;0.0.0.0&amp;#34;
+          &amp;#43; protocol = &amp;#34;tcp&amp;#34;
+        }
+    }
+
+  # docker_image.nginx will be created
+  &amp;#43; resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; id           = (known after apply)
+      &amp;#43; image_id     = (known after apply)
+      &amp;#43; keep_locally = false
+      &amp;#43; name         = &amp;#34;nginx:latest&amp;#34;
+      &amp;#43; repo_digest  = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &amp;#39;yes&amp;#39; will be accepted to approve.
+
+  Enter a value: yes
+
+docker_image.nginx: Creating...
+docker_image.nginx: Still creating... [00m10s elapsed]
+docker_image.nginx: Still creating... [00m20s elapsed]
+docker_image.nginx: Still creating... [00m30s elapsed]
+docker_image.nginx: Still creating... [00m40s elapsed]
+docker_image.nginx: Creation complete after 48s [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 1s [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+
+# View `Docker Container &amp;amp;&amp;amp; Image`
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                                                                       i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+nginx:latest   6e23479198b9        237MB         65.8MB    U
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
+3488ecf82e76   6e23479198b9   &amp;#34;/docker-entrypoint.…&amp;#34;   4 minutes ago   Up 4 minutes   0.0.0.0:8000-&amp;gt;80/tcp   varible_container&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Setting variables via the command-line will not save their values. Terraform supports many ways to use and set variables so you can avoid having to enter them repeatedly as you execute commands. To learn more, follow our in-depth tutorial, &lt;a href=&#34;https://developer.hashicorp.com/terraform/tutorials/configuration-language/variables&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Customize Terraform Configuration with Variables&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Change Variables:&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;change-variables&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#change-variables&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+export ALICLOUD_ACCESS_KEY=&amp;#34;LTAIxxxxxxxxxxxx&amp;#34;
+
+export ALICLOUD_SECRET_KEY=&amp;#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;#34;
+
+export ALICLOUD_REGION=&amp;#34;cn-beijing&amp;#34;
+
+  
+
+# View Variables about Alicloud
+
+printenv | grep &amp;#34;ALI*&amp;#34;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;Query data with outputs&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;query-data-with-outputs&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#query-data-with-outputs&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;In the previous tutorial, you used an input variable to parameterize your Terraform configuration. In this tutorial, you will use output values to organize data to be easily queried and displayed to the Terraform user.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you have not yet completed the &lt;a href=&#34;https://developer.hashicorp.com/terraform/tutorials/docker-get-started/docker-variables&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Define Input Variables&lt;/a&gt; tutorial, do so before following this one.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply -var &amp;#34;container_name=docker_variable_container&amp;#34;
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/&amp;#43; destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/&amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; bridge                                      = (known after apply)
+      ~ command                                     = [
+          - &amp;#34;nginx&amp;#34;,
+          - &amp;#34;-g&amp;#34;,
+          - &amp;#34;daemon off;&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&amp;gt; null
+      - dns                                         = [] -&amp;gt; null
+      - dns_opts                                    = [] -&amp;gt; null
+      - dns_search                                  = [] -&amp;gt; null
+      ~ entrypoint                                  = [
+          - &amp;#34;/docker-entrypoint.sh&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      ~ env                                         = [] -&amp;gt; (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      - group_add                                   = [] -&amp;gt; null
+      ~ hostname                                    = &amp;#34;3488ecf82e76&amp;#34; -&amp;gt; (known after apply)
+      ~ id                                          = &amp;#34;3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10&amp;#34; -&amp;gt; (known after apply)
+      ~ init                                        = false -&amp;gt; (known after apply)
+      ~ ipc_mode                                    = &amp;#34;private&amp;#34; -&amp;gt; (known after apply)
+      ~ log_driver                                  = &amp;#34;json-file&amp;#34; -&amp;gt; (known after apply)
+      - log_opts                                    = {} -&amp;gt; null
+      - max_retry_count                             = 0 -&amp;gt; null
+      - memory                                      = 0 -&amp;gt; null
+      - memory_swap                                 = 0 -&amp;gt; null
+      ~ name                                        = &amp;#34;varible_container&amp;#34; -&amp;gt; &amp;#34;docker_variable_container&amp;#34; # forces replacement&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Setting variables via the command-line will not save their values. Terraform supports many ways to use and set variables so you can avoid having to enter them repeatedly as you execute commands. To learn more, follow our in-depth tutorial, &lt;a href=&#34;https://developer.hashicorp.com/terraform/tutorials/configuration-language/variables&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Customize Terraform Configuration with Variables&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Initial configuration&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;initial-configuration&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#initial-configuration&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;After following the previous tutorials, you will have a directory named &lt;code&gt;learn-terraform-docker-container&lt;/code&gt; with the following configuration.&lt;/li&gt;
+&lt;li&gt;mv your file( ./variables.tf ) &amp;amp;&amp;amp; terraform plan &amp;amp;&amp;amp;  terraform apply&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform plan
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/&amp;#43; destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/&amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; bridge                                      = (known after apply)
+      ~ command                                     = [
+          - &amp;#34;nginx&amp;#34;,
+          - &amp;#34;-g&amp;#34;,
+          - &amp;#34;daemon off;&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&amp;gt; null
+      - dns                                         = [] -&amp;gt; null
+      - dns_opts                                    = [] -&amp;gt; null
+      - dns_search                                  = [] -&amp;gt; null
+      ~ entrypoint                                  = [
+          - &amp;#34;/docker-entrypoint.sh&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      ~ env                                         = [] -&amp;gt; (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      - group_add                                   = [] -&amp;gt; null
+      ~ hostname                                    = &amp;#34;3488ecf82e76&amp;#34; -&amp;gt; (known after apply)
+      ~ id                                          = &amp;#34;3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10&amp;#34; -&amp;gt; (known after apply)
+      ~ init                                        = false -&amp;gt; (known after apply)
+      ~ ipc_mode                                    = &amp;#34;private&amp;#34; -&amp;gt; (known after apply)
+      ~ log_driver                                  = &amp;#34;json-file&amp;#34; -&amp;gt; (known after apply)
+      - log_opts                                    = {} -&amp;gt; null
+      - max_retry_count                             = 0 -&amp;gt; null
+      - memory                                      = 0 -&amp;gt; null
+      - memory_swap                                 = 0 -&amp;gt; null
+      ~ name                                        = &amp;#34;varible_container&amp;#34; -&amp;gt; &amp;#34;ExampleNginxContainer&amp;#34; # forces replacement
+      ~ network_data                                = [
+          - {
+              - gateway                   = &amp;#34;172.17.0.1&amp;#34;
+              - global_ipv6_prefix_length = 0
+              - ip_address                = &amp;#34;172.17.0.2&amp;#34;
+              - ip_prefix_length          = 16
+              - mac_address               = &amp;#34;12:9f:7c:4e:dd:26&amp;#34;
+              - network_name              = &amp;#34;bridge&amp;#34;
+                # (2 unchanged attributes hidden)
+            },
+        ] -&amp;gt; (known after apply)
+      - network_mode                                = &amp;#34;bridge&amp;#34; -&amp;gt; null # forces replacement
+      - privileged                                  = false -&amp;gt; null
+      - publish_all_ports                           = false -&amp;gt; null
+      ~ runtime                                     = &amp;#34;runc&amp;#34; -&amp;gt; (known after apply)
+      ~ security_opts                               = [] -&amp;gt; (known after apply)
+      ~ shm_size                                    = 64 -&amp;gt; (known after apply)
+      ~ stop_signal                                 = &amp;#34;SIGQUIT&amp;#34; -&amp;gt; (known after apply)
+      ~ stop_timeout                                = 0 -&amp;gt; (known after apply)
+      - storage_opts                                = {} -&amp;gt; null
+      - sysctls                                     = {} -&amp;gt; null
+      - tmpfs                                       = {} -&amp;gt; null
+        # (20 unchanged attributes hidden)
+
+      ~ healthcheck (known after apply)
+
+      ~ labels (known after apply)
+
+      ~ ports {
+          ~ external = 8000 -&amp;gt; 8080 # forces replacement
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn&amp;#39;t use the -out option to save this plan, so Terraform can&amp;#39;t
+guarantee to take exactly these actions if you run &amp;#34;terraform apply&amp;#34; now.
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform apply
+docker_image.nginx: Refreshing state... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_container.nginx: Refreshing state... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+-/&amp;#43; destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.nginx must be replaced
+-/&amp;#43; resource &amp;#34;docker_container&amp;#34; &amp;#34;nginx&amp;#34; {
+      &amp;#43; bridge                                      = (known after apply)
+      ~ command                                     = [
+          - &amp;#34;nginx&amp;#34;,
+          - &amp;#34;-g&amp;#34;,
+          - &amp;#34;daemon off;&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      &amp;#43; container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -&amp;gt; null
+      - dns                                         = [] -&amp;gt; null
+      - dns_opts                                    = [] -&amp;gt; null
+      - dns_search                                  = [] -&amp;gt; null
+      ~ entrypoint                                  = [
+          - &amp;#34;/docker-entrypoint.sh&amp;#34;,
+        ] -&amp;gt; (known after apply)
+      ~ env                                         = [] -&amp;gt; (known after apply)
+      &amp;#43; exit_code                                   = (known after apply)
+      - group_add                                   = [] -&amp;gt; null
+      ~ hostname                                    = &amp;#34;3488ecf82e76&amp;#34; -&amp;gt; (known after apply)
+      ~ id                                          = &amp;#34;3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10&amp;#34; -&amp;gt; (known after apply)
+      ~ init                                        = false -&amp;gt; (known after apply)
+      ~ ipc_mode                                    = &amp;#34;private&amp;#34; -&amp;gt; (known after apply)
+      ~ log_driver                                  = &amp;#34;json-file&amp;#34; -&amp;gt; (known after apply)
+      - log_opts                                    = {} -&amp;gt; null
+      - max_retry_count                             = 0 -&amp;gt; null
+      - memory                                      = 0 -&amp;gt; null
+      - memory_swap                                 = 0 -&amp;gt; null
+      ~ name                                        = &amp;#34;varible_container&amp;#34; -&amp;gt; &amp;#34;ExampleNginxContainer&amp;#34; # forces replacement
+      ~ network_data                                = [
+          - {
+              - gateway                   = &amp;#34;172.17.0.1&amp;#34;
+              - global_ipv6_prefix_length = 0
+              - ip_address                = &amp;#34;172.17.0.2&amp;#34;
+              - ip_prefix_length          = 16
+              - mac_address               = &amp;#34;12:9f:7c:4e:dd:26&amp;#34;
+              - network_name              = &amp;#34;bridge&amp;#34;
+                # (2 unchanged attributes hidden)
+            },
+        ] -&amp;gt; (known after apply)
+      - network_mode                                = &amp;#34;bridge&amp;#34; -&amp;gt; null # forces replacement
+      - privileged                                  = false -&amp;gt; null
+      - publish_all_ports                           = false -&amp;gt; null
+      ~ runtime                                     = &amp;#34;runc&amp;#34; -&amp;gt; (known after apply)
+      ~ security_opts                               = [] -&amp;gt; (known after apply)
+      ~ shm_size                                    = 64 -&amp;gt; (known after apply)
+      ~ stop_signal                                 = &amp;#34;SIGQUIT&amp;#34; -&amp;gt; (known after apply)
+      ~ stop_timeout                                = 0 -&amp;gt; (known after apply)
+      - storage_opts                                = {} -&amp;gt; null
+      - sysctls                                     = {} -&amp;gt; null
+      - tmpfs                                       = {} -&amp;gt; null
+        # (20 unchanged attributes hidden)
+
+      ~ healthcheck (known after apply)
+
+      ~ labels (known after apply)
+
+      ~ ports {
+          ~ external = 8000 -&amp;gt; 8080 # forces replacement
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &amp;#39;yes&amp;#39; will be accepted to approve.
+
+  Enter a value: yes
+
+docker_container.nginx: Destroying... [id=3488ecf82e762d2d5e0708c7beb48bbbaf8ff879b02dd18a071a933ca57dac10]
+docker_container.nginx: Destruction complete after 0s
+docker_container.nginx: Creating...
+docker_container.nginx: Creation complete after 1s [id=0c63b3d7bfe3e33718d4ab8447dd7f6eb61ccc8c8e3295bcc7f87f33f567077b]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform state list
+docker_container.nginx
+docker_image.nginx
+
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                            i Info →   U  In Use
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+nginx:latest   6e23479198b9        237MB         65.8MB    U
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS              PORTS                  NAMES
+0c63b3d7bfe3   6e23479198b9   &amp;#34;/docker-entrypoint.…&amp;#34;   About a minute ago   Up About a minute   0.0.0.0:8080-&amp;gt;80/tcp   ExampleNginxContainer
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ curl local:8080
+curl: (6) Could not resolve host: local
+
+
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ curl localhost:8080&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;title&amp;gt;Welcome to nginx!&amp;lt;/title&amp;gt;
+&amp;lt;style&amp;gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;h1&amp;gt;Welcome to nginx!&amp;lt;/h1&amp;gt;
+&amp;lt;p&amp;gt;If you see this page, nginx is successfully installed and working.
+Further configuration is required for the web server, reverse proxy,
+API gateway, load balancer, content cache, or other features.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;For online documentation and support please refer to
+&amp;lt;a href=&amp;#34;https://nginx.org/&amp;#34;&amp;gt;nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+To engage with the community please visit
+&amp;lt;a href=&amp;#34;https://community.nginx.org/&amp;#34;&amp;gt;community.nginx.org&amp;lt;/a&amp;gt;.&amp;lt;br/&amp;gt;
+For enterprise grade support, professional services, additional
+security features and capabilities please refer to
+&amp;lt;a href=&amp;#34;https://f5.com/nginx&amp;#34;&amp;gt;f5.com/nginx&amp;lt;/a&amp;gt;.&amp;lt;/p&amp;gt;
+
+&amp;lt;p&amp;gt;&amp;lt;em&amp;gt;Thank you for using nginx.&amp;lt;/em&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Output Docker container configuration&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;output-docker-container-configuration&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#output-docker-container-configuration&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Create a file called &lt;code&gt;outputs.tf&lt;/code&gt; in your &lt;code&gt;learn-terraform-docker-container&lt;/code&gt; directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the configuration below to &lt;code&gt;outputs.tf&lt;/code&gt; to define outputs for your container&amp;rsquo;s ID and the image ID.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+output &amp;#34;container_id&amp;#34; {
+  description = &amp;#34;ID of the Docker container&amp;#34;
+  value       = docker_container.nginx.id
+}
+
+output &amp;#34;image_id&amp;#34; {
+  description = &amp;#34;ID of the Docker image&amp;#34;
+  value       = docker_image.nginx.id
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;Inspect output values&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;inspect-output-values&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#inspect-output-values&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You must apply this configuration before you can use these output values. Apply your configuration now. Respond to the confirmation prompt with &lt;code&gt;yes&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;terraform plan &amp;amp;&amp;amp; apply&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+container_id = &amp;#34;72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878&amp;#34;
+image_id = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest&amp;#34;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;terraform output&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ terraform output
+container_id = &amp;#34;72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878&amp;#34;
+image_id = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest&amp;#34;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;terraform destroy:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+ # docker_image.nginx will be destroyed
+  - resource &amp;#34;docker_image&amp;#34; &amp;#34;nginx&amp;#34; {
+      - id           = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest&amp;#34; -&amp;gt; null
+      - image_id     = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc&amp;#34; -&amp;gt; null
+      - keep_locally = false -&amp;gt; null
+      - name         = &amp;#34;nginx:latest&amp;#34; -&amp;gt; null
+      - repo_digest  = &amp;#34;nginx@sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dc&amp;#34; -&amp;gt; null
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - container_id = &amp;#34;72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878&amp;#34; -&amp;gt; null
+  - image_id     = &amp;#34;sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest&amp;#34; -&amp;gt; null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &amp;#39;yes&amp;#39; will be accepted to confirm.
+
+  Enter a value: yes
+
+docker_container.nginx: Destroying... [id=72960beb9262b3c768b15ddfa703acd05237601a2916c20fec80b95525bb0878]
+docker_container.nginx: Destruction complete after 1s
+docker_image.nginx: Destroying... [id=sha256:6e23479198b998e5e25921dff8455837c7636a67111a04a635cf1bb363d199dcnginx:latest]
+docker_image.nginx: Destruction complete after 0s
+
+Destroy complete! Resources: 2 destroyed.
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker iamges
+docker: unknown command: docker iamges
+
+Run &amp;#39;docker --help&amp;#39; for more information
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker images
+                                                            i Info →   U  In Use
+IMAGE   ID             DISK USAGE   CONTENT SIZE   EXTRA
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[devops@lb01 ~/Terraform/learn-terrafrorm-docker-container]$&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;Learn more about HCP Terraform&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;learn-more-about-hcp-terraform&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#learn-more-about-hcp-terraform&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Although HCP Terraform can act as a standard remote backend to support Terraform runs on local machines, it works even better as a remote run environment. It supports two main workflows for performing Terraform runs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A VCS-driven workflow, in which it automatically queues plans whenever changes are committed to your configuration&amp;rsquo;s VCS repo.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;An API-driven workflow, in which a CI pipeline or other automated tool can upload configurations directly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;For a hands-on introduction to the HCP Terraform VCS-driven workflow, &lt;a href=&#34;https://developer.hashicorp.com/terraform/tutorials/cloud-get-started&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;follow the HCP Terraform getting started tutorials&lt;/a&gt;. HCP Terraform also offers &lt;a href=&#34;https://www.hashicorp.com/products/terraform/pricing&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;commercial solutions&lt;/a&gt; which include team permission management, policy enforcement, agents, and more.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;h3&gt;Practice &amp;amp;&amp;amp; Runbook&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;practice--runbook&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#practice--runbook&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;Example: Alicloud Bucket&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;example-alicloud-bucket&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#example-alicloud-bucket&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+shell@Alicloud:~$ vim ./main.tf
+shell@Alicloud:~$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider &amp;#34;alicloud&amp;#34; (hashicorp/alicloud) 1.276.0...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = &amp;#34;...&amp;#34; constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.alicloud: version = &amp;#34;~&amp;gt; 1.276&amp;#34;
+
+
+Warning: registry.terraform.io: For users on Terraform 0.13 or greater, this provider has moved to aliyun/alicloud. Please update your source in required_providers.
+
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running &amp;#34;terraform plan&amp;#34; to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+shell@Alicloud:~$ vim ./main.tf 
+shell@Alicloud:~$ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be created
+  &amp;#43; resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {
+      &amp;#43; acl                                      = (known after apply)
+      &amp;#43; bucket                                   = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34;
+      &amp;#43; creation_date                            = (known after apply)
+      &amp;#43; extranet_endpoint                        = (known after apply)
+      &amp;#43; force_destroy                            = false
+      &amp;#43; id                                       = (known after apply)
+      &amp;#43; intranet_endpoint                        = (known after apply)
+      &amp;#43; lifecycle_rule_allow_same_action_overlap = false
+      &amp;#43; location                                 = (known after apply)
+      &amp;#43; owner                                    = (known after apply)
+      &amp;#43; redundancy_type                          = &amp;#34;LRS&amp;#34;
+      &amp;#43; resource_group_id                        = (known after apply)
+      &amp;#43; storage_class                            = &amp;#34;Standard&amp;#34;
+      &amp;#43; tags                                     = {
+          &amp;#43; &amp;#34;Environmnt&amp;#34; = &amp;#34;Dev&amp;#34;
+          &amp;#43; &amp;#34;Project&amp;#34;    = &amp;#34;GitOps-Demo&amp;#34;
+        }
+
+      &amp;#43; access_monitor {
+          &amp;#43; status = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn&amp;#39;t specify an &amp;#34;-out&amp;#34; parameter to save this plan, so Terraform
+can&amp;#39;t guarantee that exactly these actions will be performed if
+&amp;#34;terraform apply&amp;#34; is subsequently run.
+
+shell@Alicloud:~$ terraform fmt
+main.tf
+shell@Alicloud:~$ terraform validate
+Success! The configuration is valid.
+
+
+
+
+
+
+Error: [ERROR] terraform-provider-alicloud/alicloud/resource_alicloud_oss_bucket.go:567: Resource alicloud_oss_bucket CreateBucket Failed!!! [SDK aliyun-oss-go-sdk ERROR]:
+oss: service returned error: StatusCode=403, ErrorCode=UserDisable, ErrorMessage=&amp;#34;UserDisable&amp;#34;, RequestId=69EB9C17A5F05D3437EFF9F2, Ec=0003-00000801
+
+  on main.tf line 1, in resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34;:
+   1: resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;出现报错，去控制台确认oss开启，开启后：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+shell@Alicloud:~$ terraform apply
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  &amp;#43; create
+
+Terraform will perform the following actions:
+
+  # alicloud_oss_bucket.my_first_bucket will be created
+  &amp;#43; resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {
+      &amp;#43; acl                                      = (known after apply)
+      &amp;#43; bucket                                   = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34;
+      &amp;#43; creation_date                            = (known after apply)
+      &amp;#43; extranet_endpoint                        = (known after apply)
+      &amp;#43; force_destroy                            = false
+      &amp;#43; id                                       = (known after apply)
+      &amp;#43; intranet_endpoint                        = (known after apply)
+      &amp;#43; lifecycle_rule_allow_same_action_overlap = false
+      &amp;#43; location                                 = (known after apply)
+      &amp;#43; owner                                    = (known after apply)
+      &amp;#43; redundancy_type                          = &amp;#34;LRS&amp;#34;
+      &amp;#43; resource_group_id                        = (known after apply)
+      &amp;#43; storage_class                            = &amp;#34;Standard&amp;#34;
+      &amp;#43; tags                                     = {
+          &amp;#43; &amp;#34;Environmnt&amp;#34; = &amp;#34;Dev&amp;#34;
+          &amp;#43; &amp;#34;Project&amp;#34;    = &amp;#34;GitOps-Demo&amp;#34;
+        }
+
+      &amp;#43; access_monitor {
+          &amp;#43; status = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &amp;#39;yes&amp;#39; will be accepted to approve.
+
+  Enter a value: yes
+
+alicloud_oss_bucket.my_first_bucket: Creating...
+alicloud_oss_bucket.my_first_bucket: Creation complete after 1s [id=devops-state-bucket-yourname-2026-04-24]&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑 &lt;code&gt;main.tf&lt;/code&gt; 文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+shell@Alicloud:~$ vim ./main.tf 
+terraform {
+  backend &amp;#34;oss&amp;#34; {
+    bucket = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34;
+
+    key = &amp;#34;gitops-project/test/terraform.tfstate&amp;#34;
+
+    region = &amp;#34;cn-hangzhou&amp;#34;
+  }
+}
+
+
+resource &amp;#34;alicloud_oss_bucket&amp;#34; &amp;#34;my_first_bucket&amp;#34; {
+  # 1,name:
+  bucket = &amp;#34;devops-state-bucket-yourname-2026-04-24&amp;#34;
+
+  # 2.power
+  tags = {
+    Environmnt = &amp;#34;Dev&amp;#34;
+    Project    = &amp;#34;GitOps-Demo&amp;#34;
+  }
+}
+
+output &amp;#34;bucket_domain&amp;#34; {
+  value = alicloud_oss_bucket.my_first_bucket.extranet_endpoint
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;将本地文件上传到bucket：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+shell@Alicloud:~$ terraform init
+
+Initializing the backend...
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous &amp;#34;local&amp;#34; backend to the
+  newly configured &amp;#34;oss&amp;#34; backend. No existing state was found in the newly
+  configured &amp;#34;oss&amp;#34; backend. Do you want to copy this state to the new &amp;#34;oss&amp;#34;
+  backend? Enter &amp;#34;yes&amp;#34; to copy and &amp;#34;no&amp;#34; to start with an empty state.
+
+  Enter a value: yes
+
+
+Successfully configured the backend &amp;#34;oss&amp;#34;! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = &amp;#34;...&amp;#34; constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.alicloud: version = &amp;#34;~&amp;gt; 1.276&amp;#34;
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running &amp;#34;terraform plan&amp;#34; to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;阿里云网页页面突然关闭，想要在本地生成：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+terraform import alicloud_oss_bucket.my_second_bucket devops-state-bucket-yourname-2026-04-24&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

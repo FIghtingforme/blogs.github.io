@@ -1,47 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on My SRE Knowledge Library</title>
+    <title>My SRE Knowledge Vault – Tags</title>
     <link>http://localhost:1313/tags/</link>
-    <description>Recent content in Tags on My SRE Knowledge Library</description>
-    <generator>Hugo</generator>
+    <description>Recent content in Tags on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 07 May 2026 18:40:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Devices</title>
-      <link>http://localhost:1313/tags/devices/</link>
-      <pubDate>Thu, 07 May 2026 18:40:00 +0800</pubDate>
-      <guid>http://localhost:1313/tags/devices/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Engineer</title>
-      <link>http://localhost:1313/tags/engineer/</link>
-      <pubDate>Sun, 03 May 2026 20:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/tags/engineer/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Regex</title>
-      <link>http://localhost:1313/tags/regex/</link>
-      <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
-      <guid>http://localhost:1313/tags/regex/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tailscale</title>
-      <link>http://localhost:1313/tags/tailscale/</link>
-      <pubDate>Sat, 25 Apr 2026 14:30:00 +0800</pubDate>
-      <guid>http://localhost:1313/tags/tailscale/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vpn</title>
-      <link>http://localhost:1313/tags/vpn/</link>
-      <pubDate>Sat, 25 Apr 2026 14:30:00 +0800</pubDate>
-      <guid>http://localhost:1313/tags/vpn/</guid>
-      <description></description>
-    </item>
+    
+	  <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
   </channel>
 </rss>

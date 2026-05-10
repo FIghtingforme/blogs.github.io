@@ -1,10 +1,83 @@
+---
+
+title: "TroubleShooting"
+type: "docs"
+  
+---
+
+### 三、 为什么网站还是没有搜索功能？（SRE 事故复盘）
+
+作为你的架构师，我必须为上一个回合的建议写一份简单的“事故复盘（Post-Mortem）”：
+
+在上一次排查 PaperMod 的历史遗留配置时，我让你删除了 `hugo.toml` 中的 `[outputs]` 模块。**这是导致你现在搜索框消失的直接原因。**
+
+**根因分析：**
+Hextra 主题内置的是非常强大的 FlexSearch 纯前端搜索引擎。它不需要像传统网站那样建数据库，但它**极度依赖一个名为 `index.json` 的全站索引文件**。
+删除了 `[outputs]`，Hugo 就不再生成这个 JSON 文件了，前端搜索组件拿不到数据，就干脆把自己隐藏了。
+
+**紧急修复（Runbook）：**
+
+请立即打开你的 `hugo.toml`，在任意一个空白的根层级位置（不要缩进到别的地方），把生成 JSON 的命令加回来：
+
+```toml
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+
+
+```
+
+
+
+
+
+
+
+
+
+---
+---
+
+
 ###
 
 - 突然遇到了问题：不能git push了，开始排错。。
 
 - 原来是忘了提交了。。。。
 
+- git因为网速问题，添加代理:
 
+```
+
+标准化处理流程：配置 Git 本地代理
+第一步：确认你的本地代理端口
+打开你正在使用的代理软件，查看它的本地 HTTP 代理端口或局域网代理端口。
+
+如果你使用的是类似 Clash/FlClash 的工具，默认端口通常是 7890。
+
+如果你使用的是基于 VLESS/Xray 的客户端（如 v2rayN），默认端口通常是 10808 或 10809。
+
+第二步：在 Git Bash (MINGW64) 中设置代理
+假设你的代理软件运行在本地 127.0.0.1，端口是 7890。请在当前的 Git Bash 终端中执行以下命令（请根据你的实际端口修改数字）：
+
+Bash
+# 配置 HTTP 和 HTTPS 代理
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy http://127.0.0.1:7890
+(注意：即使你的目标地址是 https 的 GitHub，代理协议依然写 http:// 即可，这是本地代理客户端的标准接收协议。)
+
+第三步：验证配置并重新执行拉取
+执行以下命令确认代理已生效：
+
+Bash
+git config --global --get http.proxy
+确认无误后，重新执行添加子模块的命令：
+
+Bash
+git submodule add https://github.com/imfing/hextra.git themes/hextra
+这次流量将通过你的代理隧道走，通常 3 秒内即可 Clone 完毕。
+
+```
 
 
 ---

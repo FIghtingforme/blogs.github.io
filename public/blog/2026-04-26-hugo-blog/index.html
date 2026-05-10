@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>jekyll 博客迁移为 Hugo – My SRE Knowledge Vault</title>
+  <meta name="description" content="jekyll 博客迁移为 Hugo痛点：Hugo (对比 Jekyll)在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
+1. Zero DependencyJekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
+Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
+2. 最快的静态网站生成器Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
+Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
+3. 极简的本地预览指令在 Hugo 中，只需要在博客根目录下敲下这一行命令：
+# -D 参数表示同时渲染草稿 (Drafts) hugo server -D本地实时更新： http://localhost:1313/ Jekyll 到 Hugo 的企业级迁移 SOP：阶段一：本地架构重组 (Directory Restructuring)Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作： 1. 清理历史包袱 (Drop Legacy Dependencies)既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。" /><link rel="canonical" href="http://localhost:1313/blog/2026-04-26-hugo-blog/" itemprop="url" />
+
+<meta property="og:title" content="jekyll 博客迁移为 Hugo">
+<meta
+  property="og:description"
+  content="
+    
+      jekyll 博客迁移为 Hugo
+    痛点：Hugo (对比 Jekyll)
+    在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
+1. Zero Dependency
+    
+
+Jekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
+
+
+Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
+
+
+2. 最快的静态网站生成器
+    
+
+Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
+
+
+Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
+
+
+3. 极简的本地预览指令
+    在 Hugo 中，只需要在博客根目录下敲下这一行命令：
+
+
+# -D 参数表示同时渲染草稿 (Drafts)
+hugo server -D
+  
+    
+
+  
+
+
+
+本地实时更新： http://localhost:1313/
+
+Jekyll 到 Hugo 的企业级迁移 SOP：
+    阶段一：本地架构重组 (Directory Restructuring)
+    
+Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：
+
+1. 清理历史包袱 (Drop Legacy Dependencies)
+    既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。
+    
+  ">
+<meta
+  property="og:type"
+  content="
+    article
+  ">
+<meta property="og:url" content="http://localhost:1313/blog/2026-04-26-hugo-blog/"><meta property="article:section" content="blog">
+
+<meta
+  property="article:published_time"
+  content="2026-04-26T00:00:00+00:00">
+
+
+<meta
+  property="article:modified_time"
+  content="2026-04-26T00:00:00+00:00">
+
+
+
+  <meta itemprop="name" content="jekyll 博客迁移为 Hugo">
+  <meta itemprop="description" content="jekyll 博客迁移为 Hugo痛点：Hugo (对比 Jekyll)在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
+1. Zero DependencyJekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
+Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
+2. 最快的静态网站生成器Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
+Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
+3. 极简的本地预览指令在 Hugo 中，只需要在博客根目录下敲下这一行命令：
+# -D 参数表示同时渲染草稿 (Drafts) hugo server -D本地实时更新： http://localhost:1313/ Jekyll 到 Hugo 的企业级迁移 SOP：阶段一：本地架构重组 (Directory Restructuring)Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作： 1. 清理历史包袱 (Drop Legacy Dependencies)既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。">
+  <meta itemprop="datePublished" content="2026-04-26T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-04-26T00:00:00+00:00">
+  <meta itemprop="wordCount" content="785">
+  <meta itemprop="keywords" content="Hugo">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jekyll 博客迁移为 Hugo">
+  <meta name="twitter:description" content="jekyll 博客迁移为 Hugo痛点：Hugo (对比 Jekyll)在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：
+1. Zero DependencyJekyll 的痛点： 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 bundler、解决 Gemfile 版本冲突。换台电脑经常跑不起来，让人非常崩溃。
+Hugo 的优势： 它是用 Go 语言编写的。Hugo 编译出来就是一个独立的二进制文件。不需要装 Go 环境，不需要装任何依赖，下载那个 .exe 或执行 brew install hugo，立刻就能跑，极其干净。
+2. 最快的静态网站生成器Jekyll 的痛点： 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。
+Hugo 的优势： 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以毫秒计算的。保存瞬间，渲染完成。
+3. 极简的本地预览指令在 Hugo 中，只需要在博客根目录下敲下这一行命令：
+# -D 参数表示同时渲染草稿 (Drafts) hugo server -D本地实时更新： http://localhost:1313/ Jekyll 到 Hugo 的企业级迁移 SOP：阶段一：本地架构重组 (Directory Restructuring)Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作： 1. 清理历史包袱 (Drop Legacy Dependencies)既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+  
+<script src="/js/main-head.js" integrity=""></script>
+
+  
+  
+  </head>
+<body>
+    <a href="#content" class="hx:sr-only hx:focus-visible:not-sr-only hx:focus-visible:fixed hx:focus-visible:z-50 hx:focus-visible:top-2 hx:focus-visible:left-2 hx:focus-visible:bg-primary-500 hx:focus-visible:text-white hx:focus-visible:px-4 hx:focus-visible:py-2 hx:focus-visible:rounded-md hx:focus-visible:text-sm hx:focus-visible:font-medium">跳至内容</a><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/logo.svg" alt="Logo" height="20" width="20" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/logo.svg" alt="Dark Logo" height="20" width="20" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none">My SRE Knowledge Vault</span>
+</a>
+<a
+  title=""
+  href="/"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">首页</span>
+</a><a
+  title=""
+  href="/blog"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:font-medium"
+><span class="hx:text-center">博客列表</span>
+</a><a
+  title=""
+  href="/categories/"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">分类</span>
+</a><a
+  title=""
+  href="/tags/"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">标签</span>
+</a><a
+  title=""
+  href="/blog/about"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">关于我</span>
+</a><a
+  title=""
+  href="/incident-runbook"
+  
+  class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-flex hx:items-center hx:gap-1 hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+><span class="hx:text-center">TroubleShooting</span>
+</a><button type="button" aria-label="菜单" aria-expanded="false" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden hx:hextra-focus-visible-inset"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+  <div class="hx:mx-auto hx:flex hextra-max-page-width">
+    <aside class="hextra-sidebar-container hx:flex hx:flex-col hx:print:hidden hx:md:top-16 hx:md:shrink-0 hx:md:w-64 hx:md:self-start hx:max-md:[transform:translate3d(0,-100%,0)] hx:md:hidden hx:xl:block">
+    <div class="hx:px-4 hx:pt-4 hx:md:hidden">
+      <div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="搜索文档..."
+      aria-label="搜索文档..."
+      class="hextra-search-input hx:hextra-focus-visible hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus-visible:bg-white hx:dark:focus-visible:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      autocomplete="off"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      aria-label="搜索结果"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+    <div class="hextra-search-status hx:sr-only" aria-live="polite" role="status"></div>
+  </div>
+</div>
+
+    </div><div class="hextra-scrollbar hx:overflow-y-auto hx:overflow-x-hidden hx:p-4 hx:grow hx:md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx:flex hx:flex-col hx:gap-1 hx:md:hidden">
+      
+      
+              <li class="open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:ltr:pr-8 hx:rtl:pl-8 hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">首页</span>
+    </a>
+      <button type="button" class="hextra-sidebar-collapsible-button hx:absolute hx:top-1/2 hx:-translate-y-1/2 hx:ltr:right-2 hx:rtl:left-2 hx:shrink-0 hx:cursor-pointer hx:p-0 hx:text-gray-500 hx:dark:text-neutral-400 hx:group-hover:text-gray-900 hx:dark:group-hover:text-gray-50 hx:group-data-[active=true]:text-primary-800 hx:group-data-[active=true]:dark:text-primary-600 hx:hextra-focus-visible-inset" aria-label="切换章节" aria-expanded="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></button>
+  </div><div class="hextra-sidebar-children hx:ltr:pr-0 hx:rtl:pl-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:ltr:pr-8 hx:rtl:pl-8 hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">博客列表</span>
+    </a>
+      <button type="button" class="hextra-sidebar-collapsible-button hx:absolute hx:top-1/2 hx:-translate-y-1/2 hx:ltr:right-2 hx:rtl:left-2 hx:shrink-0 hx:cursor-pointer hx:p-0 hx:text-gray-500 hx:dark:text-neutral-400 hx:group-hover:text-gray-900 hx:dark:group-hover:text-gray-50 hx:group-data-[active=true]:text-primary-800 hx:group-data-[active=true]:dark:text-primary-600 hx:hextra-focus-visible-inset" aria-label="切换章节" aria-expanded="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></button>
+  </div>
+              <div class="hextra-sidebar-children hx:ltr:pr-0 hx:rtl:pl-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-05-07-enterprise-devices/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Enterprise Devices</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Network Engineer</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-27-regex/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Regex</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      href="/blog/2026-04-26-hugo-blog/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">jekyll 博客迁移为 Hugo</span>
+    </a>
+  </div>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              ></a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-25-tailscale/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Tailscale 组网实践</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-21-docker-demo/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-20-iam/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">IAM-Least Privilege Principle</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-18-bash-scripting/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Bash Scripting Documetry</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-18-terraform-docker/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Terraform Docker</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-16-linux-commands/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Linux Common Commands</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-15-docker-nodejs/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker--- Nodejs</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-11-yum-advanced/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">yum 进阶</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-hefeng-dingding/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">自动发送天气预报</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-dingding-upgrade/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">钉钉自动巡检告警--完全版</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-dingding/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">钉钉自动巡检告警--磁盘空间</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-21-ssh-pubkey/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSH安全密钥设置</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-docker-junior/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker简单配置</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-ftp-win/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">FTP办公挂载文件夹</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-comics-python/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Python自动下载整个网站的漫画 </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-ips-ban/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">《Nginx 恶意攻击 IP 自动分析与封禁拦截器》</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-zip/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Python--机器人自动备份文件到自动递增ZIP </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-email-number/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">电话号码和 E-mail 提取器</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-17-add-swap/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">内存告急，快加swap！！！</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-15-ssh-remote/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSH 配置踩坑</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-pages-cloudflare/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Github Pages绑定域名</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-nfs/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">NFS挂载文件系统</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-nginx-shopping-website/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">用Nginx搭建站点</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-08-nginx-website/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Nginx--网站搭建</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-05-rsync-errors/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Rsync远程同步文件时的排错流程</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-04-rocky9-resume/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Rocky9忘记密码--紧急救援</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-03-sshd-remote-connect/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSHD 远程工具连接失败</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-03-alist-mount/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">用Alist实现挂载本地</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-02-24-nginx-softlink-upgrade/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Nginx 软链接升级流程</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/about/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">About</span>
+    </a>
+  </div>
+              
+            </li></ul>
+      </div>
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/incident-runbook/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">TroubleShooting</span>
+    </a>
+  </div>
+              
+            </li></ul>
+      </div></li>
+              <li class="open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:ltr:pr-8 hx:rtl:pl-8 hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">博客列表</span>
+    </a>
+      <button type="button" class="hextra-sidebar-collapsible-button hx:absolute hx:top-1/2 hx:-translate-y-1/2 hx:ltr:right-2 hx:rtl:left-2 hx:shrink-0 hx:cursor-pointer hx:p-0 hx:text-gray-500 hx:dark:text-neutral-400 hx:group-hover:text-gray-900 hx:dark:group-hover:text-gray-50 hx:group-data-[active=true]:text-primary-800 hx:group-data-[active=true]:dark:text-primary-600 hx:hextra-focus-visible-inset" aria-label="切换章节" aria-expanded="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></button>
+  </div><div class="hextra-sidebar-children hx:ltr:pr-0 hx:rtl:pl-0 hx:overflow-hidden">
+        <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-05-07-enterprise-devices/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Enterprise Devices</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Network Engineer</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-27-regex/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Regex</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      href="/blog/2026-04-26-hugo-blog/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">jekyll 博客迁移为 Hugo</span>
+    </a>
+  </div>
+  
+    <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
+              <a
+                href="#"
+                class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
+              ></a>
+            </li>
+          </ul>
+  
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-25-tailscale/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Tailscale 组网实践</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-21-docker-demo/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-20-iam/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">IAM-Least Privilege Principle</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-18-bash-scripting/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Bash Scripting Documetry</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-18-terraform-docker/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Terraform Docker</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-16-linux-commands/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Linux Common Commands</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-15-docker-nodejs/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker--- Nodejs</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-04-11-yum-advanced/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">yum 进阶</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-hefeng-dingding/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">自动发送天气预报</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-dingding-upgrade/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">钉钉自动巡检告警--完全版</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-31-dingding/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">钉钉自动巡检告警--磁盘空间</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-21-ssh-pubkey/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSH安全密钥设置</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-docker-junior/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Docker简单配置</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-ftp-win/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">FTP办公挂载文件夹</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-20-comics-python/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Python自动下载整个网站的漫画 </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-ips-ban/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">《Nginx 恶意攻击 IP 自动分析与封禁拦截器》</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-zip/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Python--机器人自动备份文件到自动递增ZIP </span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-19-email-number/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">电话号码和 E-mail 提取器</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-17-add-swap/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">内存告急，快加swap！！！</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-15-ssh-remote/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSH 配置踩坑</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-pages-cloudflare/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Github Pages绑定域名</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-nfs/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">NFS挂载文件系统</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-12-nginx-shopping-website/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">用Nginx搭建站点</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-08-nginx-website/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Nginx--网站搭建</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-05-rsync-errors/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Rsync远程同步文件时的排错流程</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-04-rocky9-resume/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Rocky9忘记密码--紧急救援</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-03-sshd-remote-connect/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">SSHD 远程工具连接失败</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-03-03-alist-mount/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">用Alist实现挂载本地</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/2026-02-24-nginx-softlink-upgrade/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">Nginx 软链接升级流程</span>
+    </a>
+  </div>
+              
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/about/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">About</span>
+    </a>
+  </div>
+              
+            </li></ul>
+      </div></li><li><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/categories/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">分类</span>
+    </a>
+  </div></li><li><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/tags/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">标签</span>
+    </a>
+  </div></li>
+              <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/blog/about/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">关于我</span>
+    </a>
+  </div></li>
+              <li class=""><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+    <a
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+      href="/incident-runbook/"
+      
+    >
+      <span class="hx:min-w-0 [word-break:break-word]">TroubleShooting</span>
+    </a>
+  </div></li>
+    </ul>
+
+    <div class="hx:max-xl:hidden hx:h-0 hx:w-64 hx:shrink-0"></div></div>
+  
+  
+    <div class="hx:md:hidden  hx:sticky hx:bottom-0 hx:max-h-(--menu-height) hx:bg-white hx:dark:bg-dark hx:mx-4 hx:py-4 hx:shadow-[0_-12px_16px_#fff] hx:flex hx:items-center hx:gap-2 hx:border-gray-200 hx:dark:border-neutral-800 hx:dark:shadow-[0_-12px_16px_#111] hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:shadow-none hx:border-t" data-toggle-animation="show"><div class="hx:flex hx:grow hx:flex-col"><div class="hx:flex hx:justify-items-start hx:group" data-theme="light">
+  <button
+    title="切换主题"
+    data-state="closed"
+    data-location="bottom"
+    class="hextra-theme-toggle hx:cursor-pointer hx:rounded-md hx:text-left hx:font-medium hx:h-7 hx:px-2 hx:text-xs hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:font-medium hx:text-gray-600 hx:transition-colors hx:dark:text-gray-400 hx:grow"
+    type="button"
+    aria-label="切换主题"
+    aria-expanded="false"
+    aria-haspopup="menu"
+  >
+    <div class="hx:flex hx:items-center hx:gap-2 hx:capitalize"><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden">浅色</span><svg height=12 class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden">深色</span><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor">
+  <path d="M 11.996094,2 C 6.4986225,2.0192368 2.03125,6.5024993 2.03125,12 c 0,5.497501 4.4673725,9.980763 9.964844,10 H 12 12.0039 c 5.497471,-0.01924 9.964844,-4.502499 9.964844,-10 0,-5.4975007 -4.467373,-9.9807632 -9.964844,-10 H 12 Z M 12,4 c 4.417218,0.017598 7.96875,3.5822356 7.96875,8 0,4.417764 -3.551532,7.982402 -7.96875,8 z" />
+</svg>
+<span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden">跟随系统</span></div>
+  </button>
+  <ul
+    class="hextra-theme-toggle-options hx:hidden hx:z-20 hx:max-h-64 hx:overflow-auto hx:rounded-lg hx:border hx:border-gray-200 hx:bg-white hx:p-1 hx:text-sm hx:shadow-lg hx:dark:border-neutral-700 hx:dark:bg-neutral-900"
+    style="position: fixed; inset: auto auto 0px 0px; margin: 0px; min-width: 100px;"
+    data-theme="light"
+    role="menu"
+  >
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="true"
+        tabindex="-1"
+        data-item="light"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        浅色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="dark"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        深色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="system"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        跟随系统
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+  </ul>
+</div>
+</div></div></aside>
+    
+<nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="目录">
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#jekyll-%e5%8d%9a%e5%ae%a2%e8%bf%81%e7%a7%bb%e4%b8%ba-hugo">jekyll 博客迁移为 Hugo
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e7%97%9b%e7%82%b9hugo-%e5%af%b9%e6%af%94-jekyll">痛点：Hugo (对比 Jekyll)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#1-zero-dependency">1. Zero Dependency
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#2-%e6%9c%80%e5%bf%ab%e7%9a%84%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e7%94%9f%e6%88%90%e5%99%a8">2. 最快的静态网站生成器
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#3-%e6%9e%81%e7%ae%80%e7%9a%84%e6%9c%ac%e5%9c%b0%e9%a2%84%e8%a7%88%e6%8c%87%e4%bb%a4">3. 极简的本地预览指令
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#jekyll-%e5%88%b0-hugo-%e7%9a%84%e4%bc%81%e4%b8%9a%e7%ba%a7%e8%bf%81%e7%a7%bb-sop">Jekyll 到 Hugo 的企业级迁移 SOP：
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e9%98%b6%e6%ae%b5%e4%b8%80%e6%9c%ac%e5%9c%b0%e6%9e%b6%e6%9e%84%e9%87%8d%e7%bb%84-directory-restructuring">阶段一：本地架构重组 (Directory Restructuring)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#1-%e6%b8%85%e7%90%86%e5%8e%86%e5%8f%b2%e5%8c%85%e8%a2%b1-drop-legacy-dependencies">1. 清理历史包袱 (Drop Legacy Dependencies)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#2-%e5%88%9d%e5%a7%8b%e5%8c%96-hugo-%e9%aa%a8%e6%9e%b6-init-hugo">2. 初始化 Hugo 骨架 (Init Hugo)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e5%ae%89%e8%a3%85hugo">安装hugo
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#3-%e6%a0%b8%e5%bf%83%e8%b5%84%e4%ba%a7%e6%98%a0%e5%b0%84-data-migration">3. 核心资产映射 (Data Migration)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#4-%e5%a4%84%e7%90%86%e8%bf%90%e7%bb%b4%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6%e5%a4%b9">4. 处理运维脚本文件夹
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e9%98%b6%e6%ae%b5%e4%ba%8c%e9%85%8d%e7%bd%ae%e4%b8%8e%e4%b8%bb%e9%a2%98-configuration">阶段二：配置与主题 (Configuration)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#jekyll-%e4%bd%bf%e7%94%a8-_configyml%e8%80%8c-hugo-%e7%8e%b0%e4%bb%a3%e7%89%88%e6%9c%ac%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8-hugotoml">Jekyll 使用 _config.yml，而 Hugo 现代版本默认使用 hugo.toml。
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e9%98%b6%e6%ae%b5%e4%b8%89%e9%83%a8%e7%bd%b2-cicd-%e6%b5%81%e6%b0%b4%e7%ba%bf-the-gitops-way">阶段三：部署 CI/CD 流水线 (The GitOps Way)
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-8 hx:rtl:pr-8 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#checklist">Checklist
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-12 hx:rtl:pr-12 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e5%ae%8c%e6%88%90%e4%b8%8a%e8%bf%b0%e9%85%8d%e7%bd%ae%e5%90%8e%e4%bd%a0%e9%9c%80%e8%a6%81%e5%81%9a%e6%9c%80%e5%90%8e%e4%b8%a4%e4%bb%b6%e4%ba%8b">完成上述配置后，你需要做最后两件事：
+        </a>
+      </li></ul>
+      <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
+        <button id="backToTop" tabindex="-1" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
+          <span>返回顶部</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" focusable="false" class="hx:inline hx:ltr:ml-1 hx:rtl:mr-1 hx:h-3.5 hx:w-3.5 hx:rounded-full hx:border hx:border-gray-500 hx:hover:border-gray-900 hx:dark:border-gray-400 hx:dark:hover:border-gray-100 hx:contrast-more:border-gray-800 hx:contrast-more:dark:border-gray-50">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+
+    <article class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main id="content" class="hx:w-full hx:min-w-0 hextra-max-content-width hx:px-6 hx:pt-4 hx:md:px-12">
+        <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
+        <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
+          <a href="/blog/" class="hx:inline-block hx:rounded-sm hx:hextra-focus-visible-inset">博客列表</a>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">jekyll 博客迁移为 Hugo</div>
+  </div>
+
+        
+        <div class="hx:flex hx:flex-col hx:sm:flex-row hx:items-start hx:sm:items-center hx:sm:justify-between hx:gap-4 hx:mt-2">
+          <h1 class="hx:mb-0 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">jekyll 博客迁移为 Hugo</h1>
+          
+        </div>
+        
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">April 26, 2026</span></div>
+        <div class="content">
+          <h3>jekyll 博客迁移为 Hugo<span class="hx:absolute hx:-mt-20" id="jekyll-博客迁移为-hugo"></span>
+    <a href="#jekyll-%e5%8d%9a%e5%ae%a2%e8%bf%81%e7%a7%bb%e4%b8%ba-hugo" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><h4>痛点：Hugo (对比 Jekyll)<span class="hx:absolute hx:-mt-20" id="痛点hugo-对比-jekyll"></span>
+    <a href="#%e7%97%9b%e7%82%b9hugo-%e5%af%b9%e6%af%94-jekyll" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><p>在 DevOps 和静态网站生成（SSG）的圈子里，Jekyll 是前辈，但 Hugo 是目前的“性能之王”。以下是它在工程体验上的三大降维打击：</p>
+<h4>1. Zero Dependency<span class="hx:absolute hx:-mt-20" id="1-zero-dependency"></span>
+    <a href="#1-zero-dependency" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><ul>
+<li>
+<p><strong>Jekyll 的痛点：</strong> 它是用 Ruby 写的。你为了跑起来，必须折腾 Ruby 环境、装 <code>bundler</code>、解决 <code>Gemfile</code> 版本冲突。换台电脑经常跑不起来，让人非常崩溃。</p>
+</li>
+<li>
+<p><strong>Hugo 的优势：</strong> 它是用 Go 语言编写的。Hugo 编译出来就是一个<strong>独立的二进制文件</strong>。不需要装 Go 环境，不需要装任何依赖，下载那个 <code>.exe</code> 或执行 <code>brew install hugo</code>，立刻就能跑，极其干净。</p>
+</li>
+</ul>
+<h4>2. 最快的<code>静态网站生成器</code><span class="hx:absolute hx:-mt-20" id="2-最快的静态网站生成器"></span>
+    <a href="#2-%e6%9c%80%e5%bf%ab%e7%9a%84%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99%e7%94%9f%e6%88%90%e5%99%a8" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><ul>
+<li>
+<p><strong>Jekyll 的痛点：</strong> 当你的博客文章超过 100 篇时，Jekyll 的本地编译速度会肉眼可见地变慢，每次保存可能要等好几秒浏览器才会刷新。</p>
+</li>
+<li>
+<p><strong>Hugo 的优势：</strong> 号称“世界上最快的静态网站生成器”。哪怕你有上万篇文章，它的构建时间也是以<strong>毫秒</strong>计算的。保存瞬间，渲染完成。</p>
+</li>
+</ul>
+<h4>3. 极简的本地预览指令<span class="hx:absolute hx:-mt-20" id="3-极简的本地预览指令"></span>
+    <a href="#3-%e6%9e%81%e7%ae%80%e7%9a%84%e6%9c%ac%e5%9c%b0%e9%a2%84%e8%a7%88%e6%8c%87%e4%bb%a4" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><p>在 Hugo 中，只需要在博客根目录下敲下这一行命令：</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code># -D 参数表示同时渲染草稿 (Drafts)
+hugo server -D</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ul>
+<li>本地实时更新： http://localhost:1313/</li>
+</ul>
+<h3><strong>Jekyll 到 Hugo 的企业级迁移 SOP</strong>：<span class="hx:absolute hx:-mt-20" id="jekyll-到-hugo-的企业级迁移-sop"></span>
+    <a href="#jekyll-%e5%88%b0-hugo-%e7%9a%84%e4%bc%81%e4%b8%9a%e7%ba%a7%e8%bf%81%e7%a7%bb-sop" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><h4>阶段一：本地架构重组 (Directory Restructuring)<span class="hx:absolute hx:-mt-20" id="阶段一本地架构重组-directory-restructuring"></span>
+    <a href="#%e9%98%b6%e6%ae%b5%e4%b8%80%e6%9c%ac%e5%9c%b0%e6%9e%b6%e6%9e%84%e9%87%8d%e7%bb%84-directory-restructuring" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><ul>
+<li>Hugo 的目录规范和 Jekyll 类似，但更加严谨。我们需要把你的资产“重定向”到 Hugo 认识的路径里。请在终端执行以下操作：</li>
+</ul>
+<h4>1. 清理历史包袱 (Drop Legacy Dependencies)<span class="hx:absolute hx:-mt-20" id="1-清理历史包袱-drop-legacy-dependencies"></span>
+    <a href="#1-%e6%b8%85%e7%90%86%e5%8e%86%e5%8f%b2%e5%8c%85%e8%a2%b1-drop-legacy-dependencies" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><p>既然不用 Jekyll 了，Ruby 的依赖和本地编译的产物必须立刻销毁，防止环境污染。</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code># 删除 Ruby 依赖文件 和 旧的编译产物
+rm -rf Gemfile Gemfile.lock _site/</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h4>2. 初始化 Hugo 骨架 (Init Hugo)<span class="hx:absolute hx:-mt-20" id="2-初始化-hugo-骨架-init-hugo"></span>
+    <a href="#2-%e5%88%9d%e5%a7%8b%e5%8c%96-hugo-%e9%aa%a8%e6%9e%b6-init-hugo" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><h5>安装hugo<span class="hx:absolute hx:-mt-20" id="安装hugo"></span>
+    <a href="#%e5%ae%89%e8%a3%85hugo" class="subheading-anchor" aria-label="此章节的永久链接"></a></h5><ul>
+<li>
+<p>安装Hogo通过github的hugo发行版选择win版本</p>
+</li>
+<li>
+<p>将压缩包全部解压缩到本地新创建的<a href="D:%5cHugo">D:/Hugo</a>文件夹下</p>
+</li>
+<li>
+<p><code>此电脑</code>右击来新建<code>Path的环境变量</code>添加路径<code>D:\Hugo</code></p>
+</li>
+<li>
+<p><code>hugo --version</code>验证安装成功</p>
+</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ hugo --help
+hugo is the main command, used to build your Hugo project.
+
+Hugo is a Fast and Flexible Static Site Generator
+built with love by spf13 and friends in Go.
+
+Complete documentation is available at https://gohugo.io/.</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ul>
+<li>在当前网站目录下强制初始化 Hugo 结构（<code>--force</code> 是因为目录非空）。</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+	wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+	$ hugo new site . --force
+	Congratulations! Your new Hugo project was created in D:\Git\blogs\blog
+	s.github.io.
+	
+	Just a few more steps...
+	
+	1. Change the current directory to D:\Git\blogs\blogs.github.io.
+	2. Create or install a theme:
+	   - Create a new theme with the command &#34;hugo new theme &lt;THEMENAME&gt;&#34;
+	   - Or, install a theme from https://themes.gohugo.io/
+	1. Edit hugo.toml, setting the &#34;theme&#34; property to the theme name.
+	2. Create new content with the command &#34;hugo new content &lt;SECTIONNAME&gt;\
+	&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;.
+	3. Start the embedded web server with the command &#34;hugo server --buildD
+	rafts&#34;.
+	
+	See documentation at https://gohugo.io/.</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h4>3. 核心资产映射 (Data Migration)<span class="hx:absolute hx:-mt-20" id="3-核心资产映射-data-migration"></span>
+    <a href="#3-%e6%a0%b8%e5%bf%83%e8%b5%84%e4%ba%a7%e6%98%a0%e5%b0%84-data-migration" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><p>这是最关键的一步。把 Jekyll 的核心文件移动到 Hugo 的标准目录结构中：</p>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+	# 1. 迁移文章：Hugo 的文章必须放在 content 目录下
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ mkdir -p content/posts
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ ls ./_posts/
+2026-02-24-Nginx-softlink-upgrade.md  2026-03-20-FTP-Win.md
+2026-03-03-Alist-Mount.md             2026-03-20-docker-junior.md
+2026-03-03-SSHD-remote-connect.md     2026-03-21-SSH-Pubkey.md
+2026-03-04-Rocky9-resume.md           2026-03-31-DingDing-Upgrade.md
+2026-03-05-rsync-errors.md            2026-03-31-DingDing.md
+2026-03-08-Nginx-Website.md           2026-03-31-HeFeng-DingDing.md
+2026-03-12-NFS.md                     2026-04-11-Yum-Advanced.md
+2026-03-12-Nginx-Shopping-Website.md  2026-04-15-Docker-Nodejs.md
+2026-03-12-Pages-cloudFlare.md        2026-04-16-Linux-Commands.md
+2026-03-15-SSH-Remote.md              2026-04-18-Bash-Scripting.md
+2026-03-17-add-swap.md                2026-04-18-Terraform-Docker.md
+2026-03-19-Email-Number.md            2026-04-20-IAM.md
+2026-03-19-IPs-ban.md                 2026-04-21-Docker-Demo.md
+2026-03-19-Zip.md                     2026-04-25-Tailscale.md
+2026-03-20-Comics-Python.md
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ mv ./_posts/* ./content/posts/
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ ls ./content/posts/
+2026-02-24-Nginx-softlink-upgrade.md  2026-03-20-FTP-Win.md
+2026-03-03-Alist-Mount.md             2026-03-20-docker-junior.md
+2026-03-03-SSHD-remote-connect.md     2026-03-21-SSH-Pubkey.md
+2026-03-04-Rocky9-resume.md           2026-03-31-DingDing-Upgrade.md
+2026-03-05-rsync-errors.md            2026-03-31-DingDing.md
+2026-03-08-Nginx-Website.md           2026-03-31-HeFeng-DingDing.md
+2026-03-12-NFS.md                     2026-04-11-Yum-Advanced.md
+2026-03-12-Nginx-Shopping-Website.md  2026-04-15-Docker-Nodejs.md
+2026-03-12-Pages-cloudFlare.md        2026-04-16-Linux-Commands.md
+2026-03-15-SSH-Remote.md              2026-04-18-Bash-Scripting.md
+2026-03-17-add-swap.md                2026-04-18-Terraform-Docker.md
+2026-03-19-Email-Number.md            2026-04-20-IAM.md
+2026-03-19-IPs-ban.md                 2026-04-21-Docker-Demo.md
+2026-03-19-Zip.md                     2026-04-25-Tailscale.md
+2026-03-20-Comics-Python.md
+
+	
+	# 2. 迁移静态资源（图片、CSS等）：Hugo 的静态文件必须放在 static 目录下
+	
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ ls !$
+ls ./assets/
+css/  image/
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ mv ./assets/ ./static/
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ ls ./static
+assets/
+
+
+	
+	# 3. 🚨 高危注意：迁移 CNAME 文件
+	# 很多人迁移后发现自定义域名掉了，就是因为没把 CNAME 移到 static 里。
+	# Hugo 编译时，只有 static 目录下的文件会被原封不动地复制到根目录！
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ mv ./CNAME ./static/
+
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ ls ./static/
+CNAME  assets/</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h5>4. 处理运维脚本文件夹<span class="hx:absolute hx:-mt-20" id="4-处理运维脚本文件夹"></span>
+    <a href="#4-%e5%a4%84%e7%90%86%e8%bf%90%e7%bb%b4%e8%84%9a%e6%9c%ac%e6%96%87%e4%bb%b6%e5%a4%b9" class="subheading-anchor" aria-label="此章节的永久链接"></a></h5><p>对于 <code>ansible-playbooks/</code> 和 <code>k8s-manifests/</code> 这类非博客内容：</p>
+<ul>
+<li><strong>Hugo 的优势：</strong> 只要它们不在 <code>content/</code> 或 <code>static/</code> 目录下，Hugo 编译时会<strong>完全无视它们</strong>。这意味着你可以继续把它们安全地留在根目录作为代码仓库管理，不会被打包泄露到外网。</li>
+</ul>
+<h4>阶段二：配置与主题 (Configuration)<span class="hx:absolute hx:-mt-20" id="阶段二配置与主题-configuration"></span>
+    <a href="#%e9%98%b6%e6%ae%b5%e4%ba%8c%e9%85%8d%e7%bd%ae%e4%b8%8e%e4%b8%bb%e9%a2%98-configuration" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><h5>Jekyll 使用 <code>_config.yml</code>，而 Hugo 现代版本默认使用 <code>hugo.toml</code>。<span class="hx:absolute hx:-mt-20" id="jekyll-使用-_configyml而-hugo-现代版本默认使用-hugotoml"></span>
+    <a href="#jekyll-%e4%bd%bf%e7%94%a8-_configyml%e8%80%8c-hugo-%e7%8e%b0%e4%bb%a3%e7%89%88%e6%9c%ac%e9%bb%98%e8%ae%a4%e4%bd%bf%e7%94%a8-hugotoml" class="subheading-anchor" aria-label="此章节的永久链接"></a></h5><ol>
+<li><strong>删除旧配置：</strong> <code>rm _config.yml</code></li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ rm _config.yml</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ol start="2">
+<li><strong>选择主题：</strong> SRE 博客不需要花里胡哨，推荐极简、极速的 <code>PaperMod</code> 主题。</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+	git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+	</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ol start="3">
+<li><strong>更新 <code>hugo.toml</code>：</strong> 打开根目录的 <code>hugo.toml</code>，写入基础配置：</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+    baseURL = &#39;https://你的自定义域名.com/&#39;
+    languageCode = &#39;zh-cn&#39;
+    title = &#39;我的 SRE 知识库&#39;
+    theme = &#39;PaperMod&#39;
+    </code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h3>阶段三：部署 CI/CD 流水线 (The GitOps Way)<span class="hx:absolute hx:-mt-20" id="阶段三部署-cicd-流水线-the-gitops-way"></span>
+    <a href="#%e9%98%b6%e6%ae%b5%e4%b8%89%e9%83%a8%e7%bd%b2-cicd-%e6%b5%81%e6%b0%b4%e7%ba%bf-the-gitops-way" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><ul>
+<li>
+<p>以前用 Jekyll，你可能依赖 GitHub Pages 原生的后台黑盒编译。现在，我们要把构建的控制权夺回来，使用 <strong>GitHub Actions</strong>。</p>
+</li>
+<li>
+<p>在根目录创建工作流文件：</p>
+</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+	mkdir -p .github/workflows
+	touch .github/workflows/hugo.yaml</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ul>
+<li>将以下 <strong>生产级 CI/CD 编排代码</strong> 填入 <code>hugo.yaml</code>。这段代码的作用是：只要你执行了 <code>git push</code>，GitHub 的云端服务器就会自动拉取最新的 Hugo 引擎，以毫秒级速度编译你的网站，并推送到 GitHub 边缘 CDN。</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+name: Deploy Hugo Site to GitHub Pages
+
+on:
+  # 监听 main 分支的 push 动作
+  push:
+    branches: [&#34;main&#34;] # 如果你的主分支叫 master，请修改这里
+  workflow_dispatch:
+
+# 设置权限，允许脚本推送静态文件到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: &#34;pages&#34;
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true # 必须开启，为了拉取你的主题
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: &#39;latest&#39;
+          extended: true
+
+      - name: Build with Hugo
+        run: hugo --minify # 开启压缩，减少传输带宽
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public # Hugo 默认的输出目录
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        </code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<h4>Checklist<span class="hx:absolute hx:-mt-20" id="checklist"></span>
+    <a href="#checklist" class="subheading-anchor" aria-label="此章节的永久链接"></a></h4><h5>完成上述配置后，你需要做最后两件事：<span class="hx:absolute hx:-mt-20" id="完成上述配置后你需要做最后两件事"></span>
+    <a href="#%e5%ae%8c%e6%88%90%e4%b8%8a%e8%bf%b0%e9%85%8d%e7%bd%ae%e5%90%8e%e4%bd%a0%e9%9c%80%e8%a6%81%e5%81%9a%e6%9c%80%e5%90%8e%e4%b8%a4%e4%bb%b6%e4%ba%8b" class="subheading-anchor" aria-label="此章节的永久链接"></a></h5><ol>
+<li>
+<p><strong>在 GitHub 仓库设置中激活 Actions 部署：</strong> 去你仓库的 <code>Settings</code> -&gt; <code>Pages</code> -&gt; <code>Source</code>，将其从 <code>Deploy from a branch</code> 修改为 <strong><code>GitHub Actions</code></strong>。</p>
+</li>
+<li>
+<p><strong>提交并推送：</strong></p>
+</li>
+</ol>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+	git add .
+	git commit -m &#34;chore: migrate from Jekyll to Hugo and setup CI/CD&#34;
+	git push origin main
+	</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ul>
+<li>修改categories：的内容为categories：[&ldquo;tools&rdquo;] 格式让hugo识别出来：</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+wang@DESKTOP-IE4JJEG MINGW64 /d/Git/blogs/blogs.github.io (main)
+$ find content/posts/ -name &#34;*.md&#34; | xargs sed -i -E &#39;s/^categories:[[:space:]]*([a-zA-Z0-9_-]&#43;)[[:space:]]*$/categories: [&#34;\1&#34;]/g&#39;</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+<ul>
+<li>
+<p>直接在浏览器的地址栏里输入并访问后端分类页面：
+<code>http://localhost:1313/categories/</code></p>
+</li>
+<li>
+<p>在 <code>hugo.toml</code> 文件追加前端显示功能：</p>
+</li>
+</ul>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+# --- 全局导航栏配置 (Main Menu) ---
+[menu]
+  # 首页入口
+  [[menu.main]]
+    identifier = &#34;home&#34;
+    name = &#34;首页&#34;
+    url = &#34;/&#34;
+    weight = 10
+
+  # 分类入口 
+  [[menu.main]]
+    identifier = &#34;categories&#34;
+    name = &#34;分类&#34;
+    url = &#34;/categories/&#34;
+    weight = 20
+
+  # 标签入口 
+  [[menu.main]]
+    identifier = &#34;tags&#34;
+    name = &#34;标签&#34;
+    url = &#34;/tags/&#34;
+    weight = 30
+
+
+# 在具体文章内部补充
+
+[params] # 开启文章元数据展示（日期、字数等） 
+	
+	hasCJKLanguage = true   # 开启 CJK 语言支持，保证中文字数计算的绝对精准
+	ShowPostMeta = true     # 显示文章日期、字数等元数据
+	ShowPostNavLinks = true # 显示上一篇/下一篇文章链接
+	
+	
+	
+	ShowPostMeta = true # 强制显示字数统计 (Word Count) 
+	ShowWordCount = true # 强制显示预计阅读时间 (Reading Time) 
+	ShowReadingTime = true</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
+
+        </div><div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
+        href="/blog/2026-04-25-tailscale/"
+        title="Tailscale 组网实践"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:pr-4 hx:rtl:pl-4"
+      ><svg class="hx:inline hx:h-5 hx:shrink-0 hx:ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>Tailscale 组网实践</a><a
+        href="/blog/2026-04-27-regex/"
+        title="Regex"
+        class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:ml-auto hx:ltr:pl-4 hx:ltr:text-right hx:rtl:mr-auto hx:rtl:pr-4 hx:rtl:text-left"
+      >Regex<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div></main>
+    </article>
+  </div>
+
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hx:mx-auto hx:flex hx:gap-2 hx:py-2 hx:px-4 hextra-max-footer-width"><div class="hx:flex hx:justify-items-start hx:group" data-theme="light">
+  <button
+    title="切换主题"
+    data-state="closed"
+    data-location="bottom"
+    class="hextra-theme-toggle hx:cursor-pointer hx:rounded-md hx:text-left hx:font-medium hx:h-7 hx:px-2 hx:text-xs hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:font-medium hx:text-gray-600 hx:transition-colors hx:dark:text-gray-400 hx:grow"
+    type="button"
+    aria-label="切换主题"
+    aria-expanded="false"
+    aria-haspopup="menu"
+  >
+    <div class="hx:flex hx:items-center hx:gap-2 hx:capitalize"><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg><span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden">浅色</span><svg height=12 class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg><span class="hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden">深色</span><svg height=12 class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor">
+  <path d="M 11.996094,2 C 6.4986225,2.0192368 2.03125,6.5024993 2.03125,12 c 0,5.497501 4.4673725,9.980763 9.964844,10 H 12 12.0039 c 5.497471,-0.01924 9.964844,-4.502499 9.964844,-10 0,-5.4975007 -4.467373,-9.9807632 -9.964844,-10 H 12 Z M 12,4 c 4.417218,0.017598 7.96875,3.5822356 7.96875,8 0,4.417764 -3.551532,7.982402 -7.96875,8 z" />
+</svg>
+<span class="hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden">跟随系统</span></div>
+  </button>
+  <ul
+    class="hextra-theme-toggle-options hx:hidden hx:z-20 hx:max-h-64 hx:overflow-auto hx:rounded-lg hx:border hx:border-gray-200 hx:bg-white hx:p-1 hx:text-sm hx:shadow-lg hx:dark:border-neutral-700 hx:dark:bg-neutral-900"
+    style="position: fixed; inset: auto auto 0px 0px; margin: 0px; min-width: 100px;"
+    data-theme="light"
+    role="menu"
+  >
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="true"
+        tabindex="-1"
+        data-item="light"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        浅色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="dark"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        深色
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=light]:hidden hx:group-data-[theme=system]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+    <li role="none" class="hx:flex hx:flex-col">
+      <button
+        type="button"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex="-1"
+        data-item="system"
+        class="hx:text-gray-700 hx:dark:text-gray-300 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:hover:bg-neutral-800 hx:dark:hover:text-gray-100 hx:relative hx:cursor-pointer hx:whitespace-nowrap hx:rounded-sm hx:py-1.5 hx:transition-colors hx:ltr:pl-3 hx:ltr:pr-9 hx:rtl:pr-3 hx:rtl:pl-9 hx:text-left hx:w-full hx:bg-transparent hx:border-0"
+      >
+        跟随系统
+         <span class="hx:absolute hx:inset-y-0 hx:flex hx:items-center hx:ltr:right-3 hx:rtl:left-3 hx:group-data-[theme=dark]:hidden hx:group-data-[theme=light]:hidden"><svg height=1em width=1em xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+      </button>
+    </li>
+  </ul>
+</div>
+</div><hr class="hx:border-gray-200 hx:dark:border-neutral-800" /><div class="hextra-custom-footer hextra-max-footer-width hx:mx-auto hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>由 Hextra 驱动<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script><script defer src="/en.search.js" integrity=""></script>
+  </body>
+</html>

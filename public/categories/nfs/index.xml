@@ -1,19 +1,146 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NFS on My SRE Knowledge Library</title>
+    <title>My SRE Knowledge Vault – NFS</title>
     <link>http://localhost:1313/categories/nfs/</link>
-    <description>Recent content in NFS on My SRE Knowledge Library</description>
-    <generator>Hugo</generator>
+    <description>Recent content in NFS on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 12 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/nfs/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/categories/nfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>NFS挂载文件系统</title>
-      <link>http://localhost:1313/posts/2026-03-12-nfs/</link>
+      <link>http://localhost:1313/blog/2026-03-12-nfs/</link>
       <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-03-12-nfs/</guid>
-      <description>&lt;h4 id=&#34;操作步骤&#34;&gt;操作步骤：&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;- NFS原理：&#xA;&#x9;- NFS &amp;lt;==&amp;gt; RPC &amp;lt;==&amp;gt; Client&#xA;&#x9;- &#xA;&#x9;- RPC服务： port mapper&#xA;&#x9;&#xA;&#x9;- Server（配置）：&#xA;&#x9;&#x9;- dnf install rpcbind nfs-utils&#xA;&#x9;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 安装相关软件&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- systemctl enable rpcbind/nfs-server&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- systemctl start rpcbind/nfs-server&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- rpcinfo -p&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- vim /etc/export（写入挂载信息）：&#xA;&#x9;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- /data 10.0.0.0/24（rw,all_squash）&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- rw 表示读写    |     all_squash表示压缩所有客户端用户为nfsnobody&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- systemctl reload nfs&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 平滑重载nfs，避免restart 60s 夯住&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- mkdir -p /data/&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 递归创建目录（挂载目录）&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- ls -ld /data/&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 查看目录属性&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- id nfsnobody&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 查看用户uid和gid&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- chown -R nfsnobody.nfsnobody /data/&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 设置用户，用户组所属&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- df -h&#xA;&#xA;            - 产看磁盘挂载情况&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- 配置文件：&#xA;&#xA;&#x9;&#x9;&#x9;- /etc/exports&#xA;&#x9;&#x9;&#x9;&#x9;- /var/lib/nfs/etab&#xA;&#x9;&#x9;&#xA;&#x9;- Client（配置）:&#xA;&#x9;&#x9;- showmount -e 10.0.0.61&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 查看挂载情况&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- useradd nfsnobody&#xA;&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- exportfs -arv   &#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 刷新配置&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- mount -t nfs 10.0.0.61:/data/  /mnt/&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- df -h /mnt/&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;- 查看挂载情况&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- install nfs-utils -y&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- touch /mnt/ababa.txt&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;- df -h       &#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 查看挂载情况&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- rpcinfo -p&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 打印中转详细信息&#xA;&#x9;&#x9;&#xA;        - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- umount -lf /mnt/  &#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- 强制卸载挂载的磁盘&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- 配置文件：&#xA;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;- /etc/rc.local&#xA;&#x9;&#x9;&#x9;&#x9;- /proc/mounts&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;- nfs永久挂载(配置前先启动服务端)：&#xA;&#x9;&#x9;&#x9;- vim /etc/fstab（写在文件里）：&#xA;&#x9;&#x9;&#x9;&#x9;- &#xA;&#x9;&#x9;&#x9;&#x9;- 10.0.0.61:/data/    /mnt/    nfs   defaults    0    0&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+      
+      <guid>http://localhost:1313/blog/2026-03-12-nfs/</guid>
+      <description>
+        
+        
+        &lt;h4&gt;操作步骤：&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;操作步骤&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%93%8d%e4%bd%9c%e6%ad%a5%e9%aa%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;- NFS原理：
+	- NFS &amp;lt;==&amp;gt; RPC &amp;lt;==&amp;gt; Client
+	- 
+	- RPC服务： port mapper
+	
+	- Server（配置）：
+		- dnf install rpcbind nfs-utils
+			- 
+			- 安装相关软件
+		
+		- systemctl enable rpcbind/nfs-server
+		- 
+		- systemctl start rpcbind/nfs-server
+		- 
+		- rpcinfo -p
+		- 
+		
+		- vim /etc/export（写入挂载信息）：
+			- 
+			- /data 10.0.0.0/24（rw,all_squash）
+			
+			- rw 表示读写    |     all_squash表示压缩所有客户端用户为nfsnobody
+		
+		- systemctl reload nfs
+			
+			- 平滑重载nfs，避免restart 60s 夯住
+		- 
+		- mkdir -p /data/
+			
+			- 递归创建目录（挂载目录）
+		- 
+		- ls -ld /data/
+		
+			- 查看目录属性
+		- 
+		- id nfsnobody
+			
+			- 查看用户uid和gid
+		- 
+		- chown -R nfsnobody.nfsnobody /data/
+			
+			- 设置用户，用户组所属
+		- 
+		- df -h
+
+            - 产看磁盘挂载情况
+		
+		- 配置文件：
+
+			- /etc/exports
+				- /var/lib/nfs/etab
+		
+	- Client（配置）:
+		- showmount -e 10.0.0.61
+			
+			- 查看挂载情况
+		- 
+		
+		- useradd nfsnobody
+
+		- 
+		- exportfs -arv   
+		- 
+			- 刷新配置
+		- 
+		- mount -t nfs 10.0.0.61:/data/  /mnt/
+		- 
+		- df -h /mnt/
+			
+			- 查看挂载情况
+		- 
+		- install nfs-utils -y
+		- 
+		- touch /mnt/ababa.txt
+		- 
+		- 
+		- df -h       
+		- 
+			- 查看挂载情况
+		
+		- rpcinfo -p
+		- 
+			- 打印中转详细信息
+		
+        - 可尝试在/mnt/下写文件，注意：服务器需要开启！！！
+		
+		
+		- umount -lf /mnt/  
+		- 
+			- 强制卸载挂载的磁盘
+		
+		- 配置文件：
+		- 
+			- /etc/rc.local
+				- /proc/mounts
+		
+		- nfs永久挂载(配置前先启动服务端)：
+			- vim /etc/fstab（写在文件里）：
+				- 
+				- 10.0.0.61:/data/    /mnt/    nfs   defaults    0    0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

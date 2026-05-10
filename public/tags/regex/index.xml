@@ -1,19 +1,162 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Regex on My SRE Knowledge Library</title>
+    <title>My SRE Knowledge Vault – Regex</title>
     <link>http://localhost:1313/tags/regex/</link>
-    <description>Recent content in Regex on My SRE Knowledge Library</description>
-    <generator>Hugo</generator>
+    <description>Recent content in Regex on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Mon, 27 Apr 2026 20:10:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>Regex</title>
-      <link>http://localhost:1313/posts/2026-04-27-regex/</link>
+      <link>http://localhost:1313/blog/2026-04-27-regex/</link>
       <pubDate>Mon, 27 Apr 2026 20:10:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2026-04-27-regex/</guid>
-      <description>&lt;h3 id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;What is a regular expression (or regex)?&lt;/h3&gt;&#xA;&lt;h3 id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;Wikipedia defines regular expressions as:&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;</description>
+      
+      <guid>http://localhost:1313/blog/2026-04-27-regex/</guid>
+      <description>
+        
+        
+        &lt;h3&gt;What is a regular expression (or regex)?&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;what-is-a-regular-expression-or-regex&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#what-is-a-regular-expression-or-regex&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3&gt;Wikipedia defines regular expressions as:&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;wikipedia-defines-regular-expressions-as&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#wikipedia-defines-regular-expressions-as&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;“a sequence of characters that define a search pattern”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;They are available in basically every programming language, and you’ll probably most commonly encounter them used for string matches in conditionals that are too complicated for simple logical comparisons (like “or”, “and”, “in”).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A couple of examples of regular expressions to get started:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+[ -~]	Any ASCII character
+(ASCII characters fall between space and “~”)
+^[a-z0-9_-]{3,15}$	Usernames between 3 and 15 characters
+When to use regex
+Use regular expressions with caution. The complexity of regex carries a cost.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Avoid coding in regex if you can
+‘Some people, when confronted with a problem, think “I know, I’ll use regular expressions.” Now they have two problems.’ – Jamie Zawinski&lt;/p&gt;
+&lt;p&gt;In programming, only use regular expressions as a last resort.
+Don’t solve important problems with regex.&lt;/p&gt;
+&lt;h3&gt;regex is expensive – regex is often the most CPU-intensive part of a program.And a non-matching regex can be even more expensive to check than a matching one.&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;regex-is-expensive--regex-is-often-the-most-cpu-intensive-part-of-a-programand-a-non-matching-regex-can-be-even-more-expensive-to-check-than-a-matching-one&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#regex-is-expensive--regex-is-often-the-most-cpu-intensive-part-of-a-programand-a-non-matching-regex-can-be-even-more-expensive-to-check-than-a-matching-one&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;regex is greedy – It’s extremely easy to match much more than intended, leading to bugs. We have multiple times had problems with regexes being too greedy, causing issues in our sites.&lt;/p&gt;
+&lt;p&gt;regex is opaque – Even people who know regex well will take a while to pick apart a new regex string, and are still likely to make mistakes. This has a huge cost to project maintenance in the long run. (Check out this amazing regex for RFC822 email addresses)&lt;/p&gt;
+&lt;p&gt;Always try to be aware of all the language features at your disposal for operating on and checking strings, that could help you avoid regular expressions.&lt;/p&gt;
+&lt;h3&gt;In Python, for example, the in keyword, the powerful [] indexing, and string methods like contains and startswith (which can be fed either strings of tuples for multiple values) can be combined very effectively.&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;in-python-for-example-the-in-keyword-the-powerful--indexing-and-string-methods-like-contains-and-startswith-which-can-be-fed-either-strings-of-tuples-for-multiple-values-can-be-combined-very-effectively&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#in-python-for-example-the-in-keyword-the-powerful--indexing-and-string-methods-like-contains-and-startswith-which-can-be-fed-either-strings-of-tuples-for-multiple-values-can-be-combined-very-effectively&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3&gt;Most importantly, regexes should not be used for parsing strings. You should instead use or write a bespoke parser. For example, you can’t parse HTML with regex (in Python, use BeautifulSoup; in JavaScript, use the DOM).&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;most-importantly-regexes-should-not-be-used-for-parsing-strings-you-should-instead-use-or-write-a-bespoke-parser-for-example-you-cant-parse-html-with-regex-in-python-use-beautifulsoup-in-javascript-use-the-dom&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#most-importantly-regexes-should-not-be-used-for-parsing-strings-you-should-instead-use-or-write-a-bespoke-parser-for-example-you-cant-parse-html-with-regex-in-python-use-beautifulsoup-in-javascript-use-the-dom&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;When to code in regex
+Of course, there are times when regular expressions can or should be used in programs:&lt;/p&gt;
+&lt;p&gt;When it already exist and you have to maintain it (although if you can remove it, you should)
+String validation, where there’s no other option
+String manipulation (substitution), where there’s no other option
+If you are writing anything more than the most basic regex, any maintainers are unlikely to be able to understand your regex easily, so you might want to consider adding liberal comments. E.g. this in Python:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+  &lt;blockquote&gt;
+  &lt;p&gt;pattern = &amp;quot;&amp;quot;&amp;quot;
+^                   # beginning of string
+M{0,4}              # thousands - 0 to 4 M&amp;rsquo;s
+(CM|CD|D?C{0,3})    # hundreds - 900 (CM), 400 (CD), 0-300 (0 to 3 C&amp;rsquo;s),
+#            or 500-800 (D, followed by 0 to 3 C&amp;rsquo;s)
+(XC|XL|L?X{0,3})    # tens - 90 (XC), 40 (XL), 0-30 (0 to 3 X&amp;rsquo;s),
+#        or 50-80 (L, followed by 0 to 3 X&amp;rsquo;s)
+(IX|IV|V?I{0,3})    # ones - 9 (IX), 4 (IV), 0-3 (0 to 3 I&amp;rsquo;s),
+#        or 5-8 (V, followed by 0 to 3 I&amp;rsquo;s)
+$                   # end of string
+&amp;quot;&amp;quot;&amp;quot;
+re.search(pattern, &amp;lsquo;M&amp;rsquo;, re.VERBOSE)
+Other great uses for regex
+Regular expressions can be extremely powerful for quickly solving problems for yourself, where future maintenance is not a concern. E.g.:&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;/blockquote&gt;
+&lt;p&gt;Grep (or Ripgrep), Sed, Less and other command line tools
+In editors (e.g. VSCode), for quickly reformatting text
+It’s also worth taking advantage of opportunities to use regex in these ways to practice your regex skills.&lt;/p&gt;
+&lt;p&gt;For example, I recently used the following regex substitution in VSCode to format a dump of text into a table format:&lt;/p&gt;
+&lt;p&gt;How to use regex
+Bear in mind that regular expressions parsers come in a few varieties. Basically, every language implements its own parser. However, Perl’s regex parser is the gold standard. If you have a choice, use Perl Compatible Regular Expressions.&lt;/p&gt;
+&lt;p&gt;What regex looks like
+The traditional way to write a regular expression is by surrounding it with slashes.&lt;/p&gt;
+&lt;p&gt;/^he[l]{2}o\wworld$/
+This is how they’re written in Perl and JavaScript, and in many command-line tools like Less.&lt;/p&gt;
+&lt;p&gt;Many more modern languages (e.g. Python), however, have opted not to include a native regex type, and so regular expressions are simply written as strings:&lt;/p&gt;
+&lt;p&gt;r&amp;quot;^he[l]{2}o\wworld$&amp;quot;
+Common regex characters
+.	Matches any single character (except newlines, normally)
+\	Escape a special character (e.g. . matches a literal dot)
+?	The preceding character may or may not be present (e.g. /hell?o/ would match hello or helo)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Any number of the preceding character is allowed (e.g. .* will match any single-line string, including an empty string, and gets used a lot)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;One or more of the preceding character (.+ is the same as .* except that it won’t match an empty string)
+|	“or”, match the preceding section or the following section (e.g. hello|mad will match “hello” or “mad”)
+()	group a section together. This can be useful for conditionals ((a|b)), multipliers ((hello)+), or to create groups for substitutions (see below)
+{}	Specify how many of the preceding character (e.g. a{12} matches 12 “a”s in a row)
+[]	Match any character in this set. - defines ranges (e.g. [a-z] is any lowercase letter), ^ means “not” (e.g. [^,]+ match any number of non-commas in a row)
+^	Beginning of line
+$	End of line
+Character shortcuts in regex
+In most regex implementations, you can use backslash followed by a letter (\x) as a shortcut for a character set. Here’s a list of some common ones from rexegg.com’s regex cheat sheet.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Regex in conditionals
+The simplest use-case for regexes in programming is a string comparison. This looks different in different languages, e.g.:&lt;/p&gt;
+&lt;p&gt;// Perl
+if ( &amp;ldquo;hello world&amp;rdquo; =~ /^he[l]{2}o\sworld$/ ) {..}
+// JavaScript
+if( /^he[l]{2}o\sworld$/.test(&amp;ldquo;hello world&amp;rdquo;) ) {..}&lt;/p&gt;
+&lt;h1&gt;Python&lt;/h1&gt;&lt;p&gt;import re
+if re.match(r&amp;quot;^he[l]{2}o\sworld$&amp;quot;, &amp;ldquo;hello world&amp;rdquo;): ..
+Regex in substitutions
+You can also use regex to manipulate strings through substitution. In the following examples, “mad world” will be printed out:&lt;/p&gt;
+&lt;p&gt;// Perl
+$hw = &amp;ldquo;hello world&amp;rdquo;; $hw =~ s/^(he[l]{2}o)\s(world)$/mad \2/; print($hw)
+// JavaScript
+console.log(&amp;ldquo;hello world&amp;rdquo;.replace(/^(he[l]{2}o)\s(world)$/, &amp;ldquo;mad $2&amp;rdquo;))&lt;/p&gt;
+&lt;h1&gt;Python&lt;/h1&gt;&lt;p&gt;import re
+print(re.replace(r&amp;quot;^(he[l]{2}o)\s(world)$&amp;quot;, r&amp;quot;mad \2&amp;quot;, &amp;ldquo;hello world&amp;rdquo;))
+Regex modifiers
+You can alter how regular expressions behave based on a few modifiers. I’m just going to illustrate one here, which is the modifier to make regex case insensitive. In Perl, JavaScript and other more traditional regex contexts, the modifiers are added after the last /. More modern languages often user constants instead:&lt;/p&gt;
+&lt;p&gt;// Perl
+if ( &amp;ldquo;HeLlO wOrLd&amp;rdquo; =~ /^he[l]{2}o\sworld$/i ) {..}
+// JavaScript
+if( /^he[l]{2}o\sworld$/i.test(&amp;ldquo;HeLlO wOrLd&amp;rdquo;) ) {..}&lt;/p&gt;
+&lt;h1&gt;Python&lt;/h1&gt;&lt;p&gt;import re
+if re.match(r&amp;quot;^he[l]{2}o\sworld$&amp;quot;, &amp;ldquo;HeLlO wOrLd&amp;rdquo;, flags=re.IGNORECASE): ..
+Lookahead and lookbehind in regex
+These are only supported in some implementations of regular expressions, and give you the opportunity to match strings that precede or follow other strings, but without including the prefix or suffix in the match itself:&lt;/p&gt;
+&lt;p&gt;(Again, taken from rexegg.com’s regex cheat sheet)&lt;/p&gt;
+&lt;p&gt;Regex resources
+That is all I have for now. If you want to learn more, there’s are a lot of useful resources out there:&lt;/p&gt;
+&lt;p&gt;Rexegg.com – Many great articles on most aspects of regex
+Regex101 – A tester for your regex, offering a few different implementations
+iHateRegex – A collection of example regex patterns for matching some common types of strings (e.g. phone number, email address)
+The official Perl Compatible Regular Expressions documentation&lt;/p&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

@@ -1,19 +1,114 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>SSH on My SRE Knowledge Library</title>
+    <title>My SRE Knowledge Vault – SSH</title>
     <link>http://localhost:1313/categories/ssh/</link>
-    <description>Recent content in SSH on My SRE Knowledge Library</description>
-    <generator>Hugo</generator>
+    <description>Recent content in SSH on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/categories/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>SSH 配置踩坑</title>
-      <link>http://localhost:1313/posts/2026-03-15-ssh-remote/</link>
+      <link>http://localhost:1313/blog/2026-03-15-ssh-remote/</link>
       <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-03-15-ssh-remote/</guid>
-      <description>&lt;h4 id=&#34;ssh服务github-远程连接报错排查&#34;&gt;SSH服务&amp;mdash;Github 远程连接报错排查&lt;/h4&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;远程连接到github时出现报错，不能连接&#xA;&#xA;估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件&#xA;&#xA;尝试：&#xA;&#xA;&#x9;删除原来的公钥，重新建一个在正确目录下&#xA;&#xA;&#x9;ssh-keygen -t ed25519 -C &amp;#34;xxx@xxx.com&amp;#34;   &#xA;        填自己邮箱，生成ssh密钥&#xA;&#xA;&#x9;将公钥内容复制到github中的ssh管理页面中添加公钥&#xA;&#xA;    成功后页面会有提示&#xA;&#xA;&#xA;- 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力&#xA;&#xA;- 解决痛点：&#xA;- &#xA;&#x9; - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥&#xA;&#xA;     - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！&#xA;&#x9;&#x9;&#xA;&#xA;&#xA;用私钥测试是否匹配：&#xA;&#xA;&#x9;ssh -T -i ~/.ssh/id_rsa git@github.com&#xA;&#xA;用git bash写在~/.ssh/config的内容：&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;-第-1-把钥匙专门给个人的-github-用-&#34;&gt;&amp;mdash; 第 1 把钥匙：专门给个人的 GitHub 用 &amp;mdash;&lt;/h1&gt;&#xA;&lt;p&gt;Host github.com&#xA;HostName github.com&#xA;User git&#xA;# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）&#xA;IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;</description>
+      
+      <guid>http://localhost:1313/blog/2026-03-15-ssh-remote/</guid>
+      <description>
+        
+        
+        &lt;h4&gt;SSH服务&amp;mdash;Github 远程连接报错排查&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;ssh服务github-远程连接报错排查&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#ssh%e6%9c%8d%e5%8a%a1github-%e8%bf%9c%e7%a8%8b%e8%bf%9e%e6%8e%a5%e6%8a%a5%e9%94%99%e6%8e%92%e6%9f%a5&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;此章节的永久链接&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;远程连接到github时出现报错，不能连接
+
+估计是公钥路径不对，git不能在基础目录~/.ssh/ 下看到相关文件
+
+尝试：
+
+	删除原来的公钥，重新建一个在正确目录下
+
+	ssh-keygen -t ed25519 -C &amp;#34;xxx@xxx.com&amp;#34;   
+        填自己邮箱，生成ssh密钥
+
+	将公钥内容复制到github中的ssh管理页面中添加公钥
+
+    成功后页面会有提示
+
+
+- 痛点：用add一个个添加推出文件重新加载是容易重新输入造成记忆压力
+
+- 解决痛点：
+- 
+	 - 用git bash在 ~/.ssh/ 下创建config路由表以此管理不同密钥
+
+     - 后续管理多个免密钥服务时非常方便，强烈推荐使用！！！
+		
+
+
+用私钥测试是否匹配：
+
+	ssh -T -i ~/.ssh/id_rsa git@github.com
+
+用git bash写在~/.ssh/config的内容：&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h1&gt;&amp;mdash; 第 1 把钥匙：专门给个人的 GitHub 用 &amp;mdash;&lt;/h1&gt;&lt;p&gt;Host github.com
+HostName github.com
+User git
+# 填入你刚才测试成功的，属于 GitHub 的私钥路径（不要带 .pub）
+IdentityFile ~/.ssh/id_ed25519&lt;/p&gt;
+&lt;p&gt;Host gitee.com
+HostName gitee.com
+User git
+IdentityFile ~/.ssh/id_rsa_work&lt;/p&gt;
+&lt;p&gt;Host vps HostName
+User root
+Port 22
+IdentityFile ~/.ssh/id_rsa_vps&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;
+
+- 配置完，后续可以直接使用“代号”而不用死记ip：
+- 
+	- 比如：ssh github.com
+	- 
+	- 其他服务同理
+
+然后就可以开始在vscode上随意更改代码啦！！！
+
+==注意：每次更改仓库代码时最好先git pull，以免引起冲突==&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;复制代码&#34;
+    aria-label=&#34;复制代码&#34;
+    data-copied-label=&#34;已复制！&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

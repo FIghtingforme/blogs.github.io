@@ -1,64 +1,83 @@
 baseURL = 'https://github.fightingforme.top/'
 languageCode = 'zh-cn'
 theme = 'hextra'
-title = 'My SRE Knowledge Library'
+title = 'My SRE Knowledge Vault'
 
-# 开启 CJK 语言支持，保证中文字数计算的绝对精准
-hasCJKLanguage = true
+
+# Search
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+
+
+
 
 # --- 全局导航栏配置 (Main Menu) ---
 [menu]
+
   # 首页入口
   [[menu.main]]
     identifier = "home"
     name = "首页"
-    url = "/"
+    pageRef = "/"
     weight = 10
 
-  # 分类入口 
+
+  # 列表页
+  [[menu.main]]
+    identifier = "blog-list"
+    name = "博客列表"
+    pageRef = "/blog"
+    weight = 20
+
+
+
+  # 分类（大） 
   [[menu.main]]
     identifier = "categories"
     name = "分类"
     url = "/categories/"
-    weight = 20
+    weight = 30
 
-  # 标签入口 
+  # 标签（小） 
   [[menu.main]]
     identifier = "tags"
     name = "标签"
     url = "/tags/"
-    weight = 30
+    weight = 40
 
 
+
+  # 关于页面
   [[menu.main]]
     identifier = "About"
     name = "关于我"
-    url = "/about/"
-    weight = 40
+    pageRef = "/blog/about"
+    weight = 50
 
+  # Troubleshooting
   [[menu.main]]
     identifier = "Runbook"
     name = "TroubleShooting"
-    url = "/incident-runbook/"
-    weight = 50
+    pageRef = "/incident-runbook"
+    weight = 60
 
 
 
-# 搜索功能
-[outputs]
-  home = ["HTML", "RSS", "JSON"] # 关键是加上 JSON
 
 
-# 在具体文章内部补充
+
+
 
 [params]
-  ShowPostMeta = true     # 显示文章日期、字数等元数据
-  ShowPostNavLinks = true # 显示上一篇/下一篇文章链接
 
-  
-  # 强制显示字数统计 (Word Count)
-  ShowWordCount = true
-  
-  # 强制显示预计阅读时间 (Reading Time)
-  ShowReadingTime = true
+  [params.hextra]
+  # 显式强化配置：确保导航栏开启
+  navbar = { enable = true }
+
+  # 显式强化配置：强制开启搜索功能
+  [params.hextra.search]
+    enable = true
+
+
 
