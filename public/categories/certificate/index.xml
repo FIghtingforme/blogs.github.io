@@ -1,0 +1,19 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My SRE Knowledge Vault – Certificate</title>
+    <link>http://localhost:1313/categories/certificate/</link>
+    <description>Recent content in Certificate on My SRE Knowledge Vault</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 May 2026 18:40:00 +0800</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/categories/certificate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+  </channel>
+</rss>

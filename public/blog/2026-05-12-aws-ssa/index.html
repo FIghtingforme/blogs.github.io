@@ -8,15 +8,44 @@
 <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
-<title>Tailscale 组网实践 – My SRE Knowledge Vault</title>
-  <meta name="description" content="" /><link rel="canonical" href="http://localhost:1313/blog/2026-04-25-tailscale/" itemprop="url" />
+<title>My SRE Knowledge Vault</title>
+  <meta name="description" content="AWS SAA-C03 认证：
+Step1 (20%):
+看B站Stephane Maarek Step2: (30%):
+注册AWS-free tier
+建一个 VPC，划分子网；开两台 EC2，前面挂一个 ALB（负载均衡器），后面连一个 RDS 数据库。
+Step3: (50%):
+最新的 SAA 题库
+SLA &amp;&amp; Trade-off FinOps" /><link rel="canonical" href="http://localhost:1313/blog/2026-05-12-aws-ssa/" itemprop="url" />
 
-<meta property="og:title" content="Tailscale 组网实践">
+<meta property="og:title" content="">
 <meta
   property="og:description"
   content="
     
-      
+      AWS SAA-C03 认证：
+Step1 (20%):
+
+看B站Stephane Maarek
+
+Step2:  (30%):
+
+
+注册AWS-free tier
+
+
+建一个 VPC，划分子网；开两台 EC2，前面挂一个 ALB（负载均衡器），后面连一个 RDS 数据库。
+
+
+Step3: (50%):
+
+
+最新的 SAA 题库
+
+
+SLA &amp;&amp; Trade-off FinOps
+
+
     
   ">
 <meta
@@ -24,25 +53,31 @@
   content="
     article
   ">
-<meta property="og:url" content="http://localhost:1313/blog/2026-04-25-tailscale/"><meta property="article:section" content="blog">
-
-<meta
-  property="article:published_time"
-  content="2026-04-25T14:30:00+08:00">
-
-
-<meta
-  property="article:modified_time"
-  content="2026-04-25T14:30:00+08:00">
+<meta property="og:url" content="http://localhost:1313/blog/2026-05-12-aws-ssa/"><meta property="article:section" content="blog">
 
 
 
-  <meta itemprop="name" content="Tailscale 组网实践">
-  <meta itemprop="datePublished" content="2026-04-25T14:30:00+08:00">
-  <meta itemprop="dateModified" content="2026-04-25T14:30:00+08:00">
-  <meta itemprop="keywords" content="Tailscale,Vpn">
+
+  <meta itemprop="name" content="My SRE Knowledge Vault">
+  <meta itemprop="description" content="AWS SAA-C03 认证：
+Step1 (20%):
+看B站Stephane Maarek Step2: (30%):
+注册AWS-free tier
+建一个 VPC，划分子网；开两台 EC2，前面挂一个 ALB（负载均衡器），后面连一个 RDS 数据库。
+Step3: (50%):
+最新的 SAA 题库
+SLA &amp;&amp; Trade-off FinOps">
+  <meta itemprop="wordCount" content="26">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tailscale 组网实践">
+  <meta name="twitter:title" content="My SRE Knowledge Vault">
+  <meta name="twitter:description" content="AWS SAA-C03 认证：
+Step1 (20%):
+看B站Stephane Maarek Step2: (30%):
+注册AWS-free tier
+建一个 VPC，划分子网；开两台 EC2，前面挂一个 ALB（负载均衡器），后面连一个 RDS 数据库。
+Step3: (50%):
+最新的 SAA 题库
+SLA &amp;&amp; Trade-off FinOps">
 <link href="/css/compiled/main.css" rel="stylesheet" />
     <link href="/css/variables.css" rel="stylesheet" />
     <link href="/css/custom.css" rel="stylesheet" />
@@ -201,16 +236,15 @@
     </a>
   </div>
               
-            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
-      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
       href="/blog/2026-04-25-tailscale/"
       
     >
       <span class="hx:min-w-0 [word-break:break-word]">Tailscale 组网实践</span>
     </a>
   </div>
-  
               
             </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
@@ -492,15 +526,16 @@
     </a>
   </div>
               
-            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
     <a
-      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
-      href="/blog/2026-05-12-aws-saa/"
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      href="/blog/2026-05-12-aws-ssa/"
       
     >
-      <span class="hx:min-w-0 [word-break:break-word]">2026 05 12 Aws Saa</span>
+      <span class="hx:min-w-0 [word-break:break-word]">2026 05 12 Aws Ssa</span>
     </a>
   </div>
+  
               
             </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
@@ -609,16 +644,15 @@
     </a>
   </div>
               
-            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
+            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
-      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
       href="/blog/2026-04-25-tailscale/"
       
     >
       <span class="hx:min-w-0 [word-break:break-word]">Tailscale 组网实践</span>
     </a>
   </div>
-  
               
             </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
@@ -900,15 +934,16 @@
     </a>
   </div>
               
-            </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
+            </li><li class="hx:flex hx:flex-col open"><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="true">
     <a
-      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
-      href="/blog/2026-05-12-aws-saa/"
+      class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:grow hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:hextra-focus-visible-inset hextra-sidebar-active-item hx:bg-primary-100 hx:font-semibold hx:text-primary-800 hx:contrast-more:border hx:contrast-more:border-primary-500 hx:dark:bg-primary-400/10 hx:dark:text-primary-600 hx:contrast-more:dark:border-primary-500"
+      href="/blog/2026-05-12-aws-ssa/"
       
     >
-      <span class="hx:min-w-0 [word-break:break-word]">2026 05 12 Aws Saa</span>
+      <span class="hx:min-w-0 [word-break:break-word]">2026 05 12 Aws Ssa</span>
     </a>
   </div>
+  
               
             </li><li class="hx:flex hx:flex-col "><div class="hextra-sidebar-item hx:group hx:relative hx:flex hx:items-center" data-active="false">
     <a
@@ -1078,27 +1113,45 @@
         <div class="hx:mt-1.5 hx:flex hx:items-center hx:gap-1 hx:overflow-hidden hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:contrast-more:text-current">
         <div class="hx:whitespace-nowrap hx:transition-colors hx:min-w-[24px] hx:overflow-hidden hx:text-ellipsis hx:hover:text-gray-900 hx:dark:hover:text-gray-100">
           <a href="/blog/" class="hx:inline-block hx:rounded-sm hx:hextra-focus-visible-inset">博客列表</a>
-        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">Tailscale 组网实践</div>
+        </div><svg class="hx:w-3.5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg><div class="hx:whitespace-nowrap hx:transition-colors hx:font-medium hx:text-gray-700 hx:contrast-more:font-bold hx:contrast-more:text-current hx:dark:text-gray-100 hx:contrast-more:dark:text-current">2026 05 12 Aws Ssa</div>
   </div>
 
         
-        <div class="hx:flex hx:flex-col hx:sm:flex-row hx:items-start hx:sm:items-center hx:sm:justify-between hx:gap-4 hx:mt-2">
-          <h1 class="hx:mb-0 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">Tailscale 组网实践</h1>
-          
-        </div>
-        
-        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"><span class="hx:mr-1">April 25, 2026</span></div>
+        <div class="hx:mt-4 hx:mb-16 hx:text-gray-500 hx:dark:text-gray-400 hx:text-sm hx:flex hx:items-center hx:flex-wrap hx:gap-y-2"></div>
         <div class="content">
-          
+          <p>AWS SAA-C03 认证：</p>
+<p>Step1 (20%):</p>
+<ul>
+<li>看B站Stephane Maarek</li>
+</ul>
+<p>Step2:  (30%):</p>
+<ul>
+<li>
+<p>注册AWS-free tier</p>
+</li>
+<li>
+<p>建一个 VPC，划分子网；开两台 EC2，前面挂一个 ALB（负载均衡器），后面连一个 RDS 数据库。</p>
+</li>
+</ul>
+<p>Step3: (50%):</p>
+<ul>
+<li>
+<p>最新的 SAA 题库</p>
+</li>
+<li>
+<p>SLA &amp;&amp; Trade-off FinOps</p>
+</li>
+</ul>
+
         </div><div class="hx:mt-16"></div><div class="hx:mb-8 hx:flex hx:items-center hx:border-t hx:pt-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-neutral-400 hx:dark:contrast-more:border-neutral-400 hx:print:hidden"><a
-        href="/blog/2026-04-21-docker-demo/"
-        title="Docker "
+        href="/blog/about/"
+        title="About"
         class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:pr-4 hx:rtl:pl-4"
-      ><svg class="hx:inline hx:h-5 hx:shrink-0 hx:ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>Docker </a><a
-        href="/blog/2026-04-26-hugo-blog/"
-        title="jekyll 博客迁移为 Hugo"
+      ><svg class="hx:inline hx:h-5 hx:shrink-0 hx:ltr:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>About</a><a
+        href="/blog/2026-02-24-nginx-softlink-upgrade/"
+        title="Nginx 软链接升级流程"
         class="hx:flex hx:max-w-[50%] hx:items-center hx:gap-1 hx:py-4 hx:text-base hx:font-medium hx:text-gray-600 hx:transition-colors [word-break:break-word] hx:hover:text-primary-600 hx:dark:text-gray-300 hx:md:text-lg hx:ltr:ml-auto hx:ltr:pl-4 hx:ltr:text-right hx:rtl:mr-auto hx:rtl:pr-4 hx:rtl:text-left"
-      >jekyll 博客迁移为 Hugo<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div></main>
+      >Nginx 软链接升级流程<svg class="hx:inline hx:h-5 hx:shrink-0 hx:rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a></div></main>
     </article>
   </div>
 
