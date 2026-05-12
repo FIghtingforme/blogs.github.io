@@ -45,7 +45,7 @@
 第一步：Ping 网关。 ping &lt;网关IP&gt;。不通则找本地网络组，查楼层交换机。
 第二步：Ping 目标服务器。 ping erp.company.com 或 ping &lt;服务器IP&gt;。
 第三步：路由追踪。 如果 Ping 目标不通（Request Timeout），立刻执行 tracert -d &lt;目标IP&gt;（Linux 下用 traceroute -n）。">
-  <meta itemprop="wordCount" content="176">
+  <meta itemprop="wordCount" content="179">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="TroubleShooting">
   <meta name="twitter:description" content="OSI排查通用版确认故障半径：动作： 询问报障人（终端用户）。
@@ -1637,6 +1637,23 @@
     <a href="#step-5%e6%95%85%e9%9a%9c%e9%97%ad%e7%8e%afsre-%e6%a0%b8%e5%bf%83%e7%b2%be%e7%a5%9e" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><ul>
 <li><strong>动作：</strong> 恢复服务后，更新知识库（SOP/Wiki），并配置监控告警（比如在 Prometheus 里加一个探针）。坚决杜绝同样的故障发生第二次。</li>
 </ul>
+<hr>
+<hr>
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
+
+<div><pre><code>
+hugo new blog/2026-nginx.md</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+  <button
+    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
+    title="复制代码"
+    aria-label="复制代码"
+    data-copied-label="已复制！"
+  >
+    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
+<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
+  </button>
+</div>
+</div>
 <hr>
 <hr>
 <div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
