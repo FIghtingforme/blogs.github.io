@@ -9,10 +9,15 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 <link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
 <title>TroubleShooting – My SRE Knowledge Vault</title>
-  <meta name="description" content="突然遇到了问题：不能git push了，开始排错。。
-原来是忘了提交了。。。。
-git因为网速问题，添加代理:
-标准化处理流程：配置 Git 本地代理 第一步：确认你的本地代理端口 打开你正在使用的代理软件，查看它的本地 HTTP 代理端口或局域网代理端口。 如果你使用的是类似 Clash/FlClash 的工具，默认端口通常是 7890。 如果你使用的是基于 VLESS/Xray 的客户端（如 v2rayN），默认端口通常是 10808 或 10809。 第二步：在 Git Bash (MINGW64) 中设置代理 假设你的代理软件运行在本地 127.0.0.1，端口是 7890。请在当前的 Git Bash 终端中执行以下命令（请根据你的实际端口修改数字）： Bash # 配置 HTTP 和 HTTPS 代理 git config --global http.proxy http://127.0.0.1:7890 git config --global https.proxy http://127.0.0.1:7890 (注意：即使你的目标地址是 https 的 GitHub，代理协议依然写 http:// 即可，这是本地代理客户端的标准接收协议。) 第三步：验证配置并重新执行拉取 执行以下命令确认代理已生效： Bash git config --global --get http.proxy 确认无误后，重新执行添加子模块的命令： Bash git submodule add https://github.com/imfing/hextra.git themes/hextra 这次流量将通过你的代理隧道走，通常 3 秒内即可 Clone 完毕。“面试官您好，我是。。。我目前人就在苏州，随时可以到岗。 我有近 2 年的 IT 桌面与网络运维经验，主要服务于企业局域网环境。我的核心技能分为两块： 第一块是网络与终端排障。 我熟悉基于 OSI 七层模型的排障逻辑，能熟练使用 Ping、Telnet、nslookup 等工具定位是从物理层到应用层的连通性问题；同时也能独立处理企业复合机、PoE 供电的 IP 电话以及视频会议设备等边缘外设的常规故障。 第二块是账号安全与权限管理。 我熟悉 Windows AD 域控环境下的标准化 SOP，能独立通过 dsa.msc 面板完成新员工入职的加域、基于最小权限原则分配安全组，以及员工离职时的账号禁用与资产隔离。 此外，我目前正在备考今年 11 月的国家软考中级网络工程师，并在同步进修日语。所以我个人非常渴望能加入贵公司这样有规范化 IT 流程的外企/大型制造环境，在做好日常驻场运维保障工作的同时，谋求长期的技术沉淀。 以上是我的基本情况，您看针对咱们这个岗位的需求，有什么需要我详细补充的吗？”" /><link rel="canonical" href="http://localhost:1313/incident-runbook/" itemprop="url" />
+  <meta name="description" content="OSI排查通用版确认故障半径：动作： 询问报障人（终端用户）。
+逻辑： 是你一个人打不开，还是你们整个部门打不开？（区分是“单点终端故障”还是“核心交换机/出口路由故障”）。
+是只有 ERP 打不开，还是连百度也打不开？（区分是“内网业务宕机”还是“外网链路中断”）。 Step 1：L1-L2 物理层与链路层排查（底座校验）确认范围后，先从最底层的网卡和局域网开始。
+命令行执行： ipconfig /all (Windows) 或 ifconfig / ip a (Linux)
+排查逻辑：
+检查网卡是否获取到了正确的 IP 地址。如果是 169.254.x.x，说明 DHCP 服务挂了或者网线物理断开（L1）。 命令行执行： arp -a。检查 ARP 表。如果获取不到网关的 MAC 地址，说明根本没连上核心交换机，存在 VLAN 划分错误或 IP 冲突（L2）。 Step 2：L3 网络层排查（路由连通性测试）底座没问题，开始测试数据包能否跨网段路由。
+第一步：Ping 网关。 ping &lt;网关IP&gt;。不通则找本地网络组，查楼层交换机。
+第二步：Ping 目标服务器。 ping erp.company.com 或 ping &lt;服务器IP&gt;。
+第三步：路由追踪。 如果 Ping 目标不通（Request Timeout），立刻执行 tracert -d &lt;目标IP&gt;（Linux 下用 traceroute -n）。" /><link rel="canonical" href="http://localhost:1313/incident-runbook/" itemprop="url" />
 
 <meta property="og:title" content="TroubleShooting">
 <meta
@@ -31,17 +36,27 @@ git因为网速问题，添加代理:
 
 
   <meta itemprop="name" content="TroubleShooting">
-  <meta itemprop="description" content="突然遇到了问题：不能git push了，开始排错。。
-原来是忘了提交了。。。。
-git因为网速问题，添加代理:
-标准化处理流程：配置 Git 本地代理 第一步：确认你的本地代理端口 打开你正在使用的代理软件，查看它的本地 HTTP 代理端口或局域网代理端口。 如果你使用的是类似 Clash/FlClash 的工具，默认端口通常是 7890。 如果你使用的是基于 VLESS/Xray 的客户端（如 v2rayN），默认端口通常是 10808 或 10809。 第二步：在 Git Bash (MINGW64) 中设置代理 假设你的代理软件运行在本地 127.0.0.1，端口是 7890。请在当前的 Git Bash 终端中执行以下命令（请根据你的实际端口修改数字）： Bash # 配置 HTTP 和 HTTPS 代理 git config --global http.proxy http://127.0.0.1:7890 git config --global https.proxy http://127.0.0.1:7890 (注意：即使你的目标地址是 https 的 GitHub，代理协议依然写 http:// 即可，这是本地代理客户端的标准接收协议。) 第三步：验证配置并重新执行拉取 执行以下命令确认代理已生效： Bash git config --global --get http.proxy 确认无误后，重新执行添加子模块的命令： Bash git submodule add https://github.com/imfing/hextra.git themes/hextra 这次流量将通过你的代理隧道走，通常 3 秒内即可 Clone 完毕。“面试官您好，我是。。。我目前人就在苏州，随时可以到岗。 我有近 2 年的 IT 桌面与网络运维经验，主要服务于企业局域网环境。我的核心技能分为两块： 第一块是网络与终端排障。 我熟悉基于 OSI 七层模型的排障逻辑，能熟练使用 Ping、Telnet、nslookup 等工具定位是从物理层到应用层的连通性问题；同时也能独立处理企业复合机、PoE 供电的 IP 电话以及视频会议设备等边缘外设的常规故障。 第二块是账号安全与权限管理。 我熟悉 Windows AD 域控环境下的标准化 SOP，能独立通过 dsa.msc 面板完成新员工入职的加域、基于最小权限原则分配安全组，以及员工离职时的账号禁用与资产隔离。 此外，我目前正在备考今年 11 月的国家软考中级网络工程师，并在同步进修日语。所以我个人非常渴望能加入贵公司这样有规范化 IT 流程的外企/大型制造环境，在做好日常驻场运维保障工作的同时，谋求长期的技术沉淀。 以上是我的基本情况，您看针对咱们这个岗位的需求，有什么需要我详细补充的吗？”">
-  <meta itemprop="wordCount" content="105">
+  <meta itemprop="description" content="OSI排查通用版确认故障半径：动作： 询问报障人（终端用户）。
+逻辑： 是你一个人打不开，还是你们整个部门打不开？（区分是“单点终端故障”还是“核心交换机/出口路由故障”）。
+是只有 ERP 打不开，还是连百度也打不开？（区分是“内网业务宕机”还是“外网链路中断”）。 Step 1：L1-L2 物理层与链路层排查（底座校验）确认范围后，先从最底层的网卡和局域网开始。
+命令行执行： ipconfig /all (Windows) 或 ifconfig / ip a (Linux)
+排查逻辑：
+检查网卡是否获取到了正确的 IP 地址。如果是 169.254.x.x，说明 DHCP 服务挂了或者网线物理断开（L1）。 命令行执行： arp -a。检查 ARP 表。如果获取不到网关的 MAC 地址，说明根本没连上核心交换机，存在 VLAN 划分错误或 IP 冲突（L2）。 Step 2：L3 网络层排查（路由连通性测试）底座没问题，开始测试数据包能否跨网段路由。
+第一步：Ping 网关。 ping &lt;网关IP&gt;。不通则找本地网络组，查楼层交换机。
+第二步：Ping 目标服务器。 ping erp.company.com 或 ping &lt;服务器IP&gt;。
+第三步：路由追踪。 如果 Ping 目标不通（Request Timeout），立刻执行 tracert -d &lt;目标IP&gt;（Linux 下用 traceroute -n）。">
+  <meta itemprop="wordCount" content="176">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="TroubleShooting">
-  <meta name="twitter:description" content="突然遇到了问题：不能git push了，开始排错。。
-原来是忘了提交了。。。。
-git因为网速问题，添加代理:
-标准化处理流程：配置 Git 本地代理 第一步：确认你的本地代理端口 打开你正在使用的代理软件，查看它的本地 HTTP 代理端口或局域网代理端口。 如果你使用的是类似 Clash/FlClash 的工具，默认端口通常是 7890。 如果你使用的是基于 VLESS/Xray 的客户端（如 v2rayN），默认端口通常是 10808 或 10809。 第二步：在 Git Bash (MINGW64) 中设置代理 假设你的代理软件运行在本地 127.0.0.1，端口是 7890。请在当前的 Git Bash 终端中执行以下命令（请根据你的实际端口修改数字）： Bash # 配置 HTTP 和 HTTPS 代理 git config --global http.proxy http://127.0.0.1:7890 git config --global https.proxy http://127.0.0.1:7890 (注意：即使你的目标地址是 https 的 GitHub，代理协议依然写 http:// 即可，这是本地代理客户端的标准接收协议。) 第三步：验证配置并重新执行拉取 执行以下命令确认代理已生效： Bash git config --global --get http.proxy 确认无误后，重新执行添加子模块的命令： Bash git submodule add https://github.com/imfing/hextra.git themes/hextra 这次流量将通过你的代理隧道走，通常 3 秒内即可 Clone 完毕。“面试官您好，我是。。。我目前人就在苏州，随时可以到岗。 我有近 2 年的 IT 桌面与网络运维经验，主要服务于企业局域网环境。我的核心技能分为两块： 第一块是网络与终端排障。 我熟悉基于 OSI 七层模型的排障逻辑，能熟练使用 Ping、Telnet、nslookup 等工具定位是从物理层到应用层的连通性问题；同时也能独立处理企业复合机、PoE 供电的 IP 电话以及视频会议设备等边缘外设的常规故障。 第二块是账号安全与权限管理。 我熟悉 Windows AD 域控环境下的标准化 SOP，能独立通过 dsa.msc 面板完成新员工入职的加域、基于最小权限原则分配安全组，以及员工离职时的账号禁用与资产隔离。 此外，我目前正在备考今年 11 月的国家软考中级网络工程师，并在同步进修日语。所以我个人非常渴望能加入贵公司这样有规范化 IT 流程的外企/大型制造环境，在做好日常驻场运维保障工作的同时，谋求长期的技术沉淀。 以上是我的基本情况，您看针对咱们这个岗位的需求，有什么需要我详细补充的吗？”">
+  <meta name="twitter:description" content="OSI排查通用版确认故障半径：动作： 询问报障人（终端用户）。
+逻辑： 是你一个人打不开，还是你们整个部门打不开？（区分是“单点终端故障”还是“核心交换机/出口路由故障”）。
+是只有 ERP 打不开，还是连百度也打不开？（区分是“内网业务宕机”还是“外网链路中断”）。 Step 1：L1-L2 物理层与链路层排查（底座校验）确认范围后，先从最底层的网卡和局域网开始。
+命令行执行： ipconfig /all (Windows) 或 ifconfig / ip a (Linux)
+排查逻辑：
+检查网卡是否获取到了正确的 IP 地址。如果是 169.254.x.x，说明 DHCP 服务挂了或者网线物理断开（L1）。 命令行执行： arp -a。检查 ARP 表。如果获取不到网关的 MAC 地址，说明根本没连上核心交换机，存在 VLAN 划分错误或 IP 冲突（L2）。 Step 2：L3 网络层排查（路由连通性测试）底座没问题，开始测试数据包能否跨网段路由。
+第一步：Ping 网关。 ping &lt;网关IP&gt;。不通则找本地网络组，查楼层交换机。
+第二步：Ping 目标服务器。 ping erp.company.com 或 ping &lt;服务器IP&gt;。
+第三步：路由追踪。 如果 Ping 目标不通（Request Timeout），立刻执行 tracert -d &lt;目标IP&gt;（Linux 下用 traceroute -n）。">
 <link href="/css/compiled/main.css" rel="stylesheet" />
     <link href="/css/variables.css" rel="stylesheet" />
     <link href="/css/custom.css" rel="stylesheet" />
@@ -525,9 +540,9 @@ git因为网速问题，添加代理:
   
     <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
               <a
-                href="#"
+                href="#osi%e6%8e%92%e6%9f%a5%e9%80%9a%e7%94%a8%e7%89%88"
                 class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
-              ></a>
+              >OSI排查通用版</a>
             </li>
           </ul>
   
@@ -956,9 +971,9 @@ git因为网速问题，添加代理:
   
     <ul class='hx:flex hx:flex-col hx:gap-1 hx:relative hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:dark:before:bg-neutral-800 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:pr-3 hx:rtl:before:right-0 hx:ltr:ml-3 hx:rtl:mr-3'><li>
               <a
-                href="#"
+                href="#osi%e6%8e%92%e6%9f%a5%e9%80%9a%e7%94%a8%e7%89%88"
                 class="hx:flex hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [word-break:break-word] hx:cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] hx:contrast-more:border hx:gap-2 hx:before:opacity-25 hx:before:content-['#'] hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:text-gray-900 hx:contrast-more:dark:text-gray-50 hx:contrast-more:border-transparent hx:contrast-more:hover:border-gray-900 hx:contrast-more:dark:hover:border-gray-50"
-              ></a>
+              >OSI排查通用版</a>
             </li>
           </ul>
   <div class="hextra-sidebar-children hx:ltr:pr-0 hx:rtl:pl-0 hx:overflow-hidden">
@@ -1453,7 +1468,35 @@ git因为网速问题，添加代理:
 </div></div></aside>
     
 <nav class="hextra-toc hx:order-last hx:hidden hx:w-64 hx:shrink-0 hx:xl:block hx:print:hidden hx:px-4" aria-label="目录">
-    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul></ul>
+    <div class="hextra-scrollbar hx:sticky hx:top-16 hx:overflow-y-auto hx:pr-4 hx:pt-6 hx:text-sm [hyphens:auto] hx:max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] hx:ltr:-mr-4 hx:rtl:-ml-4"><p class="hx:mb-4 hx:font-semibold hx:tracking-tight">此页上</p><ul>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:font-medium hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#osi%e6%8e%92%e6%9f%a5%e9%80%9a%e7%94%a8%e7%89%88">OSI排查通用版
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#%e7%a1%ae%e8%ae%a4%e6%95%85%e9%9a%9c%e5%8d%8a%e5%be%84">确认故障半径：
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#step-1l1-l2-%e7%89%a9%e7%90%86%e5%b1%82%e4%b8%8e%e9%93%be%e8%b7%af%e5%b1%82%e6%8e%92%e6%9f%a5%e5%ba%95%e5%ba%a7%e6%a0%a1%e9%aa%8c">Step 1：L1-L2 物理层与链路层排查（底座校验）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#step-2l3-%e7%bd%91%e7%bb%9c%e5%b1%82%e6%8e%92%e6%9f%a5%e8%b7%af%e7%94%b1%e8%bf%9e%e9%80%9a%e6%80%a7%e6%b5%8b%e8%af%95">Step 2：L3 网络层排查（路由连通性测试）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#step-3l4-%e4%bc%a0%e8%be%93%e5%b1%82%e6%8e%92%e6%9f%a5%e5%ae%89%e5%85%a8%e7%ad%96%e7%95%a5%e4%b8%8e%e7%ab%af%e5%8f%a3%e6%8e%a2%e6%b5%8b">Step 3：L4 传输层排查（安全策略与端口探测）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#step-4l7-%e5%ba%94%e7%94%a8%e5%b1%82%e6%8e%92%e6%9f%a5%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e4%b8%8e%e6%9c%8d%e5%8a%a1%e7%8a%b6%e6%80%81">Step 4：L7 应用层排查（域名解析与服务状态）
+        </a>
+      </li>
+      <li class="hx:my-2 hx:scroll-my-6 hx:scroll-py-6">
+        <a class="hx:ltr:pl-4 hx:rtl:pr-4 hx:inline-block hx:rounded-sm hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-300 hx:contrast-more:text-gray-900 hx:contrast-more:underline hx:contrast-more:dark:text-gray-50 hx:w-full hx:wrap-break-word hx:hextra-focus-visible-inset" href="#step-5%e6%95%85%e9%9a%9c%e9%97%ad%e7%8e%afsre-%e6%a0%b8%e5%bf%83%e7%b2%be%e7%a5%9e">Step 5：故障闭环（SRE 核心精神）
+        </a>
+      </li></ul>
       <div class="hx:mt-8 hx:border-t hx:bg-white hx:pt-8 hx:shadow-[0_-12px_16px_white] hx:dark:bg-dark hx:dark:shadow-[0_-12px_16px_#111] hx:sticky hx:bottom-0 hx:flex hx:flex-col hx:items-start hx:gap-2 hx:pb-8 hx:border-gray-200 hx:dark:border-neutral-800 hx:contrast-more:border-t hx:contrast-more:border-neutral-400 hx:contrast-more:shadow-none hx:contrast-more:dark:border-neutral-400">
         <button id="backToTop" tabindex="-1" class="hx:cursor-pointer hx:transition-all hx:duration-75 hx:opacity-0 hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50">
           <span>返回顶部</span>
@@ -1478,59 +1521,93 @@ git因为网速问题，添加代理:
             
           </div>
           
-          <h3><span class="hx:absolute hx:-mt-20" id=""></span>
-    <a href="#" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><ul>
+          <h2>OSI排查通用版<span class="hx:absolute hx:-mt-20" id="osi排查通用版"></span>
+    <a href="#osi%e6%8e%92%e6%9f%a5%e9%80%9a%e7%94%a8%e7%89%88" class="subheading-anchor" aria-label="此章节的永久链接"></a></h2><h3>确认故障半径：<span class="hx:absolute hx:-mt-20" id="确认故障半径"></span>
+    <a href="#%e7%a1%ae%e8%ae%a4%e6%95%85%e9%9a%9c%e5%8d%8a%e5%be%84" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><ul>
 <li>
-<p>突然遇到了问题：不能git push了，开始排错。。</p>
+<p><strong>动作：</strong> 询问报障人（终端用户）。</p>
 </li>
 <li>
-<p>原来是忘了提交了。。。。</p>
-</li>
-<li>
-<p>git因为网速问题，添加代理:</p>
+<p><strong>逻辑：</strong> 是你一个人打不开，还是你们整个部门打不开？（区分是“单点终端故障”还是“核心交换机/出口路由故障”）。</p>
+<ul>
+<li>是只有 ERP 打不开，还是连百度也打不开？（区分是“内网业务宕机”还是“外网链路中断”）。</li>
+</ul>
 </li>
 </ul>
-<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
-
-<div><pre><code>
-标准化处理流程：配置 Git 本地代理
-第一步：确认你的本地代理端口
-打开你正在使用的代理软件，查看它的本地 HTTP 代理端口或局域网代理端口。
-
-如果你使用的是类似 Clash/FlClash 的工具，默认端口通常是 7890。
-
-如果你使用的是基于 VLESS/Xray 的客户端（如 v2rayN），默认端口通常是 10808 或 10809。
-
-第二步：在 Git Bash (MINGW64) 中设置代理
-假设你的代理软件运行在本地 127.0.0.1，端口是 7890。请在当前的 Git Bash 终端中执行以下命令（请根据你的实际端口修改数字）：
-
-Bash
-# 配置 HTTP 和 HTTPS 代理
-git config --global http.proxy http://127.0.0.1:7890
-git config --global https.proxy http://127.0.0.1:7890
-(注意：即使你的目标地址是 https 的 GitHub，代理协议依然写 http:// 即可，这是本地代理客户端的标准接收协议。)
-
-第三步：验证配置并重新执行拉取
-执行以下命令确认代理已生效：
-
-Bash
-git config --global --get http.proxy
-确认无误后，重新执行添加子模块的命令：
-
-Bash
-git submodule add https://github.com/imfing/hextra.git themes/hextra
-这次流量将通过你的代理隧道走，通常 3 秒内即可 Clone 完毕。</code></pre></div><div class="hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
-  <button
-    class="hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50"
-    title="复制代码"
-    aria-label="复制代码"
-    data-copied-label="已复制！"
-  >
-    <div class="hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4"></div>
-<div class="hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4"></div>
-  </button>
-</div>
-</div>
+<h3>Step 1：L1-L2 物理层与链路层排查（底座校验）<span class="hx:absolute hx:-mt-20" id="step-1l1-l2-物理层与链路层排查底座校验"></span>
+    <a href="#step-1l1-l2-%e7%89%a9%e7%90%86%e5%b1%82%e4%b8%8e%e9%93%be%e8%b7%af%e5%b1%82%e6%8e%92%e6%9f%a5%e5%ba%95%e5%ba%a7%e6%a0%a1%e9%aa%8c" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><p><em>确认范围后，先从最底层的<strong>网卡和局域网</strong>开始。</em></p>
+<ul>
+<li>
+<p><strong>命令行执行：</strong> <code>ipconfig /all</code> (Windows) 或 <code>ifconfig</code> / <code>ip a</code> (Linux)</p>
+</li>
+<li>
+<p><strong>排查逻辑：</strong></p>
+</li>
+</ul>
+<ol>
+<li>检查网卡是否获取到了正确的 IP 地址。如果是 <code>169.254.x.x</code>，说明 DHCP 服务挂了或者网线物理断开（L1）。</li>
+<li><strong>命令行执行：</strong> <code>arp -a</code>。检查 ARP 表。如果获取不到网关的 MAC 地址，说明根本没连上核心交换机，存在 VLAN 划分错误或 IP 冲突（L2）。</li>
+</ol>
+<h3>Step 2：L3 网络层排查（路由连通性测试）<span class="hx:absolute hx:-mt-20" id="step-2l3-网络层排查路由连通性测试"></span>
+    <a href="#step-2l3-%e7%bd%91%e7%bb%9c%e5%b1%82%e6%8e%92%e6%9f%a5%e8%b7%af%e7%94%b1%e8%bf%9e%e9%80%9a%e6%80%a7%e6%b5%8b%e8%af%95" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><p><em>底座没问题，开始测试数据包能否跨网段路由。</em></p>
+<ul>
+<li>
+<p><strong>第一步：Ping 网关。</strong> <code>ping &lt;网关IP&gt;</code>。不通则找本地网络组，查楼层交换机。</p>
+</li>
+<li>
+<p><strong>第二步：Ping 目标服务器。</strong> <code>ping erp.company.com</code> 或 <code>ping &lt;服务器IP&gt;</code>。</p>
+</li>
+<li>
+<p><strong>第三步：路由追踪。</strong> 如果 Ping 目标不通（Request Timeout），立刻执行 <code>tracert -d &lt;目标IP&gt;</code>（Linux 下用 <code>traceroute -n</code>）。</p>
+<ul>
+<li><strong>目的：</strong> 精准抓取数据包死在了哪一个路由节点。是死在公司的核心防火墙，还是死在跨机房的专线上，一目了然。</li>
+</ul>
+</li>
+</ul>
+<h3>Step 3：L4 传输层排查（安全策略与端口探测）<span class="hx:absolute hx:-mt-20" id="step-3l4-传输层排查安全策略与端口探测"></span>
+    <a href="#step-3l4-%e4%bc%a0%e8%be%93%e5%b1%82%e6%8e%92%e6%9f%a5%e5%ae%89%e5%85%a8%e7%ad%96%e7%95%a5%e4%b8%8e%e7%ab%af%e5%8f%a3%e6%8e%a2%e6%b5%8b" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><p><em>能 Ping 通服务器，不代表服务能用！Ping（ICMP）是三层协议，而业务走的是四层（TCP/UDP）。</em></p>
+<ul>
+<li>
+<p><strong>命令行执行：</strong> <code>telnet &lt;服务器IP&gt; &lt;端口&gt;</code> （例如 <code>telnet 192.168.1.10 8080</code>），或者用 PowerShell的 <code>Test-NetConnection -ComputerName &lt;IP&gt; -Port &lt;端口&gt;</code>。</p>
+</li>
+<li>
+<p><strong>排查逻辑：</strong> 如果三层通，但四层 Telnet 失败，绝对是以下两种情况之一：</p>
+<ol>
+<li>
+<p>服务器本机的防火墙（iptables/firewalld）或云上的安全组<strong>没放行该端口</strong>。</p>
+</li>
+<li>
+<p>ERP 系统的后端进程死掉了（比如 Tomcat 或 Node.js 崩溃），导致<strong>端口根本没监听</strong>。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3>Step 4：L7 应用层排查（域名解析与服务状态）<span class="hx:absolute hx:-mt-20" id="step-4l7-应用层排查域名解析与服务状态"></span>
+    <a href="#step-4l7-%e5%ba%94%e7%94%a8%e5%b1%82%e6%8e%92%e6%9f%a5%e5%9f%9f%e5%90%8d%e8%a7%a3%e6%9e%90%e4%b8%8e%e6%9c%8d%e5%8a%a1%e7%8a%b6%e6%80%81" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><p><em>如果四层端口通，但浏览器依然报错，进入应用层逻辑排查。</em></p>
+<ul>
+<li>
+<p><strong>第一步：DNS 校验。</strong> 执行 <code>nslookup erp.company.com</code>。看解析出来的 IP 是不是真实的服务器 IP，排除内网 DNS 劫持或配置错误。</p>
+</li>
+<li>
+<p><strong>第二步：HTTP 报文探测。</strong> 执行 <code>curl -I http://erp.company.com</code>。</p>
+<ul>
+<li>
+<p>报 <code>502 Bad Gateway</code>：Nginx 正常，但后端的 Java/Python 业务挂了。</p>
+</li>
+<li>
+<p>报 <code>404 Not Found</code>：网络全通，是开发把路径写错了或者发版失败。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>第三步：登录服务器（提权操作）。</strong> SSH 连上服务器，执行 <code>tail -f /var/log/nginx/error.log</code> 或者 ERP 的业务日志，直接锁定具体报错代码。</p>
+</li>
+</ul>
+<h3>Step 5：故障闭环（SRE 核心精神）<span class="hx:absolute hx:-mt-20" id="step-5故障闭环sre-核心精神"></span>
+    <a href="#step-5%e6%95%85%e9%9a%9c%e9%97%ad%e7%8e%afsre-%e6%a0%b8%e5%bf%83%e7%b2%be%e7%a5%9e" class="subheading-anchor" aria-label="此章节的永久链接"></a></h3><ul>
+<li><strong>动作：</strong> 恢复服务后，更新知识库（SOP/Wiki），并配置监控告警（比如在 Prometheus 里加一个探针）。坚决杜绝同样的故障发生第二次。</li>
+</ul>
+<hr>
 <hr>
 <div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code">
 
