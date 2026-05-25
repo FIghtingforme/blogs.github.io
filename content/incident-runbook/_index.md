@@ -85,6 +85,15 @@ hugo new blog/2026-nginx.md
 
 ```
 
+```
+
+python -m http.server 8000
+
+YouTube:   yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --merge-output-format mp4 "https://www.youtube.com/watch?v=rUxCcE-kIyw&t=4287s"
+
+Telegram:     ffmpeg -i "tg_video.mp4" -c:v libx264 -profile:v high -level 4.0 -c:a aac -b:a 128k -movflags +faststart "ipad_ready.mp4"
+
+```
 
 
 ---

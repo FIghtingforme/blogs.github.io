@@ -6,8 +6,29 @@
   </url><url>
     <loc>http://localhost:1313/incident-runbook/02-database-lock/</loc>
   </url><url>
+    <loc>http://localhost:1313/blog/2026-05-12-aws-saa/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/aws-saa/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2026-05-07T18:40:00+08:00</lastmod>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/certificates/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/power-bi/</loc>
+    <lastmod>2026-05-12T08:40:00+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/devices/</loc>
     <lastmod>2026-05-07T18:40:00+08:00</lastmod>
@@ -16,15 +37,6 @@
     <lastmod>2026-05-07T18:40:00+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/blog/2026-05-07-enterprise-devices/</loc>
-    <lastmod>2026-05-07T18:40:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2026-05-07T18:40:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2026-05-07T18:40:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blog/</loc>
     <lastmod>2026-05-07T18:40:00+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/engineer/</loc>
